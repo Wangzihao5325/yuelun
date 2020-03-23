@@ -1,51 +1,39 @@
 import React, { Component } from 'react';
 import {
-    Platform,
-    StyleSheet,
     Text,
     View,
-    Image
+    Dimensions,
+    StyleSheet,
 } from 'react-native';
-import {SCREEN_WIDTH, SCREEN_HEIGHT} from '../../Config/UIConfig';
+import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../Config/UIConfig';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
-//import MapView from 'react-native-maps';
-//import Marker from 'react-native-maps';
-
-export default class ThirdPage extends Component{
-    /** tabbar的icon设置 */
-    // static navigationOptions = {
-    //     showIcon: true,
-    //     tabBarIcon : ({focused})=>{
-    //         if(focused){
-    //             return (
-    //                 <Image style={styles.tabBarIcon} source={require('../../resource/Image/icon_me.png')}/>
-    //         );
-    //         }else{
-    //             return (
-    //                 <Image style={styles.tabBarIcon} source={require('../../resource/Image/icon_default_me.png')}/>
-    //         );
-    //         }
-            
-    //     }
-    // }
+export default class ThirdPage extends Component {
 
     render() {
-       let lanth = {lat: 37.785834, lng: -122.406417}; 
-
+        let lanth = { lat: 37.785834, lng: -122.406417 };
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    第三页
-                </Text>
-                {/* <MapView
-                style={styles.mapStyle}
-                showsUserLocation={true}     //是否开启用户定位
+                <MapView
+                    provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+                    style={styles.map}
+                    region={{
+                        latitude: 37.78825,
+                        longitude: -122.4324,
+                        latitudeDelta: 0.015,
+                        longitudeDelta: 0.0121,
+                    }}
                 >
                     <Marker
-                    coordinate = {lanth}
-                    title="TEST LOCATION"
-                    />
-                    </MapView> */}
+                        coordinate={{
+                            latitude: 37.78825,
+                            longitude: -122.4324,
+                        }} >
+                        <View style={{ backgroundColor: "red", padding: 10 }}>
+                            <Text>SF</Text>
+                        </View>
+                    </Marker>
+                </MapView>
             </View>
         );
     }
@@ -53,18 +41,13 @@ export default class ThirdPage extends Component{
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        ...StyleSheet.absoluteFillObject,
+        height: Dimensions.get('window').height,
+        width: Dimensions.get('window').width,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white',
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
+    map: {
+        ...StyleSheet.absoluteFillObject,
     },
-    mapStyle:{
-        width:SCREEN_WIDTH,
-        height:300,
-    }
 });
