@@ -13,6 +13,7 @@ import {
     Button,
 } from 'react-native';
 import * as BridgeDemo from '../Functions/NativeBridge/BridgeDemo';
+import * as KeyChainModule from '../Functions/NativeBridge/KeyChainModule';
 
 export default class BridgePage extends Component {
     static navigationOptions = {
@@ -46,7 +47,7 @@ export default class BridgePage extends Component {
                 <Text style={styles.welcome}>
                     {'该部分是react-native对local进行调用的演示案例。通过Bridge可以桥接调用local。\n从而实现对本地数据库、API、三方的调用。并且可以获得返回值。'}
                 </Text>
-                <View style={{marginTop:100,marginLeft:50,marginRight:50,height:60}}>
+                <View style={{marginTop:50,marginLeft:50,marginRight:50}}>
                 <Button
                     title='click local test Demo' 
                     color='blue'
@@ -58,13 +59,59 @@ export default class BridgePage extends Component {
                         });
                     }}
                 />
+                <Button
+                    title='click keychain save' 
+                    color='blue'
+                    onPress={()=>{
+                        KeyChainModule.saveTheUserPasswordToKeyChain('11769','12345678',(data)=>{
+                            console.log('回掉存储成功状态',data);
+                        });
+                    }}
+                />
+                <Button
+                    title='click keychain update' 
+                    color='blue'
+                    onPress={()=>{
+                        KeyChainModule.updateTheUserPasswordToKeyChain('11769','111222333',(data)=>{
+                            console.log('回掉存储成功状态',data);
+                        });
+                    }}
+                />
+                <Button
+                    title='click keychain get' 
+                    color='blue'
+                    onPress={()=>{
+                        KeyChainModule.getThePasswodWithAccount('11769',(data)=>{
+                            if(data.count == 0){
+                                console.log('获取pwd失败');
+                            }else{
+                                console.log('获取pwd成功',data);
+                                let strting = JSON.stringify(data);
+                                this.setState({callBackData:strting});
+                            }
+                            
+                        });
+                    }}
+                />
+                <Button
+                    title='click keychain delete' 
+                    color='blue'
+                    onPress={()=>{
+                        KeyChainModule.deleteTheDataWithAccount('11769',(data)=>{
+                            let strting = JSON.stringify(data);
+                            console.log('删除keychain状态',data);
+                            
+                        });
+                    }}
+                />
+                
                 </View>
                 {
                     this.state.callBackData === ''
                     ?
                     null
                     :
-                    <Text>{'callback从local获得的数据\n'+this.state.callBackData}</Text>
+                    <Text style={{marginTop:40}}>{'callback从local获得的数据\n'+this.state.callBackData}</Text>
                 }
             </View>
         );

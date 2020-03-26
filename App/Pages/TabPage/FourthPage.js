@@ -7,6 +7,8 @@ import {
     Image
 } from 'react-native';
 
+import CustomButton from '../../Components/Component/CustomButton';
+
 
 export default class FourthPage extends Component{
     /** tabbar的icon设置 */
@@ -32,6 +34,13 @@ export default class FourthPage extends Component{
                 <Text style={styles.welcome}>
                     第四页
                 </Text>
+                <CustomButton
+                     title = '自定义按钮'
+                     style = {styles.ButtonStyle}
+                     clickEvent = {()=>{
+                         console.log('触发传入的方法事件');
+                     }}
+                />
             </View>
         );
     }
@@ -48,5 +57,10 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
         margin: 10,
+    },
+    ButtonStyle: {
+        width:200,
+        height:100,
+        backgroundColor:'red'
     }
 });

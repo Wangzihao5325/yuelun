@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as LogManager from '../Functions/LogManager/LogManager';
 
 /** 为无法访问到navigation的地方提供路由能力 */
 export const navigationRef = React.createRef();
@@ -38,5 +39,6 @@ export function back(component) {
 };
 
 RecordPagePathData = (rootPageName = '', targetPageName = '', type = 'jump') => {
-    console.log('页面路径日志：从页面：', rootPageName, '跳转到页面：', targetPageName);
+    LogManager.recordThePagePushLog(rootPageName,targetPageName,type);
+    // console.log('页面路径日志：从页面：', rootPageName, '跳转到页面：', targetPageName);
 }
