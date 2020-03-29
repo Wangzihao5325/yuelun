@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00675C46243094DC00085827 /* KeyChainModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 00675C44243094DC00085827 /* KeyChainModule.m */; };
+		00675C492430AE7100085827 /* QRScanReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 00675C482430AE7100085827 /* QRScanReader.m */; };
 		00E356F31AD99517003FC87E /* RNDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RNDemoTests.m */; };
 		00F29DD6242889D600A54037 /* BridgeDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F29DD5242889D600A54037 /* BridgeDemo.m */; };
 		0C32C47AFFB5E099BB619022 /* libPods-RNDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 018F63FE1367F958594ABE35 /* libPods-RNDemoTests.a */; };
@@ -41,6 +43,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00675C44243094DC00085827 /* KeyChainModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyChainModule.m; path = RNDemo/BridgeModule/SecurityModule/KeyChainModule.m; sourceTree = "<group>"; };
+		00675C45243094DC00085827 /* KeyChainModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyChainModule.h; path = RNDemo/BridgeModule/SecurityModule/KeyChainModule.h; sourceTree = "<group>"; };
+		00675C472430AE4800085827 /* QRScanReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = QRScanReader.h; path = RNDemo/BridgeModule/QRScanModule/QRScanReader.h; sourceTree = "<group>"; };
+		00675C482430AE7100085827 /* QRScanReader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = QRScanReader.m; path = RNDemo/BridgeModule/QRScanModule/QRScanReader.m; sourceTree = "<group>"; };
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00E356EE1AD99517003FC87E /* RNDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RNDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -128,8 +134,12 @@
 		00F29DD42428899000A54037 /* BridgeModule */ = {
 			isa = PBXGroup;
 			children = (
+				00675C45243094DC00085827 /* KeyChainModule.h */,
+				00675C44243094DC00085827 /* KeyChainModule.m */,
 				00F29DD824288A1D00A54037 /* BridgeDemo.h */,
 				00F29DD5242889D600A54037 /* BridgeDemo.m */,
+				00675C472430AE4800085827 /* QRScanReader.h */,
+				00675C482430AE7100085827 /* QRScanReader.m */,
 			);
 			name = BridgeModule;
 			sourceTree = "<group>";
@@ -593,7 +603,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				00F29DD6242889D600A54037 /* BridgeDemo.m in Sources */,
+				00675C46243094DC00085827 /* KeyChainModule.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				00675C492430AE7100085827 /* QRScanReader.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
