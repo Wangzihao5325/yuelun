@@ -1,4 +1,5 @@
 package com.rndemo;
+import android.Manifest;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -19,7 +20,14 @@ import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 
+
 import java.util.Hashtable;
+
+/**
+ * Created by lewin on 2018/3/14.
+ */
+
+
 
 public class QRScanReader extends ReactContextBaseJavaModule {
 
@@ -32,8 +40,15 @@ public class QRScanReader extends ReactContextBaseJavaModule {
         return "QRScanReader";
     }
 
+    // 准备申请的权限
+    private String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA};
+
+    private static final int REQUEST_CODE = 10001;
+
     @ReactMethod
     public void readerQR(String fileUrl, Promise promise ) {
+
         Result result = scanningImage(fileUrl);
         if(result == null){
             promise.reject("404","没有相关的二维码");
@@ -60,6 +75,7 @@ public class QRScanReader extends ReactContextBaseJavaModule {
      * @return
      */
     public Result scanningImage(String path) {
+
         if (path == null || path.length() == 0) {
             return null;
         }
@@ -74,7 +90,11 @@ public class QRScanReader extends ReactContextBaseJavaModule {
         if (sampleSize <= 0)
             sampleSize = 1;
         options.inSampleSize = sampleSize;
+
+        //Manifest.permission.WRITE_EXTERNAL_STORAGE
+        //Manifest.permission.CAMERA
         scanBitmap = BitmapFactory.decodeFile(path, options);
+
         int width=scanBitmap.getWidth();
         int height=scanBitmap.getHeight();
         int[] pixels=new int[width*height];

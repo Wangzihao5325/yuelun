@@ -1,26 +1,38 @@
 import React, { Component } from 'react';
 import {
-    Platform,
     StyleSheet,
     Text,
     View,
-    TouchableOpacity,
     Linking,
-    NativeModules,
-    Image
 } from 'react-native';
 
 import CustomButton from '../../Components/Component/CustomButton';
+import ImagePicker from 'react-native-image-crop-picker';
 import { QRCodeScanner, QRImageReader } from '../../Functions/NativeBridge/QRScanModule';
 
 
 
 export default class FourthPage extends Component {
+
     onSuccess = e => {
         Linking.openURL(e.data).catch(err =>
             console.error('An error occured', err)
         );
     };
+
+    picSelect = async () => {
+        let image = await ImagePicker.openPicker({
+            multiple: false,
+            //maxFiles: 3,
+            //includeBase64: true
+        }).catch(e => {
+            console.log('图片解析失败');
+        });
+        let scanResult = await QRImageReader(image.path);
+        console.log(scanResult);
+        this.onSuccess({ data: scanResult });
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -30,26 +42,11 @@ export default class FourthPage extends Component {
                 <CustomButton
                     title='自定义按钮'
                     style={styles.ButtonStyle}
-                    clickEvent={() => {
-                        console.log('触发传入的方法事件');
-                    }}
+                    clickEvent={this.picSelect}
                 />
-                {/* <QRCodeScanner
+                <QRCodeScanner
                     onRead={this.onSuccess}
-                    //flashMode={QRCodeScanner.Constants.FlashMode.torch}
-                    topContent={
-                        <Text style={styles.centerText}>
-                            Go to{' '}
-                            <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on
-            your computer and scan the QR code.
-          </Text>
-                    }
-                    bottomContent={
-                        <TouchableOpacity style={styles.buttonTouchable}>
-                            <Text style={styles.buttonText}>OK. Got it!</Text>
-                        </TouchableOpacity>
-                    }
-                /> */}
+                />
             </View>
         );
     }
