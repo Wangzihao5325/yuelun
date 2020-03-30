@@ -4,11 +4,14 @@ import {
     Text,
     View,
     Linking,
+    Platform,
 } from 'react-native';
 
 import CustomButton from '../../Components/Component/CustomButton';
 import ImagePicker from 'react-native-image-crop-picker';
 import { QRCodeScanner, QRImageReader } from '../../Functions/NativeBridge/QRScanModule';
+import { check, request, PERMISSIONS, RESULTS, } from 'react-native-permissions';
+
 
 
 
@@ -21,6 +24,24 @@ export default class FourthPage extends Component {
     };
 
     picSelect = async () => {
+        if (Platform.OS == 'android') {
+            let res = await check(PERMISSIONS.ANDROID.CAMERA);
+            switch (res) {
+                case RESULTS.UNAVAILABLE:
+                    console.log('UNAVAILABLE');
+                    return;
+                case RESULTS.BLOCKED:
+                    console.log('BLOCKED');
+                    return;
+                case RESULTS.DENIED:
+                    console.log('DENIED');
+                    let requestRes = await request(PERMISSIONS.ANDROID.CAMERA);
+                    break;
+                case RESULTS.GRANTED:
+                    console.log('GRANTED');
+                    break;
+            }
+        }
         let image = await ImagePicker.openPicker({
             multiple: false,
             //maxFiles: 3,
@@ -40,7 +61,7 @@ export default class FourthPage extends Component {
                     第四页
                 </Text>
                 <CustomButton
-                    title='自定义按钮'
+                    title='选择图片'
                     style={styles.ButtonStyle}
                     clickEvent={this.picSelect}
                 />
