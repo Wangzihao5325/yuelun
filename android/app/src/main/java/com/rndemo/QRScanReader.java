@@ -1,7 +1,10 @@
 package com.rndemo;
+
 import android.Manifest;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.util.Log;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -20,13 +23,12 @@ import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 
-
+import java.io.File;
 import java.util.Hashtable;
 
 /**
  * Created by lewin on 2018/3/14.
  */
-
 
 
 public class QRScanReader extends ReactContextBaseJavaModule {
@@ -47,14 +49,17 @@ public class QRScanReader extends ReactContextBaseJavaModule {
     private static final int REQUEST_CODE = 10001;
 
     @ReactMethod
-    public void readerQR(String fileUrl, Promise promise ) {
+    public void readerQR(String fileUrl, Promise promise) {
+        Uri uri = Uri.parse(fileUrl);
+        String path = uri.getPath();
+        //Log.d("fuck","====fileUrl:"+ path +" "+new File(path).length());
 
-        Result result = scanningImage(fileUrl);
-        if(result == null){
-            promise.reject("404","没有相关的二维码");
-//            result = decodeBarcodeRGB(fileUrl);
+        Result result = scanningImage(path);
+        if (result == null) {
+            promise.reject("404", "没有相关的二维码");
+//            result = decodeBarcodeRGB(path);
 //            if(result == null){
-//                result = decodeBarcodeYUV(fileUrl);
+//                result = decodeBarcodeYUV(path);
 //                if(result == null){
 //                    promise.reject("404","没有相关的二维码");
 //                }else{
@@ -64,17 +69,19 @@ public class QRScanReader extends ReactContextBaseJavaModule {
 //                promise.resolve(result.getText());
 //            }
 
-        }else{
+        } else {
             promise.resolve(result.getText());
         }
     }
 
     /**
      * 扫描二维码图片的方法
+     *
      * @param path
      * @return
      */
     public Result scanningImage(String path) {
+
 
         if (path == null || path.length() == 0) {
             return null;
@@ -84,22 +91,21 @@ public class QRScanReader extends ReactContextBaseJavaModule {
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true; // 先获取原大小
-        Bitmap scanBitmap = BitmapFactory.decodeFile(path, options);
+        Bitmap scanBitmap ;
         options.inJustDecodeBounds = false; // 获取新的大小
         int sampleSize = (int) (options.outHeight / (float) 200);
         if (sampleSize <= 0)
             sampleSize = 1;
         options.inSampleSize = sampleSize;
-
         //Manifest.permission.WRITE_EXTERNAL_STORAGE
         //Manifest.permission.CAMERA
         scanBitmap = BitmapFactory.decodeFile(path, options);
 
-        int width=scanBitmap.getWidth();
-        int height=scanBitmap.getHeight();
-        int[] pixels=new int[width*height];
-        scanBitmap.getPixels(pixels,0,width,0,0,width,height);//获取图片像素点
-        RGBLuminanceSource source = new RGBLuminanceSource(scanBitmap.getWidth(),scanBitmap.getHeight(),pixels);
+        int width = scanBitmap.getWidth();
+        int height = scanBitmap.getHeight();
+        int[] pixels = new int[width * height];
+        scanBitmap.getPixels(pixels, 0, width, 0, 0, width, height);//获取图片像素点
+        RGBLuminanceSource source = new RGBLuminanceSource(scanBitmap.getWidth(), scanBitmap.getHeight(), pixels);
         BinaryBitmap bitmap1 = new BinaryBitmap(new HybridBinarizer(source));
         QRCodeReader reader = new QRCodeReader();
         try {

@@ -50,7 +50,6 @@ export default class FourthPage extends Component {
             console.log('图片解析失败');
         });
         let scanResult = await QRImageReader(image.path);
-        console.log(scanResult);
         this.onSuccess({ data: scanResult });
     }
 

@@ -191,6 +191,8 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.google.zxing:core:3.3.2'
+//    implementation 'com.google.zxing:android-core:3.3.0'
+//    implementation 'cn.bingoogolapple:bga-qrcode-zxing:+'
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")
