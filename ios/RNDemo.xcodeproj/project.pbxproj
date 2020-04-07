@@ -20,6 +20,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* RNDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RNDemoTests.m */; };
+		34F713CE243C2C6C001034CF /* AuthenticationModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F713CD243C2C6C001034CF /* AuthenticationModule.m */; };
 		7C2A64BE89FB4240919FCF8D /* libPods-RNDemo-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF18FFEA48B94E7A13DFF097 /* libPods-RNDemo-tvOS.a */; };
 		C6ADE1C2F0F2E4FFB75C6354 /* libPods-RNDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D086370BEB68C40B80F3C07D /* libPods-RNDemo.a */; };
 		EB7B94932CF80D6513E7DF08 /* libPods-RNDemo-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2D3E4E44A8036272CCDE589 /* libPods-RNDemo-tvOSTests.a */; };
@@ -65,6 +66,8 @@
 		2D02E47B1E0B4A5D006451C7 /* RNDemo-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RNDemo-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* RNDemo-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RNDemo-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3346171AA8E9BFE2B1923F9B /* Pods-RNDemo-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemo-tvOS.release.xcconfig"; path = "Target Support Files/Pods-RNDemo-tvOS/Pods-RNDemo-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		34F713CC243C2C6C001034CF /* AuthenticationModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthenticationModule.h; path = RNDemo/BridgeModule/SecurityModule/AuthenticationModule.h; sourceTree = "<group>"; };
+		34F713CD243C2C6C001034CF /* AuthenticationModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthenticationModule.m; path = RNDemo/BridgeModule/SecurityModule/AuthenticationModule.m; sourceTree = "<group>"; };
 		60947F9E755E6771DFD0CF8E /* Pods-RNDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemoTests.release.xcconfig"; path = "Target Support Files/Pods-RNDemoTests/Pods-RNDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		60CA3976A620108703AF9021 /* Pods-RNDemo-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemo-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-RNDemo-tvOSTests/Pods-RNDemo-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A2D3E4E44A8036272CCDE589 /* libPods-RNDemo-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNDemo-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +137,8 @@
 		00F29DD42428899000A54037 /* BridgeModule */ = {
 			isa = PBXGroup;
 			children = (
+				34F713CC243C2C6C001034CF /* AuthenticationModule.h */,
+				34F713CD243C2C6C001034CF /* AuthenticationModule.m */,
 				00675C45243094DC00085827 /* KeyChainModule.h */,
 				00675C44243094DC00085827 /* KeyChainModule.m */,
 				00F29DD824288A1D00A54037 /* BridgeDemo.h */,
@@ -611,6 +616,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				00675C492430AE7100085827 /* QRScanReader.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				34F713CE243C2C6C001034CF /* AuthenticationModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

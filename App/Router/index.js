@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from './NavigationService';
 import InitPage from '../Pages/InitPage';
 import ModalStack from './ModalStack';
+import DrawerStack from './DrawerStack';   
 
 export default class Root extends Component {
 
