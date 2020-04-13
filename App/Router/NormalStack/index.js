@@ -8,6 +8,7 @@ import BridgePage from '../../Pages/BridgePage';
 import NetworkPage from '../../Pages/NetworkPage';
 import ToastPage from '../../Pages/ToastPage';
 import FlatlistPage from '../../Pages/FlatlistPage';
+import ProgressRatePage from '../../Pages/ProgressRatePage';
 
 const Stack = createStackNavigator();
 
@@ -59,6 +60,14 @@ const optionArray = [
         component: FlatlistPage,
         options: {
             title: 'Flatlist'
+        }
+    },
+    {
+        key: PageName.NORMAL_PROGRESS_RATE,
+        name: PageName.NORMAL_PROGRESS_RATE,
+        component: ProgressRatePage,
+        options: {
+            title: 'ProgressRate'
         }
     },
 ];

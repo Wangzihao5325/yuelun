@@ -24,6 +24,12 @@ export default class FirstPage extends Component {
                     FisrtPage
                 </Text>
                 <Button
+                    title='下载进度条'
+                    style={[styles.button]}
+                    onPress={() => {
+                        navigator.navigate(PageName.NORMAL_PROGRESS_RATE)
+                    }} />
+                <Button
                     title='navi service跳转Modal'
                     style={[styles.button]}
                     onPress={() => {
