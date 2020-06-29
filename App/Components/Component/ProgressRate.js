@@ -12,7 +12,6 @@ const ProgressRate = (props) => {
     let containerStyle = { ...Styles.container, ...props.containerStyle };
     let progressBorderStyle = { width: containerStyle.width - 30 };
     let tipsContainer = { width: containerStyle.width - 30 };
-    console.log(containerStyle);
     return (
         <View style={containerStyle}>
             <View style={[Styles.tipsContainer, tipsContainer]}>
