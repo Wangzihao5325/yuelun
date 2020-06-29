@@ -44,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		000BA31924A990240091159D /* RNDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		00675C44243094DC00085827 /* KeyChainModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyChainModule.m; path = RNDemo/BridgeModule/SecurityModule/KeyChainModule.m; sourceTree = "<group>"; };
 		00675C45243094DC00085827 /* KeyChainModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyChainModule.h; path = RNDemo/BridgeModule/SecurityModule/KeyChainModule.h; sourceTree = "<group>"; };
 		00675C472430AE4800085827 /* QRScanReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = QRScanReader.h; path = RNDemo/BridgeModule/QRScanModule/QRScanReader.h; sourceTree = "<group>"; };
@@ -162,6 +163,7 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				00F29DD42428899000A54037 /* BridgeModule */,
+				000BA31924A990240091159D /* RNDemo-Bridging-Header.h */,
 			);
 			name = RNDemo;
 			sourceTree = "<group>";
@@ -324,6 +326,9 @@
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						LastSwiftMigration = 1130;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -728,7 +733,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 94B62AE16F593BCC4BF6E40C /* Pods-RNDemo-RNDemoTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -752,7 +756,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 10692BEFD672D061D8AEFAB9 /* Pods-RNDemo-RNDemoTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = RNDemoTests/Info.plist;
@@ -775,6 +778,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				INFOPLIST_FILE = RNDemo/Info.plist;
@@ -786,6 +790,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = RNDemo;
+				SWIFT_OBJC_BRIDGING_HEADER = "RNDemo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -796,6 +803,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = RNDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -806,6 +814,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = RNDemo;
+				SWIFT_OBJC_BRIDGING_HEADER = "RNDemo-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
