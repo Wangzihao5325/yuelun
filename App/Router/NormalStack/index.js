@@ -97,7 +97,6 @@ const optionArray = [
 
 
 export default class NormalStack extends Component {
-
     render() {
         return (
             <Stack.Navigator>
