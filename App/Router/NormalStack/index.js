@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import PageName from '../../Config/PageName';
+import { themeColor } from '../../Config/UIConfig';
 
 import BottomTab from '../BottomTab';
 import PushPage from '../../Pages/pushPage';
@@ -9,6 +10,22 @@ import NetworkPage from '../../Pages/NetworkPage';
 import ToastPage from '../../Pages/ToastPage';
 import FlatlistPage from '../../Pages/FlatlistPage';
 import ProgressRatePage from '../../Pages/ProgressRatePage';
+
+//个人信息页面
+import PersonalInfoPage from '../../Pages/personalInfo';
+
+const defaultHeaderOptions = {
+    headerBackTitleVisible: false,
+    headerStyle: {
+        backgroundColor: themeColor.headerBgColor,
+        //移除header底部分隔线 issue: https://github.com/react-navigation/react-navigation/issues/865
+        shadowColor: 'transparent',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+        fontWeight: 'bold',
+    },
+}
 
 const Stack = createStackNavigator();
 
@@ -69,6 +86,12 @@ const optionArray = [
         options: {
             title: 'ProgressRate'
         }
+    },
+    {
+        key: PageName.NORMAL_PERSONAL_INFO,
+        name: PageName.NORMAL_PERSONAL_INFO,
+        component: PersonalInfoPage,
+        options: Object.assign({ title: '更换手机号码' }, defaultHeaderOptions)
     },
 ];
 

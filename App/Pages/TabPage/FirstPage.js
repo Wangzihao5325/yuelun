@@ -79,6 +79,13 @@ export default class FirstPage extends Component {
                         navigator.jump(this, PageName.NORMAL_STACK_FLATLIST);
                     }}
                 />
+                <Button
+                    title='个人信息-更换手机号'
+                    style={[styles.button]}
+                    onPress={() => {
+                        navigator.jump(this, PageName.NORMAL_PERSONAL_INFO);
+                    }}
+                />
             </View>
         );
     }
