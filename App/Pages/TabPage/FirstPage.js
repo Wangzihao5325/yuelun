@@ -23,7 +23,7 @@ export default class FirstPage extends Component {
                 <Text style={styles.welcome}>
                     FisrtPage
                 </Text>
-                <Button
+                {/* <Button
                     title='下载进度条'
                     style={[styles.button]}
                     onPress={() => {
@@ -78,12 +78,26 @@ export default class FirstPage extends Component {
                         console.log('跳转FlatListPage');
                         navigator.jump(this, PageName.NORMAL_STACK_FLATLIST);
                     }}
-                />
+                /> */}
                 <Button
                     title='个人信息-更换手机号'
                     style={[styles.button]}
                     onPress={() => {
-                        navigator.jump(this, PageName.NORMAL_PERSONAL_INFO);
+                        navigator.jump(this, PageName.NORMAL_CHANGE_PHONE_NUM);
+                    }}
+                />
+                <Button
+                    title='个人信息-更换昵称'
+                    style={[styles.button]}
+                    onPress={() => {
+                        navigator.jump(this, PageName.NORMAL_CHANGE_NICK_NAME);
+                    }}
+                />
+                <Button
+                    title='登录页面'
+                    style={[styles.button]}
+                    onPress={() => {
+                        navigator.jump(this, PageName.NORMAL_LOGIN);
                     }}
                 />
             </View>

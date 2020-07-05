@@ -11,7 +11,7 @@ import { themeColor } from '../../Config/UIConfig';
 import CustomInput from '../../Components/Component/CustomInput';
 import CustomButton from '../../Components/Component/CustomButton';
 
-export default class PersonalInfo extends Component {
+export default class ChangePhoneNum extends Component {
     state = {
         phoneNum: '',
         verificationCode: ''
@@ -22,36 +22,34 @@ export default class PersonalInfo extends Component {
         const { phoneNum, verificationCode } = this.state;
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: bgColor }}>
-                <View style={{ flex: 1 }}>
+                <CustomInput
+                    style={{ alignSelf: 'center' }}
+                    iconName='mobile-phone'
+                    placeholder='请输入新的手机号'
+                    value={phoneNum}
+                    onChangeText={this.phoneNumChange}
+                />
+                <View style={{ marginTop: 20, height: 45, width: 350, alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <CustomInput
-                        style={{ alignSelf: 'center' }}
+                        style={{ width: 210 }}
                         iconName='mobile-phone'
-                        placeholder='请输入新的手机号'
-                        value={phoneNum}
-                        onChangeText={this.phoneNumChange}
+                        placeholder='请输入验证码'
+                        value={verificationCode}
+                        onChangeText={this.verificationCodeChange}
                     />
-                    <View style={{ marginTop: 20, height: 45, width: 350, alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <CustomInput
-                            style={{ width: 210 }}
-                            iconName='mobile-phone'
-                            placeholder='请输入验证码'
-                            value={verificationCode}
-                            onChangeText={this.verificationCodeChange}
-                        />
-                        <CustomButton
-                            title='获取验证码'
-                            buttonStyle={styles.verificationCodeBtn}
-                            titleStyle={{ color: '#f2cc2e' }}
-                            clickEvent={this.getVerificationCode}
-                        />
-                    </View>
                     <CustomButton
-                        title='确定'
-                        buttonStyle={styles.confirmButton}
-                        titleStyle={{ color: '#000' }}
-                        clickEvent={this.confirm}
+                        title='获取验证码'
+                        buttonStyle={styles.verificationCodeBtn}
+                        titleStyle={{ color: '#f2cc2e' }}
+                        clickEvent={this.getVerificationCode}
                     />
                 </View>
+                <CustomButton
+                    title='确定'
+                    buttonStyle={styles.confirmButton}
+                    titleStyle={{ color: '#000' }}
+                    clickEvent={this.confirm}
+                />
             </SafeAreaView>
         );
     }

@@ -11,8 +11,10 @@ import ToastPage from '../../Pages/ToastPage';
 import FlatlistPage from '../../Pages/FlatlistPage';
 import ProgressRatePage from '../../Pages/ProgressRatePage';
 
+import LoginPage from '../../Pages/Login';
 //个人信息页面
-import PersonalInfoPage from '../../Pages/personalInfo';
+import ChangePhoneNumPage from '../../Pages/personalInfo/ChangePhoneNum';
+import ChangeNickNamePage from '../../Pages/personalInfo/ChangeNickName';
 
 const defaultHeaderOptions = {
     headerBackTitleVisible: false,
@@ -88,10 +90,22 @@ const optionArray = [
         }
     },
     {
-        key: PageName.NORMAL_PERSONAL_INFO,
-        name: PageName.NORMAL_PERSONAL_INFO,
-        component: PersonalInfoPage,
+        key: PageName.NORMAL_CHANGE_PHONE_NUM,
+        name: PageName.NORMAL_CHANGE_PHONE_NUM,
+        component: ChangePhoneNumPage,
         options: Object.assign({ title: '更换手机号码' }, defaultHeaderOptions)
+    },
+    {
+        key: PageName.NORMAL_CHANGE_NICK_NAME,
+        name: PageName.NORMAL_CHANGE_NICK_NAME,
+        component: ChangeNickNamePage,
+        options: Object.assign({ title: '设置昵称' }, defaultHeaderOptions)
+    },
+    {
+        key: PageName.NORMAL_LOGIN,
+        name: PageName.NORMAL_LOGIN,
+        component: LoginPage,
+        options: Object.assign({ title: '月轮手游加速器' }, defaultHeaderOptions)
     },
 ];
 
