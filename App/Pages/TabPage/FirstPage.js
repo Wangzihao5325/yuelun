@@ -101,6 +101,13 @@ export default class FirstPage extends Component {
                     }}
                 />
                 <Button
+                    title='公告消息'
+                    style={[styles.button]}
+                    onPress={() => {
+                        navigator.jump(this, PageName.NORMAL_NOTICE);
+                    }}
+                />
+                <Button
                     title='登录页面'
                     style={[styles.button]}
                     onPress={() => {

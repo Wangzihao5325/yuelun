@@ -17,7 +17,7 @@ export default class Login extends Component {
         const { bgColor } = themeColor;
         const { phoneNum, verificationCode } = this.state;
         return (
-            <SafeAreaView style={{ flex: 1, backgroundColor: bgColor }}>
+            <SafeAreaView style={{ flex: 1, backgroundColor: bgColor, paddingTop: 0 }}>
                 <View style={{ alignSelf: 'center', marginTop: 30, marginBottom: 20 }}>
                     <Icon name='twitter' size={80} color="#666" />
                 </View>

@@ -21,9 +21,9 @@ export default class ChangePhoneNum extends Component {
         const { bgColor } = themeColor;
         const { phoneNum, verificationCode } = this.state;
         return (
-            <SafeAreaView style={{ flex: 1, backgroundColor: bgColor }}>
+            <SafeAreaView style={{ flex: 1, backgroundColor: bgColor, paddingTop: 0 }}>
                 <CustomInput
-                    style={{ alignSelf: 'center' }}
+                    style={{ alignSelf: 'center',marginTop:20 }}
                     iconName='mobile-phone'
                     placeholder='请输入新的手机号'
                     value={phoneNum}

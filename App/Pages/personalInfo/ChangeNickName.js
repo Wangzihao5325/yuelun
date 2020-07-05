@@ -12,8 +12,8 @@ export default class ChangeNickName extends Component {
     render() {
         const { bgColor } = themeColor;
         return (
-            <SafeAreaView style={{ flex: 1, backgroundColor: bgColor, justifyContent: 'space-between' }}>
-                <View>
+            <SafeAreaView style={{ flex: 1, backgroundColor: bgColor, justifyContent: 'space-between', paddingTop: 0 }}>
+                <View style={{ marginTop: 20 }}>
                     <TextInput style={styles.input} value={this.state.nickName} onChangeText={this.nickNameChange} />
                     <Text style={styles.tipsText}>昵称最长不超过7个汉字，不能包含敏感词汇和特殊字符</Text>
                 </View>

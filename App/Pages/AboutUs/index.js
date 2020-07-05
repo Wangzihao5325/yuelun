@@ -9,8 +9,8 @@ export default class AboutUs extends Component {
     render() {
         const { bgColor } = themeColor;
         return (
-            <SafeAreaView style={{ flex: 1, backgroundColor: bgColor }}>
-                <View style={{ alignSelf: 'center' }}>
+            <SafeAreaView style={{ flex: 1, backgroundColor: bgColor, paddingTop: 0 }}>
+                <View style={{ alignSelf: 'center',marginTop:20 }}>
                     <Icon name='twitter' size={80} color="#666" />
                 </View>
                 <Text style={{ fontSize: 20, color: 'white', fontWeight: 'bold', alignSelf: 'center' }}>V1.0</Text>
