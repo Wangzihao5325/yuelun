@@ -1,5 +1,7 @@
 import React, { Component, ReactElement } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
+import { themeColor } from '../../Config/UIConfig';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class CustomInput extends Component {
@@ -36,7 +38,7 @@ const styles = StyleSheet.create({
         height: 45,
         width: 350,
         borderRadius: 45,
-        backgroundColor: '#1a4482',
+        backgroundColor: themeColor.inputBgColor,
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 20,

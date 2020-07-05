@@ -69,6 +69,7 @@ export const themeColor = {
     bgContent: '#FFFFFF',    // 辅色
     bgColor: '#01142c',    // 背景色
     headerBgColor: '#01142c',//页面header背景色
+    inputBgColor: '#1a4482',//输入框默认背景色
     AIA_Red: '#DA3342',
     Text_Light_Grey: '#B3B3B6',
     Text_Grey: '#6B6A78',
