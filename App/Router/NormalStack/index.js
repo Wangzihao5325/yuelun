@@ -12,6 +12,7 @@ import FlatlistPage from '../../Pages/FlatlistPage';
 import ProgressRatePage from '../../Pages/ProgressRatePage';
 
 import LoginPage from '../../Pages/Login';
+import AboutUsPage from '../../Pages/AboutUs';
 //个人信息页面
 import ChangePhoneNumPage from '../../Pages/personalInfo/ChangePhoneNum';
 import ChangeNickNamePage from '../../Pages/personalInfo/ChangeNickName';
@@ -100,6 +101,12 @@ const optionArray = [
         name: PageName.NORMAL_CHANGE_NICK_NAME,
         component: ChangeNickNamePage,
         options: Object.assign({ title: '设置昵称' }, defaultHeaderOptions)
+    },
+    {
+        key: PageName.NORMAL_ABOUT_US,
+        name: PageName.NORMAL_ABOUT_US,
+        component: AboutUsPage,
+        options: Object.assign({ title: '关于我们' }, defaultHeaderOptions)
     },
     {
         key: PageName.NORMAL_LOGIN,

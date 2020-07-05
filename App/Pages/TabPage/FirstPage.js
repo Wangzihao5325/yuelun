@@ -94,6 +94,13 @@ export default class FirstPage extends Component {
                     }}
                 />
                 <Button
+                    title='关于我们'
+                    style={[styles.button]}
+                    onPress={() => {
+                        navigator.jump(this, PageName.NORMAL_ABOUT_US);
+                    }}
+                />
+                <Button
                     title='登录页面'
                     style={[styles.button]}
                     onPress={() => {
