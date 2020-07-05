@@ -1,5 +1,5 @@
 import React, { Component, ReactElement } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, Platform, StyleSheet } from 'react-native';
 import { themeColor } from '../../Config/UIConfig';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
         height: 30,
         color: 'white',
         paddingHorizontal: 5,
-        fontSize: 18
+        fontSize: 18,
+        paddingVertical: 0
     }
 });
