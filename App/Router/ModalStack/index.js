@@ -4,6 +4,7 @@ import PageName from '../../Config/PageName';
 
 import NormalStack from '../NormalStack';
 import ModalWrapper from '../../Pages/ModalPage/ModalWraper';
+import ModalAlert from '../../Pages/ModalPage/Alert';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,11 @@ const optionArray = [
         key: PageName.MODAL_WRAPPER,
         name: PageName.MODAL_WRAPPER,
         component: ModalWrapper,
+    },
+    {
+        key: PageName.MODAL_ALERT,
+        name: PageName.MODAL_ALERT,
+        component: ModalAlert,
     }
 ];
 

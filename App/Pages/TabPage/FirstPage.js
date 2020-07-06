@@ -16,6 +16,9 @@ import PageName from '../../Config/PageName';
 import * as navigator from '../../Router/NavigationService';
 
 export default class FirstPage extends Component {
+    state = {
+        test: '1234567'
+    }
 
     render() {
         return (
@@ -114,8 +117,45 @@ export default class FirstPage extends Component {
                         navigator.jump(this, PageName.NORMAL_LOGIN);
                     }}
                 />
+                <Button
+                    title='提示弹窗'
+                    style={[styles.button]}
+                    onPress={this.showAlert} />
             </View>
         );
+    }
+
+    logState = () => {
+        console.log(this.state.test);
+    }
+
+    cancel = () => {
+        console.log('cancel')
+    }
+
+    showAlert = () => {
+        navigator.navigate(PageName.MODAL_ALERT, {
+            title: '提示',
+            content: '这是一个提示，请选择你喜欢的选项,阿巴巴巴巴巴巴巴巴巴巴巴',
+            bottomObjs: [
+                {
+                    key: 'cancel',
+                    type: 'button',
+                    title: '取消',
+                    callback: this.cancel
+                },
+                {
+                    key: 'separator_1',
+                    type: 'separator'
+                },
+                {
+                    key: 'confirm',
+                    type: 'button',
+                    title: '确认',
+                    callback: this.logState
+                }
+            ]
+        })
     }
 }
 

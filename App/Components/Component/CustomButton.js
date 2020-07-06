@@ -26,11 +26,12 @@ export default class CustomButton extends Component {
     }
 
     render() {
-        const { buttonStyle, title, titleStyle } = this.props;
+        const { buttonStyle, title, titleStyle, underlayColor } = this.props;
         return (
             <TouchableHighlight
                 style={buttonStyle}
                 onPress={this.buttonClickEvent}
+                underlayColor={underlayColor}
             >
                 <Text style={titleStyle}>{`${title}`}</Text>
             </TouchableHighlight>
