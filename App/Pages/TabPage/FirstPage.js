@@ -137,6 +137,10 @@ export default class FirstPage extends Component {
         navigator.navigate(PageName.MODAL_ALERT, {
             title: '提示',
             content: '这是一个提示，请选择你喜欢的选项,阿巴巴巴巴巴巴巴巴巴巴巴',
+            imageContent: {
+                source: { uri: 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png' },
+                //style: {}//可选参数
+            },
             bottomObjs: [
                 {
                     key: 'cancel',

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import { SCREEN_WIDTH } from '../../Config/UIConfig';
 import * as navigator from '../../Router/NavigationService';
 
@@ -11,7 +11,7 @@ https://reactnavigation.org/docs/troubleshooting/#i-get-the-warning-non-serializ
 */
 export default class Alert extends Component {
     render() {
-        const { title = '', content = '', bottomObjs = null } = this.props.route.params;
+        const { title = '', content = '', imageContent = null, bottomObjs = null } = this.props.route.params;
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.alertContainer}>
@@ -20,6 +20,13 @@ export default class Alert extends Component {
                         <View style={styles.titleContainer}>
                             <Text style={styles.title}>{`${title}`}</Text>
                         </View>
+                    }
+                    {
+                        Boolean(imageContent) &&
+                        <Image
+                            source={imageContent.source}
+                            style={[styles.defaultImageContainer, imageContent.style]}
+                        />
                     }
                     {
                         Boolean(content) &&
@@ -85,6 +92,11 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         color: 'rgb(34,34,34)',
         fontSize: 20
+    },
+    defaultImageContainer: {
+        alignSelf: 'center',
+        height: 130,
+        width: 280
     },
     contentContainer: {
         display: 'flex',
