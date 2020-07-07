@@ -15,6 +15,7 @@ import LoginPage from '../../Pages/Login';
 import AboutUsPage from '../../Pages/AboutUs';
 import NoticePage from '../../Pages/Notice';
 //个人信息页面
+import PersonalInfoPage from '../../Pages/personalInfo';
 import ChangePhoneNumPage from '../../Pages/personalInfo/ChangePhoneNum';
 import ChangeNickNamePage from '../../Pages/personalInfo/ChangeNickName';
 
@@ -90,6 +91,12 @@ const optionArray = [
         options: {
             title: 'ProgressRate'
         }
+    },
+    {
+        key: PageName.NORMAL_PERSONAL_INFO,
+        name: PageName.NORMAL_PERSONAL_INFO,
+        component: PersonalInfoPage,
+        options: Object.assign({ title: '个人信息' }, defaultHeaderOptions)
     },
     {
         key: PageName.NORMAL_CHANGE_PHONE_NUM,

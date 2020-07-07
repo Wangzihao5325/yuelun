@@ -83,6 +83,13 @@ export default class FirstPage extends Component {
                     }}
                 /> */}
                 <Button
+                    title='个人信息-首页'
+                    style={[styles.button]}
+                    onPress={() => {
+                        navigator.jump(this, PageName.NORMAL_PERSONAL_INFO);
+                    }}
+                />
+                <Button
                     title='个人信息-更换手机号'
                     style={[styles.button]}
                     onPress={() => {
