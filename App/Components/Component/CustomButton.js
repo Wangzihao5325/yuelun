@@ -13,12 +13,12 @@ import { interceptTime } from '../../Config/SystemConfig';
 import * as TimerManager from '../../Functions/Time/TimeManager';
 import * as LogManager from '../../Functions/LogManager/LogManager';
 
-let clickTime;  //Save click time to prevent duplicate clicks
+//let clickTime;  //Save click time to prevent duplicate clicks
 
 export default class CustomButton extends Component {
     constructor(props) {
         super(props);
-        clickTime = this.returnTheCurrentTime();
+        this.clickTime = this.returnTheCurrentTime();
 
         this.state = {
             clickType: this.props.clickType ? this.props.clickType : this.props.title
@@ -40,9 +40,9 @@ export default class CustomButton extends Component {
 
     buttonClickEvent = () => {
         let currentTime = this.returnTheCurrentTime();
-        let differenceValue = currentTime - clickTime;
+        let differenceValue = currentTime - this.clickTime;
 
-        clickTime = currentTime;
+        this.clickTime = currentTime;
         if (differenceValue < interceptTime) {
             console.log('重复点击拦截');
             return;
