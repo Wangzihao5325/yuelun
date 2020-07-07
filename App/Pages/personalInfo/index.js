@@ -10,7 +10,7 @@ const InfoItem = (props) => {
     return (
         <View style={styles.itemContainer}>
             <Text style={styles.title}>{`${props.title}`}</Text>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 {
                     Boolean(props.content) &&
                     <Text style={styles.content}>{`${props.content}`}</Text>
@@ -20,7 +20,7 @@ const InfoItem = (props) => {
                     <Image style={styles.avater} source={props.imageSource} />
                 }
                 <View style={{ marginLeft: 10 }}>
-                    <Icon name='arrow-right' size={20} color="#666" />
+                    <Icon name='chevron-right' size={20} color="#666" />
                 </View>
             </View>
         </View>
