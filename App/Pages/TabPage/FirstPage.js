@@ -127,12 +127,12 @@ export default class FirstPage extends Component {
                 <Button
                     title='提示弹窗'
                     style={[styles.button]}
-                    onPress={this.showAlert}
+                    onPress={() => navigator.alert(this.alertPayload())}
                 />
                 <Button
                     title='提示弹窗-底部'
                     style={[styles.button]}
-                    onPress={this.showAlertBottom}
+                    onPress={() => navigator.alertBottom(this.alertBottomPayload())}
                 />
             </View>
         );
@@ -146,8 +146,8 @@ export default class FirstPage extends Component {
         console.log('cancel')
     }
 
-    showAlertBottom = () => {
-        navigator.navigate(PageName.MODAL_ALERT_BOTTOM, {
+    alertBottomPayload = () => {
+        return {
             content: '您当前有两款游戏正在加速，停止加速可能导致游戏断线，是否停止所有游戏的加速?',
             bottomObjs: [
                 {
@@ -161,11 +161,11 @@ export default class FirstPage extends Component {
                     callback: this.cancel
                 },
             ]
-        });
+        };
     }
 
-    showAlert = () => {
-        navigator.navigate(PageName.MODAL_ALERT, {
+    alertPayload = () => {
+        return {
             title: '提示',
             content: '这是一个提示，请选择你喜欢的选项,阿巴巴巴巴巴巴巴巴巴巴巴',
             imageContent: {
@@ -190,7 +190,7 @@ export default class FirstPage extends Component {
                     callback: this.logState
                 }
             ]
-        })
+        };
     }
 }
 

@@ -25,10 +25,11 @@ export default class Alert extends Component {
                         {
                             Boolean(bottomObjs) &&
                             bottomObjs.map((item, index) => {
-                                let additionalStyle = (index === (bottomObjs.length - 1)) ? { marginTop: 6 } : null;
+                                let additionalStyle = (index === (bottomObjs.length - 1)) ? { marginTop: 6, marginBottom: 15 } : null;
                                 let textAdditionStyle = (index === (bottomObjs.length - 1)) ? { color: '#999' } : null;
                                 return (
                                     <CustomButton
+                                        key={item.key}
                                         title={item.title}
                                         buttonStyle={[styles.btnItems, additionalStyle]}
                                         titleStyle={[styles.btnTitle, textAdditionStyle]}

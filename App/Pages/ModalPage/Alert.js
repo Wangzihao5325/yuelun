@@ -41,6 +41,7 @@ export default class Alert extends Component {
                                 if (item.type == 'button') {
                                     return (
                                         <CustomButton
+                                            key={item.key}
                                             title={item.title}
                                             buttonStyle={styles.btnItems}
                                             titleStyle={styles.btnTitle}
@@ -50,7 +51,7 @@ export default class Alert extends Component {
                                     );
                                 } else {
                                     return (
-                                        <View style={styles.separator} />
+                                        <View key={item.key} style={styles.separator} />
                                     );
                                 }
                             })
