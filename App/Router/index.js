@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from './NavigationService';
+import { connect } from 'react-redux';
+
 import InitPage from '../Pages/InitPage';
+import Login from '../Pages/Login';
 import ModalStack from './ModalStack';
 //import DrawerStack from './DrawerStack';
-import { connect } from 'react-redux';
-import store from '../store';
-
 class Root extends Component {
     render() {
-        if (this.props.isInit) {
+        if (!this.props.isInit) {
+            /** InitPage负责App的初始化 */
+            return (
+                <InitPage />
+            );
+        } else if (!this.props.isLogin) {
+            return (
+                <Login />
+            );
+        } else {
             return (
                 <NavigationContainer ref={navigationRef}>
                     <ModalStack />
                 </NavigationContainer>
-            );
-        } else {
-            /** InitPage负责App的初始化 */
-            return (
-                <InitPage />
             );
         }
     }
@@ -26,7 +30,8 @@ class Root extends Component {
 
 function mapState2Props(store) {
     return {
-        isInit: store.app.isInit
+        isInit: store.app.isInit,
+        isLogin: store.app.isLogin
     }
 }
 

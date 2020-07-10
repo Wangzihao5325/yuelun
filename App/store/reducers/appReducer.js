@@ -1,7 +1,8 @@
 import * as Types from '../actionTypes';
 
 const initialState = {
-    isInit: false
+    isInit: false,
+    isLogin: false,
 }
 
 const reducer = (state = initialState, action) => {

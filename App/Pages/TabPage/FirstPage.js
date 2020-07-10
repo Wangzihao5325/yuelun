@@ -118,13 +118,6 @@ export default class FirstPage extends Component {
                     }}
                 />
                 <Button
-                    title='登录页面'
-                    style={[styles.button]}
-                    onPress={() => {
-                        navigator.jump(this, PageName.NORMAL_LOGIN);
-                    }}
-                />
-                <Button
                     title='提示弹窗'
                     style={[styles.button]}
                     onPress={() => navigator.alert(this.alertPayload())}

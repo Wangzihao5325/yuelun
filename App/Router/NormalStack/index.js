@@ -11,7 +11,6 @@ import ToastPage from '../../Pages/ToastPage';
 import FlatlistPage from '../../Pages/FlatlistPage';
 import ProgressRatePage from '../../Pages/ProgressRatePage';
 
-import LoginPage from '../../Pages/Login';
 import AboutUsPage from '../../Pages/AboutUs';
 import NoticePage from '../../Pages/Notice';
 //个人信息页面
@@ -121,12 +120,6 @@ const optionArray = [
         name: PageName.NORMAL_ABOUT_US,
         component: AboutUsPage,
         options: Object.assign({ title: '关于我们' }, defaultHeaderOptions)
-    },
-    {
-        key: PageName.NORMAL_LOGIN,
-        name: PageName.NORMAL_LOGIN,
-        component: LoginPage,
-        options: Object.assign({ title: '月轮手游加速器' }, defaultHeaderOptions)
     },
 ];
 
