@@ -57,7 +57,7 @@ const Item = (props) => {
                         {
                             [1, 2, 3].map((item) => {
                                 let highlightStyle = item === props.index ? { backgroundColor: '#3f7fff' } : null
-                                return <View style={[styles.defaultPt, highlightStyle]} />
+                                return <View key={item} style={[styles.defaultPt, highlightStyle]} />
                             })
                         }
                     </View>
