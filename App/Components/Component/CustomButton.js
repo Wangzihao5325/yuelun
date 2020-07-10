@@ -21,19 +21,20 @@ export default class CustomButton extends Component {
         this.clickTime = this.returnTheCurrentTime();
 
         this.state = {
-            clickType: this.props.clickType ? this.props.clickType : this.props.title
+            clickType: this.props.clickType ? this.props.clickType : this.props.title,
+            title: `${this.props.title}`
         };
     }
 
     render() {
-        const { buttonStyle, title, titleStyle, underlayColor } = this.props;
+        const { buttonStyle, titleStyle, underlayColor, isActive = true, codeMode = false } = this.props;
         return (
             <TouchableHighlight
                 style={buttonStyle}
                 onPress={this.buttonClickEvent}
                 underlayColor={underlayColor}
             >
-                <Text style={titleStyle}>{`${title}`}</Text>
+                <Text style={titleStyle}>{`${this.state.title}`}</Text>
             </TouchableHighlight>
         );
     }

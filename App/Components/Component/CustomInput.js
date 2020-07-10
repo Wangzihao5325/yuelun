@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class CustomInput extends Component {
     render() {
-        const { value, onChangeText, iconName = '"mobile-phone"', iconComponent, placeholder, style, placeholderTextColor = '#818995' } = this.props;
+        const { value, onChangeText, iconName = '"mobile-phone"', iconComponent, placeholder, style, placeholderTextColor = '#818995'} = this.props;
         //待优化 assign会拷贝所有可枚举对象,不需要那么多
         let containerStyle = Object.assign({}, styles.defaultContainer, style);
 
@@ -20,7 +20,7 @@ export default class CustomInput extends Component {
                     isCustomIcon ?
                         iconComponent : <Icon name={iconName} size={30} color="#666" />
                 }
-                <View style={[styles.separator, { height: containerStyle.height - 14 }]} />
+                {/* <View style={[styles.separator, { height: containerStyle.height - 14 }]} /> */}
                 <TextInput
                     style={styles.input}
                     placeholder={placeholder}
@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
         color: 'white',
         paddingHorizontal: 5,
         fontSize: 18,
-        paddingVertical: 0
+        paddingVertical: 0,
+        fontFamily: 'PingFang-SC-Regular'
     }
 });
