@@ -14,9 +14,9 @@ export default class Root extends Component {
 
     componentDidMount() {
         /** 模拟初始化过程(该过程应在InitPage内) */
-        setTimeout(() => {
-            this.setState({ initDone: true });
-        }, 2000);
+        // setTimeout(() => {
+        //     this.setState({ initDone: true });
+        // }, 2000);
     }
 
     render() {
