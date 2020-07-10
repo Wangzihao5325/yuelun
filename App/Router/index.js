@@ -3,24 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from './NavigationService';
 import InitPage from '../Pages/InitPage';
 import ModalStack from './ModalStack';
-import DrawerStack from './DrawerStack';   
+//import DrawerStack from './DrawerStack';
+import { connect } from 'react-redux';
+import store from '../store';
 
-export default class Root extends Component {
-
-    state = {
-        /** 是否初始化完毕,redux引入后以redux state替换 */
-        initDone: false
-    }
-
-    componentDidMount() {
-        /** 模拟初始化过程(该过程应在InitPage内) */
-        // setTimeout(() => {
-        //     this.setState({ initDone: true });
-        // }, 2000);
-    }
-
+class Root extends Component {
     render() {
-        if (this.state.initDone) {
+        if (this.props.isInit) {
             return (
                 <NavigationContainer ref={navigationRef}>
                     <ModalStack />
@@ -34,3 +23,11 @@ export default class Root extends Component {
         }
     }
 }
+
+function mapState2Props(store) {
+    return {
+        isInit: store.app.isInit
+    }
+}
+
+export default connect(mapState2Props)(Root);

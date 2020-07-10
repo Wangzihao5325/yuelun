@@ -9,6 +9,8 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../Config/UIConfig';
 import CustomButton from '../../Components/Component/CustomButton';
+import store from '../../store';
+import { app_init } from '../../store/actions/appAction';
 
 const SPLASH_DATA = [
     {
@@ -78,7 +80,7 @@ export default class InitPage extends Component {
     }
 
     startApp = () => {
-        console.log('dddd');
+        store.dispatch(app_init());
     }
 }
 
