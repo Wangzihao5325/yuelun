@@ -19,6 +19,7 @@ public class QRScanReaderPackage implements ReactPackage {
         List<NativeModule> modules = new ArrayList<>();
 
         modules.add(new QRScanReader(reactContext));
+        modules.add(new CApiClientManager(reactContext));
 
         return modules;
     }

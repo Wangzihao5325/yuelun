@@ -4,10 +4,12 @@ import {
     StyleSheet,
     Text,
     View,
+    Button,
     Image
 } from 'react-native';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../Config/UIConfig';
 import CustomerSwiper from '../../Components/Component/CustomeSwiper';
+import * as Api from '../../Functions/NativeBridge/ApiModule';
 
 let testData = [
     { imageUrl: 'http://b.hiphotos.baidu.com/zhidao/pic/item/c75c10385343fbf233e9732cb27eca8064388ffc.jpg' },
@@ -15,6 +17,9 @@ let testData = [
     { imageUrl: 'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1151207280,533626736&fm=111&gp=0.jpg' }];
 
 export default class SecondPage extends Component {
+    state = {
+        text: '1234'
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -22,10 +27,32 @@ export default class SecondPage extends Component {
                     <CustomerSwiper super={this} bannerData={testData} />
                 </View>
                 <Text style={styles.welcome}>
-                    第二页
+                    {`${this.state.text}`}
                 </Text>
+                <Button
+                    title='请求-发送二维码'
+                    style={[styles.button]}
+                    onPress={this.sendCode}
+                />
+                <Button
+                    title='请求-登录'
+                    style={[styles.button]}
+                    onPress={this.login}
+                />
             </View>
         );
+    }
+
+    sendCode = async () => {
+        let request = await Api.sendPhoneCode('18700875325');
+        this.setState({
+            text: request
+        });
+    }
+
+    login = async () => {
+        let request = await Api.loginByPhoneNum('18700875325', '987456', 'android', '0.0.1');
+        console.log(request);
     }
 }
 
@@ -42,5 +69,15 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
         margin: 10,
-    }
+    },
+    button: {
+        flex: 1,
+        marginLeft: 50,
+        marginRight: 50,
+        marginTop: 20,
+        height: 50,
+        textAlign: 'center',
+        color: 'white',
+        backgroundColor: 'blue'
+    },
 });

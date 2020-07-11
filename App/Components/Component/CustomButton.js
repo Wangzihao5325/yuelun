@@ -4,55 +4,59 @@
  * Creat by charlie
  * 
 */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
-    Button
+    Text,
+    TouchableHighlight
 } from 'react-native';
-import {interceptTime} from '../../Config/SystemConfig';
+import { interceptTime } from '../../Config/SystemConfig';
 import * as TimerManager from '../../Functions/Time/TimeManager';
 import * as LogManager from '../../Functions/LogManager/LogManager';
 
-let clickTime;  //Save click time to prevent duplicate clicks
+//let clickTime;  //Save click time to prevent duplicate clicks
 
-export default class CustomButton extends Component{
-    constructor(props){
+export default class CustomButton extends Component {
+    constructor(props) {
         super(props);
-        clickTime = this.returnTheCurrentTime();
+        this.clickTime = this.returnTheCurrentTime();
 
         this.state = {
-            clickType : this.props.clickType ? this.props.clickType : this.props.title
+            clickType: this.props.clickType ? this.props.clickType : this.props.title,
+            title: `${this.props.title}`
         };
     }
 
-    render(){
-        return(
-            <Button
-                title={this.props.title}
-                style={this.props.buttonStyle}
-                onPress={()=>{this.buttonClickEvent()}
-                }
-            />
+    render() {
+        const { buttonStyle, titleStyle, underlayColor, isActive = true, codeMode = false } = this.props;
+        return (
+            <TouchableHighlight
+                style={buttonStyle}
+                onPress={this.buttonClickEvent}
+                underlayColor={underlayColor}
+            >
+                <Text style={titleStyle}>{`${this.state.title}`}</Text>
+            </TouchableHighlight>
         );
     }
 
-    buttonClickEvent = () =>{
+    buttonClickEvent = () => {
         let currentTime = this.returnTheCurrentTime();
-        let differenceValue = currentTime - clickTime;
+        let differenceValue = currentTime - this.clickTime;
 
-        clickTime = currentTime;
-        if(differenceValue < interceptTime){
+        this.clickTime = currentTime;
+        if (differenceValue < interceptTime) {
             console.log('重复点击拦截');
             return;
         }
 
-        if(this.props.clickEvent){
+        if (this.props.clickEvent) {
             this.props.clickEvent();
         }
         // console.log('点击触发'+this.state.clickType+'类型的点击'+'点击时间差为'+differenceValue);
         LogManager.recordTheClickEvent(this.props.title);
     }
 
-    returnTheCurrentTime = () =>{
+    returnTheCurrentTime = () => {
         let time = TimerManager.getTheCurrentTime();
         return time;
     }

@@ -16,6 +16,9 @@ import PageName from '../../Config/PageName';
 import * as navigator from '../../Router/NavigationService';
 
 export default class FirstPage extends Component {
+    state = {
+        test: '1234567'
+    }
 
     render() {
         return (
@@ -23,7 +26,7 @@ export default class FirstPage extends Component {
                 <Text style={styles.welcome}>
                     FisrtPage
                 </Text>
-                <Button
+                {/* <Button
                     title='下载进度条'
                     style={[styles.button]}
                     onPress={() => {
@@ -78,9 +81,109 @@ export default class FirstPage extends Component {
                         console.log('跳转FlatListPage');
                         navigator.jump(this, PageName.NORMAL_PAGE_SUGGESTION);
                     }}
+                /> */}
+                <Button
+                    title='个人信息-首页'
+                    style={[styles.button]}
+                    onPress={() => {
+                        navigator.jump(this, PageName.NORMAL_PERSONAL_INFO);
+                    }}
+                />
+                <Button
+                    title='个人信息-更换手机号'
+                    style={[styles.button]}
+                    onPress={() => {
+                        navigator.jump(this, PageName.NORMAL_CHANGE_PHONE_NUM);
+                    }}
+                />
+                <Button
+                    title='个人信息-更换昵称'
+                    style={[styles.button]}
+                    onPress={() => {
+                        navigator.jump(this, PageName.NORMAL_CHANGE_NICK_NAME);
+                    }}
+                />
+                <Button
+                    title='关于我们'
+                    style={[styles.button]}
+                    onPress={() => {
+                        navigator.jump(this, PageName.NORMAL_ABOUT_US);
+                    }}
+                />
+                <Button
+                    title='公告消息'
+                    style={[styles.button]}
+                    onPress={() => {
+                        navigator.jump(this, PageName.NORMAL_NOTICE);
+                    }}
+                />
+                <Button
+                    title='提示弹窗'
+                    style={[styles.button]}
+                    onPress={() => navigator.alert(this.alertPayload())}
+                />
+                <Button
+                    title='提示弹窗-底部'
+                    style={[styles.button]}
+                    onPress={() => navigator.alertBottom(this.alertBottomPayload())}
                 />
             </View>
         );
+    }
+
+    logState = () => {
+        console.log(this.state.test);
+    }
+
+    cancel = () => {
+        console.log('cancel')
+    }
+
+    alertBottomPayload = () => {
+        return {
+            content: '您当前有两款游戏正在加速，停止加速可能导致游戏断线，是否停止所有游戏的加速?',
+            bottomObjs: [
+                {
+                    key: 'stop',
+                    title: '停止所有游戏加速',
+                    callback: this.logState
+                },
+                {
+                    key: 'cancel',
+                    title: '取消',
+                    callback: this.cancel
+                },
+            ]
+        };
+    }
+
+    alertPayload = () => {
+        return {
+            title: '提示',
+            content: '这是一个提示，请选择你喜欢的选项,阿巴巴巴巴巴巴巴巴巴巴巴',
+            imageContent: {
+                source: { uri: 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png' },
+                //style: {}//可选参数
+            },
+            bottomObjs: [
+                {
+                    key: 'cancel',
+                    type: 'button',
+                    title: '取消',
+                    callback: this.cancel
+                },
+                {
+                    key: 'separator_1',
+                    type: 'separator'
+                },
+                {
+                    key: 'confirm',
+                    type: 'button',
+                    title: '确认',
+                    callback: this.logState
+                }
+            ]
+        };
     }
 }
 
