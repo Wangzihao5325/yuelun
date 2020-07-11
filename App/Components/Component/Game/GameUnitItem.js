@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {StyleSheet,View,Text,Image,TouchableOpacity} from 'react-native'
 
-export default class CustomeSwiper extends Component{
+export default class GameUnitItem extends Component{
     render(){
         return(
             <View style={styles.container}>
@@ -14,7 +14,9 @@ export default class CustomeSwiper extends Component{
                     <View style={styles.infoRoot}>
                         <Text style={styles.nameText}>{this.props.nameText}</Text>
                         <TouchableOpacity style={styles.buttonStyle}>
-                            <Image style={styles.iconStyle}/>
+                            <Image
+                                source = {require('../../../resource/Image/GameHomePage/lightning.png')} 
+                                style={styles.iconStyle}/>
                             <Text style={styles.activeText}>加速</Text>
                         </TouchableOpacity>
                     </View>
@@ -36,7 +38,8 @@ const styles = StyleSheet.create({
         borderWidth:2,
         borderColor:'rgba(215,197,159,1.0)',
         marginTop:-6.5,
-        marginLeft:-5
+        marginLeft:-5,
+        backgroundColor:'#0A264C',
     },
     infomationRootView:{
         marginLeft:5,
@@ -77,7 +80,6 @@ const styles = StyleSheet.create({
     iconStyle:{
         width:9.5,
         height:16.5,
-        backgroundColor:'#4F2F00'
     },
     activeText:{
         marginLeft:3,

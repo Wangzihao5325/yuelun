@@ -12,11 +12,14 @@ import FlatlistPage from '../../Pages/FlatlistPage';
 import ProgressRatePage from '../../Pages/ProgressRatePage';
 
 import acceleratorPage from '../../Pages/Page/acceleratorPage';
-import setting from '../../Pages/Page/setting';
-import suggestion from '../../Pages/Page/suggestion';
+import setting from '../../Pages/Mine/setting';
+import suggestion from '../../Pages/Mine/suggestion';
 import GameHomePage from '../../Pages/Page/GameHomePage';
+import searchPage from '../../Pages/Page/search';
 import AboutUsPage from '../../Pages/AboutUs';
 import NoticePage from '../../Pages/Notice';
+import MinePage from '../../Pages/Mine/MinePage';
+import Login from '../../Pages/Login';
 //个人信息页面
 import PersonalInfoPage from '../../Pages/personalInfo';
 import ChangePhoneNumPage from '../../Pages/personalInfo/ChangePhoneNum';
@@ -129,6 +132,14 @@ const optionArray = [
         }
     },
     {
+        key: PageName.NORMAL_PAGE_MINE,
+        name: PageName.NORMAL_PAGE_MINE,
+        component: MinePage,
+        options: {
+            headerShown: false,
+        }
+    },
+    {
         key: PageName.NORMAL_PERSONAL_INFO,
         name: PageName.NORMAL_PERSONAL_INFO,
         component: PersonalInfoPage,
@@ -158,6 +169,17 @@ const optionArray = [
         component: AboutUsPage,
         options: Object.assign({ title: '关于我们' }, defaultHeaderOptions)
     },
+    {
+        key: PageName.NORMAL_PAGE_SEARCH,
+        name: PageName.NORMAL_PAGE_SEARCH,
+        component: searchPage,
+        options: Object.assign({ title: '搜索' }, defaultHeaderOptions)
+    },{
+        key: PageName.NORAML_LOGIN_PAGE,
+        name: PageName.NORAML_LOGIN_PAGE,
+        component: Login,
+        options: Object.assign({ title: '登录' }, defaultHeaderOptions)
+    }
 ];
 
 

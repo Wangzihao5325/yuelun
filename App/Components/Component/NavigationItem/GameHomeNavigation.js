@@ -10,6 +10,7 @@ import {
     StyleSheet,
     View,
     Text,
+    Image,
     TouchableOpacity
 } from 'react-native';
 import {interceptTime} from '../../../Config/SystemConfig';
@@ -39,6 +40,10 @@ export default class GameHomeNavigation extends Component{
                         this.props.searchClickFunction();
                     }}
                     style={[styles.searchRootView]}>
+                        <Image
+                            style={styles.searchIcon}
+                             source = {require('../../../resource/Image/GameHomePage/search.png')}
+                        />
                 </TouchableOpacity>
             </View>
         );
@@ -78,13 +83,13 @@ const styles = StyleSheet.create({
     gameItemRootView:{
         flex:7,
         height:UIConfig.NavigatorViewHeight,
-        backgroundColor:'#00132D',
         flexDirection:'row'
     },
     searchRootView:{
         flex:1,
         height:UIConfig.NavigatorViewHeight,
-        backgroundColor:'yellow'
+        justifyContent:'center',
+        alignItems:'center'
     },
     searchItemRootView:{
         flex:1,
@@ -102,6 +107,10 @@ const styles = StyleSheet.create({
         borderRadius:1.5,
         backgroundColor:'white',
         marginTop:5
+    },
+    searchIcon:{
+        width:16,
+        height:16
     }
    
 });

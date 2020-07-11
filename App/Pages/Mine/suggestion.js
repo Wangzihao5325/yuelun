@@ -36,7 +36,7 @@ export default class suggestion extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={{marginLeft:15,marginTop:10}}>告诉我们您遇到的问题</Text>
+                <Text style={styles.textStyle}>告诉我们您遇到的问题</Text>
                 <View style={styles.suggestionRoot}>
                     <TextInput
                        placeholder = '请填写'
@@ -50,7 +50,7 @@ export default class suggestion extends Component {
                        multiline = {true}
                     />
                     <View style={styles.inputNumRoot}>
-                        <Text>{this.state.suggestion.length + '/200字'}</Text>
+                        <Text style={{color:'#BBBBBB'}}>{this.state.suggestion.length + '/200字'}</Text>
                     </View>
                 </View>
                 {this.renderTheTelItem()}
@@ -61,10 +61,11 @@ export default class suggestion extends Component {
     renderTheTelItem = () =>{
         return(
             <View style={styles.contactRoot}>
-                <Text>您的联系方式</Text>
+                <Text style={styles.textStyle}>您的联系方式</Text>
                 <TextInput 
                      placeholder='请留下QQ/电话哦'
                      style={styles.contactItem}
+                     placeholderTextColor = {'#BBBBBB'}
                      onChangeText = {(text)=>{
                         this.setState({contactValue:text})
                      }}
@@ -79,7 +80,7 @@ export default class suggestion extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor:'#00132D'
     },
     setViewRoot:{
         flex:1,
@@ -87,14 +88,13 @@ const styles = StyleSheet.create({
         marginLeft:0,
         marginRight:0,
         width:SCREEN_WIDTH,
-        backgroundColor:'white'
     },
     suggestionRoot:{
         marginLeft:15,
         marginTop:15,
         width:SCREEN_WIDTH-30,
         borderRadius:5,
-        backgroundColor:'red',
+        backgroundColor:'#042045',
         height:300,
     },
     problemInput:{
@@ -102,7 +102,8 @@ const styles = StyleSheet.create({
         marginRight:15,
         marginTop:10,
         marginBottom:20,
-        flex:1
+        flex:1,
+        color:'#BBBBBB'
     },
     inputNumRoot:{
         marginTop:0,
@@ -116,14 +117,21 @@ const styles = StyleSheet.create({
     },
     contactRoot:{
         marginTop:20,
-        marginLeft:15,
         marginRight:15
     },
     contactItem:{
         marginTop:15,
+        marginLeft:15,
         borderRadius:5,
         height:50,
         width:SCREEN_WIDTH-30,
-        backgroundColor:'red'
+        backgroundColor:'#042045ed',
+        color:'#BBBBBB'
+    },
+    textStyle:{
+        marginLeft:15,
+        marginTop:15,
+        fontSize:14,
+        color:'white'
     }
 });
