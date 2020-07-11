@@ -17,6 +17,7 @@ export default class CustomeSwiper extends Component {
         return (
             <View style={styles.container}>
                 <Swiper
+                    borderRadius={this.props.borderRadius ? this.props.borderRadius : 0}
                     height={BannerHeight}
                     loop={true}
                     index={0}
@@ -59,10 +60,10 @@ export default class CustomeSwiper extends Component {
         return (
             <ImageBackground
                 key={key}
-                style={{ flex: 1, width: BannerWidth, height: BannerHeight }}
+                style={{ flex: 1, width: BannerWidth, height: BannerHeight}}
                 source={source}>
                 <TouchableOpacity
-                    style={{ width: BannerWidth, height: BannerHeight }}
+                    style={{ width: BannerWidth, height: BannerHeight}}
                     onPress={
                         () => { this.bannerClickFunction(unitData) }
                     }
@@ -83,7 +84,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'white',
-        width: SCREEN_WIDTH,
-        height: SCREEN_WIDTH * 360 / 750
+        width: BannerWidth,
+        height: BannerHeight,
+        borderRadius:10,
     },
 });

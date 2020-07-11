@@ -76,7 +76,7 @@ export default class FirstPage extends Component {
                     style={[styles.button]}
                     onPress={() => {
                         console.log('跳转FlatListPage');
-                        navigator.jump(this, PageName.NORMAL_STACK_FLATLIST);
+                        navigator.jump(this, PageName.NORMAL_PAGE_SUGGESTION);
                     }}
                 />
             </View>

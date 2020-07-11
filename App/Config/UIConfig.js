@@ -23,8 +23,8 @@ const iPhoneX_height = 812;
 export const SCREEN_WIDTH  = Dimensions.get('window').width;
 export const SCREEN_HEIGHT = Dimensions.get('window').height;
 
-export const BannerWidth   = SCREEN_WIDTH;
-export const BannerHeight  = SCREEN_WIDTH * 360 / 750;
+export const BannerWidth   = SCREEN_WIDTH - 30;
+export const BannerHeight  = (SCREEN_WIDTH - 30) * 138 / 345;
 
 const getTheNavigatorTabBarHeight = () => {
     if(SystemConfig.theDeviceIsFullScreenMobilePhone()){

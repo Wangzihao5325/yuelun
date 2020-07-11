@@ -10,6 +10,11 @@ import ToastPage from '../../Pages/ToastPage';
 import FlatlistPage from '../../Pages/FlatlistPage';
 import ProgressRatePage from '../../Pages/ProgressRatePage';
 
+import acceleratorPage from '../../Pages/Page/acceleratorPage';
+import setting from '../../Pages/Page/setting';
+import suggestion from '../../Pages/Page/suggestion';
+import GameHomePage from '../../Pages/Page/GameHomePage';
+
 const Stack = createStackNavigator();
 
 /** normalStack 配置块 */
@@ -19,7 +24,7 @@ const optionArray = [
         name: PageName.BOTM_TAB,
         component: BottomTab,
         options: {
-            title: 'Bottom_Home'
+            headerShown: false,
         }
     },
     {
@@ -70,6 +75,39 @@ const optionArray = [
             title: 'ProgressRate'
         }
     },
+    {
+        key: PageName.NORMAL_PAGE_ACCELERATOR,
+        name: PageName.NORMAL_PAGE_ACCELERATOR,
+        component: acceleratorPage,
+        options: {
+            title: 'acceleratorPage'
+        }
+    },
+    {
+        key: PageName.NORMAL_PAGE_SETTING,
+        name: PageName.NORMAL_PAGE_SETTING,
+        component: setting,
+        options: {
+            title: '设置'
+        }
+    }
+    ,
+    {
+        key: PageName.NORMAL_PAGE_SUGGESTION,
+        name: PageName.NORMAL_PAGE_SUGGESTION,
+        component: suggestion,
+        options: {
+            title: '意见反馈'
+        }
+    },
+    {
+        key: PageName.NORMAL_PAGE_GAME_HOME_PAGE,
+        name: PageName.NORMAL_PAGE_GAME_HOME_PAGE,
+        component: GameHomePage,
+        options: {
+            headerShown: false,
+        }
+    }
 ];
 
 

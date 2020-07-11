@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
         width:SCREEN_WIDTH,
         flex:1,
         backgroundColor:'white',
-
     },
     textStyle: {
         fontSize: 30,

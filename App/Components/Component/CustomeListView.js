@@ -24,6 +24,7 @@ export default class CustomeListView extends Component{
         this.state = {
             dataArray : this.props.data ? this.props.data : [],
             isRefreshing: this.props.autoFreshing ? this.props.autoFreshing : false,
+            notSupportLoadMore: this.props.notSupportLoadMore ? this.props.notSupportLoadMore : false
         }
     }
 
@@ -108,6 +109,10 @@ export default class CustomeListView extends Component{
 
     /** 上拉加载执行函数 */
     _onEndReached = () =>{
+        if(this.state.notSupportLoadMore){
+            return;
+        }
+
         if(this.freashStatus) {
             console.log('触发下拉刷新---过滤');
             return;

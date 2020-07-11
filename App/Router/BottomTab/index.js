@@ -7,15 +7,16 @@ import FirstPage from '../../Pages/TabPage/FirstPage';
 import SecondPage from '../../Pages/TabPage/SecondPage';
 import ThirdPage from '../../Pages/TabPage/ThirdPage';
 import FourthPage from '../../Pages/TabPage/FourthPage';
+import GameHomePage from '../../Pages/Page/GameHomePage';
 
 const Tab = createBottomTabNavigator();
 
 /** bottomTab 配置块 */
 const optionArray = [
     {
-        key: PageName.BOTM_TAB_FIRST,
-        name: PageName.BOTM_TAB_FIRST,
-        component: FirstPage,
+        key: PageName.NORMAL_PAGE_GAME_HOME_PAGE,
+        name: PageName.NORMAL_PAGE_GAME_HOME_PAGE,
+        component: GameHomePage,
         options: {
             title: 'first',
             tabBarIcon: ({ focused, color, size }) => {
