@@ -15,8 +15,13 @@ class Root extends Component {
                 <InitPage />
             );
         } else if (!this.props.isLogin) {
+            // return (
+            //     <Login />
+            // );
             return (
-                <Login />
+                <NavigationContainer ref={navigationRef}>
+                    <ModalStack />
+                </NavigationContainer>
             );
         } else {
             return (
