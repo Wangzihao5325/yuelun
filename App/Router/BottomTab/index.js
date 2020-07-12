@@ -8,6 +8,7 @@ import SecondPage from '../../Pages/TabPage/SecondPage';
 import ThirdPage from '../../Pages/TabPage/ThirdPage';
 import FourthPage from '../../Pages/TabPage/FourthPage';
 import GameHomePage from '../../Pages/Page/GameHomePage';
+import MinePage from '../../Pages/Mine/MinePage';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +19,7 @@ const optionArray = [
         name: PageName.NORMAL_PAGE_GAME_HOME_PAGE,
         component: GameHomePage,
         options: {
-            title: 'first',
+            title: 'GameHomePage',
             tabBarIcon: ({ focused, color, size }) => {
                 let iconSrc = focused ? require('../../resource/Image/icon_me.png') : require('../../resource/Image/icon_default_me.png');
                 return <Image style={{ height: 20, width: 20 }} source={iconSrc} />
@@ -50,11 +51,11 @@ const optionArray = [
         }
     },
     {
-        key: PageName.BOTM_TAB_FOURTH,
-        name: PageName.BOTM_TAB_FOURTH,
-        component: FourthPage,
+        key: PageName.NORMAL_PAGE_MINE,
+        name: PageName.NORMAL_PAGE_MINE,
+        component: MinePage,
         options: {
-            title: 'fourth',
+            title: 'MinePage',
             tabBarIcon: ({ focused, color, size }) => {
                 let iconSrc = focused ? require('../../resource/Image/icon_me.png') : require('../../resource/Image/icon_default_me.png');
                 return <Image style={{ height: 20, width: 20 }} source={iconSrc} />

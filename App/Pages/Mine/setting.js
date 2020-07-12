@@ -15,8 +15,9 @@ import {
     TouchableOpacity,
     Switch
 } from 'react-native';
-import CustomButton from '../../Components/Component/CustomButton';
 import {SCREEN_WIDTH, SCREEN_HEIGHT} from '../../Config/UIConfig';
+import PageName from '../../Config/PageName';
+import * as navigator from '../../Router/NavigationService';
 
 export default class setting extends Component {
     constructor(props){
@@ -54,7 +55,7 @@ export default class setting extends Component {
     renderTheAcceleratorAutoItem = () =>{
         return(
             <View style={styles.setRootView}>
-                <Text>下次启动自动加速</Text>
+                <Text style={styles.textStyle}>下次启动自动加速</Text>
                 <Switch 
                     onValueChange = {(event)=>{
                         this.setState({switchValue:event});
@@ -67,13 +68,21 @@ export default class setting extends Component {
 
     renderTheSuggestionItem = () =>{
         return(
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>{
+                this.pushToSuggestionView();
+            }}>
                 <View style={styles.setRootView}>
-                    <Text>意见反馈</Text>
-                    <Image style={styles.setIcon}/>
+                    <Text style={styles.textStyle}>意见反馈</Text>
+                    <Image
+                         source = {require('../../resource/Image/GameHomePage/more.png')} 
+                         style={styles.setIcon}/>
                 </View>
             </TouchableOpacity>
         );
+    }
+
+    pushToSuggestionView = () =>{
+        navigator.jump(this, PageName.NORMAL_PAGE_SUGGESTION);
     }
 }
 
@@ -81,7 +90,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: 'white',
+        backgroundColor:'#00132D'
     },
     setViewRoot:{
         flex:1,
@@ -89,7 +98,7 @@ const styles = StyleSheet.create({
         marginLeft:0,
         marginRight:0,
         width:SCREEN_WIDTH,
-        backgroundColor:'white'
+        backgroundColor:'#00132D'
     },
     logoutRoot:{
         marginLeft:0,
@@ -98,11 +107,11 @@ const styles = StyleSheet.create({
         width:SCREEN_WIDTH,
         height:90,
         alignItems:'center',
-        backgroundColor:'blue'
+        backgroundColor:'#00132D'
     },
     logoutBtnBtn:{
         borderWidth:1.0,
-        borderRadius:4,
+        borderRadius:24,
         borderColor:'yellow',
         justifyContent:'center',
         alignItems:'center',
@@ -115,7 +124,7 @@ const styles = StyleSheet.create({
         marginTop:0,
         marginLeft:0,
         width:SCREEN_WIDTH,
-        height:50,
+        height:70,
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'center',
@@ -125,6 +134,9 @@ const styles = StyleSheet.create({
     setIcon:{
         width:10,
         height:20,
-        backgroundColor:'red'
+    },
+    textStyle:{
+        fontSize:14,
+        color:'white'
     }
 });
