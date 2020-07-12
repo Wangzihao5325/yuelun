@@ -18,12 +18,16 @@ export default class Login extends Component {
     render() {
         const { bgColor } = themeColor;
         const { phoneNum, verificationCode } = this.state;
+        let isSinglePageMode = this.props.type == 'singlePage';//判断是作为单页面调用还是在stack navi中调用
+        let additionalStyle = isSinglePageMode ? null : { paddingTop: 0 }
         return (
-            <SafeAreaView style={{ flex: 1, backgroundColor: bgColor }}>
+            <SafeAreaView style={[{ flex: 1, backgroundColor: bgColor }, additionalStyle]}>
                 <View style={{ height: 20, width: SCREEN_WIDTH, paddingHorizontal: 15 }}>
-                    <TouchableHighlight onPress={this.startAppWithUnLogin} underlayColor='transparent'>
-                        <Icon name='chevron-left' size={20} color="#666" />
-                    </TouchableHighlight>
+                    {isSinglePageMode &&
+                        <TouchableHighlight onPress={this.startAppWithUnLogin} underlayColor='transparent'>
+                            <Icon name='chevron-left' size={20} color="#666" />
+                        </TouchableHighlight>
+                    }
                 </View>
                 <Image
                     style={styles.headerImage}

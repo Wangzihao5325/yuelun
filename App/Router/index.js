@@ -16,7 +16,7 @@ class Root extends Component {
             );
         } else if (this.props.isLogin) {
             return (
-                <Login />
+                <Login type='singlePage' />
             );
         } else {
             return (

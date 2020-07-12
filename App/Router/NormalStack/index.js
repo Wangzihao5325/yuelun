@@ -110,18 +110,14 @@ const optionArray = [
         key: PageName.NORMAL_PAGE_SETTING,
         name: PageName.NORMAL_PAGE_SETTING,
         component: setting,
-        options: {
-            title: '设置'
-        }
+        options: Object.assign({ title: '设置' }, defaultHeaderOptions)
     }
     ,
     {
         key: PageName.NORMAL_PAGE_SUGGESTION,
         name: PageName.NORMAL_PAGE_SUGGESTION,
         component: suggestion,
-        options: {
-            title: '意见反馈'
-        }
+        options: Object.assign({ title: '意见反馈' }, defaultHeaderOptions)
     },
     {
         key: PageName.NORMAL_PAGE_GAME_HOME_PAGE,
@@ -174,7 +170,7 @@ const optionArray = [
         name: PageName.NORMAL_PAGE_SEARCH,
         component: searchPage,
         options: Object.assign({ title: '搜索' }, defaultHeaderOptions)
-    },{
+    }, {
         key: PageName.NORAML_LOGIN_PAGE,
         name: PageName.NORAML_LOGIN_PAGE,
         component: Login,
