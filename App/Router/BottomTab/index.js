@@ -19,10 +19,10 @@ const optionArray = [
         name: PageName.NORMAL_PAGE_GAME_HOME_PAGE,
         component: GameHomePage,
         options: {
-            title: 'GameHomePage',
+            title: '游戏',
             tabBarIcon: ({ focused, color, size }) => {
-                let iconSrc = focused ? require('../../resource/Image/icon_me.png') : require('../../resource/Image/icon_default_me.png');
-                return <Image style={{ height: 20, width: 20 }} source={iconSrc} />
+                let iconSrc = focused ? require('../../resource/Image/BottomNavi/home_select.png') : require('../../resource/Image/BottomNavi/home_unselect.png');
+                return <Image style={{ height: 20, width: 20 }} source={iconSrc} resizeMode='contain' />
             }
         }
     },
@@ -31,21 +31,9 @@ const optionArray = [
         name: PageName.BOTM_TAB_SECOND,
         component: SecondPage,
         options: {
-            title: 'second',
+            title: '加速',
             tabBarIcon: ({ focused, color, size }) => {
-                let iconSrc = focused ? require('../../resource/Image/icon_me.png') : require('../../resource/Image/icon_default_me.png');
-                return <Image style={{ height: 20, width: 20 }} source={iconSrc} />
-            }
-        }
-    },
-    {
-        key: PageName.BOTM_TAB_THIRD,
-        name: PageName.BOTM_TAB_THIRD,
-        component: ThirdPage,
-        options: {
-            title: 'third',
-            tabBarIcon: ({ focused, color, size }) => {
-                let iconSrc = focused ? require('../../resource/Image/icon_me.png') : require('../../resource/Image/icon_default_me.png');
+                let iconSrc = focused ? require('../../resource/Image/BottomNavi/accelerate_select.png') : require('../../resource/Image/BottomNavi/accelerate_unselect.png');
                 return <Image style={{ height: 20, width: 20 }} source={iconSrc} />
             }
         }
@@ -55,9 +43,9 @@ const optionArray = [
         name: PageName.NORMAL_PAGE_MINE,
         component: MinePage,
         options: {
-            title: 'MinePage',
+            title: '我的',
             tabBarIcon: ({ focused, color, size }) => {
-                let iconSrc = focused ? require('../../resource/Image/icon_me.png') : require('../../resource/Image/icon_default_me.png');
+                let iconSrc = focused ? require('../../resource/Image/BottomNavi/mine_select.png') : require('../../resource/Image/BottomNavi/mine_unselect.png');
                 return <Image style={{ height: 20, width: 20 }} source={iconSrc} />
             }
         }
@@ -69,8 +57,12 @@ export default class BottomTab extends Component {
         return (
             <Tab.Navigator
                 tabBarOptions={{
-                    activeTintColor: 'tomato',
-                    inactiveTintColor: 'gray',
+                    activeTintColor: '#CDCE21',
+                    inactiveTintColor: '#8FADD7',
+                    style: {
+                        backgroundColor: '#00132D',
+                        borderTopWidth:0
+                    }
                 }}
             >
                 {

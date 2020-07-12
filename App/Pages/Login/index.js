@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, TouchableHighlight, Image, Text, StyleSheet } from 'react-native';
+import { View, TouchableHighlight, Image, Text, Platform, StyleSheet } from 'react-native';
 import { themeColor, SCREEN_WIDTH } from '../../Config/UIConfig';
+import * as Api from '../../Functions/NativeBridge/ApiModule';
 import store from '../../store';
 import { app_start_app } from '../../store/actions/appAction';
 
@@ -112,7 +113,15 @@ export default class Login extends Component {
     }
 
     login = () => {
-        console.log('登录');
+        // const { phoneNum, verificationCode } = this.state;
+        // Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, '0.0.1')
+        //     .then(() => {
+        //         console.log(result);
+        //     })
+        //     .catch((error)=>{
+        //         console.log(error);
+        //     });
+        store.dispatch(app_start_app());
     }
 
     startAppWithUnLogin = () => {
