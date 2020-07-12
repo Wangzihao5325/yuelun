@@ -10,7 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../Config/UIConfig';
 import CustomButton from '../../Components/Component/CustomButton';
 import store from '../../store';
-import { app_init } from '../../store/actions/appAction';
+import { app_login } from '../../store/actions/appAction';
 
 const SPLASH_DATA = [
     {
@@ -74,13 +74,13 @@ export default class InitPage extends Component {
                 horizontal={true}
                 pagingEnabled={true}
                 data={SPLASH_DATA}
-                renderItem={({ item }) => <Item {...item} itemClick={this.startApp} />}
+                renderItem={({ item }) => <Item {...item} itemClick={this.goToLogin} />}
             />
         );
     }
 
-    startApp = () => {
-        store.dispatch(app_init());
+    goToLogin = () => {
+        store.dispatch(app_login());
     }
 }
 

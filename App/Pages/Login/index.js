@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
-import { themeColor } from '../../Config/UIConfig';
+import { View, TouchableHighlight, Image, Text, StyleSheet } from 'react-native';
+import { themeColor, SCREEN_WIDTH } from '../../Config/UIConfig';
+import store from '../../store';
+import { app_start_app } from '../../store/actions/appAction';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomInput from '../../Components/Component/CustomInput';
 import CustomButton from '../../Components/Component/CustomButton';
 
@@ -17,6 +20,11 @@ export default class Login extends Component {
         const { phoneNum, verificationCode } = this.state;
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: bgColor }}>
+                <View style={{ height: 20, width: SCREEN_WIDTH, paddingHorizontal: 15 }}>
+                    <TouchableHighlight onPress={this.startAppWithUnLogin} underlayColor='transparent'>
+                        <Icon name='chevron-left' size={20} color="#666" />
+                    </TouchableHighlight>
+                </View>
                 <Image
                     style={styles.headerImage}
                     resizeMode='contain'
@@ -24,7 +32,7 @@ export default class Login extends Component {
                 />
                 <CustomInput
                     iconComponent={
-                        <View style={{height:30,flexDirection:'row',alignItems:'center'}}>
+                        <View style={{ height: 30, flexDirection: 'row', alignItems: 'center' }}>
                             <View
                                 style={{ height: 30, width: 30, justifyContent: 'center', alignItems: 'center' }}
                             >
@@ -34,7 +42,7 @@ export default class Login extends Component {
                                     source={require('../../resource/Image/Normal/mobile.png')}
                                 />
                             </View>
-                            <Text style={{color:'#707070',fontSize:19,marginRight:20}}>+86</Text>
+                            <Text style={{ color: '#707070', fontSize: 19, marginRight: 20 }}>+86</Text>
                         </View>
                     }
                     style={{ alignSelf: 'center', backgroundColor: 'transparent', paddingHorizontal: 0 }}
@@ -101,6 +109,10 @@ export default class Login extends Component {
 
     login = () => {
         console.log('登录');
+    }
+
+    startAppWithUnLogin = () => {
+        store.dispatch(app_start_app());
     }
 }
 

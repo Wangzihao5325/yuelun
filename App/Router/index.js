@@ -9,19 +9,14 @@ import ModalStack from './ModalStack';
 //import DrawerStack from './DrawerStack';
 class Root extends Component {
     render() {
-        if (!this.props.isInit) {
+        if (this.props.isInit) {
             /** InitPage负责App的初始化 */
             return (
                 <InitPage />
             );
-        } else if (!this.props.isLogin) {
-            // return (
-            //     <Login />
-            // );
+        } else if (this.props.isLogin) {
             return (
-                <NavigationContainer ref={navigationRef}>
-                    <ModalStack />
-                </NavigationContainer>
+                <Login />
             );
         } else {
             return (
