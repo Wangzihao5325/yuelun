@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { themeColor, SCREEN_WIDTH } from '../../Config/UIConfig';
+import { connect } from 'react-redux'
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import buttonWrapper from '../../Components/Component/HOCButtonWrapper';
@@ -29,7 +30,7 @@ const InfoItem = (props) => {
 
 const ItemWrapper = buttonWrapper(InfoItem);
 
-export default class PersonalInfo extends Component {
+class PersonalInfo extends Component {
     render() {
         const { bgColor } = themeColor;
         return (
@@ -41,12 +42,12 @@ export default class PersonalInfo extends Component {
                 />
                 <ItemWrapper
                     title='昵称'
-                    content='131231231'
+                    content={this.props.username}
                     clickEvent={this.changeNickName}
                 />
                 <ItemWrapper
                     title='手机号'
-                    content='18210841112'
+                    content={this.props.mobile}
                     clickEvent={this.changePhone}
                 />
             </SafeAreaView>
@@ -65,6 +66,13 @@ export default class PersonalInfo extends Component {
         console.log('更换手机');
     }
 }
+
+const mapStateToProps = (state) => ({
+    username: state.user.username,
+    mobile: state.user.mobile
+})
+
+export default connect(mapStateToProps)(PersonalInfo);
 
 const styles = StyleSheet.create({
     itemContainer: {

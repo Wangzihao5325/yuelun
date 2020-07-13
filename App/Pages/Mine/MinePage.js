@@ -118,7 +118,7 @@ class MinePage extends Component {
     }
 
     clickTheCheckUserInformationFunction = () => {
-        console.log('check the usr information');
+        navigator.jump(this, PageName.NORMAL_PERSONAL_INFO);
     }
 }
 

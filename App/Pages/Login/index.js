@@ -121,7 +121,7 @@ export default class Login extends Component {
             .then((result) => {
                 //session比较常用，所以在network里也存一份，方便使用
                 Network.session = result.data.session_id;
-                store.dispatch(login_user_info_init(result.data));
+                store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
                 store.dispatch(app_start_app());
             })
             .catch((error) => {

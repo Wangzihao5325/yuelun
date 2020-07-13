@@ -2,6 +2,8 @@ import * as Types from '../actionTypes';
 
 const initialState = {
     isLogin: false,
+    mobile:'',
+
     end_time: 0,
     login_ip: null,
     network_ip: null,
@@ -19,7 +21,6 @@ const initialState = {
     user_id: "0",
     username: "未登录",
     yy_id: "0",
-
 }
 
 const reducer = (state = initialState, action) => {
