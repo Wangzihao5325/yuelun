@@ -75,4 +75,10 @@ public class CApiClientManager extends ReactContextBaseJavaModule {
         String receiveStr = CApiClient.YuelunGetAdList();
         promise.resolve(receiveStr);
     }
+
+    @ReactMethod
+    public void yuelunModifUserInfo(String strsession_id,String strphone_num,String strcode,String strusername,String strhead_png, Promise promise){
+        String receiveStr = CApiClient.YuelunModifUserInfo(strsession_id,strphone_num,strcode,strusername,strhead_png);
+        promise.resolve(receiveStr);
+    }
 }

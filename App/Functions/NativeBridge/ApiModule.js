@@ -96,3 +96,8 @@ export const getAdList = async () => {
     let strRequest = await CApiClientManager.yuelunGetAdList();
     return JSON.parse(strRequest);
 }
+
+export const modifyUserInfo = async (sessionId, phoneNum, verificationCode, name, avater) => {
+    let strRequest = await CApiClientManager.yuelunModifUserInfo(sessionId, phoneNum, verificationCode, name, avater);
+    return JSON.parse(strRequest);
+}
