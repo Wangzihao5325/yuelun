@@ -1,4 +1,7 @@
-import { NativeModules } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
+import Mock from '../../Mock';
+//是否启用mock数据
+const isMock = Platform.OS === 'ios';
 
 const CApiClientManager = NativeModules.CApiClient;
 /**
@@ -55,6 +58,9 @@ export const getGameInfoById = async (sessionId, gameId, gameToken) => {
  * @param {string} listToken token第一次请求传空，从返回json列表中获取该值 下次请求传入，若配置无更改，则下发ok,配置更改重新下发一份新的json数据
  */
 export const getAllGameConfig = async (sessionId, listToken) => {
+    if (isMock) {
+        return Mock.homeResult;
+    }
     let strRequest = await CApiClientManager.yuelunGetAllGameConfig(sessionId, listToken);
     return JSON.parse(strRequest);
 }
