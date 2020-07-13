@@ -4,6 +4,9 @@ import { themeColor, SCREEN_WIDTH } from '../../Config/UIConfig';
 import * as Api from '../../Functions/NativeBridge/ApiModule';
 import store from '../../store';
 import { app_start_app } from '../../store/actions/appAction';
+import { login_user_info_init } from '../../store/actions/userAction';
+import { appVersion } from '../../Config/SystemConfig';
+import Network from '../../Config/Network';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -113,15 +116,17 @@ export default class Login extends Component {
     }
 
     login = () => {
-        // const { phoneNum, verificationCode } = this.state;
-        // Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, '0.0.1')
-        //     .then(() => {
-        //         console.log(result);
-        //     })
-        //     .catch((error)=>{
-        //         console.log(error);
-        //     });
-        store.dispatch(app_start_app());
+        const { phoneNum, verificationCode } = this.state;
+        Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
+            .then((result) => {
+                //session比较常用，所以在network里也存一份，方便使用
+                Network.session = result.data.session_id;
+                store.dispatch(login_user_info_init(result.data));
+                store.dispatch(app_start_app());
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     startAppWithUnLogin = () => {

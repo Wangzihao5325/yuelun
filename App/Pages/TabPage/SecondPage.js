@@ -35,7 +35,7 @@ export default class SecondPage extends Component {
                     onPress={this.sendCode}
                 />
                 <Button
-                    title='请求-登录'
+                    title='请求-首页'
                     style={[styles.button]}
                     onPress={this.login}
                 />
@@ -51,7 +51,7 @@ export default class SecondPage extends Component {
     }
 
     login = async () => {
-        let request = await Api.loginByPhoneNum('18700875325', '987456', 'android', '0.0.1');
+        let request = await Api.getAllGameConfig('77b727bf68656d1696e1710976bb40a6deb7fc23', '');
         console.log(request);
     }
 }

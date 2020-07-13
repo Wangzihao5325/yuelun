@@ -5,9 +5,9 @@
 
 export default {
     DOMAIN: 'https://facebook.github.io',
-    
+
     TEST_MOVIE_URL: '/react-native/movies.json',
-    TEST_POST_URL : '/endpoint',
+    TEST_POST_URL: '/endpoint',
 
-
+    session: ''
 }
