@@ -1,41 +1,28 @@
 import React, { Component } from 'react';
 import { View, FlatList, Text, TouchableHighlight, StyleSheet } from 'react-native';
 import { themeColor, SCREEN_WIDTH, fontSize } from '../../Config/UIConfig';
-
-
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-const TestData = [
-    {
-        title: '上官网，领取神秘大奖1',
-        time: '2020-09-09 16:20:01',
-        isNew: false
-    },
-    {
-        title: '上官网，领取神秘大奖2',
-        time: '2020-09-09 16:20:02',
-        isNew: false
-    },
-    {
-        title: '上官网，领取神秘大奖3',
-        time: '2020-09-09 16:20:03',
-        isNew: true
-    }
-];
-
+import * as Api from '../../Functions/NativeBridge/ApiModule';
+import _ from 'lodash';
 /*item={
-    title:string,
-    time:string,
-    isNew:boolean
+    add_time: "1579762036"
+    title: "月轮悄悄地塞给你一个红包"
+    title_color: ""
+    url: "https://www.yuelun.com/news/content?id=234"
 }*/
 const Item = (props) => {
+    let time = new Date(parseInt(props.add_time) * 1000);
     return (
         <View style={styles.itemContainer}>
             <TouchableHighlight onPress={props.callback}>
                 <View style={styles.itemViewContainer}>
-                    {props.isNew && <View style={styles.redPoint} />}
-                    <Text style={styles.itemTitle}>{`${props.title}`}</Text>
-                    <Text style={styles.itemTime}>{`${props.time}`}</Text>
+                    {/* {props.isNew && <View style={styles.redPoint} />} */}
+                    <Text
+                        style={styles.itemTitle}
+                        ellipsizeMode='tail'
+                        numberOfLines={1}
+                    >{`${props.title}`}</Text>
+                    <Text style={styles.itemTime}>{`${time.toLocaleString()}`}</Text>
                 </View>
             </TouchableHighlight>
         </View>
@@ -43,13 +30,27 @@ const Item = (props) => {
 }
 
 export default class Notice extends Component {
+    state = {
+        data: []
+    }
+
+    componentDidMount() {
+        Api.getNewsList()
+            .then((res) => {
+                let dataArr = _.values(res.data);
+                this.setState({
+                    data: dataArr.slice(0, 15)
+                });
+            })
+    }
     render() {
         const { bgColor } = themeColor;
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: bgColor, paddingTop: 0 }}>
                 <FlatList style={{ flex: 1 }}
-                    data={TestData}
+                    data={this.state.data}
                     renderItem={({ item }) => <Item {...item} callback={() => this.itemPress(item)} />}
+                    keyExtractor={(item) => item.add_time}
                 />
             </SafeAreaView>
         );

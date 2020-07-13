@@ -4,6 +4,8 @@ import {
     View,
     FlatList,
     Text,
+    Platform,
+    StatusBar,
     StyleSheet
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -67,6 +69,11 @@ const Item = (props) => {
     );
 }
 export default class InitPage extends Component {
+    componentDidMount() {
+        if (Platform.OS === 'android') {
+            StatusBar.setBackgroundColor('#00132C');
+        }
+    }
     render() {
         return (
             <FlatList
