@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { themeColor, SCREEN_WIDTH } from '../../Config/UIConfig';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import * as navigator from '../../Router/NavigationService';
+import PageName from '../../Config/PageName';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import buttonWrapper from '../../Components/Component/HOCButtonWrapper';
@@ -63,7 +65,8 @@ class PersonalInfo extends Component {
     }
 
     changePhone = () => {
-        console.log('更换手机');
+        //console.log('更换手机');
+        navigator.jump(this, PageName.NORMAL_CHANGE_PHONE_NUM)
     }
 }
 
