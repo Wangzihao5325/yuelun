@@ -97,6 +97,15 @@ export const getAdList = async () => {
     return JSON.parse(strRequest);
 }
 
+/**
+ * 
+ * @param {string} sessionId 用户登录获取到的session
+ * @param {string} phoneNum 用户手机号
+ * @param {string} verificationCode 验证码
+ * @param {string} name 要修改的用户名
+ * @param {string} avater 要修改的的头像图片文件
+ */
+
 export const modifyUserInfo = async (sessionId, phoneNum, verificationCode, name, avater) => {
     let strRequest = await CApiClientManager.yuelunModifUserInfo(sessionId, phoneNum, verificationCode, name, avater);
     return JSON.parse(strRequest);

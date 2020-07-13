@@ -26,7 +26,7 @@ export default class Login extends Component {
         let additionalStyle = isSinglePageMode ? null : { paddingTop: 0 }
         return (
             <SafeAreaView style={[{ flex: 1, backgroundColor: bgColor }, additionalStyle]}>
-                <View style={{ height: 20, width: SCREEN_WIDTH, paddingHorizontal: 15 }}>
+                <View style={{ height: 20, width: SCREEN_WIDTH, paddingHorizontal: 15,marginTop:10 }}>
                     {isSinglePageMode &&
                         <TouchableHighlight onPress={this.startAppWithUnLogin} underlayColor='transparent'>
                             <Icon name='chevron-left' size={20} color="#666" />
