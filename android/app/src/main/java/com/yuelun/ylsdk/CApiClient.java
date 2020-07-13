@@ -83,4 +83,14 @@ public class CApiClient {
     public static native String YuelunCheckHear(String strsession_id,String strgame_id,String strserver_id);
     public static native String YuelunGetNewsList();
     public static native String YuelunGetAdList();
+    /**
+     * 修改用户头像，昵称，手机号，修改哪个传哪个，不修改可以为空
+     * @param strsession_id 用户session_id
+     * @param strphone_num 用户手机号
+     * @param strcode 验证码
+     * @param strusername 要修改的用户名
+     * @param strhead_png 要修改的的头像图片文件
+     * @return
+     */
+    public static native String YuelunModifUserInfo(String strsession_id,String strphone_num,String strcode,String strusername,String strhead_png);
 }
