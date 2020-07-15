@@ -10,6 +10,8 @@ import FourthPage from '../../Pages/TabPage/FourthPage';
 import GameHomePage from '../../Pages/Page/GameHomePage';
 import MinePage from '../../Pages/Mine/MinePage';
 
+import CustomTabbar from './CustomTabbar';
+
 const Tab = createBottomTabNavigator();
 
 /** bottomTab 配置块 */
@@ -55,22 +57,22 @@ const optionArray = [
 export default class BottomTab extends Component {
     render() {
         return (
-            <Tab.Navigator
-                tabBarOptions={{
-                    activeTintColor: '#CDCE21',
-                    inactiveTintColor: '#8FADD7',
-                    style: {
-                        backgroundColor: '#00132D',
-                        borderTopWidth:0
-                    }
-                }}
+            <CustomTabbar
+            // tabBarOptions={{
+            //     activeTintColor: '#CDCE21',
+            //     inactiveTintColor: '#8FADD7',
+            //     style: {
+            //         backgroundColor: '#00132D',
+            //         borderTopWidth:0
+            //     }
+            // }}
             >
                 {
                     optionArray.map((item) => {
                         return <Tab.Screen {...item} />
                     })
                 }
-            </Tab.Navigator>
+            </CustomTabbar>
         );
     }
 }
