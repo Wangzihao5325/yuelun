@@ -39,10 +39,10 @@ export default class Notice extends Component {
     componentDidMount() {
         Api.getNewsList(`${this.state.page}`, `${this.state.limits}`)
             .then((res) => {
-                console.log(res);
-                let dataArr = _.values(res.data);
+                let dataArr = res.data.list;
                 this.setState({
-                    data: dataArr
+                    data: dataArr,
+                    page: res.data.page
                 });
             })
     }
@@ -54,9 +54,22 @@ export default class Notice extends Component {
                     data={this.state.data}
                     renderItem={({ item }) => <Item {...item} callback={() => this.itemPress(item)} />}
                     keyExtractor={(item) => item.add_time}
+                    onEndReachedThreshold={0.2}
+                    onEndReached={this.pageAdd}
                 />
             </SafeAreaView>
         );
+    }
+
+    pageAdd = () => {
+        Api.getNewsList(`${++this.state.page}`, `${this.state.limits}`)
+            .then((res) => {
+                let dataArr = res.data.list;
+                this.setState({
+                    data: [...this.state.data, ...dataArr],
+                    page: res.data.page
+                });
+            })
     }
 
     itemPress = (item) => {
