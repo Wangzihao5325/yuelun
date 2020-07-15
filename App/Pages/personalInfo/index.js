@@ -61,11 +61,10 @@ class PersonalInfo extends Component {
     }
 
     changeNickName = () => {
-        console.log('更换昵称');
+        navigator.jump(this, PageName.NORMAL_CHANGE_NICK_NAME)
     }
 
     changePhone = () => {
-        //console.log('更换手机');
         navigator.jump(this, PageName.NORMAL_CHANGE_PHONE_NUM)
     }
 }

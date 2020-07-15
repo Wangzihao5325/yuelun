@@ -31,15 +31,18 @@ const Item = (props) => {
 
 export default class Notice extends Component {
     state = {
+        page: 1,
+        limits: 15,
         data: []
     }
 
     componentDidMount() {
-        Api.getNewsList()
+        Api.getNewsList(`${this.state.page}`, `${this.state.limits}`)
             .then((res) => {
+                console.log(res);
                 let dataArr = _.values(res.data);
                 this.setState({
-                    data: dataArr.slice(0, 15)
+                    data: dataArr
                 });
             })
     }

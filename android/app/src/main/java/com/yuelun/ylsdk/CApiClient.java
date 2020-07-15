@@ -81,7 +81,13 @@ public class CApiClient {
      * @return
      */
     public static native String YuelunCheckHear(String strsession_id,String strgame_id,String strserver_id);
-    public static native String YuelunGetNewsList();
+    /**
+     * 获取公告信息
+     * @param strpages 页码，不传默认第一页
+     * @param strlimits 页数，不传默认每页10条
+     * @return
+     */
+    public static native String YuelunGetNewsList(String strpages,String strlimits);
     public static native String YuelunGetAdList();
     /**
      * 修改用户头像，昵称，手机号，修改哪个传哪个，不修改可以为空

@@ -83,10 +83,12 @@ export const checkHeart = async (sessionId, gameId, serverId) => {
     return JSON.parse(strRequest);
 }
 /**
- * news list
+ * 获取公告信息
+ * @param {string} page 页码，不传默认第一页
+ * @param {string} limits 页数，不传默认每页10条
  */
-export const getNewsList = async () => {
-    let strRequest = await CApiClientManager.yuelunGetNewsList();
+export const getNewsList = async (page, limits) => {
+    let strRequest = await CApiClientManager.yuelunGetNewsList(page, limits);
     return JSON.parse(strRequest);
 }
 /**

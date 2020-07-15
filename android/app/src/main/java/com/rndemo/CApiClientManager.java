@@ -65,8 +65,8 @@ public class CApiClientManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void yuelunGetNewsList( Promise promise){
-        String receiveStr = CApiClient.YuelunGetNewsList();
+    public void yuelunGetNewsList( String strpages,String strlimits,Promise promise){
+        String receiveStr = CApiClient.YuelunGetNewsList(strpages,strlimits);
         promise.resolve(receiveStr);
     }
 
