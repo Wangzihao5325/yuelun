@@ -20,6 +20,7 @@ import AboutUsPage from '../../Pages/AboutUs';
 import NoticePage from '../../Pages/Notice';
 import MinePage from '../../Pages/Mine/MinePage';
 import Login from '../../Pages/Login';
+import AccelerateDetails from '../../Pages/AccelerateDetails';
 //个人信息页面
 import PersonalInfoPage from '../../Pages/personalInfo';
 import ChangePhoneNumPage from '../../Pages/personalInfo/ChangePhoneNum';
@@ -175,9 +176,13 @@ const optionArray = [
         name: PageName.NORAML_LOGIN_PAGE,
         component: Login,
         options: Object.assign({ title: '登录' }, defaultHeaderOptions)
+    }, {
+        key: PageName.ACCELERATE_DETAILS_PAGE,
+        name: PageName.ACCELERATE_DETAILS_PAGE,
+        component: AccelerateDetails,
+        options: Object.assign({ title: '加速' }, defaultHeaderOptions)
     }
 ];
-
 
 export default class NormalStack extends Component {
     render() {
