@@ -31,8 +31,8 @@ export default class GameHomeNavigation extends Component{
         return(
             <View style={[styles.rootView]}>
                 <View style={[styles.gameItemRootView]}>
-                    {this.renderTheSelectItemRootView('全部游戏',1)}
-                    {this.renderTheSelectItemRootView('海外游戏',2)}
+                    {this.renderTheSelectItemRootView('国服',1)}
+                    {this.renderTheSelectItemRootView('外服',2)}
                     {this.renderTheSelectItemRootView('即将上线',3)}
                 </View>
                 <TouchableOpacity 
@@ -58,7 +58,7 @@ export default class GameHomeNavigation extends Component{
             }}>
                  <Text style={[styles.titleStyle,{
                     marginTop:this.props.selectStatus == status ? 8 : 0,
-                    color:this.props.selectStatus == status ? 'white' : '#FFFFFF'}]}>{title}</Text>
+                    color:this.props.selectStatus == status ? 'white' : '#8FADD7'}]}>{title}</Text>
                 {
                     this.props.selectStatus == status
                     ?

@@ -3,6 +3,115 @@ const result = {
         gameList: [
             {
                 game_list: [
+                    {
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },
                 ],
                 type_id: 3,
                 type_name: "即将上线"
@@ -13,7 +122,83 @@ const result = {
                         icon: "http://static.yuelun.com/game/game.png",
                         id: "4",
                         name: "王者荣耀"
-                    }],
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },{
+                        icon: "http://static.yuelun.com/game/game.png",
+                        id: "4",
+                        name: "王者荣耀"
+                    },],
+                    最新: [
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "5",
+                            name: "使命召唤手游-越南服"
+                        },
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "6",
+                            name: "使命召唤手游-韩服"
+                        },
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "5",
+                            name: "使命召唤手游-越南服"
+                        },
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "6",
+                            name: "使命召唤手游-韩服"
+                        },
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "5",
+                            name: "使命召唤手游-越南服"
+                        },
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "6",
+                            name: "使命召唤手游-韩服"
+                        },
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "6",
+                            name: "使命召唤手游-韩服"
+                        }
+                    ],
+                    热门: [
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "7",
+                            name: "云顶之奕"
+                        }
+                    ]
                 },
                 type_id: 1,
                 type_name: "国服"
@@ -30,14 +215,64 @@ const result = {
                             icon: "http://static.yuelun.com/game/game.png",
                             id: "6",
                             name: "使命召唤手游-韩服"
-                        }
+                        },
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "5",
+                            name: "使命召唤手游-越南服"
+                        },
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "6",
+                            name: "使命召唤手游-韩服"
+                        },
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "5",
+                            name: "使命召唤手游-越南服"
+                        },
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "6",
+                            name: "使命召唤手游-韩服"
+                        },
                     ],
                     热门: [
                         {
                             icon: "http://static.yuelun.com/game/game.png",
                             id: "7",
                             name: "云顶之奕"
-                        }
+                        },
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "5",
+                            name: "使命召唤手游-越南服"
+                        },
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "6",
+                            name: "使命召唤手游-韩服"
+                        },
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "5",
+                            name: "使命召唤手游-越南服"
+                        },
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "6",
+                            name: "使命召唤手游-韩服"
+                        },
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "5",
+                            name: "使命召唤手游-越南服"
+                        },
+                        {
+                            icon: "http://static.yuelun.com/game/game.png",
+                            id: "6",
+                            name: "使命召唤手游-韩服"
+                        },
                     ]
                 },
                 type_id: 1,

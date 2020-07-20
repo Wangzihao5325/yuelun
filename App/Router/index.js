@@ -14,7 +14,7 @@ class Root extends Component {
             return (
                 <InitPage />
             );
-        } else if (this.props.isLogin) {
+        } else if (!this.props.isLogin) {
             return (
                 <Login type='singlePage' />
             );
