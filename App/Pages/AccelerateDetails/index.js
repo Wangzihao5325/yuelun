@@ -3,6 +3,30 @@ import { View, ImageBackground, Text, Image, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { themeColor, SCREEN_WIDTH, fontSize } from '../../Config/UIConfig';
 import * as Api from '../../Functions/NativeBridge/ApiModule';
+import { LineChart } from "react-native-chart-kit";
+
+const data = {
+    labels: ["January", "February", "March", "April", "May", "June"],
+    datasets: [
+        {
+            data: [20, 45, 28, 80, 99, 43],
+            color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+            strokeWidth: 2 // optional
+        }
+    ],
+    legend: ["Rainy Days"] // optional
+};
+
+const chartConfig = {
+    backgroundGradientFrom: "#1E2923",
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientTo: "#08130D",
+    backgroundGradientToOpacity: 0.5,
+    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+    strokeWidth: 2, // optional, default 3
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false // optional
+};
 
 const Cover = (props) => {
     return (
@@ -30,7 +54,16 @@ const Cover = (props) => {
 
 const BottomChart = (props) => {
     return (
-        <View style={{ flex: 1, backgroundColor: '#001B41' }}></View>
+        <View style={{ flex: 1, backgroundColor: '#001B41', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <LineChart
+                data={data}
+                width={300}
+                height={256}
+                verticalLabelRotation={30}
+                chartConfig={chartConfig}
+                bezier
+            />
+        </View>
     )
 }
 
