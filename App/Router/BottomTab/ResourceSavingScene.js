@@ -1,3 +1,4 @@
+//此文件是从@react-navigation/bottom-tabs中copy出来，处理切换tab切换时render次数过多的问题
 import * as React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 // eslint-disable-next-line import/no-unresolved
