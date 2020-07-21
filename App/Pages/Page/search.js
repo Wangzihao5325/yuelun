@@ -35,19 +35,65 @@ export default class search extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <ScrollView>
-                <View style={styles.testStyle}>
-                   <View style={styles.iconView}><Text>1</Text></View>
-                   <View style={styles.iconView}><Text>2</Text></View>
-                   <View style={styles.iconView}><Text>1</Text></View>
-                   <View style={styles.iconView}><Text>3</Text></View>
-                   <View style={styles.iconView}><Text>1</Text></View>
-                   <View style={styles.iconView}><Text>4</Text></View>
-                   <View style={styles.iconView}><Text>1</Text></View>
-                   <View style={styles.iconView}><Text>5</Text></View>
-                   <View style={styles.iconView}><Text>1</Text></View>
+                {this.renderTheSearchHistorySection()}
+                {this.hotGamesSection()}
+            </View>
+        );
+    }
+
+    renderTheSearchHistorySection = () =>{
+        return(
+            <View style={{marginLeft:0,marginTop:10,width:SCREEN_WIDTH}}>
+            <View style={styles.searchRootView}>
+                <Text style={styles.searchText}>搜索历史</Text>
+                <TouchableOpacity onPress={this.clearAllSearchHistory()}>
+                    <Image style={styles.clearIconStyle}/>
+                </TouchableOpacity>
+            </View>
+            {this.renderTheHistoryTextSection()}
+            </View>
+        );
+    }
+
+    renderTheHistoryTextSection = () =>{
+        return(
+            <View style={styles.searchHistoryRoot}>
+                {this.renderTheHistoryTagItem('王者荣耀')}
+                {this.renderTheHistoryTagItem('王者荣耀')}
+                {this.renderTheHistoryTagItem('王者荣耀')}
+                {this.renderTheHistoryTagItem('王者荣耀王者荣耀')}
+                {this.renderTheHistoryTagItem('王者荣耀王者荣耀王者荣耀')}
+                {this.renderTheHistoryTagItem('王者荣耀')}
+                {this.renderTheHistoryTagItem('王者荣耀123')}
+                {this.renderTheHistoryTagItem('王者荣耀')}
+            </View>
+        );
+    }
+
+    renderTheHistoryTagItem = (historyText='',key) =>{
+        return(
+            <TouchableOpacity onPress = {()=>{this.clickTheHistoryTextAndSearch(historyText)} }>
+                <View style={[styles.tagRoot,{marginRight:14.5,marginBottom:10}]}>
+                    <Text style={styles.tagText}>{historyText}</Text>
                 </View>
-                </ScrollView>
+            </TouchableOpacity>
+        );
+    }
+
+    clearAllSearchHistory = () =>{
+        console.log('清除搜索历史');
+    }
+
+    clickTheHistoryTextAndSearch = (historyText = '') =>{
+        console.log(historyText);
+    }
+
+    hotGamesSection = () =>{
+        return(
+            <View style={{marginLeft:0,marginTop:10,width:SCREEN_WIDTH}}>
+                <View style={styles.searchRootView}>
+                <Text style={styles.searchText}>热搜</Text>
+            </View>
             </View>
         );
     }
@@ -57,30 +103,48 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: 'white',
+        backgroundColor: '#00132C',
     },
-    setViewRoot:{
-        flex:1,
-        marginTop:0,
+    searchRootView:{
+        width:SCREEN_WIDTH-30,
+        marginTop:11,
+        marginLeft:15,
+        marginRight:15,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center'
+    },
+    searchHistoryRoot:{
+        width:SCREEN_WIDTH,
+        marginTop:15,
         marginLeft:0,
         marginRight:0,
-        width:SCREEN_WIDTH,
-        backgroundColor:'white'
+        paddingLeft:15,
+        paddingRight:15,
+        flexDirection:'row',
+        flexWrap:'wrap'
     },
-    testStyle:{
-        height:270,
-        flexDirection:'column',
-        justifyContent:'flex-start',
-        flexWrap:'wrap',
-        justifyContent:'space-between',
-        backgroundColor:'yellow',
-        paddingTop:10,
-        paddingBottom:10
+    searchText:{
+        fontSize:14,
+        color:'#666666',
+        textAlign:'left',
     },
-    iconView:{
-        width:100,
-        height:100,
-        backgroundColor:'red',
-        marginLeft:15
-    }
+    clearIconStyle:{
+        width:16.5,
+        height:18,
+        backgroundColor:'red'
+    },
+    tagRoot:{
+        height:27,
+        paddingLeft:8,
+        paddingRight:8,
+        borderRadius:12.5,
+        borderWidth:0.5,
+        borderColor:'#91ADD7',
+        justifyContent:'center'
+    },
+    tagText:{
+        fontSize:14,
+        color:'#91ADD7'
+    },
 });
