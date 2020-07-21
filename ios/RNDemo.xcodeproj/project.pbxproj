@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		00675C46243094DC00085827 /* KeyChainModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 00675C44243094DC00085827 /* KeyChainModule.m */; };
 		00675C492430AE7100085827 /* QRScanReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 00675C482430AE7100085827 /* QRScanReader.m */; };
+		00E1FC0724C2CD280092895E /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E1FC0324C2CD270092895E /* libssl.a */; };
+		00E1FC0824C2CD280092895E /* libyuelun_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E1FC0424C2CD270092895E /* libyuelun_api.a */; };
+		00E1FC0924C2CD280092895E /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E1FC0524C2CD280092895E /* libcrypto.a */; };
+		00E1FC0A24C2CD280092895E /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E1FC0624C2CD280092895E /* libcurl.a */; };
+		00E1FC1E24C3314D0092895E /* CApiClientMiddleware.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00E1FC1D24C3314C0092895E /* CApiClientMiddleware.mm */; };
 		00E356F31AD99517003FC87E /* RNDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RNDemoTests.m */; };
 		00F29DD6242889D600A54037 /* BridgeDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F29DD5242889D600A54037 /* BridgeDemo.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -50,6 +55,17 @@
 		00675C472430AE4800085827 /* QRScanReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = QRScanReader.h; path = RNDemo/BridgeModule/QRScanModule/QRScanReader.h; sourceTree = "<group>"; };
 		00675C482430AE7100085827 /* QRScanReader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = QRScanReader.m; path = RNDemo/BridgeModule/QRScanModule/QRScanReader.m; sourceTree = "<group>"; };
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		00E1FC0324C2CD270092895E /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
+		00E1FC0424C2CD270092895E /* libyuelun_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libyuelun_api.a; sourceTree = "<group>"; };
+		00E1FC0524C2CD280092895E /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
+		00E1FC0624C2CD280092895E /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcurl.a; sourceTree = "<group>"; };
+		00E1FC0B24C2CDEA0092895E /* apiyuelun.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = apiyuelun.h; sourceTree = "<group>"; };
+		00E1FC1224C2DD670092895E /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		00E1FC1424C2DD980092895E /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
+		00E1FC1624C2DDAD0092895E /* libc++abi.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++abi.tbd"; path = "usr/lib/libc++abi.tbd"; sourceTree = SDKROOT; };
+		00E1FC1A24C330E00092895E /* CApiClientMiddleware.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CApiClientMiddleware.h; path = RNDemo/BridgeModule/YuelunApiModule/CApiClientMiddleware.h; sourceTree = "<group>"; };
+		00E1FC1D24C3314C0092895E /* CApiClientMiddleware.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CApiClientMiddleware.mm; path = RNDemo/BridgeModule/YuelunApiModule/CApiClientMiddleware.mm; sourceTree = "<group>"; };
+		00E1FC1F24C3FD330092895E /* libz.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.tbd; path = usr/lib/libz.1.tbd; sourceTree = SDKROOT; };
 		00E356EE1AD99517003FC87E /* RNDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RNDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* RNDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNDemoTests.m; sourceTree = "<group>"; };
@@ -97,6 +113,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00E1FC0A24C2CD280092895E /* libcurl.a in Frameworks */,
+				00E1FC0724C2CD280092895E /* libssl.a in Frameworks */,
+				00E1FC0824C2CD280092895E /* libyuelun_api.a in Frameworks */,
+				00E1FC0924C2CD280092895E /* libcrypto.a in Frameworks */,
 				C6ADE1C2F0F2E4FFB75C6354 /* libPods-RNDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,6 +168,8 @@
 				00F29DD5242889D600A54037 /* BridgeDemo.m */,
 				00675C472430AE4800085827 /* QRScanReader.h */,
 				00675C482430AE7100085827 /* QRScanReader.m */,
+				00E1FC1A24C330E00092895E /* CApiClientMiddleware.h */,
+				00E1FC1D24C3314C0092895E /* CApiClientMiddleware.mm */,
 			);
 			name = BridgeModule;
 			sourceTree = "<group>";
@@ -164,6 +186,7 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				00F29DD42428899000A54037 /* BridgeModule */,
 				000BA31924A990240091159D /* RNDemo-Bridging-Header.h */,
+				00E1FC0B24C2CDEA0092895E /* apiyuelun.h */,
 			);
 			name = RNDemo;
 			sourceTree = "<group>";
@@ -171,6 +194,10 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				00E1FC1F24C3FD330092895E /* libz.1.tbd */,
+				00E1FC1624C2DDAD0092895E /* libc++abi.tbd */,
+				00E1FC1424C2DD980092895E /* libc++.1.tbd */,
+				00E1FC1224C2DD670092895E /* libc++.tbd */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				D086370BEB68C40B80F3C07D /* libPods-RNDemo.a */,
@@ -201,6 +228,10 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				00E1FC0524C2CD280092895E /* libcrypto.a */,
+				00E1FC0624C2CD280092895E /* libcurl.a */,
+				00E1FC0324C2CD270092895E /* libssl.a */,
+				00E1FC0424C2CD270092895E /* libyuelun_api.a */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -674,6 +705,7 @@
 				00F29DD6242889D600A54037 /* BridgeDemo.m in Sources */,
 				00675C46243094DC00085827 /* KeyChainModule.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				00E1FC1E24C3314D0092895E /* CApiClientMiddleware.mm in Sources */,
 				00675C492430AE7100085827 /* QRScanReader.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				34F713CE243C2C6C001034CF /* AuthenticationModule.m in Sources */,
@@ -777,12 +809,17 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FB_SONARKIT_ENABLED=1",
 				);
 				INFOPLIST_FILE = RNDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -805,8 +842,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = RNDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

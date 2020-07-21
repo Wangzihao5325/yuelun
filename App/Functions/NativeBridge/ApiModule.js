@@ -2,8 +2,8 @@ import { NativeModules, Platform } from 'react-native';
 import Mock from '../../Mock';
 //是否启用mock数据
 const isMock = Platform.OS === 'ios';
-
 const CApiClientManager = NativeModules.CApiClient;
+let _sessionId = '';
 /**
  * 发送验证码
  * @param {string} phoneNum 手机号码
@@ -21,7 +21,9 @@ export const sendPhoneCode = async (phoneNum) => {
  */
 export const loginByPhoneNum = async (phoneNum, code, platform, version) => {
     let strRequest = await CApiClientManager.yuelunPhoneLogin(phoneNum, code, platform, version);
-    return JSON.parse(strRequest);
+    let result = JSON.parse(strRequest);
+    _sessionId = result.data.session_id;
+    return result;
 }
 /**
  * 连接服务器验证信心，下发加速需要使用的数据-(什么意思我也不懂，需要询问后台大哥)
@@ -35,21 +37,19 @@ export const connectServer = async (sessionId, gameId, serverId) => {
 }
 /**
  * 停止加速的时候，断开加速请求
- * @param {string} sessionId 用户登录获取到的session
  * @param {string} serverId 加速使用服务器id
  */
-export const disConnectServer = async (sessionId, serverId) => {
-    let strRequest = await CApiClientManager.yuelunDisConnectServer(sessionId, serverId);
+export const disConnectServer = async (serverId) => {
+    let strRequest = await CApiClientManager.yuelunDisConnectServer(_sessionId, serverId);
     return JSON.parse(strRequest);
 }
 /**
  * 根据需要加速的游戏id，获取游戏路由策略等详情
- * @param {string} sessionId 用户登录获取到的session
  * @param {string} gameId 要加速的游戏id
  * @param {string} gameToken token第一次请求传空，从返回json列表中获取该值 下次请求传入，若配置无更改，则下发ok,配置更改重新下发一份新的json数据
  */
-export const getGameInfoById = async (sessionId, gameId, gameToken) => {
-    let strRequest = await CApiClientManager.yuelunGetGameInfoById(sessionId, gameId, gameToken);
+export const getGameInfoById = async (gameId, gameToken) => {
+    let strRequest = await CApiClientManager.yuelunGetGameInfoById(_sessionId, gameId, gameToken);
     return JSON.parse(strRequest);
 }
 /**
@@ -57,19 +57,18 @@ export const getGameInfoById = async (sessionId, gameId, gameToken) => {
  * @param {string} sessionId 用户登录获取到的session
  * @param {string} listToken token第一次请求传空，从返回json列表中获取该值 下次请求传入，若配置无更改，则下发ok,配置更改重新下发一份新的json数据
  */
-export const getAllGameConfig = async (sessionId, listToken) => {
+export const getAllGameConfig = async (listToken) => {
     if (isMock) {
         return Mock.homeResult;
     }
-    let strRequest = await CApiClientManager.yuelunGetAllGameConfig(sessionId, listToken);
+    let strRequest = await CApiClientManager.yuelunGetAllGameConfig(_sessionId, listToken);
     return JSON.parse(strRequest);
 }
 /**
  * 退出登录
- * @param {string} sessionId 用户登录获取到的session
  */
-export const logout = async (sessionId) => {
-    let strRequest = await CApiClientManager.yuelunPhoneLoginout(sessionId);
+export const logout = async () => {
+    let strRequest = await CApiClientManager.yuelunPhoneLoginout(_sessionId);
     return JSON.parse(strRequest);
 }
 /**
@@ -78,8 +77,8 @@ export const logout = async (sessionId) => {
  * @param {*} gameId 可以为空，若有加速游戏则传游戏id
  * @param {*} serverId 可以为空，若有加速游戏则传当前使用服务器id列表
  */
-export const checkHeart = async (sessionId, gameId, serverId) => {
-    let strRequest = await CApiClientManager.yuelunCheckHear(sessionId, gameId, serverId);
+export const checkHeart = async (gameId, serverId) => {
+    let strRequest = await CApiClientManager.yuelunCheckHear(_sessionId, gameId, serverId);
     return JSON.parse(strRequest);
 }
 /**
@@ -101,14 +100,13 @@ export const getAdList = async () => {
 
 /**
  * 
- * @param {string} sessionId 用户登录获取到的session
  * @param {string} phoneNum 用户手机号
  * @param {string} verificationCode 验证码
  * @param {string} name 要修改的用户名
  * @param {string} avater 要修改的的头像图片文件
  */
 
-export const modifyUserInfo = async (sessionId, phoneNum, verificationCode, name, avater) => {
-    let strRequest = await CApiClientManager.yuelunModifUserInfo(sessionId, phoneNum, verificationCode, name, avater);
+export const modifyUserInfo = async (phoneNum, verificationCode, name, avater) => {
+    let strRequest = await CApiClientManager.yuelunModifUserInfo(_sessionId, phoneNum, verificationCode, name, avater);
     return JSON.parse(strRequest);
 }

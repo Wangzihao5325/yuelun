@@ -58,7 +58,7 @@ export default class BottomTab extends Component {
     render() {
         return (
             <CustomTabbar
-            tabBarStyle={{height:90}}
+            tabBarStyle={{height:60}}
             // tabBarOptions={{
             //     activeTintColor: '#CDCE21',
             //     inactiveTintColor: '#8FADD7',
