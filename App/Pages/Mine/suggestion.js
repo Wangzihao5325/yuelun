@@ -13,7 +13,8 @@ import {
     Button,
     Image,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    KeyboardAvoidingView
 } from 'react-native';
 import CustomButton from '../../Components/Component/CustomButton';
 import {SCREEN_WIDTH, SCREEN_HEIGHT} from '../../Config/UIConfig';
@@ -62,6 +63,7 @@ export default class suggestion extends Component {
         return(
             <View style={styles.contactRoot}>
                 <Text style={styles.textStyle}>您的联系方式</Text>
+                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
                 <TextInput 
                      placeholder='请留下QQ/电话哦'
                      style={styles.contactItem}
@@ -71,6 +73,7 @@ export default class suggestion extends Component {
                      }}
                     value = {this.state.contactValue}
                 />
+                </KeyboardAvoidingView>
             </View>
         );
     }

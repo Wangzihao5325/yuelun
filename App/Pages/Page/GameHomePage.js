@@ -174,6 +174,7 @@ export default class acceleratorPage extends Component {
                     title={title}
                     clickFunction={() => {
                         console.log('查看', title, '的更多');
+                        this.clickTheMoreGamesButton(title);
                     }} />
 
                 <ScrollView
@@ -196,6 +197,7 @@ export default class acceleratorPage extends Component {
                     title={title}
                     clickFunction={() => {
                         console.log('查看', title, '的更多');
+                        this.clickTheMoreGamesButton(title);
                     }} />
 
                 <ScrollView
@@ -307,6 +309,10 @@ export default class acceleratorPage extends Component {
 
     clickTheSearchItemButton = () => {
         navigator.jump(this, PageName.NORMAL_PAGE_SEARCH);
+    }
+
+    clickTheMoreGamesButton = (gameType = '') =>{
+        navigator.jump(this, PageName.NORMAL_PAGE_GAME_MORE_PAGE,{title:gameType});
     }
 }
 

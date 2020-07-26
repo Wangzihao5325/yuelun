@@ -21,6 +21,7 @@ import NoticePage from '../../Pages/Notice';
 import MinePage from '../../Pages/Mine/MinePage';
 import Login from '../../Pages/Login';
 import AccelerateDetails from '../../Pages/AccelerateDetails';
+import GameMore from '../../Pages/Page/GameMore';
 //个人信息页面
 import PersonalInfoPage from '../../Pages/personalInfo';
 import ChangePhoneNumPage from '../../Pages/personalInfo/ChangePhoneNum';
@@ -129,6 +130,12 @@ const optionArray = [
         }
     },
     {
+        key: PageName.NORMAL_PAGE_GAME_MORE_PAGE,
+        name: PageName.NORMAL_PAGE_GAME_MORE_PAGE,
+        component: GameMore,
+        options: Object.assign({ title: '更多游戏' }, defaultHeaderOptions)
+    },
+    {
         key: PageName.NORMAL_PAGE_MINE,
         name: PageName.NORMAL_PAGE_MINE,
         component: MinePage,
@@ -170,7 +177,9 @@ const optionArray = [
         key: PageName.NORMAL_PAGE_SEARCH,
         name: PageName.NORMAL_PAGE_SEARCH,
         component: searchPage,
-        options: Object.assign({ title: '搜索' }, defaultHeaderOptions)
+        options: {
+            headerShown: false,
+        }
     }, {
         key: PageName.NORAML_LOGIN_PAGE,
         name: PageName.NORAML_LOGIN_PAGE,
