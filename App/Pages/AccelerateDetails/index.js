@@ -24,8 +24,9 @@ export default class AccelerateDetails extends Component {
             title: gameInfo.name,
             //headerTransparent: true
         });
-
+        //gameInfo.id
         Api.getGameInfoById(gameInfo.id, '').then((request) => {
+            console.log(request);
             /*
             game_info: {
                 domain_black_list: ""
@@ -45,7 +46,7 @@ export default class AccelerateDetails extends Component {
             timestamp: 1595213291
             */
             this.setState({
-                ...request.game_info
+                ...request.data.game_info
             });
         })
     }
@@ -57,7 +58,7 @@ export default class AccelerateDetails extends Component {
                     <StowPage
                         icon={this.state.icon}
                         pageTypeChange={this.pageTypeChange}
-                        speedUp={() => { console.log('dddd') }}
+                        speedUp={this.speedUp}
                     />
                 }
                 {this.state.pageType === 'unfold' &&
@@ -76,5 +77,24 @@ export default class AccelerateDetails extends Component {
                 pageType
             }
         });
+    }
+
+    speedUp = () => {
+        const { use_server_id, id } = this.state;
+        if (use_server_id.length > 0) {
+            Api.connectServer(id, use_server_id[0]).then((res) => {
+                /** res.data
+                 * consult_ip: "162.14.5.205"
+                consult_port: "32091"
+                entry_ip: "119.3.83.78"
+                reserve_ip: ""
+                route_ip_list: []
+                tcp_port: ["15880"]
+                timestamp: 1595862116
+                udp_port: ["15880"]
+                 */
+                console.log(res);
+            })
+        }
     }
 }
