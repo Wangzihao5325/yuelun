@@ -58,7 +58,6 @@ export const getGameInfoById = async (gameId, gameToken) => {
  * @param {string} sessionId 用户登录获取到的session
  * @param {string} listToken token第一次请求传空，从返回json列表中获取该值 下次请求传入，若配置无更改，则下发ok,配置更改重新下发一份新的json数据
  */
-<<<<<<< HEAD
 export const getAllGameConfig = async (listToken,callBack) => {
     if(iOSPlatform) {
         let strRequest = await ApiHelper.yuelunGetAllGameConfigWithSessionId(_sessionId,listToken,callBack);
@@ -66,11 +65,6 @@ export const getAllGameConfig = async (listToken,callBack) => {
     }else{
         let strRequest = await CApiClientManager.yuelunGetAllGameConfig(_sessionId, listToken);
         return JSON.parse(strRequest);
-=======
-export const getAllGameConfig = async (listToken = '') => {
-    if (isMock) {
-        return Mock.homeResult;
->>>>>>> 92f45dd207bd027963dde29ec83919c6a471c208
     }
     
 }
