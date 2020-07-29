@@ -17,7 +17,6 @@ import {
     ImageBackground,
     RefreshControl
 } from 'react-native';
-import CustomeListView from '../../Components/Component/CustomeListView';
 import { SCREEN_WIDTH, BannerWidth, BannerHeight } from '../../Config/UIConfig';
 import GameHomeNavigation from '../../Components/Component/NavigationItem/GameHomeNavigation';
 import CustomerSwiper from '../../Components/Component/CustomeSwiper';
@@ -28,6 +27,7 @@ import GameNormalItem from '../../Components/Component/Game/GameNormalItem';
 import PageName from '../../Config/PageName';
 import * as navigator from '../../Router/NavigationService';
 import * as mock_home from '../../Mock/home';
+import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
 
 let testData = [
     { imageUrl: 'http://b.hiphotos.baidu.com/zhidao/pic/item/c75c10385343fbf233e9732cb27eca8064388ffc.jpg' },
@@ -50,41 +50,15 @@ export default class acceleratorPage extends Component {
             all_game_new: [],
 
             overseas_games: [],
-            upcoming_games: []
+            upcoming_games: [],
+
+            bannerArray:[],
         }
     }
 
     componentDidMount() {
-        //国服数据解析
-        console.log('mock_homemock_home', mock_home['default']['data']['gameList'][1]['game_list']['精选']);
-        let all_game_collection = mock_home['default']['data']['gameList'][1]['game_list']['精选'];
-        let all_game_hot = mock_home['default']['data']['gameList'][1]['game_list']['热门'];
-        let all_game_new = mock_home['default']['data']['gameList'][1]['game_list']['最新'];
-
-        //外服数据解析
-        let overseas_game_colloection = mock_home['default']['data']['gameList'][2]['game_list']['精选'];
-        let overseas_game_hot = mock_home['default']['data']['gameList'][2]['game_list']['热门'];
-        let overseas_game_new = mock_home['default']['data']['gameList'][2]['game_list']['最新'];
-
-        if (!overseas_game_colloection) overseas_game_colloection = [];
-        if (!overseas_game_hot) overseas_game_hot = [];
-        if (!overseas_game_new) overseas_game_new = [];
-        let overseas_games = [];
-        overseas_games.push(...overseas_game_colloection);
-        overseas_games.push(...overseas_game_hot);
-        overseas_games.push(...overseas_game_new);
-
-        //解析即将上线
-        let upcoming_games = mock_home['default']['data']['gameList'][0]['game_list'];
-
-        this.setState({
-            all_game_collection: all_game_collection,
-            all_game_hot: all_game_hot,
-            all_game_new: all_game_new,
-            overseas_games: overseas_games,
-            upcoming_games: upcoming_games
-        });
-
+        this.getTheBannerData();
+        this.getAllGames();
     }
 
     render() {
@@ -134,7 +108,7 @@ export default class acceleratorPage extends Component {
     renderTheBannerItem = () => {
         return (
             <View style={styles.bannerRootView}>
-                <CustomerSwiper borderRadius={10} super={this} bannerData={testData} />
+                <CustomerSwiper borderRadius={10} super={this} bannerData={this.state.bannerArray} />
             </View>
         );
     }
@@ -313,6 +287,76 @@ export default class acceleratorPage extends Component {
 
     clickTheMoreGamesButton = (gameType = '') =>{
         navigator.jump(this, PageName.NORMAL_PAGE_GAME_MORE_PAGE,{title:gameType});
+    }
+
+    /**
+     * 获取banner数据
+     * 
+    */
+    getTheBannerData = () =>{
+        ApiModule.getTheBannerData((data)=>{
+            let bannerData = JSON.parse(data);
+            let ad_list = bannerData.data.ad_list;
+            console.log('return data',ad_list);
+            let bannerList = [];
+            for(let i = 0; i < ad_list.length;i++){
+                let unitItem = ad_list[i];
+                bannerUnit = {imageUrl:unitItem.image_url};
+                bannerList.push(bannerUnit);
+            }
+
+            this.setState({bannerArray:bannerList});
+        });
+    }
+
+    /**
+     * 获取所有的游戏数据
+    */
+    getAllGames = () =>{
+        ApiModule.getAllGameConfig('',(data)=>{
+            let allGameData = JSON.parse(data);
+            this.parseAllGameData(allGameData);
+        });
+    }
+
+    parseAllGameData = (allGameData) =>{
+        //国服数据解析
+        let all_game_collection = allGameData['data']['gameList'][1]['game_list']['精选'];
+        let all_game_hot        = allGameData['data']['gameList'][1]['game_list']['热门'];
+        let all_game_new        = allGameData['data']['gameList'][1]['game_list']['最新'];
+
+        //外服数据解析
+        let overseas_game_colloection = allGameData['data']['gameList'][2]['game_list']['精选'];
+        let overseas_game_hot         = allGameData['data']['gameList'][2]['game_list']['热门'];
+        let overseas_game_new         = allGameData['data']['gameList'][2]['game_list']['最新'];
+
+        if (!overseas_game_colloection) overseas_game_colloection = [];
+        if (!overseas_game_hot) overseas_game_hot = [];
+        if (!overseas_game_new) overseas_game_new = [];
+        let overseas_games = [];
+        overseas_games.push(...overseas_game_colloection);
+        overseas_games.push(...overseas_game_hot);
+        overseas_games.push(...overseas_game_new);
+
+        //解析即将上线
+        let upcoming_game_collection = allGameData['data']['gameList'][0]['game_list']['精选'];
+        let upcoming_game_hot        = allGameData['data']['gameList'][0]['game_list']['热门'];
+        let upcoming_game_new        = allGameData['data']['gameList'][0]['game_list']['最新'];
+        if (!upcoming_game_collection) upcoming_game_collection = [];
+        if (!upcoming_game_hot)        upcoming_game_hot        = [];
+        if (!upcoming_game_new)        upcoming_game_new        = [];
+        let upcoming_games = [];
+        upcoming_games.push(...upcoming_game_collection);
+        upcoming_games.push(...upcoming_game_hot);
+        upcoming_games.push(...upcoming_game_new);
+
+        this.setState({
+            all_game_collection: all_game_collection,
+            all_game_hot: all_game_hot,
+            all_game_new: all_game_new,
+            overseas_games: overseas_games,
+            upcoming_games: upcoming_games
+        });
     }
 }
 

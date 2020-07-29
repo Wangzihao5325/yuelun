@@ -1,10 +1,11 @@
-#include <string>
+﻿#include <string>
 void CurlInit();
 /**
 * 发送验证码传入手机号，请求成功后会在手机收到验证码
 * @param strphone 手机号
 * @return
 */
+char* YuelunGetNewConfig(std::string& strResponseData);
 char*  YuelunSendPhoneCode(std::string strphone);
 /**
 * 移动端登录
@@ -66,6 +67,10 @@ std::string YuelunCheckHear(std::string strsession_id, std::string strgame_id, s
 * @return
 */
 std::string YuelunGetNewsList(std::string strpage, std::string strlimit);
+/**
+* 获取广告接口
+* @return
+*/
 std::string YuelunGetAdList();
 /**
 * 修改用户头像，昵称，手机号，修改哪个传哪个，不修改可以为空
@@ -77,3 +82,31 @@ std::string YuelunGetAdList();
 * @return
 */
 std::string YuelunModifyUserInfo(std::string strsession_id,std::string strphome_num,std::string strcode,std::string strusername,std::string strhead_png);
+
+/**
+* 获取用户信息接口
+* @param strsession_id 用户登录session_id
+* @return
+*/
+std::string YuelunGetUserInfo(std::string strsession_id);
+/**
+* 获取玩家收藏列表
+* @param strsession_id 用户登录session_id
+* @return
+*/
+std::string YuelunGetCollection(std::string strsession_id);
+/**
+* 更新玩家收藏列表
+* @param strsession_id 用户登录session_id
+* @param strgameids 收藏游戏ID （1,2,3,4,5）字符串
+* @return
+*/
+std::string YuelunSverCollection(std::string strsession_id, std::string strgameids);
+/**
+* 玩家意见反馈
+* @param strsession_id 用户登录session_id
+* @param strcontent 意见反馈内容
+* @param strcontact 联系方式
+* @return
+*/
+std::string YuelunSaveFeedBack(std::string strsession_id, std::string strcontent, std::string strconntact);

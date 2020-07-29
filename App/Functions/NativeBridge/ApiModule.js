@@ -1,8 +1,9 @@
 import { NativeModules, Platform } from 'react-native';
 import Mock from '../../Mock';
 //是否启用mock数据
-const isMock = Platform.OS === 'ios';
+const iOSPlatform = Platform.OS === 'ios';
 const CApiClientManager = NativeModules.CApiClient;
+const ApiHelper = NativeModules.ApiHelper;
 let _sessionId = '';
 /**
  * 发送验证码
@@ -57,12 +58,15 @@ export const getGameInfoById = async (gameId, gameToken) => {
  * @param {string} sessionId 用户登录获取到的session
  * @param {string} listToken token第一次请求传空，从返回json列表中获取该值 下次请求传入，若配置无更改，则下发ok,配置更改重新下发一份新的json数据
  */
-export const getAllGameConfig = async (listToken) => {
-    if (isMock) {
-        return Mock.homeResult;
+export const getAllGameConfig = async (listToken,callBack) => {
+    if(iOSPlatform) {
+        let strRequest = await ApiHelper.yuelunGetAllGameConfigWithSessionId(_sessionId,listToken,callBack);
+        return JSON.parse(strRequest);
+    }else{
+        let strRequest = await CApiClientManager.yuelunGetAllGameConfig(_sessionId, listToken);
+        return JSON.parse(strRequest);
     }
-    let strRequest = await CApiClientManager.yuelunGetAllGameConfig(_sessionId, listToken);
-    return JSON.parse(strRequest);
+    
 }
 /**
  * 退出登录
@@ -109,4 +113,29 @@ export const getAdList = async () => {
 export const modifyUserInfo = async (phoneNum, verificationCode, name, avater) => {
     let strRequest = await CApiClientManager.yuelunModifUserInfo(_sessionId, phoneNum, verificationCode, name, avater);
     return JSON.parse(strRequest);
+}
+
+/**
+ * 获取banner数据
+ * 
+*/
+export const getTheBannerData = async (callBack) =>{
+    if(iOSPlatform){
+        let strRequest = await ApiHelper.getTheBannerDataCallBack(callBack);
+        return JSON.parse(strRequest);
+    }else{
+
+    }
+}
+
+/**
+ * 获取用户信息
+*/
+export const getTheUserInforWithSessionID = async (sessionId,callBack) => {
+    if(iOSPlatform){
+        let strRequest = await ApiHelper.getTheUserInforWithSessionID(sessionId,callBack);
+        return JSON.parse(strRequest);
+    }else{
+        
+    }
 }
