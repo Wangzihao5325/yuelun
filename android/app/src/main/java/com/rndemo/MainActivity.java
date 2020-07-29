@@ -1,5 +1,7 @@
 package com.rndemo;
 
+import android.content.Context;
+
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {

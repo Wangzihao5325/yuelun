@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 const Cover = (props) => {
-    const [circleOne, setCircleOne] = useState(new Animated.ValueXY(0, 0));
+    const [circleOne, setCircleOne] = useState(new Animated.ValueXY({ x: 120 - 4, y: 0 - 4 }));
     return (
         <ImageBackground
             style={{ flex: 1 }}
