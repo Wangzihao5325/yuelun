@@ -57,8 +57,8 @@ export default class acceleratorPage extends Component {
     }
 
     componentDidMount() {
-        this.getTheBannerData();
-        this.getAllGames();
+        // this.getTheBannerData();
+        // this.getAllGames();
     }
 
     render() {
@@ -315,6 +315,7 @@ export default class acceleratorPage extends Component {
     getAllGames = () =>{
         ApiModule.getAllGameConfig('',(data)=>{
             let allGameData = JSON.parse(data);
+            console.log('allGameDataallGameData',allGameData);
             this.parseAllGameData(allGameData);
         });
     }

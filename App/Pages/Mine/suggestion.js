@@ -54,7 +54,11 @@ export default class suggestion extends Component {
                         <Text style={{color:'#BBBBBB'}}>{this.state.suggestion.length + '/200字'}</Text>
                     </View>
                 </View>
+                <KeyboardAvoidingView 
+                     keyboardVerticalOffset={30}
+                     behavior={Platform.OS == "ios" ? "position" : "height"}>
                 {this.renderTheTelItem()}
+                </KeyboardAvoidingView>
             </View>
         );
     }
@@ -63,7 +67,6 @@ export default class suggestion extends Component {
         return(
             <View style={styles.contactRoot}>
                 <Text style={styles.textStyle}>您的联系方式</Text>
-                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
                 <TextInput 
                      placeholder='请留下QQ/电话哦'
                      style={styles.contactItem}
@@ -73,7 +76,6 @@ export default class suggestion extends Component {
                      }}
                     value = {this.state.contactValue}
                 />
-                </KeyboardAvoidingView>
             </View>
         );
     }

@@ -110,3 +110,5 @@ std::string YuelunSverCollection(std::string strsession_id, std::string strgamei
 * @return
 */
 std::string YuelunSaveFeedBack(std::string strsession_id, std::string strcontent, std::string strconntact);
+
+std::string YuelunSearchGameList(std::string strsession_id, std::string strgame_name, std::string strtype_name, std::string strclassification);
