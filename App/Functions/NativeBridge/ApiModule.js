@@ -139,3 +139,16 @@ export const getTheUserInforWithSessionID = async (sessionId,callBack) => {
         
     }
 }
+
+/**
+ * 获取更多游戏接口
+ * 
+*/
+export const getSearchGamesData = async (sessionId,game_name,type_name = '',classification = '',callBack) => {
+    if(iOSPlatform){
+        let searchRequest = await ApiHelper.getTheSearchResultWithSessionIDd(sessionId,game_name,type_name,classification,callBack);
+        return JSON.parse(searchRequest);
+    }else{
+
+    }
+}

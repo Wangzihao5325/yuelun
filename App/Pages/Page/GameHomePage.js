@@ -26,7 +26,6 @@ import GameNormalItem from '../../Components/Component/Game/GameNormalItem';
 
 import PageName from '../../Config/PageName';
 import * as navigator from '../../Router/NavigationService';
-import * as mock_home from '../../Mock/home';
 import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
 
 let testData = [
@@ -57,12 +56,11 @@ export default class acceleratorPage extends Component {
     }
 
     componentDidMount() {
-        // this.getTheBannerData();
-        // this.getAllGames();
+        this.getTheBannerData();
+        this.getAllGames();
     }
 
     render() {
-        console.log('home_Page is rendering');
         return (
             <View style={styles.container}>
                 <ImageBackground
@@ -171,7 +169,16 @@ export default class acceleratorPage extends Component {
                     title={title}
                     clickFunction={() => {
                         console.log('查看', title, '的更多');
-                        this.clickTheMoreGamesButton(title);
+                        let type_name = '国内';
+                        let classification;
+                        if(type == 1){
+                            classification = '精选';
+                        }else if(type == 2){
+                            classification = '热门';
+                        }else if(type == 3){
+                            classification = '最新';
+                        }
+                        this.clickTheMoreGamesButton(title,type_name,classification,);
                     }} />
 
                 <ScrollView
@@ -233,13 +240,15 @@ export default class acceleratorPage extends Component {
         return (
             <View style={[styles.scrollViewStyleOne, { height: dataArray.length > 2 ? 270 : 135 }]}>
                 {
-                    dataArray.map(function (item, inedx) {
+                    dataArray.map((item, inedx) => {
                         return (
                             <View style={{ marginLeft: 10 }}>
                                 <GameUnitItem
-                                    key={inedx}
+                                    key={inedx+200}
                                     nameText={item['name']}
-                                    source={{ uri: item.icon }} />
+                                    source={{ uri: item.icon }} 
+                                    pressCallback={() => {this.clickGameNormalItemBtn(item)}}
+                                />
                             </View>);
                     })
                 }
@@ -262,7 +271,7 @@ export default class acceleratorPage extends Component {
                                     key={inedx}
                                     title={item['name']}
                                     source={{ uri: item.icon }}
-                                    pressCallback={() => this.clickGameNormalItemBtn(item)}
+                                    pressCallback={() => {this.clickGameNormalItemBtn(item)}}
                                 />
                             </View>);
                     })
@@ -272,6 +281,7 @@ export default class acceleratorPage extends Component {
     }
 
     clickGameNormalItemBtn = (item) => {
+        console.log("测试单个点击",item);
         let payload = { data: JSON.stringify(item) }
         navigator.jump(this, PageName.ACCELERATE_DETAILS_PAGE, payload);
     }

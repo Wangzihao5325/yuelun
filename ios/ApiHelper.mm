@@ -60,9 +60,9 @@ RCT_EXPORT_METHOD(getTheUserInforWithSessionID:(NSString *)sessionId Callback:(R
  *消息反馈
  */
 RCT_EXPORT_METHOD(sendTheFeedbackWithSessionID:(NSString *)sessionID andContent:(NSString *)content andConntact:(NSString *)conntact Callback:(RCTResponseSenderBlock)callback{
-                 NSString * feedbackStr = [self sendTheFeedbackWithSessionID:sessionID andContent:content andConntact:conntact];
-                 NSArray * returnArr = @[feedbackStr];
-                 if(callback != nil) callback(returnArr);
+//                 NSString * feedbackStr = [self sendTheFeedbackWithSessionID:sessionID andContent:content andConntact:conntact];
+//                 NSArray * returnArr = @[feedbackStr];
+//                 if(callback != nil) callback(returnArr);
 });
 
 -(void)test{
@@ -120,13 +120,13 @@ RCT_EXPORT_METHOD(sendTheFeedbackWithSessionID:(NSString *)sessionID andContent:
   return searchString;
 }
 
--(NSString *)sendTheFeedbackWithSessionID:(NSString *)sessionID andContent:(NSString *)content andConntact:(NSString *)conntact{
-  std::string session_id  = [sessionID UTF8String];
-  std::string contentstr  = [content UTF8String];
-  std::string conntactstr = [conntact UTF8String];
-  std::string feedbackStr = YuelunSaveFeedBack(session_id, contentstr, conntactstr);
-  NSString * feedbackString = [NSString stringWithFormat:@"%s",feedbackStr.c_str()];
-  return feedbackString;
-}
+//-(NSString *)sendTheFeedbackWithSessionID:(NSString *)sessionID andContent:(NSString *)content andConntact:(NSString *)conntact{
+//  std::string session_id  = [sessionID UTF8String];
+//  std::string contentstr  = [content UTF8String];
+//  std::string conntactstr = [conntact UTF8String];
+//  std::string feedbackStr = YuelunSaveFeedBack(session_id, contentstr, conntactstr);
+//  NSString * feedbackString = [NSString stringWithFormat:@"%s",feedbackStr.c_str()];
+//  return feedbackString;
+//}
 
 @end

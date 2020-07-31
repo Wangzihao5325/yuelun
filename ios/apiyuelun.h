@@ -1,4 +1,4 @@
-﻿#include <string>
+#include <string>
 void CurlInit();
 /**
 * 发送验证码传入手机号，请求成功后会在手机收到验证码
@@ -111,4 +111,12 @@ std::string YuelunSverCollection(std::string strsession_id, std::string strgamei
 */
 std::string YuelunSaveFeedBack(std::string strsession_id, std::string strcontent, std::string strconntact);
 
+/**
+     *搜索游戏接口
+     * @param strsession_id 用户登录session_id
+     * @param strgame_name  游戏名称
+     * @param strtype_name 游戏类型（国内，海外）具体值根据获取游戏列表接口返回字段types传值
+     * @param strclassification 游戏分类（国内，海外）具体值根据获取游戏列表接口返回字段classifications传值
+     * @return
+     */
 std::string YuelunSearchGameList(std::string strsession_id, std::string strgame_name, std::string strtype_name, std::string strclassification);
