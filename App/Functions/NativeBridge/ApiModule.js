@@ -178,9 +178,26 @@ export const getAllUserCollectGames = async (sessionId,callBack) => {
     }
 }
 
+/**
+ * 更新收藏游戏
+ * 
+*/
 export const YuelunSverCollection = async (sessionId,gameIDArray,callBack)=>{
     if(iOSPlatform){
         let resultStr = await ApiHelper.YuelunSverCollection(sessionId,gameIDArray,callBack);
+        return JSON.parse(resultStr);
+    }else{
+
+    }
+}
+
+/**
+ * 退出登录
+ * 
+*/
+export const userLogoutWithSessionID = async(sessionId,callBack) =>{
+    if(iOSPlatform){
+        let resultStr = await ApiHelper.userLogoutWithSessionID(sessionId,callBack);
         return JSON.parse(resultStr);
     }else{
 

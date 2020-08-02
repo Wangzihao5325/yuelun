@@ -29,6 +29,16 @@ RCT_EXPORT_METHOD(userLoginWithPhoneNum:(NSString *)phoneNum andPhoneCode:(NSStr
                  if(callback != nil) callback(returnArr);
 });
 
+/*
+ *用户退出登录
+ */
+RCT_EXPORT_METHOD(userLogoutWithSessionID:(NSString *)session_id Callback:(RCTResponseSenderBlock)callback{
+                 NSString * feedbackStr = [self userLogout:session_id];
+                 NSArray * returnArr = @[feedbackStr];
+                 if(callback != nil) callback(returnArr);
+});
+
+
 RCT_EXPORT_METHOD(getTheHomePageWithParam:(NSString *)param Callback:(RCTResponseSenderBlock)callback{
                   
                   });
@@ -135,8 +145,9 @@ RCT_EXPORT_METHOD(YuelunSverCollection:(NSString *)sessionId andGameLists:(NSArr
   std::string sessionIDStr = [sessionID UTF8String];
   std::string contentstr   = [content UTF8String];
   std::string conntactstr  = [conntact UTF8String];
-  std::string feedbackStr = YuelunSaveFeedBack(sessionIDStr, contentstr, conntactstr);
-  NSString * feedbackString = [NSString stringWithFormat:@"%s",feedbackStr.c_str()];
+//  std::string feedbackStr = YuelunSaveFeedBack(sessionIDStr, contentstr, conntactstr);
+//  NSString * feedbackString = [NSString stringWithFormat:@"%s",feedbackStr.c_str()];
+  NSString * feedbackString = @"";
   return feedbackString;
 }
 
@@ -170,6 +181,13 @@ RCT_EXPORT_METHOD(YuelunSverCollection:(NSString *)sessionId andGameLists:(NSArr
   std::string session_ID = [session_id UTF8String];
   std::string gameIDs = [gamesStr UTF8String];
   std::string returnStr = YuelunSverCollection(session_ID, gameIDs);
+  NSString * return_string = [NSString stringWithFormat:@"%s",returnStr.c_str()];
+  return return_string;
+}
+
+-(NSString *)userLogout:(NSString *)sessionID{
+  std::string session_id_str = [sessionID UTF8String];
+  std::string returnStr = YuelunPhoneLoginout(session_id_str);
   NSString * return_string = [NSString stringWithFormat:@"%s",returnStr.c_str()];
   return return_string;
 }
