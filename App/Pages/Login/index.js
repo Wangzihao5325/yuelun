@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableHighlight, Image, Text, Platform, StyleSheet } from 'react-native';
+import { View, TouchableHighlight, Image, Text, Platform, StyleSheet, AsyncStorage} from 'react-native';
 import { themeColor, SCREEN_WIDTH } from '../../Config/UIConfig';
 import * as Api from '../../Functions/NativeBridge/ApiModule';
 import store from '../../store';
@@ -12,6 +12,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomInput from '../../Components/Component/CustomInput';
 import CustomButton from '../../Components/Component/CustomButton';
+
+const iOSPlatform = Platform.OS === 'ios';
 
 export default class Login extends Component {
     state = {
@@ -116,8 +118,21 @@ export default class Login extends Component {
     }
 
     login = () => {
-        const { phoneNum, verificationCode } = this.state;
-        Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
+        if(iOSPlatform){
+            const { phoneNum, verificationCode } = this.state;
+            Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion,(data)=>{
+                let result = JSON.parse(data);
+                console.log('hahhh--------',result);
+                if(result['status'] == 'ok'){
+                    this.saveTheUserInfo(result);
+                }else{
+
+                }
+                
+            });
+        }else{
+            const { phoneNum, verificationCode } = this.state;
+            Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
             .then((result) => {
                 //session比较常用，所以在network里也存一份，方便使用
                 Network.session = result.data.session_id;
@@ -127,10 +142,27 @@ export default class Login extends Component {
             .catch((error) => {
                 console.log(error);
             });
+        }
     }
+
+    getVerificationCode = () =>{
+        const { phoneNum, verificationCode } = this.state;
+        Api.sendPhoneCode(phoneNum , (data)=>{
+
+        });
+    }
+
 
     startAppWithUnLogin = () => {
         store.dispatch(app_start_app());
+    }
+
+    saveTheUserInfo = (userInfo) =>{
+        AsyncStorage.setItem('userInfo',JSON.stringify(userInfo)).then(value=>{
+
+        }).catch(reason =>{
+
+        });
     }
 }
 

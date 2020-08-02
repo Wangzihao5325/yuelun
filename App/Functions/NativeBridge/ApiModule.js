@@ -1,5 +1,6 @@
 import { NativeModules, Platform } from 'react-native';
 import Mock from '../../Mock';
+import { call } from 'react-native-reanimated';
 //是否启用mock数据
 const iOSPlatform = Platform.OS === 'ios';
 const CApiClientManager = NativeModules.CApiClient;
@@ -9,9 +10,15 @@ let _sessionId = '';
  * 发送验证码
  * @param {string} phoneNum 手机号码
  */
-export const sendPhoneCode = async (phoneNum) => {
-    let strRequest = await CApiClientManager.yuelunSendPhoneCode(phoneNum);
-    return JSON.parse(strRequest);
+export const sendPhoneCode = async (phoneNum,callBack) => {
+    if(iOSPlatform){
+        let searchRequest = await ApiHelper.getThePhoneCode(phoneNum,callBack);
+        return JSON.parse(searchRequest);
+    }else{
+        let strRequest = await CApiClientManager.yuelunSendPhoneCode(phoneNum);
+        return JSON.parse(strRequest);
+    }
+    
 }
 /**
  * 移动端登录
@@ -20,11 +27,16 @@ export const sendPhoneCode = async (phoneNum) => {
  * @param {string} platform 平台 ios/android
  * @param {string} version app版本号
  */
-export const loginByPhoneNum = async (phoneNum, code, platform, version) => {
-    let strRequest = await CApiClientManager.yuelunPhoneLogin(phoneNum, code, platform, version);
-    let result = JSON.parse(strRequest);
-    _sessionId = result.data.session_id;
-    return result;
+export const loginByPhoneNum = async (phoneNum, code, platform, version,callBack) => {
+    if(iOSPlatform){
+        let searchRequest = await ApiHelper.userLoginWithPhoneNum(phoneNum,code,platform,version,callBack);
+        return JSON.parse(searchRequest);
+    }else{
+        let strRequest = await CApiClientManager.yuelunPhoneLogin(phoneNum, code, platform, version);
+        let result = JSON.parse(strRequest);
+        _sessionId = result.data.session_id;
+        return result;
+    }
 }
 /**
  * 连接服务器验证信心，下发加速需要使用的数据-(什么意思我也不懂，需要询问后台大哥)
@@ -148,6 +160,28 @@ export const getSearchGamesData = async (sessionId,game_name,type_name = '',clas
     if(iOSPlatform){
         let searchRequest = await ApiHelper.getTheSearchResultWithSessionIDd(sessionId,game_name,type_name,classification,callBack);
         return JSON.parse(searchRequest);
+    }else{
+
+    }
+}
+
+/**
+ * 获取用户所有的收藏游戏
+ * 
+*/
+export const getAllUserCollectGames = async (sessionId,callBack) => {
+    if(iOSPlatform){
+        let requestStr = await ApiHelper.getTheUserCollectGames(sessionId,callBack);
+        return JSON.parse(requestStr);
+    }else{
+
+    }
+}
+
+export const YuelunSverCollection = async (sessionId,gameIDArray,callBack)=>{
+    if(iOSPlatform){
+        let resultStr = await ApiHelper.YuelunSverCollection(sessionId,gameIDArray,callBack);
+        return JSON.parse(resultStr);
     }else{
 
     }

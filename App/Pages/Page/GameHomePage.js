@@ -52,12 +52,15 @@ export default class acceleratorPage extends Component {
             upcoming_games: [],
 
             bannerArray:[],
+
+            collection_games_array : [],
         }
     }
 
     componentDidMount() {
         this.getTheBannerData();
         this.getAllGames();
+        this.getTheCollectionGames();
     }
 
     render() {
@@ -227,7 +230,10 @@ export default class acceleratorPage extends Component {
                     source={{ uri: item.icon }}
                     title={item['name']}
                     showFavoratorIcon={true}
-                    favorator={false} />
+                    favorator={false} 
+                    clickTheCollecButton={()=>{
+                        this.saveTheCollectionGames(item['id']);
+                    }}/>
             </View>
         );
     }
@@ -367,6 +373,24 @@ export default class acceleratorPage extends Component {
             all_game_new: all_game_new,
             overseas_games: overseas_games,
             upcoming_games: upcoming_games
+        });
+    }
+
+    getTheCollectionGames = () =>{
+        let sessionID = 'd6eb14382b7bd59a5d9b2557b1589fd510b4e2f1';
+        ApiModule.getAllUserCollectGames(sessionID,(data)=>{
+            let collections = JSON.parse(data);
+            console.log('collect data',collections);
+        });
+    }
+
+    saveTheCollectionGames = (gameID = '') =>{
+        let sessionID = 'd6eb14382b7bd59a5d9b2557b1589fd510b4e2f1';
+        let gameIDArray = [];
+        gameIDArray.push(gameID);
+        ApiModule.YuelunSverCollection(sessionID,gameIDArray,(data)=>{
+            let collections = JSON.parse(data);
+            console.log('save collect data',collections);
         });
     }
 }
