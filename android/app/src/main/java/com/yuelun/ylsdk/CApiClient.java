@@ -132,7 +132,7 @@ public class CApiClient {
      * @param strgameids 收藏游戏ID （1,2,3,4,5）字符串
      * @return
      */
-    public static native String YuelunSverCollection(String strsession_id,String strgameids);
+    public static native String YuelunSaveCollection(String strsession_id,String strgameids);
 
     /**
      * 玩家意见反馈
@@ -142,13 +142,31 @@ public class CApiClient {
      * @return
      */
     public static native String YuelunSaveFeedBack(String strsession_id,String strcontent,String strcontact);
+
     /**
      *搜索游戏接口
      * @param strsession_id 用户登录session_id
      * @param strgame_name  游戏名称
      * @param strtype_name 游戏类型（国内，海外）具体值根据获取游戏列表接口返回字段types传值
      * @param strclassification 游戏分类（国内，海外）具体值根据获取游戏列表接口返回字段classifications传值
+     * @param strpages 页码 不传默认第一页
+     * @param strlimit 数量 不传默认一页16条
      * @return
      */
-    public static native String YuelunSearchGamelist(String strsession_id, String strgame_name, String strtype_name, String strclassification);
+    public static native String YuelunSearchGamelist(String strsession_id, String strgame_name, String strtype_name, String strclassification,String strpages,String strlimit);
+
+    /**
+     * 热门搜索列表
+     * @param strsession_id 用户登录sesion_id
+     * @return
+     */
+    public static native String  YuelunHotGameList(String strsession_id);
+
+    /**
+     * 游戏搜索记录
+     * @param strsession_id 用户登录session_id
+     * @param strgameid 游戏id
+     * @return
+     */
+    public static native String YuelunSaveSearchGameList(String strsession_id, String strgameid);
 }
