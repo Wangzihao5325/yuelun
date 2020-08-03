@@ -3,7 +3,7 @@ import Mock from '../../Mock';
 //是否启用mock数据
 const isMock = Platform.OS === 'ios';
 const CApiClientManager = NativeModules.CApiClient;
-let _sessionId = '';
+let _sessionId = '2be8dc1d25fe84149fa5ee03bdf143282f2e555b';
 /**
  * 发送验证码
  * @param {string} phoneNum 手机号码
@@ -22,6 +22,8 @@ export const sendPhoneCode = async (phoneNum) => {
 export const loginByPhoneNum = async (phoneNum, code, platform, version) => {
     let strRequest = await CApiClientManager.yuelunPhoneLogin(phoneNum, code, platform, version);
     let result = JSON.parse(strRequest);
+    console.log('oooo');
+    console.log(result);
     _sessionId = result.data.session_id;
     return result;
 }
@@ -108,5 +110,57 @@ export const getAdList = async () => {
 
 export const modifyUserInfo = async (phoneNum, verificationCode, name, avater) => {
     let strRequest = await CApiClientManager.yuelunModifUserInfo(_sessionId, phoneNum, verificationCode, name, avater);
+    return JSON.parse(strRequest);
+}
+
+/**
+ * 搜索
+ * @param {string} gameName 用户手机号
+ * @param {string} typeName 验证码
+ * @param {string} strclassification 要修改的用户名
+ */
+
+export const search = async (gameName, typeName, strclassification) => {
+    console.log('here');
+    console.log(_sessionId);
+    let strRequest = await CApiClientManager.yuelunSearchGamelist(_sessionId, encodeURIComponent(gameName), typeName, strclassification);
+    return JSON.parse(strRequest);
+}
+
+/**
+ * 获取收藏
+ */
+
+export const collection = async () => {
+    let strRequest = await CApiClientManager.yuelunGetCollection(_sessionId);
+    return JSON.parse(strRequest);
+}
+
+/**
+ * 搜索
+ * @param {string} strgameids 收藏游戏ID （1,2,3,4,5）字符串
+ */
+
+export const updateCollection = async (strgameids) => {
+    let strRequest = await CApiClientManager.yuelunSverCollection(_sessionId, strgameids);
+    return JSON.parse(strRequest);
+}
+
+/**
+ * 反馈
+ * @param {string} strgameids 收藏游戏ID （1,2,3,4,5）字符串
+ */
+
+export const suggest = async (strcontent, strcontact) => {
+    let strRequest = await CApiClientManager.yuelunSaveFeedBack(_sessionId, strcontent, strcontact);
+    return JSON.parse(strRequest);
+}
+
+/**
+ * userInfo
+ */
+
+export const userInfo = async () => {
+    let strRequest = await CApiClientManager.yuelunGetUserInfo(_sessionId);
     return JSON.parse(strRequest);
 }

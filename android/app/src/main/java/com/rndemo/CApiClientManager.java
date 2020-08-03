@@ -81,4 +81,34 @@ public class CApiClientManager extends ReactContextBaseJavaModule {
         String receiveStr = CApiClient.YuelunModifUserInfo(strsession_id,strphone_num,strcode,strusername,strhead_png);
         promise.resolve(receiveStr);
     }
+
+    @ReactMethod
+    public void yuelunSearchGamelist(String strsession_id, String strgame_name, String strtype_name, String strclassification, Promise promise){
+        String receiveStr = CApiClient.YuelunSearchGamelist(strsession_id,strgame_name,strtype_name,strclassification);
+        promise.resolve(receiveStr);
+    }
+
+    @ReactMethod
+    public void yuelunGetCollection(String strsession_id, Promise promise){
+        String receiveStr = CApiClient.YuelunGetCollection(strsession_id);
+        promise.resolve(receiveStr);
+    }
+
+    @ReactMethod
+    public void yuelunSverCollection(String strsession_id, String strgameids, Promise promise){
+        String receiveStr = CApiClient.YuelunSverCollection(strsession_id,strgameids);
+        promise.resolve(receiveStr);
+    }
+
+    @ReactMethod
+    public void yuelunSaveFeedBack(String strsession_id,String strcontent,String strcontact, Promise promise){
+        String receiveStr = CApiClient.YuelunSaveFeedBack(strsession_id,strcontent,strcontact);
+        promise.resolve(receiveStr);
+    }
+
+    @ReactMethod
+    public void yuelunGetUserInfo(String strsession_id, Promise promise){
+        String receiveStr = CApiClient.YuelunGetUserInfo(strsession_id);
+        promise.resolve(receiveStr);
+    }
 }
