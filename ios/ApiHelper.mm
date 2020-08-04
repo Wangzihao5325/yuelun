@@ -66,8 +66,8 @@ RCT_EXPORT_METHOD(getTheBannerDataCallBack:(RCTResponseSenderBlock)callback{
 /*
  *获取用户游戏搜索结果
  */
-RCT_EXPORT_METHOD(getTheSearchResultWithSessionIDd:(NSString *)strsession_id game_name:(NSString *)strgame_name type_name:(NSString *)strtype_name classification:(NSString *)strclassification CallBack:(RCTResponseSenderBlock)callback{
-                  NSString * resultStr = [self searchTheGamesWithSessionIDd:strsession_id game_name:strgame_name type_name:strtype_name classification:strclassification];
+RCT_EXPORT_METHOD(getTheSearchResultWithSessionIDd:(NSString *)strsession_id game_name:(NSString *)strgame_name type_name:(NSString *)strtype_name pages:(NSString *)pages classification:(NSString *)strclassification CallBack:(RCTResponseSenderBlock)callback{
+                  NSString * resultStr = [self searchTheGamesWithSessionIDd:strsession_id game_name:strgame_name type_name:strtype_name strpages:pages classification:strclassification];
                   NSArray * resultArr = @[resultStr];
                   if(callback != nil) callback(resultArr);
                   
@@ -105,7 +105,18 @@ RCT_EXPORT_METHOD(getTheUserCollectGames:(NSString *)sessionId Callback:(RCTResp
  *更新用户收藏游戏列表
  */
 RCT_EXPORT_METHOD(YuelunSverCollection:(NSString *)sessionId andGameLists:(NSArray *)games Callback:(RCTResponseSenderBlock)callback{
+                  std::string str = YuelunGetAdList();
                   NSString * userInfoStr = [self YuelunSverCollection:sessionId andGamesID:games];
+                  NSArray * returnArr = @[userInfoStr];
+                  if(callback != nil) callback(returnArr);
+});
+
+/*
+ *获取热搜列表
+ */
+RCT_EXPORT_METHOD(YuelunHotGameList:(NSString *)sessionId Callback:(RCTResponseSenderBlock)callback{
+                  std::string str = YuelunGetAdList();
+                  NSString * userInfoStr = [self getHotGameList:sessionId];
                   NSArray * returnArr = @[userInfoStr];
                   if(callback != nil) callback(returnArr);
 });
@@ -131,12 +142,14 @@ RCT_EXPORT_METHOD(YuelunSverCollection:(NSString *)sessionId andGameLists:(NSArr
   return userInfoString;
 }
 
--(NSString *)searchTheGamesWithSessionIDd:(NSString *)strsession_id game_name:(NSString *)strgame_name type_name:(NSString *)strtype_name classification:(NSString *)strclassification{
+-(NSString *)searchTheGamesWithSessionIDd:(NSString *)strsession_id game_name:(NSString *)strgame_name type_name:(NSString *)strtype_name strpages:(NSString *)pages classification:(NSString *)strclassification{
   std::string session_id = [strsession_id UTF8String];
   std::string game_name = [strgame_name UTF8String];
   std::string type_name = [strtype_name UTF8String];
   std::string classification = [strclassification UTF8String];
-  std::string searchStr = YuelunSearchGameList(session_id, game_name, type_name, classification);
+  std::string pagesStr = [pages UTF8String];
+  std::string limit = [@"" UTF8String];
+  std::string searchStr = YuelunSearchGameList(session_id, game_name, type_name, classification,pagesStr,limit);
   NSString * searchString = [NSString stringWithFormat:@"%s",searchStr.c_str()];
   return searchString;
 }
@@ -145,9 +158,8 @@ RCT_EXPORT_METHOD(YuelunSverCollection:(NSString *)sessionId andGameLists:(NSArr
   std::string sessionIDStr = [sessionID UTF8String];
   std::string contentstr   = [content UTF8String];
   std::string conntactstr  = [conntact UTF8String];
-//  std::string feedbackStr = YuelunSaveFeedBack(sessionIDStr, contentstr, conntactstr);
-//  NSString * feedbackString = [NSString stringWithFormat:@"%s",feedbackStr.c_str()];
-  NSString * feedbackString = @"";
+  std::string feedbackStr = YuelunSaveFeedBack(sessionIDStr, contentstr, conntactstr);
+  NSString * feedbackString = [NSString stringWithFormat:@"%s",feedbackStr.c_str()];
   return feedbackString;
 }
 
@@ -180,7 +192,7 @@ RCT_EXPORT_METHOD(YuelunSverCollection:(NSString *)sessionId andGameLists:(NSArr
   NSString * gamesStr = [NSString stringWithFormat:@"%@",gameids];
   std::string session_ID = [session_id UTF8String];
   std::string gameIDs = [gamesStr UTF8String];
-  std::string returnStr = YuelunSverCollection(session_ID, gameIDs);
+  std::string returnStr = YuelunSaveCollection(session_ID, gameIDs);
   NSString * return_string = [NSString stringWithFormat:@"%s",returnStr.c_str()];
   return return_string;
 }
@@ -188,6 +200,13 @@ RCT_EXPORT_METHOD(YuelunSverCollection:(NSString *)sessionId andGameLists:(NSArr
 -(NSString *)userLogout:(NSString *)sessionID{
   std::string session_id_str = [sessionID UTF8String];
   std::string returnStr = YuelunPhoneLoginout(session_id_str);
+  NSString * return_string = [NSString stringWithFormat:@"%s",returnStr.c_str()];
+  return return_string;
+}
+
+-(NSString *)getHotGameList:(NSString *)sessionID{
+  std::string session_id_str = [sessionID UTF8String];
+  std::string returnStr = YuelunHotGameList(session_id_str);
   NSString * return_string = [NSString stringWithFormat:@"%s",returnStr.c_str()];
   return return_string;
 }

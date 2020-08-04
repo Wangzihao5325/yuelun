@@ -63,20 +63,21 @@ export default class search extends Component {
     componentDidMount(){
        const { params } = this.props.route.params;
 
-       //模拟数据
-       let overseas_game_colloection = mock_home['default']['data']['gameList'][2]['game_list']['精选'];
-       let overseas_game_hot = mock_home['default']['data']['gameList'][2]['game_list']['热门'];
-       let overseas_game_new = mock_home['default']['data']['gameList'][2]['game_list']['最新'];
-       if (!overseas_game_colloection) overseas_game_colloection = [];
-       if (!overseas_game_hot) overseas_game_hot = [];
-       if (!overseas_game_new) overseas_game_new = [];
-       let overseas_games = [];
-       overseas_games.push(...overseas_game_colloection);
-       overseas_games.push(...overseas_game_hot);
-       overseas_games.push(...overseas_game_new);
-       this.setState({hotGames:overseas_games});
+    //    //模拟数据
+    //    let overseas_game_colloection = mock_home['default']['data']['gameList'][2]['game_list']['精选'];
+    //    let overseas_game_hot = mock_home['default']['data']['gameList'][2]['game_list']['热门'];
+    //    let overseas_game_new = mock_home['default']['data']['gameList'][2]['game_list']['最新'];
+    //    if (!overseas_game_colloection) overseas_game_colloection = [];
+    //    if (!overseas_game_hot) overseas_game_hot = [];
+    //    if (!overseas_game_new) overseas_game_new = [];
+    //    let overseas_games = [];
+    //    overseas_games.push(...overseas_game_colloection);
+    //    overseas_games.push(...overseas_game_hot);
+    //    overseas_games.push(...overseas_game_new);
+    //    this.setState({hotGames:overseas_games});
 
        this.loadTheSearchHistoryData();
+       this.getTheHotGamesData();
     }
 
     render() {
@@ -282,7 +283,9 @@ export default class search extends Component {
      * 
     */
     searchTheGame = (game_name = '') =>{
-        ApiModule.getSearchGamesData(this.state.session_id,game_name,'','',(data)=>{
+        let game_name_encode = encodeURI(game_name);
+        console.log('encodeURIencodeURI',game_name_encode);
+        ApiModule.getSearchGamesData(this.state.session_id,game_name_encode,'','','',(data)=>{
             let allGameData = JSON.parse(data);
             console.log('searchsearch',allGameData);
             if(allGameData['status'] == 'ok'){
@@ -346,6 +349,20 @@ export default class search extends Component {
         );
     }
 
+    /**
+     * 获取热门游戏数据
+     * 
+    */
+   getTheHotGamesData = () =>{
+       ApiModule.getTheHotGames((data)=>{
+        let hotGame = JSON.parse(data);
+        console.log('获取热门游戏',hotGame);
+           if(hotGame['status'] === 'ok'){
+               let list = hotGame['data']['list'];
+               this.setState({hotGames:list});
+           }
+       });
+   }
 }
 
 const styles = StyleSheet.create({

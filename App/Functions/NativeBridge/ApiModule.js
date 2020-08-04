@@ -180,9 +180,9 @@ export const getTheUserInforWithSessionID = async ( callBack) => {
  * 获取更多游戏接口
  * 
 */
-export const getSearchGamesData = async (sessionId, game_name, type_name = '', classification = '', callBack) => {
-    if (iOSPlatform) {
-        let searchRequest = await ApiHelper.getTheSearchResultWithSessionIDd(sessionId, game_name, type_name, classification, callBack);
+export const getSearchGamesData = async (sessionId,game_name,type_name = '',pages= '',classification = '',callBack) => {
+    if(iOSPlatform){
+        let searchRequest = await ApiHelper.getTheSearchResultWithSessionIDd(sessionId,game_name,type_name,pages,classification,callBack);
         return JSON.parse(searchRequest);
     } else {
 
@@ -226,6 +226,18 @@ export const userLogoutWithSessionID = async (sessionId, callBack) => {
         let resultStr = await ApiHelper.userLogoutWithSessionID(sessionId, callBack);
         return JSON.parse(resultStr);
     } else {
+
+    }
+}
+
+/*
+ * 获取热门游戏
+ */
+export const getTheHotGames = async(callBack)=>{
+    if(iOSPlatform){
+        let resultStr = await ApiHelper.YuelunHotGameList(_sessionId,callBack);
+        return JSON.parse(resultStr);
+    }else{
 
     }
 }
