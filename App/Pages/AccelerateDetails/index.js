@@ -121,9 +121,7 @@ export default class AccelerateDetails extends Component {
                  prepare();
              });
          */
-        Api.userInfo().then((res)=>{
-            console.log(res);
-        });
+    
 
 
     }

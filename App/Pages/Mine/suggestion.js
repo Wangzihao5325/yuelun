@@ -14,10 +14,12 @@ import {
     Image,
     TouchableOpacity,
     TextInput,
+    AsyncStorage,
     KeyboardAvoidingView
 } from 'react-native';
 import CustomButton from '../../Components/Component/CustomButton';
 import {SCREEN_WIDTH, SCREEN_HEIGHT} from '../../Config/UIConfig';
+import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
 
 export default class suggestion extends Component {
     constructor(props){
@@ -26,17 +28,41 @@ export default class suggestion extends Component {
         this.state = {
             suggestion:'',
             contactValue:'',
+            onFocus:false,
+            session_id:''
         }
+    }
+
+    componentWillMount(){
+        AsyncStorage.getItem('userInfo').then(value=>{
+            if(value == null){
+                
+            }else{
+                let userData = JSON.parse(value);
+                this.setState({
+                    session_id:userData['data']['session_id'] ? userData['data']['session_id'] : ''
+                });
+            }
+        }).catch(reason =>{
+
+        });
     }
 
     componentDidMount(){
        const { params } = this.props.route.params;
-        
+       this.props.navigation.setOptions({
+        headerRight: () => (
+            <Button
+              onPress={() => {this.sendTheSuggestion()}}
+              title="发送"
+              color="#fff"
+            />)
+    });
     }
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,{marginTop:this.state.onFocus ? -130 : 0}]}>
                 <Text style={styles.textStyle}>告诉我们您遇到的问题</Text>
                 <View style={styles.suggestionRoot}>
                     <TextInput
@@ -63,7 +89,6 @@ export default class suggestion extends Component {
         return(
             <View style={styles.contactRoot}>
                 <Text style={styles.textStyle}>您的联系方式</Text>
-                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
                 <TextInput 
                      placeholder='请留下QQ/电话哦'
                      style={styles.contactItem}
@@ -71,13 +96,35 @@ export default class suggestion extends Component {
                      onChangeText = {(text)=>{
                         this.setState({contactValue:text})
                      }}
+                     onBlur = {()=>{
+                         this.setState({onFocus:false});
+                    }}
+                    onFocus = {()=>{
+                        this.setState({onFocus:true});
+                    }}
                     value = {this.state.contactValue}
                 />
-                </KeyboardAvoidingView>
             </View>
         );
     }
     
+    sendTheSuggestion = () =>{
+        if(this.state.suggestion === ''){
+            alert('请输入遇到的问题');
+            return;
+        }
+
+        if(this.state.contactValue === ''){
+            alert('请输入联系方式');
+            return;
+        }
+
+        ApiModule.sendTheFeedbackWithTheSessionID(this.state.session_id,this.state.suggestion,this.state.contactValue,(data)=>{
+            let feedback = JSON.parse(data);
+            console.log('feedbackfeedback',feedback);
+        });
+    }
+
 }
 
 const styles = StyleSheet.create({

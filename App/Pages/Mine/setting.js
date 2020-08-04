@@ -13,19 +13,38 @@ import {
     Button,
     Image,
     TouchableOpacity,
-    Switch
+    Switch,
+    Alert,
+    AsyncStorage
 } from 'react-native';
 import {SCREEN_WIDTH, SCREEN_HEIGHT} from '../../Config/UIConfig';
 import PageName from '../../Config/PageName';
 import * as navigator from '../../Router/NavigationService';
+import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
 
 export default class setting extends Component {
     constructor(props){
         super(props);
         
         this.state = {
-            switchValue:false
+            switchValue:false,
+            session_id:''
         }
+    }
+
+    componentWillMount(){
+        AsyncStorage.getItem('userInfo').then(value=>{
+            if(value == null){
+                
+            }else{
+                let userData = JSON.parse(value);
+                this.setState({
+                    session_id:userData['data']['session_id'] ? userData['data']['session_id'] : ''
+                });
+            }
+        }).catch(reason =>{
+
+        });
     }
 
     componentDidMount(){
@@ -42,7 +61,7 @@ export default class setting extends Component {
                 </View>
                 <View style={styles.logoutRoot}>
                     <TouchableOpacity 
-                        onPress = {()=>{console.log('logout-----');}}>
+                        onPress = {()=>{this.logoutFunction()}}>
                             <View style={styles.logoutBtnBtn}>
                                  <Text style={{color:'yellow'}}>退出登录</Text>
                             </View>
@@ -83,6 +102,29 @@ export default class setting extends Component {
 
     pushToSuggestionView = () =>{
         navigator.jump(this, PageName.NORMAL_PAGE_SUGGESTION);
+    }
+
+    logoutFunction = () =>{
+        Alert.alert('退出登录','您确定要退出登录吗？',[
+            {text:'取消',onPress:this.cancleFunction},
+            {text:'确定',onPress:this.sureLogoutFunction}
+        ]);
+    }
+
+    cancleFunction = () =>{
+
+    }
+
+    sureLogoutFunction = () =>{
+        ApiModule.userLogoutWithSessionID(this.state.session_id,(data)=>{
+            let feedback = JSON.parse(data);
+            if(feedback['status'] == 'ok'){
+                navigator.back(this);
+            }else{
+                Alert.alert('退出登录失败');
+            }
+            console.log('feedbackfeedback',feedback);
+        });
     }
 }
 

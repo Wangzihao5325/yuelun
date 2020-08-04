@@ -26,6 +26,8 @@
 		2DCD954D1E0B4F2C00145EB5 /* RNDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RNDemoTests.m */; };
 		34F713CE243C2C6C001034CF /* AuthenticationModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F713CD243C2C6C001034CF /* AuthenticationModule.m */; };
 		7C2A64BE89FB4240919FCF8D /* libPods-RNDemo-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF18FFEA48B94E7A13DFF097 /* libPods-RNDemo-tvOS.a */; };
+		80F7766A24C7CE92004DCDB1 /* apiyuelun.h in Sources */ = {isa = PBXBuildFile; fileRef = 00E1FC0B24C2CDEA0092895E /* apiyuelun.h */; };
+		80F7767324D07210004DCDB1 /* ApiHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80F7767224D07210004DCDB1 /* ApiHelper.mm */; };
 		A522A05CEDAAB65C1D9333F3 /* libPods-RNDemo-RNDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3464F86A16DE9EF64A13562A /* libPods-RNDemo-RNDemoTests.a */; };
 		C6ADE1C2F0F2E4FFB75C6354 /* libPods-RNDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D086370BEB68C40B80F3C07D /* libPods-RNDemo.a */; };
 		EB7B94932CF80D6513E7DF08 /* libPods-RNDemo-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2D3E4E44A8036272CCDE589 /* libPods-RNDemo-tvOSTests.a */; };
@@ -88,6 +90,8 @@
 		34F713CD243C2C6C001034CF /* AuthenticationModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthenticationModule.m; path = RNDemo/BridgeModule/SecurityModule/AuthenticationModule.m; sourceTree = "<group>"; };
 		60947F9E755E6771DFD0CF8E /* Pods-RNDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemoTests.release.xcconfig"; path = "Target Support Files/Pods-RNDemoTests/Pods-RNDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		60CA3976A620108703AF9021 /* Pods-RNDemo-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemo-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-RNDemo-tvOSTests/Pods-RNDemo-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		80F7767124D07210004DCDB1 /* ApiHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiHelper.h; sourceTree = "<group>"; };
+		80F7767224D07210004DCDB1 /* ApiHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ApiHelper.mm; sourceTree = "<group>"; };
 		94B62AE16F593BCC4BF6E40C /* Pods-RNDemo-RNDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemo-RNDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-RNDemo-RNDemoTests/Pods-RNDemo-RNDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A2D3E4E44A8036272CCDE589 /* libPods-RNDemo-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNDemo-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF80F1A94A0D6D7AC204937E /* Pods-RNDemo-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemo-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-RNDemo-tvOSTests/Pods-RNDemo-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 				00675C482430AE7100085827 /* QRScanReader.m */,
 				00E1FC1A24C330E00092895E /* CApiClientMiddleware.h */,
 				00E1FC1D24C3314C0092895E /* CApiClientMiddleware.mm */,
+				80F7767124D07210004DCDB1 /* ApiHelper.h */,
+				80F7767224D07210004DCDB1 /* ApiHelper.mm */,
 			);
 			name = BridgeModule;
 			sourceTree = "<group>";
@@ -359,6 +365,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = S8JP353ERG;
 						LastSwiftMigration = 1130;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -441,7 +448,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		29855DEC5F5ED13A6635F670 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -702,8 +709,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80F7766A24C7CE92004DCDB1 /* apiyuelun.h in Sources */,
 				00F29DD6242889D600A54037 /* BridgeDemo.m in Sources */,
 				00675C46243094DC00085827 /* KeyChainModule.m in Sources */,
+				80F7767324D07210004DCDB1 /* ApiHelper.mm in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				00E1FC1E24C3314D0092895E /* CApiClientMiddleware.mm in Sources */,
 				00675C492430AE7100085827 /* QRScanReader.m in Sources */,
@@ -808,6 +817,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S8JP353ERG;
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -825,7 +835,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuelun.accvpntestt;
 				PRODUCT_NAME = RNDemo;
 				SWIFT_OBJC_BRIDGING_HEADER = "RNDemo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -842,6 +852,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S8JP353ERG;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = RNDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -854,7 +865,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuelun.accvpntestt;
 				PRODUCT_NAME = RNDemo;
 				SWIFT_OBJC_BRIDGING_HEADER = "RNDemo-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

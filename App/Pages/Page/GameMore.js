@@ -26,7 +26,7 @@ import GameNormalItem from '../../Components/Component/Game/GameNormalItem';
 
 import PageName from '../../Config/PageName';
 import * as navigator from '../../Router/NavigationService';
-import * as mock_home from '../../Mock/home';
+import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
 
 export default class GameMore extends Component {
     constructor(props) {
@@ -40,31 +40,21 @@ export default class GameMore extends Component {
             upcomingGames: {},
 
             more_games: [],
+
+            type_name:'',
+            classification:'',
         }
     } 
 
     componentDidMount() {
-        //外服数据解析
-        let overseas_game_colloection = mock_home['default']['data']['gameList'][2]['game_list']['精选'];
-        let overseas_game_hot = mock_home['default']['data']['gameList'][2]['game_list']['热门'];
-        let overseas_game_new = mock_home['default']['data']['gameList'][2]['game_list']['最新'];
-        if (!overseas_game_colloection) overseas_game_colloection = [];
-        if (!overseas_game_hot) overseas_game_hot = [];
-        if (!overseas_game_new) overseas_game_new = [];
-        let overseas_games = [];
-        overseas_games.push(...overseas_game_colloection);
-        overseas_games.push(...overseas_game_hot);
-        overseas_games.push(...overseas_game_new);
-
-        this.setState({
-            isRefreshingStatus:false,
-            more_games: overseas_games
-        });
-
-        const { title } = this.props.route.params;
+        const { title,type_name,classification } = this.props.route.params;
         this.props.navigation.setOptions({
-            title:title?title:'',
+            title : title ? title : '',
+            type_name : type_name ? type_name : '',
+            classification : classification ? classification : ''
         });
+
+        this.getTheMoreGamesData(type_name,classification);
     }
 
     render() {
@@ -116,10 +106,30 @@ export default class GameMore extends Component {
                     index={index}
                     source={{ uri: item.icon }}
                     title={item['name']}
-                    showFavoratorIcon={true}
-                    favorator={false} />
+                    favorator={false} 
+                    pressCallback={() => {this.clickGameNormalItemBtn(item)}}
+                />
             </View>
         );
+    }
+
+    getTheMoreGamesData = (type_name,classification) =>{
+        ApiModule.getSearchGamesData('','',type_name,classification,(data)=>{
+            let allGameData = JSON.parse(data);
+            console.log('hahahahhahahahah',allGameData);
+            if(allGameData['status'] == 'ok'){
+                let dataList = allGameData['data']['list'];
+                this.setState({
+                    more_games: dataList
+                });
+            }
+        });
+    }
+
+    clickGameNormalItemBtn = (item) => {
+        console.log("测试单个点击",item);
+        let payload = { data: JSON.stringify(item) }
+        navigator.jump(this, PageName.ACCELERATE_DETAILS_PAGE, payload);
     }
 }
 

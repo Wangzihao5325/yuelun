@@ -6,6 +6,7 @@ import {
     StyleSheet,
     ImageBackground,
     TouchableOpacity,
+    AsyncStorage
 } from 'react-native';
 
 import PageName from '../../Config/PageName';
@@ -16,6 +17,16 @@ import { connect } from 'react-redux';
 class MinePage extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            loginStatus : false,
+            userIcon:'',
+            userName:''
+        };
+    }
+
+    componentDidMount(){
+        this.loadTheUserInfomation();
     }
 
     render() {
@@ -54,10 +65,10 @@ class MinePage extends Component {
         return (
             <View style={styles.inforRootView}>
                 {
-                    this.props.loginStatus
+                    this.state.loginStatus
                         ?
                         <TouchableOpacity onPress={() => { this.clickTheCheckUserInformationFunction() }}>
-                            <Text style={styles.nameStyle}>{this.props.userName}</Text>
+                            <Text style={styles.nameStyle}>{this.state.userName}</Text>
                             <Text style={styles.showInfoText}>查看个人信息</Text>
                         </TouchableOpacity>
                         :
@@ -119,6 +130,28 @@ class MinePage extends Component {
 
     clickTheCheckUserInformationFunction = () => {
         navigator.jump(this, PageName.NORMAL_PERSONAL_INFO);
+    }
+
+    loadTheUserInfomation = () =>{
+        AsyncStorage.getItem('userInfo').then(value=>{
+            if(value == null){
+                this.setState({
+                    loginStatus : false,
+                    userIcon:'',
+                    userName:''
+                });
+            }else{
+                let userData = JSON.parse(value);
+                console.log('个人信息',userData);
+                this.setState({
+                    loginStatus : true,
+                    userIcon:'',
+                    userName:userData['data']['username'] ? userData['data']['username'] : ''
+                });
+            }
+        }).catch(reason =>{
+
+        });
     }
 }
 

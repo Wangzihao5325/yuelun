@@ -83,8 +83,8 @@ public class CApiClientManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void yuelunSearchGamelist(String strsession_id, String strgame_name, String strtype_name, String strclassification, Promise promise){
-        String receiveStr = CApiClient.YuelunSearchGamelist(strsession_id,strgame_name,strtype_name,strclassification);
+    public void yuelunSearchGamelist(String strsession_id, String strgame_name, String strtype_name, String strclassification,String strpages,String strlimit, Promise promise){
+        String receiveStr = CApiClient.YuelunSearchGamelist(strsession_id,strgame_name,strtype_name,strclassification,strpages,strlimit);
         promise.resolve(receiveStr);
     }
 
@@ -96,7 +96,7 @@ public class CApiClientManager extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void yuelunSverCollection(String strsession_id, String strgameids, Promise promise){
-        String receiveStr = CApiClient.YuelunSverCollection(strsession_id,strgameids);
+        String receiveStr = CApiClient.YuelunSaveCollection(strsession_id,strgameids);
         promise.resolve(receiveStr);
     }
 

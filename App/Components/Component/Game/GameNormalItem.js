@@ -15,10 +15,12 @@ export default class GameNormalItem extends Component {
                     {
                         this.props.showFavoratorIcon
                             ?
+                            <TouchableOpacity style={styles.favoratorIcon} onPress={this.props.clickTheCollecButton}>
                             <Image
                                 resizeMode={'contain'}
                                 source={this.props.favorator ? require('../../../resource/Image/GameHomePage/hot.png') : require('../../../resource/Image/GameHomePage/search.png')}
-                                style={styles.favoratorIcon} />
+                                style={{width: 20.5, height: 18.5,}} />
+                            </TouchableOpacity>
                             :
                             null
                     }

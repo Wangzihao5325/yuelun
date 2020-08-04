@@ -17,7 +17,6 @@ import {
     ImageBackground,
     RefreshControl
 } from 'react-native';
-import CustomeListView from '../../Components/Component/CustomeListView';
 import { SCREEN_WIDTH, BannerWidth, BannerHeight } from '../../Config/UIConfig';
 import GameHomeNavigation from '../../Components/Component/NavigationItem/GameHomeNavigation';
 import CustomerSwiper from '../../Components/Component/CustomeSwiper';
@@ -27,7 +26,7 @@ import GameNormalItem from '../../Components/Component/Game/GameNormalItem';
 
 import PageName from '../../Config/PageName';
 import * as navigator from '../../Router/NavigationService';
-import * as mock_home from '../../Mock/home';
+import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
 
 let testData = [
     { imageUrl: 'http://b.hiphotos.baidu.com/zhidao/pic/item/c75c10385343fbf233e9732cb27eca8064388ffc.jpg' },
@@ -50,45 +49,21 @@ export default class acceleratorPage extends Component {
             all_game_new: [],
 
             overseas_games: [],
-            upcoming_games: []
+            upcoming_games: [],
+
+            bannerArray:[],
+
+            collection_games_array : [],
         }
     }
 
     componentDidMount() {
-        //国服数据解析
-        console.log('mock_homemock_home', mock_home['default']['data']['gameList'][1]['game_list']['精选']);
-        let all_game_collection = mock_home['default']['data']['gameList'][1]['game_list']['精选'];
-        let all_game_hot = mock_home['default']['data']['gameList'][1]['game_list']['热门'];
-        let all_game_new = mock_home['default']['data']['gameList'][1]['game_list']['最新'];
-
-        //外服数据解析
-        let overseas_game_colloection = mock_home['default']['data']['gameList'][2]['game_list']['精选'];
-        let overseas_game_hot = mock_home['default']['data']['gameList'][2]['game_list']['热门'];
-        let overseas_game_new = mock_home['default']['data']['gameList'][2]['game_list']['最新'];
-
-        if (!overseas_game_colloection) overseas_game_colloection = [];
-        if (!overseas_game_hot) overseas_game_hot = [];
-        if (!overseas_game_new) overseas_game_new = [];
-        let overseas_games = [];
-        overseas_games.push(...overseas_game_colloection);
-        overseas_games.push(...overseas_game_hot);
-        overseas_games.push(...overseas_game_new);
-
-        //解析即将上线
-        let upcoming_games = mock_home['default']['data']['gameList'][0]['game_list'];
-
-        this.setState({
-            all_game_collection: all_game_collection,
-            all_game_hot: all_game_hot,
-            all_game_new: all_game_new,
-            overseas_games: overseas_games,
-            upcoming_games: upcoming_games
-        });
-
+        this.getTheBannerData();
+        this.getAllGames();
+        this.getTheCollectionGames();
     }
 
     render() {
-        console.log('home_Page is rendering');
         return (
             <View style={styles.container}>
                 <ImageBackground
@@ -134,7 +109,7 @@ export default class acceleratorPage extends Component {
     renderTheBannerItem = () => {
         return (
             <View style={styles.bannerRootView}>
-                <CustomerSwiper borderRadius={10} super={this} bannerData={testData} />
+                <CustomerSwiper borderRadius={10} super={this} bannerData={this.state.bannerArray} />
             </View>
         );
     }
@@ -197,7 +172,16 @@ export default class acceleratorPage extends Component {
                     title={title}
                     clickFunction={() => {
                         console.log('查看', title, '的更多');
-                        this.clickTheMoreGamesButton(title);
+                        let type_name = '国内';
+                        let classification;
+                        if(type == 1){
+                            classification = '精选';
+                        }else if(type == 2){
+                            classification = '热门';
+                        }else if(type == 3){
+                            classification = '最新';
+                        }
+                        this.clickTheMoreGamesButton(title,type_name,classification,);
                     }} />
 
                 <ScrollView
@@ -246,7 +230,10 @@ export default class acceleratorPage extends Component {
                     source={{ uri: item.icon }}
                     title={item['name']}
                     showFavoratorIcon={true}
-                    favorator={false} />
+                    favorator={false} 
+                    clickTheCollecButton={()=>{
+                        this.saveTheCollectionGames(item['id']);
+                    }}/>
             </View>
         );
     }
@@ -259,13 +246,15 @@ export default class acceleratorPage extends Component {
         return (
             <View style={[styles.scrollViewStyleOne, { height: dataArray.length > 2 ? 270 : 135 }]}>
                 {
-                    dataArray.map(function (item, inedx) {
+                    dataArray.map((item, inedx) => {
                         return (
                             <View style={{ marginLeft: 10 }}>
                                 <GameUnitItem
-                                    key={inedx}
+                                    key={inedx+200}
                                     nameText={item['name']}
-                                    source={{ uri: item.icon }} />
+                                    source={{ uri: item.icon }} 
+                                    pressCallback={() => {this.clickGameNormalItemBtn(item)}}
+                                />
                             </View>);
                     })
                 }
@@ -288,7 +277,7 @@ export default class acceleratorPage extends Component {
                                     key={inedx}
                                     title={item['name']}
                                     source={{ uri: item.icon }}
-                                    pressCallback={() => this.clickGameNormalItemBtn(item)}
+                                    pressCallback={() => {this.clickGameNormalItemBtn(item)}}
                                 />
                             </View>);
                     })
@@ -298,6 +287,7 @@ export default class acceleratorPage extends Component {
     }
 
     clickGameNormalItemBtn = (item) => {
+        console.log("测试单个点击",item);
         let payload = { data: JSON.stringify(item) }
         navigator.jump(this, PageName.ACCELERATE_DETAILS_PAGE, payload);
     }
@@ -313,6 +303,95 @@ export default class acceleratorPage extends Component {
 
     clickTheMoreGamesButton = (gameType = '') =>{
         navigator.jump(this, PageName.NORMAL_PAGE_GAME_MORE_PAGE,{title:gameType});
+    }
+
+    /**
+     * 获取banner数据
+     * 
+    */
+    getTheBannerData = () =>{
+        ApiModule.getTheBannerData((data)=>{
+            let bannerData = JSON.parse(data);
+            let ad_list = bannerData.data.ad_list;
+            console.log('return data',ad_list);
+            let bannerList = [];
+            for(let i = 0; i < ad_list.length;i++){
+                let unitItem = ad_list[i];
+                bannerUnit = {imageUrl:unitItem.image_url};
+                bannerList.push(bannerUnit);
+            }
+
+            this.setState({bannerArray:bannerList});
+        });
+    }
+
+    /**
+     * 获取所有的游戏数据
+    */
+    getAllGames = () =>{
+        ApiModule.getAllGameConfig('',(data)=>{
+            let allGameData = JSON.parse(data);
+            console.log('allGameDataallGameData',allGameData);
+            this.parseAllGameData(allGameData);
+        });
+    }
+
+    parseAllGameData = (allGameData) =>{
+        //国服数据解析
+        let all_game_collection = allGameData['data']['gameList'][1]['game_list']['精选'];
+        let all_game_hot        = allGameData['data']['gameList'][1]['game_list']['热门'];
+        let all_game_new        = allGameData['data']['gameList'][1]['game_list']['最新'];
+
+        //外服数据解析
+        let overseas_game_colloection = allGameData['data']['gameList'][2]['game_list']['精选'];
+        let overseas_game_hot         = allGameData['data']['gameList'][2]['game_list']['热门'];
+        let overseas_game_new         = allGameData['data']['gameList'][2]['game_list']['最新'];
+
+        if (!overseas_game_colloection) overseas_game_colloection = [];
+        if (!overseas_game_hot) overseas_game_hot = [];
+        if (!overseas_game_new) overseas_game_new = [];
+        let overseas_games = [];
+        overseas_games.push(...overseas_game_colloection);
+        overseas_games.push(...overseas_game_hot);
+        overseas_games.push(...overseas_game_new);
+
+        //解析即将上线
+        let upcoming_game_collection = allGameData['data']['gameList'][0]['game_list']['精选'];
+        let upcoming_game_hot        = allGameData['data']['gameList'][0]['game_list']['热门'];
+        let upcoming_game_new        = allGameData['data']['gameList'][0]['game_list']['最新'];
+        if (!upcoming_game_collection) upcoming_game_collection = [];
+        if (!upcoming_game_hot)        upcoming_game_hot        = [];
+        if (!upcoming_game_new)        upcoming_game_new        = [];
+        let upcoming_games = [];
+        upcoming_games.push(...upcoming_game_collection);
+        upcoming_games.push(...upcoming_game_hot);
+        upcoming_games.push(...upcoming_game_new);
+
+        this.setState({
+            all_game_collection: all_game_collection,
+            all_game_hot: all_game_hot,
+            all_game_new: all_game_new,
+            overseas_games: overseas_games,
+            upcoming_games: upcoming_games
+        });
+    }
+
+    getTheCollectionGames = () =>{
+        let sessionID = 'd6eb14382b7bd59a5d9b2557b1589fd510b4e2f1';
+        ApiModule.getAllUserCollectGames(sessionID,(data)=>{
+            let collections = JSON.parse(data);
+            console.log('collect data',collections);
+        });
+    }
+
+    saveTheCollectionGames = (gameID = '') =>{
+        let sessionID = 'd6eb14382b7bd59a5d9b2557b1589fd510b4e2f1';
+        let gameIDArray = [];
+        gameIDArray.push(gameID);
+        ApiModule.YuelunSverCollection(sessionID,gameIDArray,(data)=>{
+            let collections = JSON.parse(data);
+            console.log('save collect data',collections);
+        });
     }
 }
 

@@ -13,7 +13,9 @@ export default class GameUnitItem extends Component{
                     </View>
                     <View style={styles.infoRoot}>
                         <Text style={styles.nameText}>{this.props.nameText}</Text>
-                        <TouchableOpacity style={styles.buttonStyle}>
+                        <TouchableOpacity 
+                            onPress={this.props.pressCallback}
+                            style={styles.buttonStyle}>
                             <Image
                                 source = {require('../../../resource/Image/GameHomePage/lightning.png')} 
                                 style={styles.iconStyle}/>

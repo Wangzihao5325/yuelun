@@ -25,6 +25,7 @@ import GameNormalItem from '../../Components/Component/Game/GameNormalItem';
 import SearchNavigator from '../../Components/Component/Game/SearchNavigator';
 import * as navigator from '../../Router/NavigationService';
 import { TextInput } from 'react-native-gesture-handler';
+import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
 
 const NoramType  = 1;
 const searchType = 2;
@@ -39,15 +40,24 @@ export default class search extends Component {
             searchText:'',
             pageType:NoramType,
             searchHistory:[],
-            test:false
+            test:false,
+            session_id:''
         }
     }
 
     componentWillMount () {
-    }
+        AsyncStorage.getItem('userInfo').then(value=>{
+            if(value == null){
+                
+            }else{
+                let userData = JSON.parse(value);
+                this.setState({
+                    session_id:userData['data']['session_id'] ? userData['data']['session_id'] : ''
+                });
+            }
+        }).catch(reason =>{
 
-    componentWillUnmount () {
-        
+        });
     }
 
     componentDidMount(){
@@ -235,6 +245,8 @@ export default class search extends Component {
             return;
         }
 
+        this.searchTheGame(historyText);
+
         let historyData = this.state.searchHistory; 
         let containsText = false;
         if(historyData.length > 0){
@@ -263,6 +275,26 @@ export default class search extends Component {
                 </View>
             </View>
         );
+    }
+
+    /**
+     * 搜索游戏
+     * 
+    */
+    searchTheGame = (game_name = '') =>{
+        ApiModule.getSearchGamesData(this.state.session_id,game_name,'','',(data)=>{
+            let allGameData = JSON.parse(data);
+            console.log('searchsearch',allGameData);
+            if(allGameData['status'] == 'ok'){
+                let dataList = allGameData['data']['list'];
+                this.setState({
+                    resultGames: dataList
+                });
+            }else{
+                let msg = allGameData['msg'];
+
+            }
+        });
     }
 
     /**
