@@ -1,4 +1,4 @@
-#include <string>
+﻿#include <string>
 void CurlInit();
 /**
 * 发送验证码传入手机号，请求成功后会在手机收到验证码
@@ -101,7 +101,7 @@ std::string YuelunGetCollection(std::string strsession_id);
 * @param strgameids 收藏游戏ID （1,2,3,4,5）字符串
 * @return
 */
-std::string YuelunSverCollection(std::string strsession_id, std::string strgameids);
+std::string YuelunSaveCollection(std::string strsession_id, std::string strgameids);
 /**
 * 玩家意见反馈
 * @param strsession_id 用户登录session_id
@@ -110,13 +110,28 @@ std::string YuelunSverCollection(std::string strsession_id, std::string strgamei
 * @return
 */
 std::string YuelunSaveFeedBack(std::string strsession_id, std::string strcontent, std::string strconntact);
+/**
+*搜索游戏接口
+* @param strsession_id 用户登录session_id
+* @param strgame_name  游戏名称
+* @param strtype_name 游戏类型（国内，海外）具体值根据获取游戏列表接口返回字段types传值
+* @param strclassification 游戏分类（国内，海外）具体值根据获取游戏列表接口返回字段classifications传值
+* @param strpages 页码 不传默认第一页
+* @param strlimit 数量 不传默认一页16条
+* @return
+*/
+std::string YuelunSearchGameList(std::string strsession_id, std::string strgame_name, std::string strtype_name, std::string strclassification , std::string strpages, std::string strlimit);
 
 /**
-     *搜索游戏接口
-     * @param strsession_id 用户登录session_id
-     * @param strgame_name  游戏名称
-     * @param strtype_name 游戏类型（国内，海外）具体值根据获取游戏列表接口返回字段types传值
-     * @param strclassification 游戏分类（国内，海外）具体值根据获取游戏列表接口返回字段classifications传值
-     * @return
-     */
-std::string YuelunSearchGameList(std::string strsession_id, std::string strgame_name, std::string strtype_name, std::string strclassification);
+* 热门搜索列表
+* @param strsession_id 用户登录sesion_id
+* @return
+*/
+std::string  YuelunHotGameList(std::string strsession_id);
+/**
+* 游戏搜索记录
+* @param strsession_id 用户登录session_id
+* @param strgameid 游戏id
+* @return
+*/
+std::string  YuelunSaveSearchGameList(std::string strsession_id, std::string strgameid); 
