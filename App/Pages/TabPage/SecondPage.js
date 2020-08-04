@@ -44,9 +44,12 @@ export default class SecondPage extends Component {
     }
 
     sendCode = async () => {
-        let request = await Api.sendPhoneCode('18700875325');
-        this.setState({
-            text: request
+        // let request = await Api.sendPhoneCode('18700875325');
+        // this.setState({
+        //     text: request
+        // });
+        Api.search('王者荣耀','','').then((res)=>{
+            console.log(res);
         });
     }
 

@@ -16,6 +16,11 @@ public class CApiClient {
     public static native void CurlInit();
 
     /**
+     * 获取app配置信息，协商ip
+     * @return
+     */
+    public static native String YuelunGetNewConfig();
+    /**
      * 发送验证码传入手机号，请求成功后会在手机收到验证码
      * @param strphone 手机号
      * @return
@@ -81,6 +86,7 @@ public class CApiClient {
      * @return
      */
     public static native String YuelunCheckHear(String strsession_id,String strgame_id,String strserver_id);
+
     /**
      * 获取公告信息
      * @param strpages 页码，不传默认第一页
@@ -88,7 +94,13 @@ public class CApiClient {
      * @return
      */
     public static native String YuelunGetNewsList(String strpages,String strlimits);
+
+    /**
+     * 获取广告接口
+     * @return
+     */
     public static native String YuelunGetAdList();
+
     /**
      * 修改用户头像，昵称，手机号，修改哪个传哪个，不修改可以为空
      * @param strsession_id 用户session_id
@@ -99,4 +111,62 @@ public class CApiClient {
      * @return
      */
     public static native String YuelunModifUserInfo(String strsession_id,String strphone_num,String strcode,String strusername,String strhead_png);
+
+    /**
+     * 获取用户信息接口
+     * @param strsession_id 用户登录session_id
+     * @return
+     */
+    public static native String YuelunGetUserInfo(String strsession_id);
+
+    /**
+     * 获取玩家收藏列表
+     * @param strsession_id 用户登录session_id
+     * @return
+     */
+    public static native String YuelunGetCollection(String strsession_id);
+
+    /**
+     * 更新玩家收藏列表
+     * @param strsession_id 用户登录session_id
+     * @param strgameids 收藏游戏ID （1,2,3,4,5）字符串
+     * @return
+     */
+    public static native String YuelunSaveCollection(String strsession_id,String strgameids);
+
+    /**
+     * 玩家意见反馈
+     * @param strsession_id 用户登录session_id
+     * @param strcontent 意见反馈内容
+     * @param strcontact 联系方式
+     * @return
+     */
+    public static native String YuelunSaveFeedBack(String strsession_id,String strcontent,String strcontact);
+
+    /**
+     *搜索游戏接口
+     * @param strsession_id 用户登录session_id
+     * @param strgame_name  游戏名称
+     * @param strtype_name 游戏类型（国内，海外）具体值根据获取游戏列表接口返回字段types传值
+     * @param strclassification 游戏分类（国内，海外）具体值根据获取游戏列表接口返回字段classifications传值
+     * @param strpages 页码 不传默认第一页
+     * @param strlimit 数量 不传默认一页16条
+     * @return
+     */
+    public static native String YuelunSearchGamelist(String strsession_id, String strgame_name, String strtype_name, String strclassification,String strpages,String strlimit);
+
+    /**
+     * 热门搜索列表
+     * @param strsession_id 用户登录sesion_id
+     * @return
+     */
+    public static native String  YuelunHotGameList(String strsession_id);
+
+    /**
+     * 游戏搜索记录
+     * @param strsession_id 用户登录session_id
+     * @param strgameid 游戏id
+     * @return
+     */
+    public static native String YuelunSaveSearchGameList(String strsession_id, String strgameid);
 }

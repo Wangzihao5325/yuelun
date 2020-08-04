@@ -5,20 +5,20 @@ import { call } from 'react-native-reanimated';
 const iOSPlatform = Platform.OS === 'ios';
 const CApiClientManager = NativeModules.CApiClient;
 const ApiHelper = NativeModules.ApiHelper;
-let _sessionId = '';
+let _sessionId = '2be8dc1d25fe84149fa5ee03bdf143282f2e555b';
 /**
  * 发送验证码
  * @param {string} phoneNum 手机号码
  */
-export const sendPhoneCode = async (phoneNum,callBack) => {
-    if(iOSPlatform){
-        let searchRequest = await ApiHelper.getThePhoneCode(phoneNum,callBack);
+export const sendPhoneCode = async (phoneNum, callBack) => {
+    if (iOSPlatform) {
+        let searchRequest = await ApiHelper.getThePhoneCode(phoneNum, callBack);
         return JSON.parse(searchRequest);
-    }else{
+    } else {
         let strRequest = await CApiClientManager.yuelunSendPhoneCode(phoneNum);
         return JSON.parse(strRequest);
     }
-    
+
 }
 /**
  * 移动端登录
@@ -27,11 +27,11 @@ export const sendPhoneCode = async (phoneNum,callBack) => {
  * @param {string} platform 平台 ios/android
  * @param {string} version app版本号
  */
-export const loginByPhoneNum = async (phoneNum, code, platform, version,callBack) => {
-    if(iOSPlatform){
-        let searchRequest = await ApiHelper.userLoginWithPhoneNum(phoneNum,code,platform,version,callBack);
+export const loginByPhoneNum = async (phoneNum, code, platform, version, callBack) => {
+    if (iOSPlatform) {
+        let searchRequest = await ApiHelper.userLoginWithPhoneNum(phoneNum, code, platform, version, callBack);
         return JSON.parse(searchRequest);
-    }else{
+    } else {
         let strRequest = await CApiClientManager.yuelunPhoneLogin(phoneNum, code, platform, version);
         let result = JSON.parse(strRequest);
         _sessionId = result.data.session_id;
@@ -70,15 +70,15 @@ export const getGameInfoById = async (gameId, gameToken) => {
  * @param {string} sessionId 用户登录获取到的session
  * @param {string} listToken token第一次请求传空，从返回json列表中获取该值 下次请求传入，若配置无更改，则下发ok,配置更改重新下发一份新的json数据
  */
-export const getAllGameConfig = async (listToken,callBack) => {
-    if(iOSPlatform) {
-        let strRequest = await ApiHelper.yuelunGetAllGameConfigWithSessionId(_sessionId,listToken,callBack);
+export const getAllGameConfig = async (listToken, callBack) => {
+    if (iOSPlatform) {
+        let strRequest = await ApiHelper.yuelunGetAllGameConfigWithSessionId(_sessionId, listToken, callBack);
         return JSON.parse(strRequest);
-    }else{
+    } else {
         let strRequest = await CApiClientManager.yuelunGetAllGameConfig(_sessionId, listToken);
         return JSON.parse(strRequest);
     }
-    
+
 }
 /**
  * 退出登录
@@ -128,14 +128,36 @@ export const modifyUserInfo = async (phoneNum, verificationCode, name, avater) =
 }
 
 /**
+ * 搜索
+ * @param {string} gameName 用户手机号
+ * @param {string} typeName 验证码
+ * @param {string} strclassification 要修改的用户名
+ */
+
+export const search = async (gameName, typeName, strclassification,page='',step='') => {
+    let strRequest = await CApiClientManager.yuelunSearchGamelist(_sessionId, encodeURIComponent(gameName), typeName, strclassification,page,step);
+    return JSON.parse(strRequest);
+}
+
+/**
+ * 反馈
+ * @param {string} strgameids 收藏游戏ID （1,2,3,4,5）字符串
+ */
+
+export const suggest = async (strcontent, strcontact) => {
+    let strRequest = await CApiClientManager.yuelunSaveFeedBack(_sessionId, strcontent, strcontact);
+    return JSON.parse(strRequest);
+}
+
+/*
  * 获取banner数据
  * 
 */
-export const getTheBannerData = async (callBack) =>{
-    if(iOSPlatform){
+export const getTheBannerData = async (callBack) => {
+    if (iOSPlatform) {
         let strRequest = await ApiHelper.getTheBannerDataCallBack(callBack);
         return JSON.parse(strRequest);
-    }else{
+    } else {
 
     }
 }
@@ -143,12 +165,14 @@ export const getTheBannerData = async (callBack) =>{
 /**
  * 获取用户信息
 */
-export const getTheUserInforWithSessionID = async (sessionId,callBack) => {
-    if(iOSPlatform){
-        let strRequest = await ApiHelper.getTheUserInforWithSessionID(sessionId,callBack);
+export const getTheUserInforWithSessionID = async ( callBack) => {
+    if (iOSPlatform) {
+        let strRequest = await ApiHelper.getTheUserInforWithSessionID(_sessionId);
+        callBack(JSON.parse(strRequest))
         return JSON.parse(strRequest);
-    }else{
-        
+    } else {
+        let strRequest = await CApiClientManager.yuelunGetUserInfo(_sessionId);
+        return JSON.parse(strRequest);
     }
 }
 
@@ -160,7 +184,7 @@ export const getSearchGamesData = async (sessionId,game_name,type_name = '',page
     if(iOSPlatform){
         let searchRequest = await ApiHelper.getTheSearchResultWithSessionIDd(sessionId,game_name,type_name,pages,classification,callBack);
         return JSON.parse(searchRequest);
-    }else{
+    } else {
 
     }
 }
@@ -169,12 +193,13 @@ export const getSearchGamesData = async (sessionId,game_name,type_name = '',page
  * 获取用户所有的收藏游戏
  * 
 */
-export const getAllUserCollectGames = async (sessionId,callBack) => {
-    if(iOSPlatform){
-        let requestStr = await ApiHelper.getTheUserCollectGames(sessionId,callBack);
+export const getAllUserCollectGames = async (callBack) => {
+    if (iOSPlatform) {
+        let requestStr = await ApiHelper.getTheUserCollectGames(_sessionId, callBack);
         return JSON.parse(requestStr);
-    }else{
-
+    } else {
+        let strRequest = await CApiClientManager.yuelunGetCollection(_sessionId);
+        return JSON.parse(strRequest);
     }
 }
 
@@ -182,12 +207,13 @@ export const getAllUserCollectGames = async (sessionId,callBack) => {
  * 更新收藏游戏
  * 
 */
-export const YuelunSverCollection = async (sessionId,gameIDArray,callBack)=>{
-    if(iOSPlatform){
-        let resultStr = await ApiHelper.YuelunSverCollection(sessionId,gameIDArray,callBack);
+export const YuelunSverCollection = async (gameIDArray, callBack) => {
+    if (iOSPlatform) {
+        let resultStr = await ApiHelper.YuelunSverCollection(_sessionId, gameIDArray, callBack);
         return JSON.parse(resultStr);
-    }else{
-
+    } else {
+        let strRequest = await CApiClientManager.yuelunSverCollection(_sessionId, gameIDArray);
+        return JSON.parse(strRequest);
     }
 }
 
@@ -195,11 +221,11 @@ export const YuelunSverCollection = async (sessionId,gameIDArray,callBack)=>{
  * 退出登录
  * 
 */
-export const userLogoutWithSessionID = async(sessionId,callBack) =>{
-    if(iOSPlatform){
-        let resultStr = await ApiHelper.userLogoutWithSessionID(sessionId,callBack);
+export const userLogoutWithSessionID = async (sessionId, callBack) => {
+    if (iOSPlatform) {
+        let resultStr = await ApiHelper.userLogoutWithSessionID(sessionId, callBack);
         return JSON.parse(resultStr);
-    }else{
+    } else {
 
     }
 }

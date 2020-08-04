@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { themeColor } from '../../Config/UIConfig';
 import * as Api from '../../Functions/NativeBridge/ApiModule';
+import {
+    VpnState,
+    CharonErrorState,
+    connect,
+    disconnect,
+    getCharonErrorState,
+    getCurrentState,
+    onStateChangedListener,
+    prepare,
+} from '../../Functions/NativeBridge/VpnModule';
 import StowPage from './StowPage';
 import UnfoldPage from './UnfoldPage';
 
@@ -80,21 +90,39 @@ export default class AccelerateDetails extends Component {
     }
 
     speedUp = () => {
-        const { use_server_id, id } = this.state;
-        if (use_server_id.length > 0) {
-            Api.connectServer(id, use_server_id[0]).then((res) => {
-                /** res.data
-                 * consult_ip: "162.14.5.205"
-                consult_port: "32091"
-                entry_ip: "119.3.83.78"
-                reserve_ip: ""
-                route_ip_list: []
-                tcp_port: ["15880"]
-                timestamp: 1595862116
-                udp_port: ["15880"]
-                 */
-                console.log(res);
-            })
-        }
+
+        // const { use_server_id, id } = this.state;
+        // if (use_server_id.length > 0) {
+        //     Api.connectServer(id, use_server_id[0]).then((res) => {
+        //         //  res.data
+        //         //  consult_ip: "162.14.5.205"
+        //         // consult_port: "32091"
+        //         // entry_ip: "119.3.83.78"
+        //         // reserve_ip: ""
+        //         // route_ip_list: []
+        //         // tcp_port: ["15880"]
+        //         // timestamp: 1595862116
+        //         // udp_port: ["15880"]
+
+        //         console.log(res);
+        //     })
+        //}
+
+        /* 
+         prepare()
+             .then(
+                 connect('162.14.5.205:32091', '', '')
+                     .then(() => console.log('connected'))
+                     .catch(console.log)
+             )
+             .catch((err) => {
+                 // only happen on android when activity is not running yet
+                 console.log(err);
+                 prepare();
+             });
+         */
+    
+
+
     }
 }
