@@ -32,6 +32,7 @@ export default class GameMore extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            pageNo:0,
             selectStatus: 1,
             isRefreshingStatus: false,
 
@@ -54,13 +55,14 @@ export default class GameMore extends Component {
             classification : classification ? classification : ''
         });
 
-        this.getTheMoreGamesData(type_name,classification);
+        this.getTheMoreGamesData(type_name,this.state.pageNo,classification);
     }
 
     render() {
         return (
             <View style={styles.container}>
                 <ScrollView 
+                    onMomentumScrollEnd = {this._contentViewScroll}
                     refreshControl={
                         <RefreshControl
                         refreshing={this.state.isRefreshingStatus}
@@ -76,6 +78,33 @@ export default class GameMore extends Component {
                 </ScrollView>
             </View>
         );
+    }
+    _contentViewScroll=(e)=>{
+
+        var offsetY = e.nativeEvent.contentOffset.y; //滑动距离
+        var contentSizeHeight = e.nativeEvent.contentSize.height; //scrollView contentSize高度
+        var oriageScrollHeight = e.nativeEvent.layoutMeasurement.height; //scrollView高度
+      
+      
+        if (offsetY + oriageScrollHeight >= contentSizeHeight){
+            this.loadMore();
+        }else if(offsetY + oriageScrollHeight <= 1){
+        //   这个是没有数据了然后给了false得时候还在往上拉
+        }else if(offsetY == 0){
+         //这个地方是下拉刷新，意思是到顶了还在指行，可以在这个地方进行处理需要刷新得数据
+        //  console.log('下啦');
+        }
+    }
+
+    loadMore = () =>{
+        
+        const {type_name,classification } = this.props.route.params;
+        let pageNum = this.state.pageNo + 1;
+        this.setState({pageNo:pageNum});
+        console.log('下啦',this.state.pageNo);
+        this.getTheMoreGamesData(type_name,pageNum,classification);
+        // const {type_name,classification } = this.props.route.params;
+        // this.getTheMoreGamesData(type_name,classification);
     }
 
     //渲染常规四列一纵的游戏页面
@@ -113,14 +142,18 @@ export default class GameMore extends Component {
         );
     }
 
-    getTheMoreGamesData = (type_name,classification) =>{
-        ApiModule.getSearchGamesData('','',type_name,classification,(data)=>{
+    getTheMoreGamesData = (type_name,page,classification) =>{
+        let pageNumber = page;
+        pageNumber = pageNumber.toString();
+        ApiModule.getSearchGamesData('','',type_name,pageNumber,classification,(data)=>{
             let allGameData = JSON.parse(data);
             console.log('hahahahhahahahah',allGameData);
             if(allGameData['status'] == 'ok'){
+                let allData = this.state.more_games;
                 let dataList = allGameData['data']['list'];
+                allData = allData.concat(dataList);
                 this.setState({
-                    more_games: dataList
+                    more_games: allData
                 });
             }
         });

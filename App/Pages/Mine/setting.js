@@ -119,6 +119,9 @@ export default class setting extends Component {
         ApiModule.userLogoutWithSessionID(this.state.session_id,(data)=>{
             let feedback = JSON.parse(data);
             if(feedback['status'] == 'ok'){
+                AsyncStorage.removeItem('userInfo').then(value =>{
+                }).catch(reason=>{
+                });
                 navigator.back(this);
             }else{
                 Alert.alert('退出登录失败');

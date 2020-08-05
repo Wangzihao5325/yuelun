@@ -241,3 +241,17 @@ export const getTheHotGames = async(callBack)=>{
 
     }
 }
+
+/**
+ * 消息反馈
+ * 
+*/
+export const sendTheFeedbackWithTheSessionID = async (suggestion,contactValue,callBack) =>{
+    if(iOSPlatform){
+        console.log('feedbackfeedback',_sessionId);
+        let resultStr = await ApiHelper.sendTheFeedbackWithTheSessionID(_sessionId,suggestion,contactValue,callBack);
+        return JSON.parse(resultStr);
+    }else{
+
+    }
+}

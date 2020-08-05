@@ -62,6 +62,7 @@ export default class suggestion extends Component {
 
     render() {
         return (
+            <TouchableOpacity style = {{backgroundColor:'#00132D',flex:1}}>
             <View style={[styles.container,{marginTop:this.state.onFocus ? -130 : 0}]}>
                 <Text style={styles.textStyle}>告诉我们您遇到的问题</Text>
                 <View style={styles.suggestionRoot}>
@@ -82,6 +83,7 @@ export default class suggestion extends Component {
                 </View>
                 {this.renderTheTelItem()}
             </View>
+            </TouchableOpacity>
         );
     }
 
@@ -119,7 +121,7 @@ export default class suggestion extends Component {
             return;
         }
 
-        ApiModule.sendTheFeedbackWithTheSessionID(this.state.session_id,this.state.suggestion,this.state.contactValue,(data)=>{
+        ApiModule.sendTheFeedbackWithTheSessionID(this.state.suggestion,this.state.contactValue,(data)=>{
             let feedback = JSON.parse(data);
             console.log('feedbackfeedback',feedback);
         });

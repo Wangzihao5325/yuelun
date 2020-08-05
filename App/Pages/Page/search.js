@@ -61,21 +61,6 @@ export default class search extends Component {
     }
 
     componentDidMount(){
-       const { params } = this.props.route.params;
-
-    //    //模拟数据
-    //    let overseas_game_colloection = mock_home['default']['data']['gameList'][2]['game_list']['精选'];
-    //    let overseas_game_hot = mock_home['default']['data']['gameList'][2]['game_list']['热门'];
-    //    let overseas_game_new = mock_home['default']['data']['gameList'][2]['game_list']['最新'];
-    //    if (!overseas_game_colloection) overseas_game_colloection = [];
-    //    if (!overseas_game_hot) overseas_game_hot = [];
-    //    if (!overseas_game_new) overseas_game_new = [];
-    //    let overseas_games = [];
-    //    overseas_games.push(...overseas_game_colloection);
-    //    overseas_games.push(...overseas_game_hot);
-    //    overseas_games.push(...overseas_game_new);
-    //    this.setState({hotGames:overseas_games});
-
        this.loadTheSearchHistoryData();
        this.getTheHotGamesData();
     }
@@ -89,7 +74,7 @@ export default class search extends Component {
                     onEndEditing = {()=>{
                         this.setState({pageType:searchType});
                         this.clickTheHistoryTextAndSearch(this.state.searchText);
-                        console.log('搜索',this.state.searchText);}}
+                    }}
                     cancleFunction = {()=>{
                         navigator.back(this);
                     }}
@@ -169,14 +154,21 @@ export default class search extends Component {
                 <View style={styles.normalRootViewStyle}>
                     {this.renderTheHotGamesSection()}
                 </View>
-                <Text style={{fontSize:14,color:'white',marginTop:54}}>找不到想要加速的游戏？</Text>
+                {
+                    this.state.resultGames.length == 0
+                    ?
+                    <Text style={{fontSize:14,color:'white',marginTop:54}}>为搜索到该游戏</Text>
+                    :
+                    null
+                }
+                {/* <Text style={{fontSize:14,color:'white',marginTop:54}}>找不到想要加速的游戏？</Text>
                 <TouchableOpacity 
                     style={{width:155,height:33,borderRadius:17,backgroundColor:'#F5CC00',justifyContent:'center',alignItems:'center',marginTop:8}}
                     onPress={()=>{
                         this.setState({test:true});
                     }}>
                     <Text style={{color:'#503000',fontSize:14}}>告诉我们</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         );
     }
@@ -245,7 +237,7 @@ export default class search extends Component {
         if(historyText == ''){
             return;
         }
-
+        this.setState({pageType:searchType});
         this.searchTheGame(historyText);
 
         let historyData = this.state.searchHistory; 

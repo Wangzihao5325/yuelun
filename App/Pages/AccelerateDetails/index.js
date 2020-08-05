@@ -3,16 +3,16 @@ import { StyleSheet, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { themeColor } from '../../Config/UIConfig';
 import * as Api from '../../Functions/NativeBridge/ApiModule';
-import {
-    VpnState,
-    CharonErrorState,
-    connect,
-    disconnect,
-    getCharonErrorState,
-    getCurrentState,
-    onStateChangedListener,
-    prepare,
-} from '../../Functions/NativeBridge/VpnModule';
+// import {
+//     VpnState,
+//     CharonErrorState,
+//     connect,
+//     disconnect,
+//     getCharonErrorState,
+//     getCurrentState,
+//     onStateChangedListener,
+//     prepare,
+// } from '../../Functions/NativeBridge/VpnModule';
 import StowPage from './StowPage';
 import UnfoldPage from './UnfoldPage';
 

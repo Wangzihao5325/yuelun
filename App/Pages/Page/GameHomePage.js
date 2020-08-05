@@ -28,11 +28,6 @@ import PageName from '../../Config/PageName';
 import * as navigator from '../../Router/NavigationService';
 import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
 
-let testData = [
-    { imageUrl: 'http://b.hiphotos.baidu.com/zhidao/pic/item/c75c10385343fbf233e9732cb27eca8064388ffc.jpg' },
-    { imageUrl: 'http://pic4.zhimg.com/v2-a328372a0afa2d242e048ce31d7ae2f7_b.jpg' },
-    { imageUrl: 'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1151207280,533626736&fm=111&gp=0.jpg' }];
-
 export default class acceleratorPage extends Component {
     constructor(props) {
         super(props);
@@ -377,8 +372,7 @@ export default class acceleratorPage extends Component {
     }
 
     getTheCollectionGames = () =>{
-        let sessionID = 'd6eb14382b7bd59a5d9b2557b1589fd510b4e2f1';
-        ApiModule.getAllUserCollectGames(sessionID,(data)=>{
+        ApiModule.getAllUserCollectGames((data)=>{
             let collections = JSON.parse(data);
             console.log('collect data',collections);
         });
