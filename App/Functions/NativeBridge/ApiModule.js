@@ -245,7 +245,6 @@ export const getTheHotGames = async (callBack) => {
         return JSON.parse(resultStr);
     }
 }
-<<<<<<< HEAD
 
 /**
  * 消息反馈
@@ -260,7 +259,7 @@ export const sendTheFeedbackWithTheSessionID = async (suggestion,contactValue,ca
 
     }
 }
-=======
+
 /**
  * 游戏搜索记录
  * @param {string} gameId 游戏id 
@@ -269,4 +268,4 @@ export const saveSearchGameList = async (gameId) => {
     let resultStr = await CApiClientManager.yuelunSaveSearchGameList(_sessionId, gameId);
     return JSON.parse(resultStr);
 }
->>>>>>> c6ebce9b32308d95388ac1e244184fbfff1c8b61
+
