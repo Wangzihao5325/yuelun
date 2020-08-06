@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		00675C46243094DC00085827 /* KeyChainModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 00675C44243094DC00085827 /* KeyChainModule.m */; };
 		00675C492430AE7100085827 /* QRScanReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 00675C482430AE7100085827 /* QRScanReader.m */; };
-		00B00E0D24D9C2B40036C5E4 /* RNIpSecVpn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B00E0C24D9C2B40036C5E4 /* RNIpSecVpn.swift */; };
-		00B00E1024D9C34A0036C5E4 /* RNIpSecVpnBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B00E0F24D9C34A0036C5E4 /* RNIpSecVpnBridge.m */; };
 		00E1FC0724C2CD280092895E /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E1FC0324C2CD270092895E /* libssl.a */; };
 		00E1FC0824C2CD280092895E /* libyuelun_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E1FC0424C2CD270092895E /* libyuelun_api.a */; };
 		00E1FC0924C2CD280092895E /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E1FC0524C2CD280092895E /* libcrypto.a */; };
@@ -28,6 +26,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* RNDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RNDemoTests.m */; };
 		34F713CE243C2C6C001034CF /* AuthenticationModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F713CD243C2C6C001034CF /* AuthenticationModule.m */; };
 		7C2A64BE89FB4240919FCF8D /* libPods-RNDemo-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF18FFEA48B94E7A13DFF097 /* libPods-RNDemo-tvOS.a */; };
+		802CF95924DB070800685ACF /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802CF95824DB070800685ACF /* NetworkExtension.framework */; };
 		80F7766A24C7CE92004DCDB1 /* apiyuelun.h in Sources */ = {isa = PBXBuildFile; fileRef = 00E1FC0B24C2CDEA0092895E /* apiyuelun.h */; };
 		80F7767324D07210004DCDB1 /* ApiHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80F7767224D07210004DCDB1 /* ApiHelper.mm */; };
 		A522A05CEDAAB65C1D9333F3 /* libPods-RNDemo-RNDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3464F86A16DE9EF64A13562A /* libPods-RNDemo-RNDemoTests.a */; };
@@ -59,9 +58,6 @@
 		00675C472430AE4800085827 /* QRScanReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = QRScanReader.h; path = RNDemo/BridgeModule/QRScanModule/QRScanReader.h; sourceTree = "<group>"; };
 		00675C482430AE7100085827 /* QRScanReader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = QRScanReader.m; path = RNDemo/BridgeModule/QRScanModule/QRScanReader.m; sourceTree = "<group>"; };
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00B00E0C24D9C2B40036C5E4 /* RNIpSecVpn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNIpSecVpn.swift; sourceTree = "<group>"; };
-		00B00E0E24D9C3340036C5E4 /* RNIpSecVpnBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNIpSecVpnBridge.h; sourceTree = "<group>"; };
-		00B00E0F24D9C34A0036C5E4 /* RNIpSecVpnBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNIpSecVpnBridge.m; sourceTree = "<group>"; };
 		00E1FC0324C2CD270092895E /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		00E1FC0424C2CD270092895E /* libyuelun_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libyuelun_api.a; sourceTree = "<group>"; };
 		00E1FC0524C2CD280092895E /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
@@ -95,6 +91,7 @@
 		34F713CD243C2C6C001034CF /* AuthenticationModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthenticationModule.m; path = RNDemo/BridgeModule/SecurityModule/AuthenticationModule.m; sourceTree = "<group>"; };
 		60947F9E755E6771DFD0CF8E /* Pods-RNDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemoTests.release.xcconfig"; path = "Target Support Files/Pods-RNDemoTests/Pods-RNDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		60CA3976A620108703AF9021 /* Pods-RNDemo-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemo-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-RNDemo-tvOSTests/Pods-RNDemo-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		802CF95824DB070800685ACF /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		80F7767124D07210004DCDB1 /* ApiHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiHelper.h; sourceTree = "<group>"; };
 		80F7767224D07210004DCDB1 /* ApiHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ApiHelper.mm; sourceTree = "<group>"; };
 		94B62AE16F593BCC4BF6E40C /* Pods-RNDemo-RNDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemo-RNDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-RNDemo-RNDemoTests/Pods-RNDemo-RNDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -123,6 +120,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00E1FC0A24C2CD280092895E /* libcurl.a in Frameworks */,
+				802CF95924DB070800685ACF /* NetworkExtension.framework in Frameworks */,
 				00E1FC0724C2CD280092895E /* libssl.a in Frameworks */,
 				00E1FC0824C2CD280092895E /* libyuelun_api.a in Frameworks */,
 				00E1FC0924C2CD280092895E /* libcrypto.a in Frameworks */,
@@ -181,8 +179,6 @@
 				00E1FC1D24C3314C0092895E /* CApiClientMiddleware.mm */,
 				80F7767124D07210004DCDB1 /* ApiHelper.h */,
 				80F7767224D07210004DCDB1 /* ApiHelper.mm */,
-				00B00E0E24D9C3340036C5E4 /* RNIpSecVpnBridge.h */,
-				00B00E0F24D9C34A0036C5E4 /* RNIpSecVpnBridge.m */,
 			);
 			name = BridgeModule;
 			sourceTree = "<group>";
@@ -200,7 +196,6 @@
 				00F29DD42428899000A54037 /* BridgeModule */,
 				000BA31924A990240091159D /* RNDemo-Bridging-Header.h */,
 				00E1FC0B24C2CDEA0092895E /* apiyuelun.h */,
-				00B00E0C24D9C2B40036C5E4 /* RNIpSecVpn.swift */,
 			);
 			name = RNDemo;
 			sourceTree = "<group>";
@@ -208,6 +203,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				802CF95824DB070800685ACF /* NetworkExtension.framework */,
 				00E1FC1F24C3FD330092895E /* libz.1.tbd */,
 				00E1FC1624C2DDAD0092895E /* libc++abi.tbd */,
 				00E1FC1424C2DD980092895E /* libc++.1.tbd */,
@@ -721,9 +717,7 @@
 				00F29DD6242889D600A54037 /* BridgeDemo.m in Sources */,
 				00675C46243094DC00085827 /* KeyChainModule.m in Sources */,
 				80F7767324D07210004DCDB1 /* ApiHelper.mm in Sources */,
-				00B00E1024D9C34A0036C5E4 /* RNIpSecVpnBridge.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				00B00E0D24D9C2B40036C5E4 /* RNIpSecVpn.swift in Sources */,
 				00E1FC1E24C3314D0092895E /* CApiClientMiddleware.mm in Sources */,
 				00675C492430AE7100085827 /* QRScanReader.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
@@ -780,7 +774,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 94B62AE16F593BCC4BF6E40C /* Pods-RNDemo-RNDemoTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -804,7 +797,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 10692BEFD672D061D8AEFAB9 /* Pods-RNDemo-RNDemoTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = RNDemoTests/Info.plist;
