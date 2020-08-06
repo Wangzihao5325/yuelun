@@ -147,7 +147,9 @@ export default class Login extends Component {
 
     getVerificationCode = () =>{
         const { phoneNum, verificationCode } = this.state;
-        Api.sendPhoneCode(phoneNum , (data)=>{
+
+        Api.sendPhoneCode(phoneNum)
+        .then((result)=>{
 
         });
     }

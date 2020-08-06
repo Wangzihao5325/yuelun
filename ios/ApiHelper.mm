@@ -9,117 +9,194 @@
 #import "ApiHelper.h"
 
 @implementation ApiHelper
-RCT_EXPORT_MODULE(ApiHelper);
+RCT_EXPORT_MODULE(CApiClient);
 
 /*
  *获取短信验证码
  */
-RCT_EXPORT_METHOD(getThePhoneCode:(NSString *)phoneNum Callback:(RCTResponseSenderBlock)callback{
-                 NSString * feedbackStr = [self getThePhoneCode:phoneNum];
-                 NSArray * returnArr = @[feedbackStr];
-                 if(callback != nil) callback(returnArr);
-});
+RCT_REMAP_METHOD(yuelunSendPhoneCode,getThePhoneCode:(NSString *)phoneNum resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+                NSString * feedbackStr = [self getThePhoneCode:phoneNum];
+                resolve(feedbackStr);
+}
 
 /*
  *用户登录
  */
-RCT_EXPORT_METHOD(userLoginWithPhoneNum:(NSString *)phoneNum andPhoneCode:(NSString *)phoneCode andPlatForm:(NSString *)platform andVersion:(NSString *)version Callback:(RCTResponseSenderBlock)callback{
-                 NSString * feedbackStr = [self userLoginWithPhoneNum:phoneNum andPhoneCode:phoneCode andPlatForm:platform andVersion:version];
-                 NSArray * returnArr = @[feedbackStr];
-                 if(callback != nil) callback(returnArr);
-});
+RCT_REMAP_METHOD(yuelunPhoneLogin,userLoginWithPhoneNum:(NSString *)phoneNum andPhoneCode:(NSString *)phoneCode andPlatForm:(NSString *)platform andVersion:(NSString *)version resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+                NSString * feedbackStr = [self userLoginWithPhoneNum:phoneNum andPhoneCode:phoneCode andPlatForm:platform andVersion:version];
+                resolve(feedbackStr);
+}
 
-/*
- *用户退出登录
- */
-RCT_EXPORT_METHOD(userLogoutWithSessionID:(NSString *)session_id Callback:(RCTResponseSenderBlock)callback{
-                 NSString * feedbackStr = [self userLogout:session_id];
-                 NSArray * returnArr = @[feedbackStr];
-                 if(callback != nil) callback(returnArr);
-});
+/**
+* 连接服务器验证信心，下发加速需要使用的数据
+* @param strsession_id 用户登录session_id
+* @param strgame_id 加速游戏id
+* @param strserver_id 加速使用服务器id
+* @return
+*/
+RCT_REMAP_METHOD(yuelunConnectServer,Withstrsession_id:(NSString *)strsession_id andstrgame_id:(NSString *)strgame_id andstrserver_id:(NSString *)strserver_id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  
+}
 
+/**
+* 停止加速的时候，断开加速请求
+* @param strsession_id 户登录session_id
+* @param strserver_id  加速使用服务器id
+* @return
+*/
+RCT_REMAP_METHOD(yuelunDisConnectServer,Withstrsession_id:(NSString *)strsession_id andstrserver_id:(NSString *)strserver_id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  
+}
 
-RCT_EXPORT_METHOD(getTheHomePageWithParam:(NSString *)param Callback:(RCTResponseSenderBlock)callback{
-                  
-                  });
+/**
+* 根据需要加速的游戏id，获取游戏路由策略等详情
+* @param strsession_id 用户登录session_id
+* @param strgame_id    要加速的游戏id
+* @param strgame_token  token第一次请求传空，从返回json列表中获取该值 下次请求传入，若配置无更改，则下发ok,配置更改重新下发一份新的json数据
+* @return
+*/
+RCT_REMAP_METHOD(yuelunGetGameInfoById,Withstrsession_id:(NSString *)strsession_id andstrgame_id:(NSString *)strgame_id andstrgame_token:(NSString *)strgame_token resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  
+}
 
 /**
  *获取首页所有游戏数据
 */
-RCT_EXPORT_METHOD(yuelunGetAllGameConfigWithSessionId:(NSString *)sessionId andListToken:(NSString *)listToken Callback:(RCTResponseSenderBlock)callback{
-                  NSString * allGameStr = [self getAllGames:sessionId listToken:listToken];
-                  NSArray * returnArr = @[allGameStr];
-                  if(callback != nil) callback(returnArr);
-                  
-                  });
+RCT_REMAP_METHOD(yuelunGetAllGameConfig,Withstrsession_id:(NSString *)strsession_id andstrlist_token:(NSString *)strlist_token resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  NSString * allGameStr = [self getAllGames:strsession_id listToken:strlist_token];
+  resolve(allGameStr);
+}
+
+/*
+ *用户退出登录
+ */
+RCT_REMAP_METHOD(yuelunPhoneLoginout,Withstrsession_id:(NSString *)strsession_id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  NSString * feedbackStr = [self userLogout:strsession_id];
+  resolve(feedbackStr);
+}
 
 /**
- *获取Banner数据
+* 心跳包检查
+* @param strsession_id 用户登录session_id
+* @param strgame_id 可以为空，若有加速游戏则传游戏id
+* @param strserver_id 可以为空，若有加速游戏则传当前使用服务器id列表
+* @return
 */
-RCT_EXPORT_METHOD(getTheBannerDataCallBack:(RCTResponseSenderBlock)callback{
-                  NSString * bannerStr = [self getTheBannerData];
-                  NSArray * returnArr = @[bannerStr];
-                  if(callback != nil) callback(returnArr);
-                  
-                  });
+RCT_REMAP_METHOD(yuelunCheckHear,Withstrsession_id:(NSString *)strsession_id strgame_id:(NSString *)strgame_id strserver_id:(NSString *)strserver_id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  
+}
 
-/*
- *获取用户游戏搜索结果
- */
-RCT_EXPORT_METHOD(getTheSearchResultWithSessionIDd:(NSString *)strsession_id game_name:(NSString *)strgame_name type_name:(NSString *)strtype_name pages:(NSString *)pages classification:(NSString *)strclassification CallBack:(RCTResponseSenderBlock)callback{
-                  NSString * resultStr = [self searchTheGamesWithSessionIDd:strsession_id game_name:strgame_name type_name:strtype_name strpages:pages classification:strclassification];
-                  NSArray * resultArr = @[resultStr];
-                  if(callback != nil) callback(resultArr);
-                  
-                  });
+/**
+* 获取公告信息
+* @param strpages 页码，不传默认第一页
+* @param strlimits 页数，不传默认每页10条
+* @return
+*/
+RCT_REMAP_METHOD(yuelunGetNewsList,Withstrpage:(NSString *)strpage strlimit:(NSString *)strlimit resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+ 
+}
+
+/**
+* 获取广告接口
+* @return
+*/
+RCT_REMAP_METHOD(yuelunGetAdList,resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  NSString * bannerStr = [self getTheBannerData];
+  resolve(bannerStr);
+}
+
+/**
+* 修改用户头像，昵称，手机号，修改哪个传哪个，不修改可以为空
+* @param strsession_id 用户session_id
+* @param strphone_num 用户手机号
+* @param strcode 验证码
+* @param strusername 要修改的用户名
+* @param strhead_png 要修改的的头像图片文件
+* @return
+*/
+RCT_REMAP_METHOD(yuelunModifyUserInfo,strsession_id:(NSString *)strsession_id strphome_num:(NSString *)strphome_num strcode:(NSString *)strcode strusername:(NSString *)strusername strhead_png:(NSString *)strhead_png resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  
+}
 
 
-/*
- *获取用户信息数据
- */
-RCT_EXPORT_METHOD(getTheUserInforWithSessionID:(NSString *)sessionId Callback:(RCTResponseSenderBlock)callback{
-                  NSString * userInfoStr = [self getTheUserInfoWithSessionId:sessionId];
-                  NSArray * returnArr = @[userInfoStr];
-                  if(callback != nil) callback(returnArr);
-});
+/**
+* 获取用户信息接口
+* @param strsession_id 用户登录session_id
+* @return
+*/
+RCT_REMAP_METHOD(yuelunGetUserInfo,strsession_id:(NSString *)strsession_id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  NSString * userInfoStr = [self getTheUserInfoWithSessionId:strsession_id];
+  resolve(userInfoStr);
+};
 
-/*
- *消息反馈
- */
-RCT_EXPORT_METHOD(sendTheFeedbackWithTheSessionID:(NSString *)sessionID andContent:(NSString *)content andConntact:(NSString *)conntact Callback:(RCTResponseSenderBlock)callback{
-                 NSString * feedbackStr = [self sendTheFeedbackWithSessionID:sessionID andContent:content andConntact:conntact];
-                 NSArray * returnArr = @[feedbackStr];
-                 if(callback != nil) callback(returnArr);
-});
+/**
+* 获取玩家收藏列表
+* @param strsession_id 用户登录session_id
+* @return
+*/
+RCT_REMAP_METHOD(yuelunGetCollection,session_id:(NSString *)strsession_id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  NSString * userInfoStr = [self getTheUserCollectGames:strsession_id];
+  resolve(userInfoStr);
+};
 
-/*
- *获取用户收藏游戏
- */
-RCT_EXPORT_METHOD(getTheUserCollectGames:(NSString *)sessionId Callback:(RCTResponseSenderBlock)callback{
-                  NSString * userInfoStr = [self getTheUserCollectGames:sessionId];
-                  NSArray * returnArr = @[userInfoStr];
-                  if(callback != nil) callback(returnArr);
-});
+/**
+* 更新玩家收藏列表
+* @param strsession_id 用户登录session_id
+* @param strgameids 收藏游戏ID （1,2,3,4,5）字符串
+* @return
+*/
+RCT_REMAP_METHOD(yuelunSaveCollection,session_id:(NSString *)strsession_id strgameids:(NSArray *)strgameids resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  NSString * userInfoStr = [self YuelunSverCollection:strsession_id andGamesID:strgameids];
+  resolve(userInfoStr);
+};
 
-/*
- *更新用户收藏游戏列表
- */
-RCT_EXPORT_METHOD(YuelunSverCollection:(NSString *)sessionId andGameLists:(NSArray *)games Callback:(RCTResponseSenderBlock)callback{
-                  std::string str = YuelunGetAdList();
-                  NSString * userInfoStr = [self YuelunSverCollection:sessionId andGamesID:games];
-                  NSArray * returnArr = @[userInfoStr];
-                  if(callback != nil) callback(returnArr);
-});
+/**
+* 玩家意见反馈
+* @param strsession_id 用户登录session_id
+* @param strcontent 意见反馈内容
+* @param strcontact 联系方式
+* @return
+*/
+RCT_REMAP_METHOD(yuelunSaveFeedBack,strsession_id:(NSString *)strsession_id strcontent:(NSString *)strcontent strconntact:(NSString *)strconntact resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  NSString * feedbackStr = [self sendTheFeedbackWithSessionID:strsession_id andContent:strcontent andConntact:strconntact];
+  resolve(feedbackStr);
+}
 
-/*
- *获取热搜列表
- */
-RCT_EXPORT_METHOD(YuelunHotGameList:(NSString *)sessionId Callback:(RCTResponseSenderBlock)callback{
-                  std::string str = YuelunGetAdList();
-                  NSString * userInfoStr = [self getHotGameList:sessionId];
-                  NSArray * returnArr = @[userInfoStr];
-                  if(callback != nil) callback(returnArr);
-});
+/**
+*搜索游戏接口
+* @param strsession_id 用户登录session_id
+* @param strgame_name  游戏名称
+* @param strtype_name 游戏类型（国内，海外）具体值根据获取游戏列表接口返回字段types传值
+* @param strclassification 游戏分类（国内，海外）具体值根据获取游戏列表接口返回字段classifications传值
+* @param strpages 页码 不传默认第一页
+* @param strlimit 数量 不传默认一页16条
+* @return
+*/
+RCT_REMAP_METHOD(yuelunSearchGameList,strsession_id:(NSString *)strsession_id strgame_name:(NSString *)strgame_name strtype_name:(NSString *)strtype_name strclassification:(NSString *)strclassification strpages:(NSString *)strpages strlimit:(NSString *)strlimit resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  NSString * resultStr = [self searchTheGamesWithSessionIDd:strsession_id game_name:strgame_name type_name:strtype_name strpages:strpages classification:strclassification];
+  resolve(resultStr);
+}
+
+/**
+* 热门搜索列表
+* @param strsession_id 用户登录sesion_id
+* @return
+*/
+RCT_REMAP_METHOD(yuelunHotGameList,sessionid:(NSString *)strsession_id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  NSString * userInfoStr = [self getHotGameList:strsession_id];
+  resolve(userInfoStr);
+};
+
+/**
+* 游戏搜索记录
+* @param strsession_id 用户登录session_id
+* @param strgameid 游戏id
+* @return
+*/
+RCT_REMAP_METHOD(yuelunSaveSearchGameList,sessionid:(NSString *)strsession_id strgameid:(NSString *)strgameid resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+
+};
+
 
 -(NSString *)getTheBannerData{
   std::string str = YuelunGetAdList();
