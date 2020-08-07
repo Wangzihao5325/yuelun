@@ -24,7 +24,10 @@ export default class CustomeListView extends Component{
         this.state = {
             dataArray : this.props.data ? this.props.data : [],
             isRefreshing: this.props.autoFreshing ? this.props.autoFreshing : false,
-            notSupportLoadMore: this.props.notSupportLoadMore ? this.props.notSupportLoadMore : false
+            notSupportLoadMore: this.props.notSupportLoadMore ? this.props.notSupportLoadMore : false,
+            showHearder: this.props.showHearder ? this.props.showHearder : false,
+            showFooter: this.props.showFooter ? this.props.showFooter : false,
+            showSeparator: this.props.showSeparator ? this.props.showSeparator : false
         }
     }
 
@@ -48,6 +51,7 @@ export default class CustomeListView extends Component{
 
     /** 渲染分割线 */
     renderTheSeparatorLine = () =>{
+        if(!this.state.showSeparator) return null;
         return(
            <View style={styles.separatorLineStyle}></View>
         );
@@ -64,6 +68,7 @@ export default class CustomeListView extends Component{
 
     /** 渲染头部组建 */
     renderTheHeaderItem = () =>{
+        if(!this.state.showHearder) return null;
         return(
             <View style={styles.listComponentStyle}>
                 <Text style={styles.textStyle}>header item</Text>
@@ -73,6 +78,7 @@ export default class CustomeListView extends Component{
 
     /** 渲染尾部组建 */
     renderTheFooterItem = () =>{
+        if(!this.state.showFooter) return null;
         return(
             <View style={styles.listComponentStyle}>
                 <Text style={styles.textStyle}>footer item</Text>
@@ -159,7 +165,7 @@ const styles = StyleSheet.create({
         marginLeft : 0,
         width:SCREEN_WIDTH,
         flex:1,
-        backgroundColor:'white',
+        backgroundColor: '#00132D'
 
     },
     textStyle: {

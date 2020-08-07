@@ -38,7 +38,6 @@ export default class acceleratorPage extends Component {
     }
 
     componentDidMount(){
-       const { params } = this.props.route.params;
         
     }
 
@@ -51,6 +50,7 @@ export default class acceleratorPage extends Component {
                    data={this.state.dataArray}
                    renderItem={({item})=>this.renderTheItem(item)}
                    notSupportLoadMore={true}
+                   showSeparator = {false}
                 />
             </View>
         );
@@ -74,8 +74,8 @@ export default class acceleratorPage extends Component {
     renderTheInfomationItem = (title='',accelerateStatus=false) =>{
         return(
             <View style={styles.inforRootView}>
-                <Text style={{marginBottom:4}}>{title}</Text>
-                {accelerateStatus?<Text>正在加速...</Text>:null}
+                <Text style={{marginBottom:4,color:"white"}}>{title}</Text>
+                {accelerateStatus?<Text style={{color:"white"}}>正在加速...</Text>:null}
             </View>
         );
     }
@@ -85,10 +85,12 @@ export default class acceleratorPage extends Component {
             <TouchableOpacity onPress={()=>{
                 console.log('点击点击点击啊');}}>
             <View 
-                style={{borderRadius:20,height:40,width:90,backgroundColor:'red',flexDirection:'row',justifyContent:'center',alignItems:'center'}}
+                style={{borderRadius:20,height:40,width:90,backgroundColor:'#F5CC00',flexDirection:'row',justifyContent:'center',alignItems:'center'}}
                  >
-                <Image style={{width:15,height:25,backgroundColor:'blue',marginRight:4}}/>
-                <Text>加速</Text>
+                <Image 
+                    source = {require('../../resource/Image/GameHomePage/lightning.png')} 
+                    style={{width:9.5,height:16.5,marginRight:4}}/>
+                <Text style={{color:'#4F2F00'}}>加速</Text>
             </View>
             </TouchableOpacity>
         );
@@ -115,26 +117,28 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: 'white',
+        backgroundColor: '#00132D'
     },
     flatlistStyle: {
         marginTop  : 0,
         marginLeft : 0,
         width:SCREEN_WIDTH,
         flex:1,
-        backgroundColor:'white',
+        backgroundColor: '#00132D'
     },
     acceleratorItemRoot:{
-        marginTop:0,
-        marginLeft:0,
-        width:SCREEN_WIDTH,
+        marginTop:10,
+        marginBottom:10,
+        marginLeft:45,
+        width:SCREEN_WIDTH-60,
         height:80,
-        flexDirection:'row'
-
+        flexDirection:'row',
+        backgroundColor:'#072042',
+        borderRadius:10
     },
     gameIconRoot:{
         width:100,
-        marginLeft:0,
+        marginLeft:-40,
         marginTop:0,
         justifyContent:'center',
         height:80

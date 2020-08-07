@@ -9,6 +9,7 @@ import ThirdPage from '../../Pages/TabPage/ThirdPage';
 import FourthPage from '../../Pages/TabPage/FourthPage';
 import GameHomePage from '../../Pages/Page/GameHomePage';
 import MinePage from '../../Pages/Mine/MinePage';
+import acceleratorPage from '../../Pages/Page/acceleratorPage';
 
 import CustomTabbar from './CustomTabbar';
 
@@ -29,9 +30,9 @@ const optionArray = [
         }
     },
     {
-        key: PageName.BOTM_TAB_SECOND,
-        name: PageName.BOTM_TAB_SECOND,
-        component: SecondPage,
+        key: PageName.NORMAL_PAGE_ACCELERATOR,
+        name: PageName.NORMAL_PAGE_ACCELERATOR,
+        component: acceleratorPage,
         options: {
             title: '加速',
             tabBarIcon: ({ focused, color, size }) => {

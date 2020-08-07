@@ -289,7 +289,6 @@ export default class acceleratorPage extends Component {
     }
 
     selectedGameItemButton = (status = 0) => {
-        console.log('statusstatus', status);
         this.setState({ selectStatus: status });
     }
 
@@ -308,7 +307,7 @@ export default class acceleratorPage extends Component {
     getTheBannerData = () =>{
         ApiModule.getTheBannerData()
         .then((result)=>{
-            let bannerData = JSON.parse(result);
+            let bannerData = result;
             let ad_list = bannerData.data.ad_list;
             console.log('return data',ad_list);
             let bannerList = [];
@@ -328,9 +327,8 @@ export default class acceleratorPage extends Component {
     getAllGames = () =>{
         ApiModule.getAllGameConfig('')
         .then((result)=>{
-            let allGameData = JSON.parse(result);
-            console.log('allGameDataallGameData',allGameData);
-            this.parseAllGameData(allGameData);
+            console.log('allGameDataallGameData',result);
+            this.parseAllGameData(result);
         })
     }
 
@@ -377,7 +375,7 @@ export default class acceleratorPage extends Component {
     getTheCollectionGames = () =>{
         ApiModule.getAllUserCollectGames()
         .then((result)=>{
-            let collections = JSON.parse(result);
+            let collections = result;
             console.log('collect data',collections);
         });
     }
@@ -388,7 +386,7 @@ export default class acceleratorPage extends Component {
         gameIDArray.push(gameID);
         ApiModule.YuelunSverCollection(sessionID,gameIDArray)
         .then((result)=>{
-            let collections = JSON.parse(result);
+            let collections = result;
             console.log('save collect data',collections);
         });
     }

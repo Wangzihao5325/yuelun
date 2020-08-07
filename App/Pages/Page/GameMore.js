@@ -145,8 +145,9 @@ export default class GameMore extends Component {
     getTheMoreGamesData = (type_name,page,classification) =>{
         let pageNumber = page;
         pageNumber = pageNumber.toString();
-        ApiModule.getSearchGamesData('','',type_name,pageNumber,classification,(data)=>{
-            let allGameData = JSON.parse(data);
+        ApiModule.getSearchGamesData('','',type_name,pageNumber,classification)
+        .then((result)=>{
+            let allGameData = result;
             console.log('hahahahhahahahah',allGameData);
             if(allGameData['status'] == 'ok'){
                 let allData = this.state.more_games;
