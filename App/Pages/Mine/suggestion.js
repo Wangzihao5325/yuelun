@@ -121,8 +121,9 @@ export default class suggestion extends Component {
             return;
         }
 
-        ApiModule.sendTheFeedbackWithTheSessionID(this.state.suggestion,this.state.contactValue,(data)=>{
-            let feedback = JSON.parse(data);
+        ApiModule.sendTheFeedbackWithTheSessionID(this.state.suggestion,this.state.contactValue)
+        .then((result)=>{
+            let feedback = JSON.parse(result);
             console.log('feedbackfeedback',feedback);
         });
     }

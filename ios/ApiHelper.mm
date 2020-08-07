@@ -35,7 +35,8 @@ RCT_REMAP_METHOD(yuelunPhoneLogin,userLoginWithPhoneNum:(NSString *)phoneNum and
 * @return
 */
 RCT_REMAP_METHOD(yuelunConnectServer,Withstrsession_id:(NSString *)strsession_id andstrgame_id:(NSString *)strgame_id andstrserver_id:(NSString *)strserver_id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-  
+  NSString * returnStr = [self yuelunConnectServer:strsession_id andGame_id:strgame_id andServer_id:strserver_id];
+  resolve(returnStr);
 }
 
 /**
@@ -45,7 +46,8 @@ RCT_REMAP_METHOD(yuelunConnectServer,Withstrsession_id:(NSString *)strsession_id
 * @return
 */
 RCT_REMAP_METHOD(yuelunDisConnectServer,Withstrsession_id:(NSString *)strsession_id andstrserver_id:(NSString *)strserver_id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-  
+  NSString * returnStr = [self yuelunDisConnectServer:strsession_id andserver_id:strserver_id];
+  resolve(returnStr);
 }
 
 /**
@@ -56,7 +58,8 @@ RCT_REMAP_METHOD(yuelunDisConnectServer,Withstrsession_id:(NSString *)strsession
 * @return
 */
 RCT_REMAP_METHOD(yuelunGetGameInfoById,Withstrsession_id:(NSString *)strsession_id andstrgame_id:(NSString *)strgame_id andstrgame_token:(NSString *)strgame_token resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-  
+  NSString * returnStr = [self yuelunGetGameInfoById:strsession_id andGame_id:strgame_id andGame_token:strgame_token];
+  resolve(returnStr);
 }
 
 /**
@@ -83,7 +86,8 @@ RCT_REMAP_METHOD(yuelunPhoneLoginout,Withstrsession_id:(NSString *)strsession_id
 * @return
 */
 RCT_REMAP_METHOD(yuelunCheckHear,Withstrsession_id:(NSString *)strsession_id strgame_id:(NSString *)strgame_id strserver_id:(NSString *)strserver_id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-  
+  NSString * returnStr = [self yuelunCheckHear:strsession_id andGame_id:strgame_id andServerID:strserver_id];
+  resolve(returnStr);
 }
 
 /**
@@ -93,7 +97,8 @@ RCT_REMAP_METHOD(yuelunCheckHear,Withstrsession_id:(NSString *)strsession_id str
 * @return
 */
 RCT_REMAP_METHOD(yuelunGetNewsList,Withstrpage:(NSString *)strpage strlimit:(NSString *)strlimit resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
- 
+  NSString * returnStr = [self yuelunGetNewsList:strpage andLimit:strlimit];
+  resolve(returnStr);
 }
 
 /**
@@ -115,7 +120,8 @@ RCT_REMAP_METHOD(yuelunGetAdList,resolver:(RCTPromiseResolveBlock)resolve reject
 * @return
 */
 RCT_REMAP_METHOD(yuelunModifyUserInfo,strsession_id:(NSString *)strsession_id strphome_num:(NSString *)strphome_num strcode:(NSString *)strcode strusername:(NSString *)strusername strhead_png:(NSString *)strhead_png resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-  
+  NSString * returnStr = [self yuelunModifyUserInfo:strsession_id andPhome_num:strphome_num code:strcode username:strusername head_png:strhead_png];
+  resolve(returnStr);
 }
 
 
@@ -194,7 +200,8 @@ RCT_REMAP_METHOD(yuelunHotGameList,sessionid:(NSString *)strsession_id resolver:
 * @return
 */
 RCT_REMAP_METHOD(yuelunSaveSearchGameList,sessionid:(NSString *)strsession_id strgameid:(NSString *)strgameid resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-
+  NSString * returnStr = [self yuelunSaveSearchGameList:strsession_id gameid:strgameid];
+  resolve(returnStr);
 };
 
 
@@ -285,6 +292,71 @@ RCT_REMAP_METHOD(yuelunSaveSearchGameList,sessionid:(NSString *)strsession_id st
   std::string session_id_str = [sessionID UTF8String];
   std::string returnStr = YuelunHotGameList(session_id_str);
   NSString * return_string = [NSString stringWithFormat:@"%s",returnStr.c_str()];
+  return return_string;
+}
+
+-(NSString *)yuelunConnectServer:(NSString *)strsession_id andGame_id:(NSString *)strgame_id andServer_id:(NSString *)server_id{
+  std::string strsession_id_str = [strsession_id UTF8String];
+  std::string strgame_id_str    = [strgame_id UTF8String];
+  std::string server_id_str     = [server_id UTF8String];
+  std::string returnStr = YuelunConnectServer(strsession_id_str,strgame_id_str,server_id_str);
+  NSString * return_string = [NSString stringWithFormat:@"%s",returnStr.c_str()];
+  return return_string;
+}
+
+-(NSString *)yuelunDisConnectServer:(NSString *)session_id andserver_id:(NSString *)server_id{
+  std::string session_id_str = [session_id UTF8String];
+  std::string server_id_str  = [server_id UTF8String];
+  std::string returnStr = YuelunDisConnectServer(session_id_str, server_id_str);
+  NSString * return_string = [NSString stringWithFormat:@"%s",returnStr.c_str()];
+  return return_string;
+}
+
+-(NSString *)yuelunGetGameInfoById:(NSString *)session_id andGame_id:(NSString *)game_id andGame_token:(NSString *)game_token{
+  std::string session_id_str = [session_id UTF8String];
+  std::string game_id_str    = [game_id UTF8String];
+  std::string game_token_str = [game_token UTF8String];
+  std::string return_str = YuelunGetGameInfoById(session_id_str, game_id_str, game_token_str);
+  NSString * return_string = [NSString stringWithFormat:@"%s",return_str.c_str()];
+  return return_string;
+}
+
+-(NSString *)yuelunCheckHear:(NSString *)session_id andGame_id:(NSString *)game_id andServerID:(NSString *)server_id{
+  std::string session_id_str = [session_id UTF8String];
+  std::string game_id_str    = [game_id UTF8String];
+  std::string server_id_str  = [server_id UTF8String];
+  std::string return_str = YuelunCheckHear(session_id_str, game_id_str, server_id_str);
+  NSString * return_string = [NSString stringWithFormat:@"%s",return_str.c_str()];
+  return return_string;
+}
+
+-(NSString *)yuelunGetNewsList:(NSString *)page andLimit:(NSString *)limit{
+  std::string page_str  = [page UTF8String];
+  std::string limit_str = [limit UTF8String];
+  
+  std::string return_str =  YuelunGetNewsList(page_str, limit_str);
+  NSString * return_string = [NSString stringWithFormat:@"%s",return_str.c_str()];
+  return return_string;
+}
+
+-(NSString *)yuelunModifyUserInfo:(NSString *)session_id andPhome_num:(NSString *)phome_num code:(NSString *)code username:(NSString *)username head_png:(NSString *)head_png{
+  std::string session_idstr = [session_id UTF8String];
+  std::string phome_num_str = [phome_num UTF8String];
+  std::string code_str      = [code UTF8String];
+  std::string username_str  = [username UTF8String];
+  std::string head_png_str  = [head_png UTF8String];
+  
+  std::string return_str = YuelunModifyUserInfo(session_idstr,phome_num_str,code_str,username_str,head_png_str);
+  NSString * return_string = [NSString stringWithFormat:@"%s",return_str.c_str()];
+  return return_string;
+}
+
+-(NSString *)yuelunSaveSearchGameList:(NSString *)session_id gameid:(NSString *)gameid{
+  std::string session_idstr = [session_id UTF8String];
+  std::string gameid_str    = [gameid UTF8String];
+  
+  std::string return_str = YuelunSaveSearchGameList(session_idstr, gameid_str);
+  NSString * return_string = [NSString stringWithFormat:@"%s",return_str.c_str()];
   return return_string;
 }
 

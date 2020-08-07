@@ -26,6 +26,7 @@ import SearchNavigator from '../../Components/Component/Game/SearchNavigator';
 import * as navigator from '../../Router/NavigationService';
 import { TextInput } from 'react-native-gesture-handler';
 import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
+import { result } from 'lodash';
 
 const NoramType  = 1;
 const searchType = 2;
@@ -276,9 +277,9 @@ export default class search extends Component {
     */
     searchTheGame = (game_name = '') =>{
         let game_name_encode = encodeURI(game_name);
-        console.log('encodeURIencodeURI',game_name_encode);
-        ApiModule.getSearchGamesData(this.state.session_id,game_name_encode,'','','',(data)=>{
-            let allGameData = JSON.parse(data);
+        ApiModule.getSearchGamesData(this.state.session_id,game_name_encode,'','','')
+        .then((result)=>{
+            let allGameData = JSON.parse(result);
             console.log('searchsearch',allGameData);
             if(allGameData['status'] == 'ok'){
                 let dataList = allGameData['data']['list'];
@@ -346,13 +347,14 @@ export default class search extends Component {
      * 
     */
    getTheHotGamesData = () =>{
-       ApiModule.getTheHotGames((data)=>{
-        let hotGame = JSON.parse(data);
+       ApiModule.getTheHotGames()
+       .then((result)=>{
+        let hotGame = JSON.parse(result);
         console.log('获取热门游戏',hotGame);
-           if(hotGame['status'] === 'ok'){
-               let list = hotGame['data']['list'];
-               this.setState({hotGames:list});
-           }
+        if(hotGame['status'] === 'ok'){
+           let list = hotGame['data']['list'];
+           this.setState({hotGames:list});
+        }
        });
    }
 }

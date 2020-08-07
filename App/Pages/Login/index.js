@@ -118,31 +118,23 @@ export default class Login extends Component {
     }
 
     login = () => {
-        if(iOSPlatform){
-            const { phoneNum, verificationCode } = this.state;
-            Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion,(data)=>{
-                let result = JSON.parse(data);
-                console.log('hahhh--------',result);
-                if(result['status'] == 'ok'){
-                    this.saveTheUserInfo(result);
-                }else{
+        const { phoneNum, verificationCode } = this.state;
+        Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
+        .then((result) => {
+            //session比较常用，所以在network里也存一份，方便使用
+            Network.session = result.data.session_id;
+            store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
+            store.dispatch(app_start_app());
+            
+            if(result['status'] == 'ok'){
+                this.saveTheUserInfo(result);
+            }else{
 
-                }
-                
-            });
-        }else{
-            const { phoneNum, verificationCode } = this.state;
-            Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
-            .then((result) => {
-                //session比较常用，所以在network里也存一份，方便使用
-                Network.session = result.data.session_id;
-                store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
-                store.dispatch(app_start_app());
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-        }
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     }
 
     getVerificationCode = () =>{

@@ -27,6 +27,7 @@ import GameNormalItem from '../../Components/Component/Game/GameNormalItem';
 import PageName from '../../Config/PageName';
 import * as navigator from '../../Router/NavigationService';
 import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
+import { result } from 'lodash';
 
 export default class acceleratorPage extends Component {
     constructor(props) {
@@ -305,8 +306,9 @@ export default class acceleratorPage extends Component {
      * 
     */
     getTheBannerData = () =>{
-        ApiModule.getTheBannerData((data)=>{
-            let bannerData = JSON.parse(data);
+        ApiModule.getTheBannerData()
+        .then((result)=>{
+            let bannerData = JSON.parse(result);
             let ad_list = bannerData.data.ad_list;
             console.log('return data',ad_list);
             let bannerList = [];
@@ -324,11 +326,12 @@ export default class acceleratorPage extends Component {
      * 获取所有的游戏数据
     */
     getAllGames = () =>{
-        ApiModule.getAllGameConfig('',(data)=>{
-            let allGameData = JSON.parse(data);
+        ApiModule.getAllGameConfig('')
+        .then((result)=>{
+            let allGameData = JSON.parse(result);
             console.log('allGameDataallGameData',allGameData);
             this.parseAllGameData(allGameData);
-        });
+        })
     }
 
     parseAllGameData = (allGameData) =>{
@@ -372,8 +375,9 @@ export default class acceleratorPage extends Component {
     }
 
     getTheCollectionGames = () =>{
-        ApiModule.getAllUserCollectGames((data)=>{
-            let collections = JSON.parse(data);
+        ApiModule.getAllUserCollectGames()
+        .then((result)=>{
+            let collections = JSON.parse(result);
             console.log('collect data',collections);
         });
     }
@@ -382,8 +386,9 @@ export default class acceleratorPage extends Component {
         let sessionID = 'd6eb14382b7bd59a5d9b2557b1589fd510b4e2f1';
         let gameIDArray = [];
         gameIDArray.push(gameID);
-        ApiModule.YuelunSverCollection(sessionID,gameIDArray,(data)=>{
-            let collections = JSON.parse(data);
+        ApiModule.YuelunSverCollection(sessionID,gameIDArray)
+        .then((result)=>{
+            let collections = JSON.parse(result);
             console.log('save collect data',collections);
         });
     }
