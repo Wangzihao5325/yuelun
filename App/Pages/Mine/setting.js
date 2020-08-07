@@ -118,7 +118,7 @@ export default class setting extends Component {
     sureLogoutFunction = () =>{
         ApiModule.userLogoutWithSessionID()
         .then((result)=>{
-            let feedback = JSON.parse(result);
+            let feedback = result;
             if(feedback['status'] == 'ok'){
                 AsyncStorage.removeItem('userInfo').then(value =>{
                 }).catch(reason=>{
