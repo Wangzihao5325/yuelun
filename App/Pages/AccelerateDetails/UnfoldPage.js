@@ -73,6 +73,7 @@ const UnfoldPage = (props) => {
                         height={150}
                         segments={3}
                         chartConfig={chartConfig}
+                        isAccelerate={props.isAccelerate}
                     />
                 </View>
                 <View>
