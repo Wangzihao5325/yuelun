@@ -34,7 +34,7 @@ export default class CustomButton extends Component {
                 onPress={this.buttonClickEvent}
                 underlayColor={underlayColor}
             >
-                <Text style={titleStyle}>{`${this.state.title}`}</Text>
+                <Text style={titleStyle}>{`${this.props.title}`}</Text>
             </TouchableHighlight>
         );
     }

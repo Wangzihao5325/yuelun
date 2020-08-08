@@ -57,7 +57,8 @@ export default class AccelerateDetails extends Component {
             timestamp: 1595213291
             */
             this.setState({
-                ...request.data.game_info
+                ...request.data.game_info,
+                gameFullInfo: request.data.game_info
             });
 
             AsyncStorage.getItem('accelerateInfo').then(value => {
@@ -105,7 +106,7 @@ export default class AccelerateDetails extends Component {
         let { accelerateInfo } = this.state;
         if (this.state.isAccelerate) {
             //各种断线操作
-            accelerateInfo[this.state.id] = null;
+            delete accelerateInfo[this.state.id];
             AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
                 this.setState({
                     isAccelerate: false
@@ -113,7 +114,7 @@ export default class AccelerateDetails extends Component {
             });
         } else {
             //各种连接操作
-            accelerateInfo[this.state.id] = { server: '192.168.0.1', port: '8081' };
+            accelerateInfo[this.state.id] = this.state.gameFullInfo;
             AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
                 this.setState({
                     isAccelerate: true
