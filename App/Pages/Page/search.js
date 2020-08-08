@@ -277,17 +277,16 @@ export default class search extends Component {
     */
     searchTheGame = (game_name = '') =>{
         let game_name_encode = encodeURI(game_name);
-        ApiModule.getSearchGamesData(this.state.session_id,game_name_encode,'','','')
+        ApiModule.getSearchGamesData(game_name_encode,'','','')
         .then((result)=>{
-            let allGameData = JSON.parse(result);
-            console.log('searchsearch',allGameData);
-            if(allGameData['status'] == 'ok'){
-                let dataList = allGameData['data']['list'];
+            console.log('searchsearch',result);
+            if(result['status'] == 'ok'){
+                let dataList = result['data']['list'];
                 this.setState({
                     resultGames: dataList
                 });
             }else{
-                let msg = allGameData['msg'];
+                let msg = result['msg'];
 
             }
         });
