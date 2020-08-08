@@ -279,9 +279,10 @@ export default class search extends Component {
         let game_name_encode = encodeURI(game_name);
         ApiModule.getSearchGamesData(game_name_encode,'','','')
         .then((result)=>{
-            console.log('searchsearch',result);
-            if(result['status'] == 'ok'){
-                let dataList = result['data']['list'];
+            let allGameData = result;
+            console.log('searchsearch',allGameData);
+            if(allGameData['status'] == 'ok'){
+                let dataList = allGameData['data']['list'];
                 this.setState({
                     resultGames: dataList
                 });
@@ -348,7 +349,7 @@ export default class search extends Component {
    getTheHotGamesData = () =>{
        ApiModule.getTheHotGames()
        .then((result)=>{
-        let hotGame = JSON.parse(result);
+        let hotGame = result;
         console.log('获取热门游戏',hotGame);
         if(hotGame['status'] === 'ok'){
            let list = hotGame['data']['list'];

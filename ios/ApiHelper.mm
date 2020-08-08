@@ -178,8 +178,16 @@ RCT_REMAP_METHOD(yuelunSaveFeedBack,strsession_id:(NSString *)strsession_id strc
 * @param strlimit 数量 不传默认一页16条
 * @return
 */
-RCT_REMAP_METHOD(yuelunSearchGameList,strsession_id:(NSString *)strsession_id strgame_name:(NSString *)strgame_name strtype_name:(NSString *)strtype_name strclassification:(NSString *)strclassification strpages:(NSString *)strpages strlimit:(NSString *)strlimit resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-  NSString * resultStr = [self searchTheGamesWithSessionIDd:strsession_id game_name:strgame_name type_name:strtype_name strpages:strpages classification:strclassification];
+RCT_REMAP_METHOD(yuelunSearchGamelist,
+                 strsession_id:(NSString *)strsession_id
+                 strgame_name:(NSString *)strgame_name
+                 strtype_name:(NSString *)strtype_name
+                 strclassification:(NSString *)strclassification
+                 strpages:(NSString *)strpages
+                 strlimit:(NSString *)strlimit
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject){
+  NSString * resultStr = [self YuelunSearchGameList:strsession_id game_name:strgame_name type_name:strtype_name strpages:strpages classification:strclassification];
   resolve(resultStr);
 }
 
@@ -226,7 +234,7 @@ RCT_REMAP_METHOD(yuelunSaveSearchGameList,sessionid:(NSString *)strsession_id st
   return userInfoString;
 }
 
--(NSString *)searchTheGamesWithSessionIDd:(NSString *)strsession_id game_name:(NSString *)strgame_name type_name:(NSString *)strtype_name strpages:(NSString *)pages classification:(NSString *)strclassification{
+-(NSString *)YuelunSearchGameList:(NSString *)strsession_id game_name:(NSString *)strgame_name type_name:(NSString *)strtype_name strpages:(NSString *)pages classification:(NSString *)strclassification {
   std::string session_id = [strsession_id UTF8String];
   std::string game_name = [strgame_name UTF8String];
   std::string type_name = [strtype_name UTF8String];

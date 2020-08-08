@@ -123,7 +123,7 @@ export default class suggestion extends Component {
 
         ApiModule.sendTheFeedbackWithTheSessionID(this.state.suggestion,this.state.contactValue)
         .then((result)=>{
-            let feedback = JSON.parse(result);
+            let feedback = result;
             console.log('feedbackfeedback',feedback);
         });
     }

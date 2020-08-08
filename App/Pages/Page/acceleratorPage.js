@@ -44,6 +44,7 @@ export default class acceleratorPage extends Component {
     render() {
         return (
             <View style={styles.container}>
+                {this.renderTheNavigation()}
                <CustomeListView
                    ref = {(listView) => this.listView = listView}
                    style={styles.flatlistStyle}
@@ -55,6 +56,15 @@ export default class acceleratorPage extends Component {
             </View>
         );
     }
+
+    renderTheNavigation = () =>{
+        return(
+            <View style={{marginLeft:0,marginTop:0,width:SCREEN_WIDTH,height:64,flexDirection:'row',justifyContent:'center'}}>
+                <Text style={{color:'white',marginTop:30,fontSize:18}}>加速</Text>
+            </View>
+        );
+    }
+
 
     /** 渲染列表单元组件 */
     renderTheItem = (textString='') =>{
