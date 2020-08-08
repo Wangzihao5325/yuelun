@@ -1124,6 +1124,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.7.tgz#a65ce0702f55cb67fd777995de6fc7b3e5781903"
   integrity sha512-9KbP7LTLFz9dx1heURJbO6nuVMdSjDez8znlrUzaB1nUwKVsTTwlKRuHxGUYIIkReLWrJQeCv9tidy+84z2eCw==
 
+"@react-native-community/netinfo@^5.9.5":
+  version "5.9.5"
+  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-5.9.5.tgz#3bad0d855d2e813be085ec305139d4175c512ccc"
+  integrity sha512-PbSsRmhRwYIMdeVJTf9gJtvW0TVq/hmgz1xyjsrTIsQ7QS7wbMEiv1Eb/M/y6AEEsdUped5Axm5xykq9TGISHg==
+
 "@react-navigation/bottom-tabs@^5.3.1":
   version "5.7.1"
   resolved "https://registry.yarnpkg.com/@react-navigation/bottom-tabs/-/bottom-tabs-5.7.1.tgz#d6b4e61676f8b4ab11864e792c819c56fde32a44"
@@ -5646,6 +5651,11 @@ react-native-image-crop-picker@^0.28.0:
   version "0.28.0"
   resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.28.0.tgz#f121669853278dc14baf14ba25b8e6524b0c234c"
   integrity sha512-4AqQdeS+uFkdeTlsz+3o2Y5dXoRalZiDjsyPsWR2JOawgbzUdjaMQwXkjd12fXNB+g8kccTjvbH96WlXaoHTTg==
+
+react-native-ip-sec-vpn@^1.0.2:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-ip-sec-vpn/-/react-native-ip-sec-vpn-1.1.1.tgz#62b687ceeea963037fac15770b997ec39b8e5427"
+  integrity sha512-cRVOuMweY3tCVqARyLyScR8+12zcHBxF8SURlejA0TwbSFyxZb+8PVUTbiIHL5cGo7v1Ilp4eTgyyMdJePK0+w==
 
 react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"

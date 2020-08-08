@@ -20,7 +20,7 @@ public class QRScanReaderPackage implements ReactPackage {
 
         modules.add(new QRScanReader(reactContext));
         modules.add(new CApiClientManager(reactContext));
-        modules.add(new RNIpSecVpn(reactContext));
+        
 
         return modules;
     }
