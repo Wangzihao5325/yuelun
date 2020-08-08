@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
         marginLeft:10
     },
     searchInputStyle:{
+        padding:0,
         marginLeft:5,
         marginRight:5,
         flex:1,
