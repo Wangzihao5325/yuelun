@@ -17,7 +17,7 @@ const Cover = (props) => {
             resizeMode='cover'
         >
             <View style={styles.coverMask}>
-                <Text style={styles.coverTips}>进入专属加速通道...</Text>
+                <Text style={styles.coverTips}>{props.isAccelerate ? '正使用专属加速通道...' : '专属通道未开启'}</Text>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <View style={styles.outerCircle}>
                         <View style={styles.middleCircle}>

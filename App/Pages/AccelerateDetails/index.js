@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Button } from 'react-native';
+import { StyleSheet, Button, AsyncStorage } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { themeColor } from '../../Config/UIConfig';
 import * as Api from '../../Functions/NativeBridge/ApiModule';
@@ -18,6 +18,7 @@ import UnfoldPage from './UnfoldPage';
 
 export default class AccelerateDetails extends Component {
     state = {
+        isAccelerate: false,
         pageType: 'stow',//stow,unfold
         icon: 'http://static.yuelun.com/game/game.png',
     }
@@ -58,6 +59,15 @@ export default class AccelerateDetails extends Component {
             this.setState({
                 ...request.data.game_info
             });
+
+            AsyncStorage.getItem('accelerateInfo').then(value => {
+                let accelerateInfo = JSON.parse(value || '{}');
+                let isAccelerate = accelerateInfo[this.state.id] ? true : false;
+                this.setState({
+                    isAccelerate,
+                    accelerateInfo
+                });
+            });
         })
     }
     render() {
@@ -69,11 +79,13 @@ export default class AccelerateDetails extends Component {
                         icon={this.state.icon}
                         pageTypeChange={this.pageTypeChange}
                         speedUp={this.speedUp}
+                        isAccelerate={this.state.isAccelerate}
                     />
                 }
                 {this.state.pageType === 'unfold' &&
                     <UnfoldPage
                         pageTypeChange={this.pageTypeChange}
+                        isAccelerate={this.state.isAccelerate}
                     />
                 }
             </SafeAreaView>
@@ -90,6 +102,24 @@ export default class AccelerateDetails extends Component {
     }
 
     speedUp = () => {
+        let { accelerateInfo } = this.state;
+        if (this.state.isAccelerate) {
+            //各种断线操作
+            accelerateInfo[this.state.id] = null;
+            AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
+                this.setState({
+                    isAccelerate: false
+                });
+            });
+        } else {
+            //各种连接操作
+            accelerateInfo[this.state.id] = { server: '192.168.0.1', port: '8081' };
+            AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
+                this.setState({
+                    isAccelerate: true
+                });
+            });
+        }
 
         // const { use_server_id, id } = this.state;
         // if (use_server_id.length > 0) {
@@ -121,7 +151,7 @@ export default class AccelerateDetails extends Component {
                  prepare();
              });
          */
-    
+
 
 
     }

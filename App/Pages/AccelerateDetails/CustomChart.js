@@ -22,6 +22,21 @@ const data = {
     ],
 };
 
+const no_data = {
+    datasets: [
+        {
+            data: [20, 79, 99, 70, 50],
+            color: (opacity = 1) => `rgba(213, 202, 21, 0)`, // optional
+            strokeWidth: 2 // optional
+        },
+        {
+            data: [40, 54, 22, 45, 25],
+            color: (opacity = 1) => `rgba(20, 215, 210, 0)`, // optional
+            strokeWidth: 2 // optional
+        }
+    ],
+};
+
 const chartConfig = {
     backgroundGradientFrom: "#001B41",
     backgroundGradientFromOpacity: 1,
@@ -37,13 +52,15 @@ const chartConfig = {
 };
 
 const SpeedItem = (props) => {
+    let speed = props.isAccelerate ? 75 : '/ ';
+
     return (
         <View style={styles.speedItemContainer}>
             <View style={styles.speedItemHeader}>
                 <Text style={styles.speedItemHeaderTitle}>{`${props.title}`}</Text>
                 <View style={{ height: 1.5, width: 26, backgroundColor: props.color }} />
             </View>
-            <Text style={styles.speedItemContent}>{73}<Text style={styles.speedItemContent2}>ms</Text></Text>
+            <Text style={styles.speedItemContent}>{`${speed}`}<Text style={styles.speedItemContent2}>ms</Text></Text>
         </View>
     );
 }
@@ -53,7 +70,7 @@ const CustomChart = (props) => {
     return (
         <>
             <LineChart
-                data={data}
+                data={props.isAccelerate ? data : no_data}
                 width={width}
                 height={height}
                 segments={segments}
@@ -65,11 +82,13 @@ const CustomChart = (props) => {
             />
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 25 }}>
                 <SpeedItem
+                    isAccelerate={props.isAccelerate}
                     title='加速前延迟'
                     color='#CEC836'
                 />
                 <View style={{ height: 37, width: 0.5, backgroundColor: '#90A9D3' }} />
                 <SpeedItem
+                    isAccelerate={props.isAccelerate}
                     title='加速后延迟'
                     color='#14D7D2'
                 />

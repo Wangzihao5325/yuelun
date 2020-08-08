@@ -27,7 +27,7 @@ const InternetStateItem = (props) => {
     );
 }
 
-const InternetState = () => {
+const InternetState = (props) => {
     const [netType, setNetType] = useState('');
     useEffect(() => {
         NetInfo.fetch().then(state => {//state.type state.isConnected
@@ -39,7 +39,7 @@ const InternetState = () => {
             <Text style={[styles.internetStateTitle, { marginTop: 14 }]}>网络详情</Text>
             <View style={styles.internetStateContent}>
                 <InternetStateItem
-                    title='正在使用'
+                    title={'正在使用'}
                     content={netType}
                 />
                 <InternetStateItem
@@ -48,7 +48,7 @@ const InternetState = () => {
                 />
                 <InternetStateItem
                     title='双通道极加速'
-                    content='已开启'
+                    content={props.isAccelerate ? '已开启' : '未开启'}
                 />
             </View>
         </View>
@@ -63,7 +63,9 @@ const UnfoldPage = (props) => {
                 onPress={props.pageTypeChange}
             />
             <View style={{ flex: 1, alignItems: 'center' }}>
-                <InternetState />
+                <InternetState
+                    isAccelerate={props.isAccelerate}
+                />
                 <View style={{ alignItems: 'center' }}>
                     <Text style={{ color: '#91ADD7', marginTop: 24 }}>- <Text style={styles.chartTitle}>延迟曲线</Text> -</Text>
                     <CustomChart

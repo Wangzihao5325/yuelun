@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import StowAndUnfoldBtn from './StowAndUnfoldBtn';
 import CustomChart from './CustomChart';
@@ -11,9 +11,11 @@ const BottomPart = (props) => {
             <StowAndUnfoldBtn
                 onPress={props.stowAndUnfoldBtnPress}
             />
-            <CustomChart />
+            <CustomChart
+                isAccelerate={props.isAccelerate}
+            />
             <CustomButton
-                title='停止加速'
+                title={props.isAccelerate ? '停止加速' : '立即加速'}
                 buttonStyle={styles.speedupButton}
                 titleStyle={{ color: '#000' }}
                 clickEvent={props.speedUpBtnPress}
@@ -25,10 +27,14 @@ const BottomPart = (props) => {
 const StowPage = (props) => {
     return (
         <>
-            <Cover icon={props.icon} />
+            <Cover
+                icon={props.icon}
+                isAccelerate={props.isAccelerate}
+            />
             <BottomPart
                 stowAndUnfoldBtnPress={props.pageTypeChange}
                 speedUpBtnPress={props.speedUp}
+                isAccelerate={props.isAccelerate}
             />
         </>
     );
