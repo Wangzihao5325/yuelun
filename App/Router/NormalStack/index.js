@@ -196,6 +196,11 @@ const optionArray = [
         name: PageName.NORMAL_NOTICE_WEB,
         component: NoticeWeb,
         options: Object.assign({ title: '消息详情' }, defaultHeaderOptions)
+    }, {
+        key: PageName.NORMAL_VIP_BUY_WEB,
+        name: PageName.NORMAL_VIP_BUY_WEB,
+        component: NoticeWeb,
+        options: Object.assign({ title: '套餐详情' }, defaultHeaderOptions)
     }
 ];
 
