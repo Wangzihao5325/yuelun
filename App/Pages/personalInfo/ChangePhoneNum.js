@@ -7,14 +7,23 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { themeColor } from '../../Config/UIConfig';
+import * as Api from '../../Functions/NativeBridge/ApiModule';
+import store from '../../store';
+import { unsafe_update } from '../../store/actions/userAction';
+import * as NavigationService from '../../Router/NavigationService';
 
 import CustomInput from '../../Components/Component/CustomInput';
 import CustomButton from '../../Components/Component/CustomButton';
 
 export default class ChangePhoneNum extends Component {
     state = {
+        inputType: 'new',
         phoneNum: '',
-        verificationCode: ''
+        oldPhoneNum: '',
+        newPhoneNum: '',
+        verificationCode: '',
+        oldCode: '',
+        newCode: '',
     };
 
     render() {
@@ -23,7 +32,7 @@ export default class ChangePhoneNum extends Component {
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: bgColor, paddingTop: 0 }}>
                 <CustomInput
-                    style={{ alignSelf: 'center',marginTop:20 }}
+                    style={{ alignSelf: 'center', marginTop: 20 }}
                     iconName='mobile-phone'
                     placeholder='请输入新的手机号'
                     value={phoneNum}
@@ -55,23 +64,57 @@ export default class ChangePhoneNum extends Component {
     }
 
     phoneNumChange = (value) => {
-        this.setState({
-            phoneNum: value
-        });
+        if (this.state.inputType === 'new') {
+            this.setState({
+                phoneNum: value,
+                newPhoneNum: value,
+            });
+        } else if (this.state.inputType === 'old') {
+            this.setState({
+                phoneNum: value,
+                oldPhoneNum: value,
+            });
+        }
     }
 
     verificationCodeChange = (value) => {
-        this.setState({
-            verificationCode: value
-        });
+        if (this.state.inputType === 'new') {
+            this.setState({
+                verificationCode: value,
+                newCode: value
+            });
+        } else if (this.state.inputType === 'old') {
+            this.setState({
+                verificationCode: value,
+                oldCode: value
+            });
+        }
     }
 
     getVerificationCode = () => {
-        console.log('获取验证码');
+        const { phoneNum } = this.state;
+        Api.sendPhoneCode(phoneNum)
+            .then((result) => {
+
+            });
     }
 
     confirm = () => {
-        console.log('确认');
+        if (this.state.newPhoneNum && this.state.newCode) {
+            if (this.state.inputType == 'new') {
+                Api.modifyUserInfo(this.state.newPhoneNum, this.state.newCode, '', '').then((res) => {
+                    if (res.status == 'ok') {
+                        store.dispatch(unsafe_update({ mobile: this.state.newPhoneNum }))
+                        NavigationService.back(this);
+                    }
+                })
+            }
+            //  else if (this.state.inputType == 'old') {
+            //     Api.modifyUserInfo(this.state.newPhoneNum, this.state.newCode, '', '').then((res) => {
+            //         console.log(res);
+            //     })
+            // }
+        }
     }
 }
 

@@ -9,5 +9,5 @@ export function logout_user_info_clear() {
 }
 
 export function unsafe_update(payload) {
-    return { typs: Types.USER_UNSAFE_UPDATE, payload }
+    return { type: Types.USER_UNSAFE_UPDATE, payload }
 }
