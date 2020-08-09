@@ -90,7 +90,9 @@ class MinePage extends Component {
                 style={styles.backImageStyle}>
                 <Image style={styles.VIPIcon} source={require('../../resource/Image/Mine/VIPicon.png')} />
                 <Text style={styles.buyVIPRootStyle}>立即开通会员</Text>
-                <TouchableOpacity style={styles.buyBtnRoot}>
+                <TouchableOpacity style={styles.buyBtnRoot} onPress={
+                    
+                }>
                     <Text style={styles.buyStyle}>立即开通</Text>
                 </TouchableOpacity>
             </ImageBackground>
