@@ -7,3 +7,7 @@ export function login_user_info_init(payload) {
 export function logout_user_info_clear() {
     return { type: Types.LOGOUT_USER_INFO_CLEAR };
 }
+
+export function unsafe_update(payload) {
+    return { typs: Types.USER_UNSAFE_UPDATE, payload }
+}

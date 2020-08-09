@@ -2,13 +2,24 @@ import React, { Component } from 'react';
 import { View, TextInput, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { themeColor } from '../../Config/UIConfig';
+import { connect } from 'react-redux';
+import store from '../../store';
+import { unsafe_update } from '../../store/actions/userAction';
+import { Toast } from '../../Components/Toast/Toast';
 
 import CustomButton from '../../Components/Component/CustomButton';
-
-export default class ChangeNickName extends Component {
+import * as APi from '../../Functions/NativeBridge/ApiModule';
+class ChangeNickName extends Component {
     state = {
-        nickName: '小月亮'
+        nickName: ''
     };
+
+    componentDidMount() {
+        this.setState({
+            nickName: this.props.username
+        });
+    }
+
     render() {
         const { bgColor } = themeColor;
         return (
@@ -32,7 +43,22 @@ export default class ChangeNickName extends Component {
             nickName: value
         });
     }
+
+    confirm = () => {
+        APi.modifyUserInfo('', '', this.state.nickName, '').then((res) => {
+            if (res.status == 'ok') {
+                store.dispatch(unsafe_update({ username: this.state.nickName }))
+            }
+        });
+    }
 }
+
+const mapStateToProps = (state) => ({
+    username: state.user.username,
+    mobile: state.user.mobile
+})
+
+export default connect(mapStateToProps)(ChangeNickName);
 
 const styles = StyleSheet.create({
     input: {

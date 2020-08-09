@@ -2,7 +2,7 @@ import * as Types from '../actionTypes';
 
 const initialState = {
     isLogin: false,
-    mobile:'',
+    mobile: '',
 
     end_time: 0,
     login_ip: null,
@@ -34,6 +34,11 @@ const reducer = (state = initialState, action) => {
         case Types.LOGOUT_USER_INFO_CLEAR:
             return {
                 ...initialState
+            };
+        case Types.USER_UNSAFE_UPDATE:
+            return {
+                ...state,
+                ...action.payload
             };
         default: return state;
     }
