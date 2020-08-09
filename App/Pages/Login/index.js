@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomInput from '../../Components/Component/CustomInput';
 import CustomButton from '../../Components/Component/CustomButton';
-
+import * as navigator from '../../Router/NavigationService';
 const iOSPlatform = Platform.OS === 'ios';
 
 export default class Login extends Component {
@@ -121,14 +121,17 @@ export default class Login extends Component {
         const { phoneNum, verificationCode } = this.state;
         Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
         .then((result) => {
-            console.log('login',result);
-            //session比较常用，所以在network里也存一份，方便使用
-            Network.session = result.data.session_id;
-            store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
-            store.dispatch(app_start_app());
-            
+            console.log('login',result);            
             if(result['status'] == 'ok'){
                 this.saveTheUserInfo(result);
+                //session比较常用，所以在network里也存一份，方便使用
+                Network.session = result.data.session_id;
+                store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
+                if(store.getState().app.isLogin){
+                    store.dispatch(app_start_app());
+                }else{
+                    navigator.back(this);
+                }
             }else{
 
             }

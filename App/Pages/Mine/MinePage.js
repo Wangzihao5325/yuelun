@@ -25,6 +25,17 @@ class MinePage extends Component {
         };
     }
 
+    componentDidMount() {
+        this._unsubscribe = this.props.navigation.addListener('focus', () => {
+            this.loadTheUserInfomation();
+        });
+    }
+
+    componentWillUnmount() {
+        this._unsubscribe();
+    }
+
+
     componentWillMount(){
         this.loadTheUserInfomation();
     }

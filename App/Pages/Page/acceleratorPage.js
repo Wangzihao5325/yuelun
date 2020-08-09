@@ -41,7 +41,7 @@ export default class acceleratorPage extends Component {
             dataArray: [],
             freashData:false,
             accelerateStatus:false,
-            showAlert:true
+            showAlert:false
         }
     }
 
@@ -66,12 +66,12 @@ export default class acceleratorPage extends Component {
 
 
     render() {
+        console.log('测试触发render',this.state.showAlert);
         if(this.state.dataArray.length == 0){
             return(
                 <View style={styles.container}>
                     {this.renderTheNavigation()}
                     {this.renderEmptyItem()}
-                    {this.stopAccelerateAlert()}
                 </View>
             );
         }
@@ -87,6 +87,7 @@ export default class acceleratorPage extends Component {
                     notSupportLoadMore={true}
                     showSeparator={false}
                 />
+                {this.stopAccelerateAlert()}
             </View>
         );
     }
