@@ -1,4 +1,4 @@
-﻿#include <string>
+#include <string>
 void CurlInit();
 /**
 * 发送验证码传入手机号，请求成功后会在手机收到验证码
