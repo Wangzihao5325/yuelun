@@ -25,7 +25,7 @@ class MinePage extends Component {
         };
     }
 
-    componentDidMount(){
+    componentWillMount(){
         this.loadTheUserInfomation();
     }
 
