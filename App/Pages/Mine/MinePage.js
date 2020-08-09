@@ -101,7 +101,10 @@ class MinePage extends Component {
                 style={styles.backImageStyle}>
                 <Image style={styles.VIPIcon} source={require('../../resource/Image/Mine/VIPicon.png')} />
                 <Text style={styles.buyVIPRootStyle}>立即开通会员</Text>
-                <TouchableOpacity style={styles.buyBtnRoot}>
+                <TouchableOpacity style={styles.buyBtnRoot} onPress={()=>{
+                    let url = 'https://page.yuelun.com/mobile/recharge?session_id=';
+                    navigator.jump(this,PageName.NORMAL_VIP_BUY_WEB,{ url: item.url });
+                }}>
                     <Text style={styles.buyStyle}>立即开通</Text>
                 </TouchableOpacity>
             </ImageBackground>
