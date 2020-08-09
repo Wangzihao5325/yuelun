@@ -39,7 +39,7 @@ class PersonalInfo extends Component {
             <SafeAreaView style={{ flex: 1, backgroundColor: bgColor, paddingTop: 0 }}>
                 <ItemWrapper
                     title='头像'
-                    imageSource={{ uri: 'https://avatars1.githubusercontent.com/u/20266841?s=60&v=4' }}
+                    imageSource={require('../../resource/Image/Normal/avater.png')}
                     clickEvent={this.changeAvater}
                 />
                 <ItemWrapper
