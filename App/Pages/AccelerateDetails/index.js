@@ -114,7 +114,10 @@ export default class AccelerateDetails extends Component {
             });
         } else {
             //各种连接操作
+            let _date = new Date();
+            this.state.gameFullInfo._timeReg = _date;
             accelerateInfo[this.state.id] = this.state.gameFullInfo;
+            this.state.gameFullInfo
             AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
                 this.setState({
                     isAccelerate: true

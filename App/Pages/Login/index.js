@@ -121,6 +121,7 @@ export default class Login extends Component {
         const { phoneNum, verificationCode } = this.state;
         Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
         .then((result) => {
+            console.log('login',result);
             //session比较常用，所以在network里也存一份，方便使用
             Network.session = result.data.session_id;
             store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
