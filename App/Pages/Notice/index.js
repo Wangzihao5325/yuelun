@@ -4,6 +4,8 @@ import { themeColor, SCREEN_WIDTH, fontSize } from '../../Config/UIConfig';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Api from '../../Functions/NativeBridge/ApiModule';
 import _ from 'lodash';
+import * as NavigationService from '../../Router/NavigationService';
+import PageName from '../../Config/PageName';
 /*item={
     add_time: "1579762036"
     title: "月轮悄悄地塞给你一个红包"
@@ -73,7 +75,7 @@ export default class Notice extends Component {
     }
 
     itemPress = (item) => {
-        console.log(item);
+        NavigationService.jump(this, PageName.NORMAL_NOTICE_WEB, { url: item.url });
     }
 }
 

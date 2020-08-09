@@ -18,6 +18,7 @@ import GameHomePage from '../../Pages/Page/GameHomePage';
 import searchPage from '../../Pages/Page/search';
 import AboutUsPage from '../../Pages/AboutUs';
 import NoticePage from '../../Pages/Notice';
+import NoticeWeb from '../../Pages/Notice/noticeWeb';
 import MinePage from '../../Pages/Mine/MinePage';
 import Login from '../../Pages/Login';
 import AccelerateDetails from '../../Pages/AccelerateDetails';
@@ -190,6 +191,11 @@ const optionArray = [
         name: PageName.ACCELERATE_DETAILS_PAGE,
         component: AccelerateDetails,
         options: Object.assign({ title: '加速' }, defaultHeaderOptions)
+    }, {
+        key: PageName.NORMAL_NOTICE_WEB,
+        name: PageName.NORMAL_NOTICE_WEB,
+        component: NoticeWeb,
+        options: Object.assign({ title: '消息详情' }, defaultHeaderOptions)
     }
 ];
 
