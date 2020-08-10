@@ -259,6 +259,10 @@ export default class acceleratorPage extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity style={[styles.stopItemStyle,{marginBottom:6.5}]} onPress={()=>{
                             this.setState({ showAlert: false });
+                            AsyncStorage.removeItem('accelerateInfo').then(value => {
+                                this.setState({dataArray:[]});
+                            }).catch(reason => {
+                            });
                         }}>
                             <Text style={{color:'white'}}>停止所有游戏加速</Text>
                         </TouchableOpacity>
