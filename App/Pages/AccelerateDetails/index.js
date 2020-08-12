@@ -3,16 +3,7 @@ import { StyleSheet, Button, AsyncStorage } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { themeColor } from '../../Config/UIConfig';
 import * as Api from '../../Functions/NativeBridge/ApiModule';
-// import {
-//     VpnState,
-//     CharonErrorState,
-//     connect,
-//     disconnect,
-//     getCharonErrorState,
-//     getCurrentState,
-//     onStateChangedListener,
-//     prepare,
-// } from '../../Functions/NativeBridge/VpnModule';
+import * as vpnModule from '../../Functions/NativeBridge/YuelunVpn';
 import StowPage from './StowPage';
 import UnfoldPage from './UnfoldPage';
 
@@ -113,6 +104,20 @@ export default class AccelerateDetails extends Component {
                 });
             });
         } else {
+            vpnModule.prepare(
+                '120.77.238.142',
+                '15100',
+                '1400',
+                '120.77.238.142',
+                '255,255,255,0',
+                '8.8.8.8,8.4.4.4',
+                (state) => {
+                    console.log('---this is vpn state---');
+                    console.log(`state is${state}`);
+                }
+            ).then(() => {
+                vpnModule.startVpn();
+            })
             //各种连接操作
             let _date = new Date();
             this.state.gameFullInfo._timeReg = _date;
