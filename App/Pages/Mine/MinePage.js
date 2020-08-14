@@ -19,10 +19,10 @@ class MinePage extends Component {
         super(props);
 
         this.state = {
-            loginStatus : false,
-            userIcon:'',
-            userName:'',
-            sessionID:''
+            loginStatus: false,
+            userIcon: '',
+            userName: '',
+            sessionID: ''
         };
     }
 
@@ -37,7 +37,7 @@ class MinePage extends Component {
     }
 
 
-    componentWillMount(){
+    componentWillMount() {
         this.loadTheUserInfomation();
     }
 
@@ -102,9 +102,13 @@ class MinePage extends Component {
                 style={styles.backImageStyle}>
                 <Image style={styles.VIPIcon} source={require('../../resource/Image/Mine/VIPicon.png')} />
                 <Text style={styles.buyVIPRootStyle}>立即开通会员</Text>
-                <TouchableOpacity style={styles.buyBtnRoot} onPress={()=>{
-                    let url = 'https://page.yuelun.com/mobile/recharge?session_id='+this.state.sessionID;
-                    navigator.jump(this,PageName.NORMAL_VIP_BUY_WEB,{ url: url });
+                <TouchableOpacity style={styles.buyBtnRoot} onPress={() => {
+                    if (this.props.loginStatus) {
+                        let url = 'https://page.yuelun.com/mobile/recharge?session_id=' + this.state.sessionID;
+                        navigator.jump(this, PageName.NORMAL_VIP_BUY_WEB, { url: url });
+                    } else {
+                        navigator.jump(this, PageName.NORAML_LOGIN_PAGE);
+                    }
                 }}>
                     <Text style={styles.buyStyle}>立即开通</Text>
                 </TouchableOpacity>
@@ -147,26 +151,26 @@ class MinePage extends Component {
         navigator.jump(this, PageName.NORMAL_PERSONAL_INFO);
     }
 
-    loadTheUserInfomation = () =>{
-        AsyncStorage.getItem('userInfo').then(value=>{
-            if(value == null){
+    loadTheUserInfomation = () => {
+        AsyncStorage.getItem('userInfo').then(value => {
+            if (value == null) {
                 this.setState({
-                    loginStatus : false,
-                    userIcon:'',
-                    userName:'',
-                    sessionID:''
+                    loginStatus: false,
+                    userIcon: '',
+                    userName: '',
+                    sessionID: ''
                 });
-            }else{
+            } else {
                 let userData = JSON.parse(value);
-                console.log('个人信息',userData);
+                console.log('个人信息', userData);
                 this.setState({
-                    loginStatus : true,
-                    userIcon:'',
-                    userName:userData['data']['username'] ? userData['data']['username'] : '',
-                    sessionID:userData['data']['session_id'] ? userData['data']['session_id'] : '',
+                    loginStatus: true,
+                    userIcon: '',
+                    userName: userData['data']['username'] ? userData['data']['username'] : '',
+                    sessionID: userData['data']['session_id'] ? userData['data']['session_id'] : '',
                 });
             }
-        }).catch(reason =>{
+        }).catch(reason => {
 
         });
     }
