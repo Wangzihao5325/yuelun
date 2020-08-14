@@ -70,6 +70,7 @@ const Item = (props) => {
 }
 export default class InitPage extends Component {
     componentDidMount() {
+        StatusBar.setBarStyle('light-content');
         if (Platform.OS === 'android') {
             StatusBar.setBackgroundColor('#00132C');
         }
