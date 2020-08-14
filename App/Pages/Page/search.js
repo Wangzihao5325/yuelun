@@ -26,7 +26,7 @@ import SearchNavigator from '../../Components/Component/Game/SearchNavigator';
 import * as navigator from '../../Router/NavigationService';
 import { TextInput } from 'react-native-gesture-handler';
 import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
-import { result } from 'lodash';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const NoramType = 1;
 const searchType = 2;
@@ -69,34 +69,36 @@ export default class search extends Component {
     render() {
         return (
             <View>
-                <SearchNavigator
-                    searchText={this.state.searchText}
-                    changeTheTextFunction={(text) => { this.setState({ searchText: text }); }}
-                    onEndEditing={() => {
-                        this.setState({ pageType: searchType });
-                        this.clickTheHistoryTextAndSearch(this.state.searchText);
-                    }}
-                    cancleFunction={() => {
-                        navigator.back(this);
-                    }}
-                />
-                <ScrollView style={[styles.scrollRoot, { height: SCREEN_HEIGHT - UIConfig.NavigatorViewHeight }]}>
-                    {this.renderThePageView()}
-                </ScrollView>
+                <KeyboardAwareScrollView>
+                    <SearchNavigator
+                        searchText={this.state.searchText}
+                        changeTheTextFunction={(text) => { this.setState({ searchText: text }); }}
+                        onEndEditing={() => {
+                            this.setState({ pageType: searchType });
+                            this.clickTheHistoryTextAndSearch(this.state.searchText);
+                        }}
+                        cancleFunction={() => {
+                            navigator.back(this);
+                        }}
+                    />
+                    <ScrollView style={[styles.scrollRoot, { height: SCREEN_HEIGHT - UIConfig.NavigatorViewHeight }]}>
+                        {this.renderThePageView()}
+                    </ScrollView>
 
-                <Modal
-                    transparent={true}
-                    visible={this.state.test}
-                    onRequestClose={() => this.hide(false)}>
-                    <TouchableOpacity
-                        onPress={() => { this.setState({ test: false }) }}
-                        style={{ marginLeft: 0, marginRight: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT, backgroundColor: 'rgba(23,23,23,0.5)' }}>
-                        <View style={{ width: SCREEN_WIDTH, height: 91.5, backgroundColor: 'white', marginTop: (SCREEN_HEIGHT / 2 - 50) }}>
-                            <Text style={{ color: '#333333', fontSize: 14, marginTop: 16, marginLeft: 18.5 }}>请提交想要加速的游戏</Text>
-                            <TextInput style={{ marginLeft: 20, marginTop: 12, height: 35, width: 250, backgroundColor: '#E5E5E5' }} />
-                        </View>
-                    </TouchableOpacity>
-                </Modal>
+                    <Modal
+                        transparent={true}
+                        visible={this.state.test}
+                        onRequestClose={() => this.hide(false)}>
+                        <TouchableOpacity
+                            onPress={() => { this.setState({ test: false }) }}
+                            style={{ marginLeft: 0, marginRight: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT, backgroundColor: 'rgba(23,23,23,0.5)' }}>
+                            <View style={{ width: SCREEN_WIDTH, height: 91.5, backgroundColor: 'white', marginTop: (SCREEN_HEIGHT / 2 - 50) }}>
+                                <Text style={{ color: '#333333', fontSize: 14, marginTop: 16, marginLeft: 18.5 }}>请提交想要加速的游戏</Text>
+                                <TextInput style={{ marginLeft: 20, marginTop: 12, height: 35, width: 250, backgroundColor: '#E5E5E5' }} />
+                            </View>
+                        </TouchableOpacity>
+                    </Modal>
+                </KeyboardAwareScrollView>
             </View>
         );
     }
@@ -231,7 +233,7 @@ export default class search extends Component {
         }).catch(reason => {
         });
 
-        setTimeout(()=>{Navigator.back(this)},1000);
+        setTimeout(() => { Navigator.back(this) }, 1000);
     }
 
     /**

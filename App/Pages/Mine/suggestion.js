@@ -21,6 +21,7 @@ import CustomButton from '../../Components/Component/CustomButton';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../Config/UIConfig';
 import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
 import * as NavigationService from '../../Router/NavigationService';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default class suggestion extends Component {
     constructor(props) {
@@ -64,24 +65,26 @@ export default class suggestion extends Component {
     render() {
         return (
             <View style={[styles.container, { marginTop: this.state.onFocus ? -130 : 0 }]}>
-                <Text style={styles.textStyle}>告诉我们您遇到的问题</Text>
-                <View style={styles.suggestionRoot}>
-                    <TextInput
-                        placeholder='请填写'
-                        placeholderTextColor={'#BBBBBB'}
-                        style={styles.problemInput}
-                        onChangeText={(text) => {
-                            this.setState({ suggestion: text })
-                        }}
-                        value={this.state.suggestion}
-                        maxLength={200}
-                        multiline={true}
-                    />
-                    <View style={styles.inputNumRoot}>
-                        <Text style={{ color: '#BBBBBB' }}>{this.state.suggestion.length + '/200字'}</Text>
+                <KeyboardAwareScrollView>
+                    <Text style={styles.textStyle}>告诉我们您遇到的问题</Text>
+                    <View style={styles.suggestionRoot}>
+                        <TextInput
+                            placeholder='请填写'
+                            placeholderTextColor={'#BBBBBB'}
+                            style={styles.problemInput}
+                            onChangeText={(text) => {
+                                this.setState({ suggestion: text })
+                            }}
+                            value={this.state.suggestion}
+                            maxLength={200}
+                            multiline={true}
+                        />
+                        <View style={styles.inputNumRoot}>
+                            <Text style={{ color: '#BBBBBB' }}>{this.state.suggestion.length + '/200字'}</Text>
+                        </View>
                     </View>
-                </View>
-                {this.renderTheTelItem()}
+                    {this.renderTheTelItem()}
+                </KeyboardAwareScrollView>
             </View>
         );
     }
@@ -147,7 +150,7 @@ export default class suggestion extends Component {
                 if (result.status == 'ok') {
                     NavigationService.back(this);
                 } else {
-                    
+
                 }
             });
     }
