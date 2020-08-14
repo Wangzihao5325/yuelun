@@ -1,6 +1,6 @@
 import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
 
-const YuelunVpnModule = Platform.OS === 'ios' ? NativeModules.YuelunVpn : null;
+const YuelunVpnModule = NativeModules.YuelunVpn;
 let VpnEmitter = null;
 /** 
  * local & rn`s communicaiton function
@@ -30,4 +30,8 @@ export function stopVPN() {
     if (Platform.OS === 'ios') {
         YuelunVpnModule.stopVPN();
     }
+}
+
+export function yuelunGetNewConfig() {
+    YuelunVpnModule.yuelunGetNewConfig('162.14.5.205', 32091);
 }

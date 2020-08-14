@@ -28,7 +28,6 @@ export default class AccelerateDetails extends Component {
         });
         //gameInfo.id
         Api.getGameInfoById(gameInfo.id, '').then((request) => {
-            console.log(request);
             /*
             game_info: {
                 domain_black_list: ""
@@ -94,6 +93,24 @@ export default class AccelerateDetails extends Component {
     }
 
     speedUp = () => {
+        const { use_server_id, id } = this.state;
+        if (use_server_id.length > 0) {
+            Api.connectServer(id, use_server_id[0]).then((res) => {
+                //  res.data
+                //  consult_ip: "162.14.5.205"
+                // consult_port: "32091"
+                // entry_ip: "119.3.83.78"
+                // reserve_ip: ""
+                // route_ip_list: []
+                // tcp_port: ["15880"]
+                // timestamp: 1595862116
+                // udp_port: ["15880"]
+                console.log('---res---');
+                console.log(res);
+            })
+        }
+        vpnModule.yuelunGetNewConfig();
+        /*
         let { accelerateInfo } = this.state;
         if (this.state.isAccelerate) {
             //各种断线操作
@@ -129,6 +146,7 @@ export default class AccelerateDetails extends Component {
                 });
             });
         }
+        */
 
         // const { use_server_id, id } = this.state;
         // if (use_server_id.length > 0) {

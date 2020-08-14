@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableHighlight, Image, Text, Platform, StyleSheet, AsyncStorage} from 'react-native';
+import { View, TouchableHighlight, Image, Text, Platform, StyleSheet, AsyncStorage } from 'react-native';
 import { themeColor, SCREEN_WIDTH } from '../../Config/UIConfig';
 import * as Api from '../../Functions/NativeBridge/ApiModule';
 import store from '../../store';
@@ -28,7 +28,7 @@ export default class Login extends Component {
         let additionalStyle = isSinglePageMode ? null : { paddingTop: 0 }
         return (
             <SafeAreaView style={[{ flex: 1, backgroundColor: bgColor }, additionalStyle]}>
-                <View style={{ height: 20, width: SCREEN_WIDTH, paddingHorizontal: 15,marginTop:10 }}>
+                <View style={{ height: 20, width: SCREEN_WIDTH, paddingHorizontal: 15, marginTop: 10 }}>
                     {isSinglePageMode &&
                         <TouchableHighlight onPress={this.startAppWithUnLogin} underlayColor='transparent'>
                             <Icon name='chevron-left' size={20} color="#666" />
@@ -120,34 +120,35 @@ export default class Login extends Component {
     login = () => {
         const { phoneNum, verificationCode } = this.state;
         Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
-        .then((result) => {
-            console.log('login',result);            
-            if(result['status'] == 'ok'){
-                this.saveTheUserInfo(result);
-                //session比较常用，所以在network里也存一份，方便使用
-                Network.session = result.data.session_id;
-                store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
-                if(store.getState().app.isLogin){
-                    store.dispatch(app_start_app());
-                }else{
-                    navigator.back(this);
-                }
-            }else{
+            .then((result) => {
+                console.log('---login---');
+                console.log(result);
+                if (result['status'] == 'ok') {
+                    this.saveTheUserInfo(result);
+                    //session比较常用，所以在network里也存一份，方便使用
+                    Network.session = result.data.session_id;
+                    store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
+                    if (store.getState().app.isLogin) {
+                        store.dispatch(app_start_app());
+                    } else {
+                        navigator.back(this);
+                    }
+                } else {
 
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
-    getVerificationCode = () =>{
+    getVerificationCode = () => {
         const { phoneNum, verificationCode } = this.state;
 
         Api.sendPhoneCode(phoneNum)
-        .then((result)=>{
+            .then((result) => {
 
-        });
+            });
     }
 
 
@@ -155,10 +156,10 @@ export default class Login extends Component {
         store.dispatch(app_start_app());
     }
 
-    saveTheUserInfo = (userInfo) =>{
-        AsyncStorage.setItem('userInfo',JSON.stringify(userInfo)).then(value=>{
+    saveTheUserInfo = (userInfo) => {
+        AsyncStorage.setItem('userInfo', JSON.stringify(userInfo)).then(value => {
 
-        }).catch(reason =>{
+        }).catch(reason => {
 
         });
     }
