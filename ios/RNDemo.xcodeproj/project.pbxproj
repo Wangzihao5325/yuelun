@@ -9,15 +9,7 @@
 /* Begin PBXBuildFile section */
 		00675C46243094DC00085827 /* KeyChainModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 00675C44243094DC00085827 /* KeyChainModule.m */; };
 		00675C492430AE7100085827 /* QRScanReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 00675C482430AE7100085827 /* QRScanReader.m */; };
-		00AB2F4E24E383E6008FA706 /* PacketTunnelProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00AB2F4D24E383E6008FA706 /* PacketTunnelProvider.mm */; };
-		00AB2F5224E383E6008FA706 /* yulunPersonalVPN.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 00AB2F4824E383E6008FA706 /* yulunPersonalVPN.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		00AB2F5A24E38603008FA706 /* NSMutableDictionary+TVUSafeSetRemove.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AB2F5824E38603008FA706 /* NSMutableDictionary+TVUSafeSetRemove.m */; };
-		00AB2F5D24E3879E008FA706 /* YuelunVpn.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AB2F5C24E3879E008FA706 /* YuelunVpn.m */; };
-		00AB2F6324E38BF9008FA706 /* XDXVPNManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00AB2F6024E38BF9008FA706 /* XDXVPNManager.mm */; };
-		00AB2F6424E38BF9008FA706 /* XDXVPNManagerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AB2F6124E38BF9008FA706 /* XDXVPNManagerModel.m */; };
-		00E1FC0724C2CD280092895E /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E1FC0324C2CD270092895E /* libssl.a */; };
 		00E1FC0824C2CD280092895E /* libyuelun_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E1FC0424C2CD270092895E /* libyuelun_api.a */; };
-		00E1FC0924C2CD280092895E /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E1FC0524C2CD280092895E /* libcrypto.a */; };
 		00E1FC0A24C2CD280092895E /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E1FC0624C2CD280092895E /* libcurl.a */; };
 		00E356F31AD99517003FC87E /* RNDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RNDemoTests.m */; };
 		00F29DD6242889D600A54037 /* BridgeDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F29DD5242889D600A54037 /* BridgeDemo.m */; };
@@ -25,18 +17,31 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2DCD954D1E0B4F2C00145EB5 /* RNDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RNDemoTests.m */; };
 		34F713CE243C2C6C001034CF /* AuthenticationModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F713CD243C2C6C001034CF /* AuthenticationModule.m */; };
-		7C2A64BE89FB4240919FCF8D /* libPods-RNDemo-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF18FFEA48B94E7A13DFF097 /* libPods-RNDemo-tvOS.a */; };
 		802CF95924DB070800685ACF /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802CF95824DB070800685ACF /* NetworkExtension.framework */; };
+		806A22E424E81D20000E7040 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 806A22DF24E81D1F000E7040 /* GCDAsyncSocket.m */; };
+		806A22E524E81D20000E7040 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 806A22E024E81D1F000E7040 /* GCDAsyncUdpSocket.m */; };
+		806A22E724E81D46000E7040 /* CocoaAsyncSocket in Resources */ = {isa = PBXBuildFile; fileRef = 806A22E624E81D46000E7040 /* CocoaAsyncSocket */; };
+		806A22E824E81D77000E7040 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 806A22DF24E81D1F000E7040 /* GCDAsyncSocket.m */; };
+		806A22E924E81D77000E7040 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 806A22E024E81D1F000E7040 /* GCDAsyncUdpSocket.m */; };
+		806A22EB24E81D85000E7040 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806A22EA24E81D85000E7040 /* ExternalAccessory.framework */; };
+		806A22ED24E81D95000E7040 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806A22EC24E81D94000E7040 /* CFNetwork.framework */; };
+		806A22EF24E81DA0000E7040 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806A22EE24E81DA0000E7040 /* Security.framework */; };
 		80F7766A24C7CE92004DCDB1 /* apiyuelun.h in Sources */ = {isa = PBXBuildFile; fileRef = 00E1FC0B24C2CDEA0092895E /* apiyuelun.h */; };
 		80F7767324D07210004DCDB1 /* ApiHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80F7767224D07210004DCDB1 /* ApiHelper.mm */; };
+		80F8AA6124E43EBA0073A30C /* XDXVPNManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80F8AA5E24E43EBA0073A30C /* XDXVPNManager.mm */; };
+		80F8AA6224E43EBA0073A30C /* XDXVPNManagerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 80F8AA6024E43EBA0073A30C /* XDXVPNManagerModel.m */; };
+		80F8AA6D24E43F180073A30C /* PacketTunnelProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80F8AA6C24E43F180073A30C /* PacketTunnelProvider.mm */; };
+		80F8AA7124E43F180073A30C /* YueLunVPN.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 80F8AA6724E43F180073A30C /* YueLunVPN.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		80F8AA7624E43F7C0073A30C /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802CF95824DB070800685ACF /* NetworkExtension.framework */; };
+		80F8AA7A24E4400A0073A30C /* NSMutableDictionary+TVUSafeSetRemove.m in Sources */ = {isa = PBXBuildFile; fileRef = 80F8AA7924E4400A0073A30C /* NSMutableDictionary+TVUSafeSetRemove.m */; };
+		80F8AA7D24E4418E0073A30C /* YuelunVpn.m in Sources */ = {isa = PBXBuildFile; fileRef = 80F8AA7C24E4418E0073A30C /* YuelunVpn.m */; };
+		80F8AA8924E446A50073A30C /* libYuelunProxy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F8AA8724E446A40073A30C /* libYuelunProxy.a */; };
+		80F8AA8A24E446A50073A30C /* libproxy_clientios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F8AA8824E446A50073A30C /* libproxy_clientios.a */; };
+		80F8AA8D24E44A0D0073A30C /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F8AA8B24E44A0C0073A30C /* libcrypto.a */; };
+		80F8AA8E24E44A0D0073A30C /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F8AA8C24E44A0D0073A30C /* libssl.a */; };
 		A522A05CEDAAB65C1D9333F3 /* libPods-RNDemo-RNDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3464F86A16DE9EF64A13562A /* libPods-RNDemo-RNDemoTests.a */; };
 		C6ADE1C2F0F2E4FFB75C6354 /* libPods-RNDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D086370BEB68C40B80F3C07D /* libPods-RNDemo.a */; };
-		EB7B94932CF80D6513E7DF08 /* libPods-RNDemo-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2D3E4E44A8036272CCDE589 /* libPods-RNDemo-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,23 +59,23 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = RNDemo;
 		};
-		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
+		80F8AA6F24E43F180073A30C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "RNDemo-tvOS";
+			remoteGlobalIDString = 80F8AA6624E43F180073A30C;
+			remoteInfo = YueLunVPN;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		00AB2F5624E383E6008FA706 /* Embed App Extensions */ = {
+		80F8AA7524E43F180073A30C /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				00AB2F5224E383E6008FA706 /* yulunPersonalVPN.appex in Embed App Extensions */,
+				80F8AA7124E43F180073A30C /* YueLunVPN.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -84,23 +89,7 @@
 		00675C472430AE4800085827 /* QRScanReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = QRScanReader.h; path = RNDemo/BridgeModule/QRScanModule/QRScanReader.h; sourceTree = "<group>"; };
 		00675C482430AE7100085827 /* QRScanReader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = QRScanReader.m; path = RNDemo/BridgeModule/QRScanModule/QRScanReader.m; sourceTree = "<group>"; };
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00AB2F4824E383E6008FA706 /* yulunPersonalVPN.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = yulunPersonalVPN.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		00AB2F4B24E383E6008FA706 /* yulunPersonalVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = yulunPersonalVPN.entitlements; path = ../yulunPersonalVPN.entitlements; sourceTree = "<group>"; };
-		00AB2F4C24E383E6008FA706 /* PacketTunnelProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PacketTunnelProvider.h; sourceTree = "<group>"; };
-		00AB2F4D24E383E6008FA706 /* PacketTunnelProvider.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PacketTunnelProvider.mm; sourceTree = "<group>"; };
-		00AB2F4F24E383E6008FA706 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00AB2F5724E38603008FA706 /* log4cplus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = log4cplus.h; sourceTree = "<group>"; };
-		00AB2F5824E38603008FA706 /* NSMutableDictionary+TVUSafeSetRemove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+TVUSafeSetRemove.m"; sourceTree = "<group>"; };
-		00AB2F5924E38603008FA706 /* NSMutableDictionary+TVUSafeSetRemove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+TVUSafeSetRemove.h"; sourceTree = "<group>"; };
-		00AB2F5B24E3879E008FA706 /* YuelunVpn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YuelunVpn.h; path = RNDemo/BridgeModule/YuelunApiModule/YuelunVpn.h; sourceTree = "<group>"; };
-		00AB2F5C24E3879E008FA706 /* YuelunVpn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = YuelunVpn.m; path = RNDemo/BridgeModule/YuelunApiModule/YuelunVpn.m; sourceTree = "<group>"; };
-		00AB2F5F24E38BF9008FA706 /* XDXVPNManagerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XDXVPNManagerModel.h; path = RNDemo/BridgeModule/YuelunApiModule/XDXVPNManagerModel.h; sourceTree = "<group>"; };
-		00AB2F6024E38BF9008FA706 /* XDXVPNManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = XDXVPNManager.mm; path = RNDemo/BridgeModule/YuelunApiModule/XDXVPNManager.mm; sourceTree = "<group>"; };
-		00AB2F6124E38BF9008FA706 /* XDXVPNManagerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XDXVPNManagerModel.m; path = RNDemo/BridgeModule/YuelunApiModule/XDXVPNManagerModel.m; sourceTree = "<group>"; };
-		00AB2F6224E38BF9008FA706 /* XDXVPNManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XDXVPNManager.h; path = RNDemo/BridgeModule/YuelunApiModule/XDXVPNManager.h; sourceTree = "<group>"; };
-		00E1FC0324C2CD270092895E /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		00E1FC0424C2CD270092895E /* libyuelun_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libyuelun_api.a; sourceTree = "<group>"; };
-		00E1FC0524C2CD280092895E /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		00E1FC0624C2CD280092895E /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcurl.a; sourceTree = "<group>"; };
 		00E1FC0B24C2CDEA0092895E /* apiyuelun.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = apiyuelun.h; sourceTree = "<group>"; };
 		00E1FC1224C2DD670092895E /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -121,8 +110,6 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = RNDemo/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = RNDemo/main.m; sourceTree = "<group>"; };
 		2C5B82DEFE7B2997CFE9CBED /* Pods-RNDemo-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemo-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-RNDemo-tvOS/Pods-RNDemo-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* RNDemo-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RNDemo-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* RNDemo-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RNDemo-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3346171AA8E9BFE2B1923F9B /* Pods-RNDemo-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemo-tvOS.release.xcconfig"; path = "Target Support Files/Pods-RNDemo-tvOS/Pods-RNDemo-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		3464F86A16DE9EF64A13562A /* libPods-RNDemo-RNDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNDemo-RNDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34F713CC243C2C6C001034CF /* AuthenticationModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthenticationModule.h; path = RNDemo/BridgeModule/SecurityModule/AuthenticationModule.h; sourceTree = "<group>"; };
@@ -130,8 +117,37 @@
 		60947F9E755E6771DFD0CF8E /* Pods-RNDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemoTests.release.xcconfig"; path = "Target Support Files/Pods-RNDemoTests/Pods-RNDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		60CA3976A620108703AF9021 /* Pods-RNDemo-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemo-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-RNDemo-tvOSTests/Pods-RNDemo-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		802CF95824DB070800685ACF /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		806A22DF24E81D1F000E7040 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = RNDemo/GCDAsyncSocket.m; sourceTree = "<group>"; };
+		806A22E024E81D1F000E7040 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncUdpSocket.m; path = RNDemo/GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
+		806A22E124E81D1F000E7040 /* CocoaAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CocoaAsyncSocket.h; path = RNDemo/CocoaAsyncSocket.h; sourceTree = "<group>"; };
+		806A22E224E81D1F000E7040 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCDAsyncUdpSocket.h; path = RNDemo/GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
+		806A22E324E81D20000E7040 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCDAsyncSocket.h; path = RNDemo/GCDAsyncSocket.h; sourceTree = "<group>"; };
+		806A22E624E81D46000E7040 /* CocoaAsyncSocket */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CocoaAsyncSocket; sourceTree = "<group>"; };
+		806A22EA24E81D85000E7040 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		806A22EC24E81D94000E7040 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		806A22EE24E81DA0000E7040 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		80F7767124D07210004DCDB1 /* ApiHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiHelper.h; sourceTree = "<group>"; };
 		80F7767224D07210004DCDB1 /* ApiHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ApiHelper.mm; sourceTree = "<group>"; };
+		80F8AA5D24E43EBA0073A30C /* XDXVPNManagerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDXVPNManagerModel.h; sourceTree = "<group>"; };
+		80F8AA5E24E43EBA0073A30C /* XDXVPNManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XDXVPNManager.mm; sourceTree = "<group>"; };
+		80F8AA5F24E43EBA0073A30C /* XDXVPNManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDXVPNManager.h; sourceTree = "<group>"; };
+		80F8AA6024E43EBA0073A30C /* XDXVPNManagerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XDXVPNManagerModel.m; sourceTree = "<group>"; };
+		80F8AA6724E43F180073A30C /* YueLunVPN.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = YueLunVPN.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		80F8AA6A24E43F180073A30C /* YueLunVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = YueLunVPN.entitlements; path = ../YueLunVPN.entitlements; sourceTree = "<group>"; };
+		80F8AA6B24E43F180073A30C /* PacketTunnelProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PacketTunnelProvider.h; sourceTree = "<group>"; };
+		80F8AA6C24E43F180073A30C /* PacketTunnelProvider.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PacketTunnelProvider.mm; sourceTree = "<group>"; };
+		80F8AA6E24E43F180073A30C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		80F8AA7724E4400A0073A30C /* NSMutableDictionary+TVUSafeSetRemove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+TVUSafeSetRemove.h"; sourceTree = "<group>"; };
+		80F8AA7824E4400A0073A30C /* log4cplus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = log4cplus.h; sourceTree = "<group>"; };
+		80F8AA7924E4400A0073A30C /* NSMutableDictionary+TVUSafeSetRemove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+TVUSafeSetRemove.m"; sourceTree = "<group>"; };
+		80F8AA7B24E4418E0073A30C /* YuelunVpn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YuelunVpn.h; sourceTree = "<group>"; };
+		80F8AA7C24E4418E0073A30C /* YuelunVpn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YuelunVpn.m; sourceTree = "<group>"; };
+		80F8AA8524E446370073A30C /* libclient_proxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libclient_proxy.h; sourceTree = SOURCE_ROOT; };
+		80F8AA8624E446370073A30C /* YuelunProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YuelunProxy.h; sourceTree = SOURCE_ROOT; };
+		80F8AA8724E446A40073A30C /* libYuelunProxy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libYuelunProxy.a; sourceTree = SOURCE_ROOT; };
+		80F8AA8824E446A50073A30C /* libproxy_clientios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libproxy_clientios.a; sourceTree = SOURCE_ROOT; };
+		80F8AA8B24E44A0C0073A30C /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = SOURCE_ROOT; };
+		80F8AA8C24E44A0D0073A30C /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = SOURCE_ROOT; };
 		94B62AE16F593BCC4BF6E40C /* Pods-RNDemo-RNDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemo-RNDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-RNDemo-RNDemoTests/Pods-RNDemo-RNDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A2D3E4E44A8036272CCDE589 /* libPods-RNDemo-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNDemo-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF80F1A94A0D6D7AC204937E /* Pods-RNDemo-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemo-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-RNDemo-tvOSTests/Pods-RNDemo-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -164,28 +180,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				806A22EF24E81DA0000E7040 /* Security.framework in Frameworks */,
+				806A22ED24E81D95000E7040 /* CFNetwork.framework in Frameworks */,
 				00E1FC0A24C2CD280092895E /* libcurl.a in Frameworks */,
 				802CF95924DB070800685ACF /* NetworkExtension.framework in Frameworks */,
-				00E1FC0724C2CD280092895E /* libssl.a in Frameworks */,
 				00E1FC0824C2CD280092895E /* libyuelun_api.a in Frameworks */,
-				00E1FC0924C2CD280092895E /* libcrypto.a in Frameworks */,
 				C6ADE1C2F0F2E4FFB75C6354 /* libPods-RNDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2D02E4781E0B4A5D006451C7 /* Frameworks */ = {
+		80F8AA6424E43F180073A30C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C2A64BE89FB4240919FCF8D /* libPods-RNDemo-tvOS.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2D02E48D1E0B4A5D006451C7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EB7B94932CF80D6513E7DF08 /* libPods-RNDemo-tvOSTests.a in Frameworks */,
+				806A22EB24E81D85000E7040 /* ExternalAccessory.framework in Frameworks */,
+				80F8AA8E24E44A0D0073A30C /* libssl.a in Frameworks */,
+				80F8AA8924E446A50073A30C /* libYuelunProxy.a in Frameworks */,
+				80F8AA8A24E446A50073A30C /* libproxy_clientios.a in Frameworks */,
+				80F8AA8D24E44A0D0073A30C /* libcrypto.a in Frameworks */,
+				80F8AA7624E43F7C0073A30C /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,7 +255,8 @@
 		00F29DD42428899000A54037 /* BridgeModule */ = {
 			isa = PBXGroup;
 			children = (
-				00AB2F5E24E38BCF008FA706 /* vpnManager */,
+				80F8AA7B24E4418E0073A30C /* YuelunVpn.h */,
+				80F8AA7C24E4418E0073A30C /* YuelunVpn.m */,
 				34F713CC243C2C6C001034CF /* AuthenticationModule.h */,
 				34F713CD243C2C6C001034CF /* AuthenticationModule.m */,
 				00675C45243094DC00085827 /* KeyChainModule.h */,
@@ -262,9 +276,15 @@
 		13B07FAE1A68108700A75B9A /* RNDemo */ = {
 			isa = PBXGroup;
 			children = (
+				80F8AA5C24E43EBA0073A30C /* VPNManager */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				806A22E124E81D1F000E7040 /* CocoaAsyncSocket.h */,
+				806A22E324E81D20000E7040 /* GCDAsyncSocket.h */,
+				806A22DF24E81D1F000E7040 /* GCDAsyncSocket.m */,
+				806A22E224E81D1F000E7040 /* GCDAsyncUdpSocket.h */,
+				806A22E024E81D1F000E7040 /* GCDAsyncUdpSocket.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
@@ -272,9 +292,9 @@
 				00F29DD42428899000A54037 /* BridgeModule */,
 				000BA31924A990240091159D /* RNDemo-Bridging-Header.h */,
 				00E1FC0B24C2CDEA0092895E /* apiyuelun.h */,
-				00AB2F5724E38603008FA706 /* log4cplus.h */,
-				00AB2F5924E38603008FA706 /* NSMutableDictionary+TVUSafeSetRemove.h */,
-				00AB2F5824E38603008FA706 /* NSMutableDictionary+TVUSafeSetRemove.m */,
+				80F8AA7824E4400A0073A30C /* log4cplus.h */,
+				80F8AA7724E4400A0073A30C /* NSMutableDictionary+TVUSafeSetRemove.h */,
+				80F8AA7924E4400A0073A30C /* NSMutableDictionary+TVUSafeSetRemove.m */,
 			);
 			name = RNDemo;
 			sourceTree = "<group>";
@@ -282,6 +302,9 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				806A22EE24E81DA0000E7040 /* Security.framework */,
+				806A22EC24E81D94000E7040 /* CFNetwork.framework */,
+				806A22EA24E81D85000E7040 /* ExternalAccessory.framework */,
 				802CF95824DB070800685ACF /* NetworkExtension.framework */,
 				00E1FC1F24C3FD330092895E /* libz.1.tbd */,
 				00E1FC1624C2DDAD0092895E /* libc++abi.tbd */,
@@ -314,12 +337,48 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		80F8AA5C24E43EBA0073A30C /* VPNManager */ = {
+			isa = PBXGroup;
+			children = (
+				80F8AA5D24E43EBA0073A30C /* XDXVPNManagerModel.h */,
+				80F8AA5E24E43EBA0073A30C /* XDXVPNManager.mm */,
+				80F8AA5F24E43EBA0073A30C /* XDXVPNManager.h */,
+				80F8AA6024E43EBA0073A30C /* XDXVPNManagerModel.m */,
+			);
+			name = VPNManager;
+			path = RNDemo/VPNManager;
+			sourceTree = "<group>";
+		};
+		80F8AA6824E43F180073A30C /* YueLunVPN */ = {
+			isa = PBXGroup;
+			children = (
+				806A22E624E81D46000E7040 /* CocoaAsyncSocket */,
+				80F8AA8B24E44A0C0073A30C /* libcrypto.a */,
+				80F8AA8C24E44A0D0073A30C /* libssl.a */,
+				80F8AA8824E446A50073A30C /* libproxy_clientios.a */,
+				80F8AA8724E446A40073A30C /* libYuelunProxy.a */,
+				80F8AA8524E446370073A30C /* libclient_proxy.h */,
+				80F8AA8624E446370073A30C /* YuelunProxy.h */,
+				80F8AA6B24E43F180073A30C /* PacketTunnelProvider.h */,
+				80F8AA6C24E43F180073A30C /* PacketTunnelProvider.mm */,
+				80F8AA6E24E43F180073A30C /* Info.plist */,
+				80F8AA6924E43F180073A30C /* Supporting Files */,
+			);
+			path = YueLunVPN;
+			sourceTree = "<group>";
+		};
+		80F8AA6924E43F180073A30C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				80F8AA6A24E43F180073A30C /* YueLunVPN.entitlements */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				00E1FC0524C2CD280092895E /* libcrypto.a */,
 				00E1FC0624C2CD280092895E /* libcurl.a */,
-				00E1FC0324C2CD270092895E /* libssl.a */,
 				00E1FC0424C2CD270092895E /* libyuelun_api.a */,
 			);
 			name = Libraries;
@@ -331,7 +390,7 @@
 				13B07FAE1A68108700A75B9A /* RNDemo */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* RNDemoTests */,
-				00AB2F4924E383E6008FA706 /* yulunPersonalVPN */,
+				80F8AA6824E43F180073A30C /* YueLunVPN */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				4B48FB71C0875FE548E76C72 /* Pods */,
@@ -346,9 +405,7 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* RNDemo.app */,
 				00E356EE1AD99517003FC87E /* RNDemoTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* RNDemo-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* RNDemo-tvOSTests.xctest */,
-				00AB2F4824E383E6008FA706 /* yulunPersonalVPN.appex */,
+				80F8AA6724E43F180073A30C /* YueLunVPN.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -404,56 +461,34 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				9ECF3CC0615399C4DB939492 /* [CP] Copy Pods Resources */,
-				00AB2F5624E383E6008FA706 /* Embed App Extensions */,
+				80F8AA7524E43F180073A30C /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				00AB2F5124E383E6008FA706 /* PBXTargetDependency */,
+				80F8AA7024E43F180073A30C /* PBXTargetDependency */,
 			);
 			name = RNDemo;
 			productName = RNDemo;
 			productReference = 13B07F961A680F5B00A75B9A /* RNDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* RNDemo-tvOS */ = {
+		80F8AA6624E43F180073A30C /* YueLunVPN */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RNDemo-tvOS" */;
+			buildConfigurationList = 80F8AA7224E43F180073A30C /* Build configuration list for PBXNativeTarget "YueLunVPN" */;
 			buildPhases = (
-				F29BE321D250FBD03B816567 /* [CP] Check Pods Manifest.lock */,
-				FD10A7F122414F3F0027D42C /* Start Packager */,
-				2D02E4771E0B4A5D006451C7 /* Sources */,
-				2D02E4781E0B4A5D006451C7 /* Frameworks */,
-				2D02E4791E0B4A5D006451C7 /* Resources */,
-				2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */,
+				80F8AA6324E43F180073A30C /* Sources */,
+				80F8AA6424E43F180073A30C /* Frameworks */,
+				80F8AA6524E43F180073A30C /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "RNDemo-tvOS";
-			productName = "RNDemo-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* RNDemo-tvOS.app */;
-			productType = "com.apple.product-type.application";
-		};
-		2D02E48F1E0B4A5D006451C7 /* RNDemo-tvOSTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RNDemo-tvOSTests" */;
-			buildPhases = (
-				868104CD626401B388C72DB2 /* [CP] Check Pods Manifest.lock */,
-				2D02E48C1E0B4A5D006451C7 /* Sources */,
-				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
-				2D02E48E1E0B4A5D006451C7 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
-			);
-			name = "RNDemo-tvOSTests";
-			productName = "RNDemo-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* RNDemo-tvOSTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
+			name = YueLunVPN;
+			productName = YueLunVPN;
+			productReference = 80F8AA6724E43F180073A30C /* YueLunVPN.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -472,20 +507,17 @@
 					};
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = K63Z3XNHX6;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = K63Z3XNHX6;
 						LastSwiftMigration = 1130;
 					};
-					2D02E47A1E0B4A5D006451C7 = {
-						CreatedOnToolsVersion = 8.2.1;
+					80F8AA6624E43F180073A30C = {
+						CreatedOnToolsVersion = 11.3.1;
+						DevelopmentTeam = K63Z3XNHX6;
 						ProvisioningStyle = Automatic;
-					};
-					2D02E48F1E0B4A5D006451C7 = {
-						CreatedOnToolsVersion = 8.2.1;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
 				};
 			};
@@ -505,9 +537,7 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* RNDemo */,
 				00E356ED1AD99517003FC87E /* RNDemoTests */,
-				2D02E47A1E0B4A5D006451C7 /* RNDemo-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* RNDemo-tvOSTests */,
-				00AB2F4724E383E6008FA706 /* yulunPersonalVPN */,
+				80F8AA6624E43F180073A30C /* YueLunVPN */,
 			);
 		};
 /* End PBXProject section */
@@ -536,18 +566,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2D02E4791E0B4A5D006451C7 /* Resources */ = {
+		80F8AA6524E43F180073A30C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2D02E48E1E0B4A5D006451C7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				806A22E724E81D46000E7040 /* CocoaAsyncSocket in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,20 +612,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Bundle React Native Code And Images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
 		5675F5C3E3136C896A5B0E93 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -654,28 +663,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RNDemo-RNDemoTests/Pods-RNDemo-RNDemoTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		868104CD626401B388C72DB2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RNDemo-tvOSTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9ECF3CC0615399C4DB939492 /* [CP] Copy Pods Resources */ = {
@@ -752,48 +739,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F29BE321D250FBD03B816567 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RNDemo-tvOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Start Packager";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		FD10A7F122414F3F0027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -835,7 +781,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80F8AA7D24E4418E0073A30C /* YuelunVpn.m in Sources */,
+				806A22E524E81D20000E7040 /* GCDAsyncUdpSocket.m in Sources */,
 				80F7766A24C7CE92004DCDB1 /* apiyuelun.h in Sources */,
+				80F8AA6124E43EBA0073A30C /* XDXVPNManager.mm in Sources */,
 				00F29DD6242889D600A54037 /* BridgeDemo.m in Sources */,
 				00AB2F6324E38BF9008FA706 /* XDXVPNManager.mm in Sources */,
 				00675C46243094DC00085827 /* KeyChainModule.m in Sources */,
@@ -845,25 +794,20 @@
 				00AB2F6424E38BF9008FA706 /* XDXVPNManagerModel.m in Sources */,
 				00675C492430AE7100085827 /* QRScanReader.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				00AB2F5D24E3879E008FA706 /* YuelunVpn.m in Sources */,
+				80F8AA7A24E4400A0073A30C /* NSMutableDictionary+TVUSafeSetRemove.m in Sources */,
+				80F8AA6224E43EBA0073A30C /* XDXVPNManagerModel.m in Sources */,
+				806A22E424E81D20000E7040 /* GCDAsyncSocket.m in Sources */,
 				34F713CE243C2C6C001034CF /* AuthenticationModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2D02E4771E0B4A5D006451C7 /* Sources */ = {
+		80F8AA6324E43F180073A30C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */,
-				2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2D02E48C1E0B4A5D006451C7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2DCD954D1E0B4F2C00145EB5 /* RNDemoTests.m in Sources */,
+				806A22E824E81D77000E7040 /* GCDAsyncSocket.m in Sources */,
+				806A22E924E81D77000E7040 /* GCDAsyncUdpSocket.m in Sources */,
+				80F8AA6D24E43F180073A30C /* PacketTunnelProvider.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -880,10 +824,10 @@
 			target = 13B07F861A680F5B00A75B9A /* RNDemo */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
-		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
+		80F8AA7024E43F180073A30C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* RNDemo-tvOS */;
-			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
+			target = 80F8AA6624E43F180073A30C /* YueLunVPN */;
+			targetProxy = 80F8AA6F24E43F180073A30C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -959,6 +903,7 @@
 			baseConfigurationReference = 94B62AE16F593BCC4BF6E40C /* Pods-RNDemo-RNDemoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = K63Z3XNHX6;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -983,6 +928,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = K63Z3XNHX6;
 				INFOPLIST_FILE = RNDemoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1061,113 +1007,63 @@
 			};
 			name = Release;
 		};
-		2D02E4971E0B4A5E006451C7 /* Debug */ = {
+		80F8AA7324E43F180073A30C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2C5B82DEFE7B2997CFE9CBED /* Pods-RNDemo-tvOS.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = YueLunVPN/YueLunVPN.entitlements;
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_TESTABILITY = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "RNDemo-tvOS/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
+				DEVELOPMENT_TEAM = K63Z3XNHX6;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = YueLunVPN/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"-ObjC",
-					"-lc++",
+					"$(PROJECT_DIR)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.RNDemo-tvOS";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuelun.accvpn.yltunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.2;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		2D02E4981E0B4A5E006451C7 /* Release */ = {
+		80F8AA7424E43F180073A30C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3346171AA8E9BFE2B1923F9B /* Pods-RNDemo-tvOS.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = YueLunVPN/YueLunVPN.entitlements;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "RNDemo-tvOS/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
+				DEVELOPMENT_TEAM = K63Z3XNHX6;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = YueLunVPN/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"-ObjC",
-					"-lc++",
+					"$(PROJECT_DIR)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.RNDemo-tvOS";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuelun.accvpn.yltunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.2;
-			};
-			name = Release;
-		};
-		2D02E4991E0B4A5E006451C7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 60CA3976A620108703AF9021 /* Pods-RNDemo-tvOSTests.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_TESTABILITY = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "RNDemo-tvOSTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.RNDemo-tvOSTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RNDemo-tvOS.app/RNDemo-tvOS";
-				TVOS_DEPLOYMENT_TARGET = 10.1;
-			};
-			name = Debug;
-		};
-		2D02E49A1E0B4A5E006451C7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = AF80F1A94A0D6D7AC204937E /* Pods-RNDemo-tvOSTests.release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "RNDemo-tvOSTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.RNDemo-tvOSTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RNDemo-tvOS.app/RNDemo-tvOS";
-				TVOS_DEPLOYMENT_TARGET = 10.1;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1314,20 +1210,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RNDemo-tvOS" */ = {
+		80F8AA7224E43F180073A30C /* Build configuration list for PBXNativeTarget "YueLunVPN" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2D02E4971E0B4A5E006451C7 /* Debug */,
-				2D02E4981E0B4A5E006451C7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RNDemo-tvOSTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2D02E4991E0B4A5E006451C7 /* Debug */,
-				2D02E49A1E0B4A5E006451C7 /* Release */,
+				80F8AA7324E43F180073A30C /* Debug */,
+				80F8AA7424E43F180073A30C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

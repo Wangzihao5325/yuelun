@@ -37,20 +37,9 @@ target 'RNDemo' do
 
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
-
   target 'RNDemoTests' do
     inherit! :complete
     # Pods for testing
   end
   use_native_modules!
-end
-
-target 'RNDemo-tvOS' do
-  # Pods for RNDemo-tvOS
-
-  target 'RNDemo-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
 end
