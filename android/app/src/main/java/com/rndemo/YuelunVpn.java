@@ -89,10 +89,7 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
          VpnService myService = new VpnService();
          VpnService.Builder builder = myService.new Builder();
          ParcelFileDescriptor vpnInterface = builder.setSession("yuelunVpn").establish();
-         FileDescriptor fd = vpnInterface.getFileDescriptor();
-         FileOutputStream outFd = new FileOutputStream(fd);
-         out
-         YuelunProxyJni.start(outFd.getFD(),1500,"10.172.2.70","255.255.255.0","","192.168.0.101","192.168.0.101",null,0,1);
+         YuelunProxyJni.start(vpnInterface.getFd(),1500,"10.172.2.70","255.255.255.0","","192.168.0.101","192.168.0.101",null,0,1);
      }
 /*
     @ReactMethod

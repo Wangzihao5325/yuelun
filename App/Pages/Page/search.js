@@ -232,8 +232,6 @@ export default class search extends Component {
         AsyncStorage.removeItem('historyData').then(value => {
         }).catch(reason => {
         });
-
-        setTimeout(() => { Navigator.back(this) }, 1000);
     }
 
     /**
