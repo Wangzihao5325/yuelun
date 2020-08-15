@@ -3,12 +3,21 @@ import { NativeModules, Platform } from 'react-native';
 //是否启用mock数据
 const CApiClientManager = NativeModules.CApiClient;
 let _sessionId = '2be8dc1d25fe84149fa5ee03bdf143282f2e555b';
+
+function _dealResult(strRequest) {
+    if (strRequest) {
+        return JSON.parse(strRequest);
+    } else {
+        return { status: 'error' }
+    }
+}
+
 /**
  * 获取app配置信息，协商ip
  */
 export const getAppNewConfig = async () => {
     let strRequest = await CApiClientManager.yuelunGetNewConfig();
-    return JSON.parse(strRequest);
+    return _dealResult(strRequest);
 }
 
 /**
@@ -16,8 +25,8 @@ export const getAppNewConfig = async () => {
  * @param {string} phoneNum 手机号码
  */
 export const sendPhoneCode = async (phoneNum) => {
-        let strRequest = await CApiClientManager.yuelunSendPhoneCode(phoneNum);
-        return JSON.parse(strRequest);
+    let strRequest = await CApiClientManager.yuelunSendPhoneCode(phoneNum);
+    return _dealResult(strRequest);
 }
 /**
  * 移动端登录
@@ -40,7 +49,7 @@ export const loginByPhoneNum = async (phoneNum, code, platform, version) => {
  */
 export const connectServer = async (gameId, serverId) => {
     let strRequest = await CApiClientManager.yuelunConnectServer(_sessionId, gameId, serverId);
-    return JSON.parse(strRequest);
+    return _dealResult(strRequest);
 }
 /**
  * 停止加速的时候，断开加速请求
@@ -48,7 +57,7 @@ export const connectServer = async (gameId, serverId) => {
  */
 export const disConnectServer = async (serverId) => {
     let strRequest = await CApiClientManager.yuelunDisConnectServer(_sessionId, serverId);
-    return JSON.parse(strRequest);
+    return _dealResult(strRequest);
 }
 /**
  * 根据需要加速的游戏id，获取游戏路由策略等详情
@@ -57,7 +66,9 @@ export const disConnectServer = async (serverId) => {
  */
 export const getGameInfoById = async (gameId, gameToken) => {
     let strRequest = await CApiClientManager.yuelunGetGameInfoById(_sessionId, gameId, gameToken);
-    return JSON.parse(strRequest);
+    console.log("---kkk----");
+    console.log(strRequest);
+    return _dealResult(strRequest);
 }
 /**
  * 获取所有的游戏信息，包括游戏id,游戏名，游戏图标路径，下载路径等
@@ -65,8 +76,8 @@ export const getGameInfoById = async (gameId, gameToken) => {
  * @param {string} listToken token第一次请求传空，从返回json列表中获取该值 下次请求传入，若配置无更改，则下发ok,配置更改重新下发一份新的json数据
  */
 export const getAllGameConfig = async (listToken) => {
-        let strRequest = await CApiClientManager.yuelunGetAllGameConfig(_sessionId, listToken);
-        return JSON.parse(strRequest);
+    let strRequest = await CApiClientManager.yuelunGetAllGameConfig(_sessionId, listToken);
+    return _dealResult(strRequest);
 }
 
 /**
@@ -77,7 +88,7 @@ export const getAllGameConfig = async (listToken) => {
  */
 export const checkHeart = async (gameId, serverId) => {
     let strRequest = await CApiClientManager.yuelunCheckHear(_sessionId, gameId, serverId);
-    return JSON.parse(strRequest);
+    return _dealResult(strRequest);
 }
 /**
  * 获取公告信息
@@ -86,7 +97,7 @@ export const checkHeart = async (gameId, serverId) => {
  */
 export const getNewsList = async (page, limits) => {
     let strRequest = await CApiClientManager.yuelunGetNewsList(page, limits);
-    return JSON.parse(strRequest);
+    return _dealResult(strRequest);
 }
 
 /**
@@ -99,7 +110,7 @@ export const getNewsList = async (page, limits) => {
 
 export const modifyUserInfo = async (phoneNum, verificationCode, name, avater) => {
     let strRequest = await CApiClientManager.yuelunModifUserInfo(_sessionId, phoneNum, verificationCode, name, avater);
-    return JSON.parse(strRequest);
+    return _dealResult(strRequest);
 }
 
 /**
@@ -111,7 +122,7 @@ export const modifyUserInfo = async (phoneNum, verificationCode, name, avater) =
 
 export const search = async (gameName, typeName, strclassification, page = '', step = '') => {
     let strRequest = await CApiClientManager.yuelunSearchGamelist(_sessionId, encodeURIComponent(gameName), typeName, strclassification, page, step);
-    return JSON.parse(strRequest);
+    return _dealResult(strRequest);
 }
 
 /**
@@ -121,7 +132,7 @@ export const search = async (gameName, typeName, strclassification, page = '', s
 
 export const suggest = async (strcontent, strcontact) => {
     let strRequest = await CApiClientManager.yuelunSaveFeedBack(_sessionId, strcontent, strcontact);
-    return JSON.parse(strRequest);
+    return _dealResult(strRequest);
 }
 
 /*
@@ -130,24 +141,24 @@ export const suggest = async (strcontent, strcontact) => {
 */
 export const getTheBannerData = async () => {
     let strRequest = await CApiClientManager.yuelunGetAdList();
-    return JSON.parse(strRequest);
+    return _dealResult(strRequest);
 }
 
 /**
  * 获取用户信息
 */
 export const getTheUserInforWithSessionID = async () => {
-        let strRequest = await CApiClientManager.yuelunGetUserInfo(_sessionId);
-        return JSON.parse(strRequest);
+    let strRequest = await CApiClientManager.yuelunGetUserInfo(_sessionId);
+    return _dealResult(strRequest);
 }
 
 /**
  * 搜索游戏接口
  * 
 */
-export const getSearchGamesData = async (game_name, typeName = '', page = '', strclassification = '',limit='') => {
+export const getSearchGamesData = async (game_name, typeName = '', page = '', strclassification = '', limit = '') => {
     let strRequest = await CApiClientManager.yuelunSearchGamelist(_sessionId, encodeURIComponent(game_name), typeName, strclassification, page, limit);
-    return JSON.parse(strRequest);
+    return _dealResult(strRequest);
 }
 
 /**
@@ -156,7 +167,7 @@ export const getSearchGamesData = async (game_name, typeName = '', page = '', st
 */
 export const getAllUserCollectGames = async () => {
     let strRequest = await CApiClientManager.yuelunGetCollection(_sessionId);
-    return JSON.parse(strRequest);
+    return _dealResult(strRequest);
 }
 
 /**
@@ -165,7 +176,7 @@ export const getAllUserCollectGames = async () => {
 */
 export const YuelunSverCollection = async (gameIDArray) => {
     let strRequest = await CApiClientManager.yuelunSverCollection(_sessionId, gameIDArray);
-    return JSON.parse(strRequest);
+    return _dealResult(strRequest);
 }
 
 /**
@@ -174,7 +185,7 @@ export const YuelunSverCollection = async (gameIDArray) => {
 */
 export const userLogoutWithSessionID = async () => {
     let strRequest = await CApiClientManager.yuelunPhoneLoginout(_sessionId);
-    return JSON.parse(strRequest);
+    return _dealResult(strRequest);
 }
 
 /*
@@ -182,16 +193,16 @@ export const userLogoutWithSessionID = async () => {
  */
 export const getTheHotGames = async () => {
     let resultStr = await CApiClientManager.yuelunHotGameList(_sessionId);
-    return JSON.parse(resultStr);
+    return _dealResult(resultStr);
 }
 
 /**
  * 消息反馈
  * 
 */
-export const sendTheFeedbackWithTheSessionID = async (suggestion,contactValue) =>{
-    let resultStr = await CApiClientManager.yuelunSaveFeedBack(_sessionId,suggestion,contactValue);
-    return JSON.parse(resultStr);
+export const sendTheFeedbackWithTheSessionID = async (suggestion, contactValue) => {
+    let resultStr = await CApiClientManager.yuelunSaveFeedBack(_sessionId, suggestion, contactValue);
+    return _dealResult(resultStr);
 }
 
 /**
@@ -200,6 +211,6 @@ export const sendTheFeedbackWithTheSessionID = async (suggestion,contactValue) =
  */
 export const saveSearchGameList = async (gameId) => {
     let resultStr = await CApiClientManager.yuelunSaveSearchGameList(_sessionId, gameId);
-    return JSON.parse(resultStr);
+    return _dealResult(resultStr);
 }
 
