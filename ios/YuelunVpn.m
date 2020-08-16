@@ -10,6 +10,7 @@
 #import <NetworkExtension/NetworkExtension.h>
 #import "XDXVPNManager.h"
 #import "XDXVPNManagerModel.h"
+#import "VPN_Manager.h"
 
 @interface YuelunVpn()<XDXVPNManagerDelegate>
 @property (nonatomic, strong)           XDXVPNManager   *vpnManager;
@@ -24,23 +25,26 @@ RCT_EXPORT_MODULE(YuelunVpn);
 }
 
 RCT_REMAP_METHOD(prepare, vpnPrepareWithServerAddress:(NSString *)serverAddress serverPort:(NSString *)serverPort mtu:(NSString *)mtu ip:(NSString *)ip subnet:(NSString *)subnet dns:(NSString *)dns success:(RCTPromiseResolveBlock)success failure:(RCTResponseErrorBlock)failure){
-    XDXVPNManagerModel *model = [[XDXVPNManagerModel alloc] init];
-  
-  /*  Note   - 在运行代码前必须按照博客所说配置好Target及开放权限，否则Demo无法正常运行
-   *  @param TunnelBundleId : 必须填写你Extension Target的bundile ID,且必须合法，博客里有详细说明
-   */
-    [model configureInfoWithTunnelBundleId:@"com.yuelun.accvpn.yltunnel"
-                           serverAddress:serverAddress
-                              serverPort:serverPort
-                                     mtu:mtu
-                                      ip:ip// 119.3.83.78
-                                  subnet:subnet
-                                     dns:dns];
-  
-    self.vpnManager = [[XDXVPNManager alloc] init];
-    [self.vpnManager configManagerWithModel:model];
-    self.vpnManager.delegate = self;
-  
+//    XDXVPNManagerModel *model = [[XDXVPNManagerModel alloc] init];
+//
+//  /*  Note   - 在运行代码前必须按照博客所说配置好Target及开放权限，否则Demo无法正常运行
+//   *  @param TunnelBundleId : 必须填写你Extension Target的bundile ID,且必须合法，博客里有详细说明
+//   */
+//    [model configureInfoWithTunnelBundleId:@"com.yuelun.accvpn.yltunnel"
+//                           serverAddress:serverAddress
+//                              serverPort:serverPort
+//                                     mtu:mtu
+//                                      ip:ip// 119.3.83.78
+//                                  subnet:subnet
+//                                     dns:dns];
+//
+ 
+   self.vpnManager = [[XDXVPNManager alloc] init];
+   self.vpnManager.delegate = self;
+   [VPN_Manager configTheVPNServer:self.vpnManager];
+//    [self.vpnManager configManagerWithModel:model];
+//    self.vpnManager.delegate = self;
+//
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(vpnDidChange:) name:NEVPNStatusDidChangeNotification object:nil];
   
   success(@"success");
@@ -64,14 +68,14 @@ RCT_REMAP_METHOD(stopVPN,stopVpnsuccess:(RCTPromiseResolveBlock)success failure:
         case NEVPNStatusConnecting:
         {
             NSLog(@"Connecting...");
-          [self sendEventWithName:@"com.yuelun.VPN.stateListener" body:@{@"state":@"connecting"}];
+//          [self sendEventWithName:@"com.yuelun.VPN.stateListener" body:@{@"state":@"connecting"}];
 
         }
             break;
         case NEVPNStatusConnected:
         {
             NSLog(@"Connected...");
-             [self sendEventWithName:@"com.yuelun.VPN.stateListener" body:@{@"state":@"connected"}];
+//             [self sendEventWithName:@"com.yuelun.VPN.stateListener" body:@{@"state":@"connected"}];
             
         }
             break;
@@ -84,14 +88,14 @@ RCT_REMAP_METHOD(stopVPN,stopVpnsuccess:(RCTPromiseResolveBlock)success failure:
         case NEVPNStatusDisconnected:
         {
             NSLog(@"Disconnected...");
-            [self sendEventWithName:@"com.yuelun.VPN.stateListener" body:@{@"state":@"disconnected"}];
+//            [self sendEventWithName:@"com.yuelun.VPN.stateListener" body:@{@"state":@"disconnected"}];
             
         }
             break;
         case NEVPNStatusInvalid:
             
             NSLog(@"Invliad");
-         [self sendEventWithName:@"com.yuelun.VPN.stateListener" body:@{@"state":@"invliad"}];
+//         [self sendEventWithName:@"com.yuelun.VPN.stateListener" body:@{@"state":@"invliad"}];
             break;
         case NEVPNStatusReasserting:
             NSLog(@"Reasserting...");

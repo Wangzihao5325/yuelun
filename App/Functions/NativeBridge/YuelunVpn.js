@@ -8,15 +8,15 @@ let VpnEmitter = null;
 */
 export function prepare(serverAddress, serverPort, mtu, ip, subnet, dns, listenerFun) {
     if (Platform.OS === 'ios') {
-        if (!VpnEmitter) {
-            vpnEmitter = new NativeEventEmitter(YuelunVpnModule);
-            vpnEmitter.addListener('com.yuelun.VPN.stateListener', (state) => {
-                console.log(state);
-                listenerFun(state);
-            })
+        // if (!VpnEmitter) {
+        //     vpnEmitter = new NativeEventEmitter(YuelunVpnModule);
+        //     vpnEmitter.addListener('com.yuelun.VPN.stateListener', (state) => {
+        //         console.log(state);
+        //         listenerFun(state);
+        //     })
 
-        }
-        YuelunVpnModule.prepare(serverAddress, serverPort, mtu, ip, subnet, dns);
+        // }
+        return Promise.resolve(YuelunVpnModule.prepare(serverAddress, serverPort, mtu, ip, subnet, dns));
     }
 }
 

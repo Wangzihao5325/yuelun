@@ -99,38 +99,38 @@ export default class AccelerateDetails extends Component {
     }
 
     speedUp = () => {
-        const { use_server_id, id } = this.state;
+        // const { use_server_id, id } = this.state;
 
-        let { accelerateInfo } = this.state;
-        if (this.state.isAccelerate) {
-            //各种断线操作
-            delete accelerateInfo[this.state.id];
-            AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
-                this.setState({
-                    isAccelerate: false
-                });
-            });
-        } else {
+        // let { accelerateInfo } = this.state;
+        // if (this.state.isAccelerate) {
+        //     //各种断线操作
+        //     delete accelerateInfo[this.state.id];
+        //     AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
+        //         this.setState({
+        //             isAccelerate: false
+        //         });
+        //     });
+        // } else {
 
-            if (use_server_id.length > 0) {
-                Api.connectServer(id, use_server_id[0]).then((res) => {
-                    if (res.status === 'ok') {
-                        //各种连接操作
-                        let _date = new Date();
-                        this.state.gameFullInfo._timeReg = _date;
-                        accelerateInfo[this.state.id] = this.state.gameFullInfo;
-                        this.state.gameFullInfo
-                        AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
-                            this.setState({
-                                isAccelerate: true
-                            });
-                        });
-                    } else {
-                        NavigationService.alert(this.alertPayload('yuelunConnectServer'));
-                    }
-                })
-            }
-        }
+        //     if (use_server_id.length > 0) {
+        //         Api.connectServer(id, use_server_id[0]).then((res) => {
+        //             if (res.status === 'ok') {
+        //                 //各种连接操作
+        //                 let _date = new Date();
+        //                 this.state.gameFullInfo._timeReg = _date;
+        //                 accelerateInfo[this.state.id] = this.state.gameFullInfo;
+        //                 this.state.gameFullInfo
+        //                 AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
+        //                     this.setState({
+        //                         isAccelerate: true
+        //                     });
+        //                 });
+        //             } else {
+        //                 NavigationService.alert(this.alertPayload('yuelunConnectServer'));
+        //             }
+        //         })
+        //     }
+        // }
 
 
         // const { use_server_id, id } = this.state;
@@ -150,19 +150,12 @@ export default class AccelerateDetails extends Component {
         //     })
         //}
 
-        /* 
-         prepare()
-             .then(
-                 connect('162.14.5.205:32091', '', '')
-                     .then(() => console.log('connected'))
-                     .catch(console.log)
-             )
-             .catch((err) => {
-                 // only happen on android when activity is not running yet
-                 console.log(err);
-                 prepare();
+        
+        vpnModule.prepare()
+             .then(()=>{
+                vpnModule.startVpn()
              });
-         */
+         
 
 
 

@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface YuelunVpn : RCTEventEmitter<RCTBridgeModule>
+@interface YuelunVpn : NSObject<RCTBridgeModule>
 @end
 
 NS_ASSUME_NONNULL_END

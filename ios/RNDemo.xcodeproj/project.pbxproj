@@ -18,6 +18,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		34F713CE243C2C6C001034CF /* AuthenticationModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F713CD243C2C6C001034CF /* AuthenticationModule.m */; };
+		8013CCCD24E901D200493822 /* VPN_Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8013CCCC24E901D200493822 /* VPN_Manager.m */; };
 		802CF95924DB070800685ACF /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802CF95824DB070800685ACF /* NetworkExtension.framework */; };
 		806A22E424E81D20000E7040 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 806A22DF24E81D1F000E7040 /* GCDAsyncSocket.m */; };
 		806A22E524E81D20000E7040 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 806A22E024E81D1F000E7040 /* GCDAsyncUdpSocket.m */; };
@@ -45,13 +46,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		00AB2F5024E383E6008FA706 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 00AB2F4724E383E6008FA706;
-			remoteInfo = yulunPersonalVPN;
-		};
 		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
@@ -116,6 +110,10 @@
 		34F713CD243C2C6C001034CF /* AuthenticationModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthenticationModule.m; path = RNDemo/BridgeModule/SecurityModule/AuthenticationModule.m; sourceTree = "<group>"; };
 		60947F9E755E6771DFD0CF8E /* Pods-RNDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemoTests.release.xcconfig"; path = "Target Support Files/Pods-RNDemoTests/Pods-RNDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		60CA3976A620108703AF9021 /* Pods-RNDemo-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemo-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-RNDemo-tvOSTests/Pods-RNDemo-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8013CCCB24E901D200493822 /* VPN_Manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VPN_Manager.h; sourceTree = "<group>"; };
+		8013CCCC24E901D200493822 /* VPN_Manager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VPN_Manager.m; sourceTree = "<group>"; };
+		8013CCCE24E909BF00493822 /* YueLunVPN.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = YueLunVPN.entitlements; path = YueLunVPN/YueLunVPN.entitlements; sourceTree = SOURCE_ROOT; };
+		8013CCD024E91F7400493822 /* RNDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = RNDemo.entitlements; path = RNDemo/RNDemo.entitlements; sourceTree = "<group>"; };
 		802CF95824DB070800685ACF /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		806A22DF24E81D1F000E7040 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = RNDemo/GCDAsyncSocket.m; sourceTree = "<group>"; };
 		806A22E024E81D1F000E7040 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncUdpSocket.m; path = RNDemo/GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
@@ -133,7 +131,6 @@
 		80F8AA5F24E43EBA0073A30C /* XDXVPNManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDXVPNManager.h; sourceTree = "<group>"; };
 		80F8AA6024E43EBA0073A30C /* XDXVPNManagerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XDXVPNManagerModel.m; sourceTree = "<group>"; };
 		80F8AA6724E43F180073A30C /* YueLunVPN.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = YueLunVPN.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		80F8AA6A24E43F180073A30C /* YueLunVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = YueLunVPN.entitlements; path = ../YueLunVPN.entitlements; sourceTree = "<group>"; };
 		80F8AA6B24E43F180073A30C /* PacketTunnelProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PacketTunnelProvider.h; sourceTree = "<group>"; };
 		80F8AA6C24E43F180073A30C /* PacketTunnelProvider.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PacketTunnelProvider.mm; sourceTree = "<group>"; };
 		80F8AA6E24E43F180073A30C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -161,13 +158,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		00AB2F4524E383E6008FA706 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		00E356EB1AD99517003FC87E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -205,36 +195,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00AB2F4924E383E6008FA706 /* yulunPersonalVPN */ = {
-			isa = PBXGroup;
-			children = (
-				00AB2F4C24E383E6008FA706 /* PacketTunnelProvider.h */,
-				00AB2F4D24E383E6008FA706 /* PacketTunnelProvider.mm */,
-				00AB2F4F24E383E6008FA706 /* Info.plist */,
-				00AB2F4A24E383E6008FA706 /* Supporting Files */,
-			);
-			path = yulunPersonalVPN;
-			sourceTree = "<group>";
-		};
-		00AB2F4A24E383E6008FA706 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				00AB2F4B24E383E6008FA706 /* yulunPersonalVPN.entitlements */,
-			);
-			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		00AB2F5E24E38BCF008FA706 /* vpnManager */ = {
-			isa = PBXGroup;
-			children = (
-				00AB2F6224E38BF9008FA706 /* XDXVPNManager.h */,
-				00AB2F6024E38BF9008FA706 /* XDXVPNManager.mm */,
-				00AB2F5F24E38BF9008FA706 /* XDXVPNManagerModel.h */,
-				00AB2F6124E38BF9008FA706 /* XDXVPNManagerModel.m */,
-			);
-			name = vpnManager;
-			sourceTree = "<group>";
-		};
 		00E356EF1AD99517003FC87E /* RNDemoTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,8 +227,6 @@
 				00675C482430AE7100085827 /* QRScanReader.m */,
 				80F7767124D07210004DCDB1 /* ApiHelper.h */,
 				80F7767224D07210004DCDB1 /* ApiHelper.mm */,
-				00AB2F5B24E3879E008FA706 /* YuelunVpn.h */,
-				00AB2F5C24E3879E008FA706 /* YuelunVpn.m */,
 			);
 			name = BridgeModule;
 			sourceTree = "<group>";
@@ -276,6 +234,7 @@
 		13B07FAE1A68108700A75B9A /* RNDemo */ = {
 			isa = PBXGroup;
 			children = (
+				8013CCD024E91F7400493822 /* RNDemo.entitlements */,
 				80F8AA5C24E43EBA0073A30C /* VPNManager */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -295,6 +254,8 @@
 				80F8AA7824E4400A0073A30C /* log4cplus.h */,
 				80F8AA7724E4400A0073A30C /* NSMutableDictionary+TVUSafeSetRemove.h */,
 				80F8AA7924E4400A0073A30C /* NSMutableDictionary+TVUSafeSetRemove.m */,
+				8013CCCB24E901D200493822 /* VPN_Manager.h */,
+				8013CCCC24E901D200493822 /* VPN_Manager.m */,
 			);
 			name = RNDemo;
 			sourceTree = "<group>";
@@ -370,7 +331,7 @@
 		80F8AA6924E43F180073A30C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				80F8AA6A24E43F180073A30C /* YueLunVPN.entitlements */,
+				8013CCCE24E909BF00493822 /* YueLunVPN.entitlements */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -413,23 +374,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00AB2F4724E383E6008FA706 /* yulunPersonalVPN */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 00AB2F5324E383E6008FA706 /* Build configuration list for PBXNativeTarget "yulunPersonalVPN" */;
-			buildPhases = (
-				00AB2F4424E383E6008FA706 /* Sources */,
-				00AB2F4524E383E6008FA706 /* Frameworks */,
-				00AB2F4624E383E6008FA706 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = yulunPersonalVPN;
-			productName = yulunPersonalVPN;
-			productReference = 00AB2F4824E383E6008FA706 /* yulunPersonalVPN.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		00E356ED1AD99517003FC87E /* RNDemoTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "RNDemoTests" */;
@@ -500,11 +444,6 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
-					00AB2F4724E383E6008FA706 = {
-						CreatedOnToolsVersion = 11.3;
-						DevelopmentTeam = K63Z3XNHX6;
-						ProvisioningStyle = Automatic;
-					};
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = K63Z3XNHX6;
@@ -543,13 +482,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		00AB2F4624E383E6008FA706 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		00E356EC1AD99517003FC87E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -761,14 +693,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		00AB2F4424E383E6008FA706 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				00AB2F4E24E383E6008FA706 /* PacketTunnelProvider.mm in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		00E356EA1AD99517003FC87E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -785,13 +709,11 @@
 				806A22E524E81D20000E7040 /* GCDAsyncUdpSocket.m in Sources */,
 				80F7766A24C7CE92004DCDB1 /* apiyuelun.h in Sources */,
 				80F8AA6124E43EBA0073A30C /* XDXVPNManager.mm in Sources */,
+				8013CCCD24E901D200493822 /* VPN_Manager.m in Sources */,
 				00F29DD6242889D600A54037 /* BridgeDemo.m in Sources */,
-				00AB2F6324E38BF9008FA706 /* XDXVPNManager.mm in Sources */,
 				00675C46243094DC00085827 /* KeyChainModule.m in Sources */,
-				00AB2F5A24E38603008FA706 /* NSMutableDictionary+TVUSafeSetRemove.m in Sources */,
 				80F7767324D07210004DCDB1 /* ApiHelper.mm in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				00AB2F6424E38BF9008FA706 /* XDXVPNManagerModel.m in Sources */,
 				00675C492430AE7100085827 /* QRScanReader.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				80F8AA7A24E4400A0073A30C /* NSMutableDictionary+TVUSafeSetRemove.m in Sources */,
@@ -814,11 +736,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		00AB2F5124E383E6008FA706 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 00AB2F4724E383E6008FA706 /* yulunPersonalVPN */;
-			targetProxy = 00AB2F5024E383E6008FA706 /* PBXContainerItemProxy */;
-		};
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 13B07F861A680F5B00A75B9A /* RNDemo */;
@@ -844,60 +761,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		00AB2F5424E383E6008FA706 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = yulunPersonalVPN/yulunPersonalVPN.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_ASSET_PATHS = ../../../../../../Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/NetworkExtension.framework;
-				DEVELOPMENT_TEAM = K63Z3XNHX6;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = yulunPersonalVPN/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yuelun.accvpn.yltunnel;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		00AB2F5524E383E6008FA706 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = yulunPersonalVPN/yulunPersonalVPN.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_ASSET_PATHS = ../../../../../../Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/System/Library/Frameworks/NetworkExtension.framework;
-				DEVELOPMENT_TEAM = K63Z3XNHX6;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = yulunPersonalVPN/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yuelun.accvpn.yltunnel;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 94B62AE16F593BCC4BF6E40C /* Pods-RNDemo-RNDemoTests.debug.xcconfig */;
@@ -950,6 +813,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = RNDemo/RNDemo.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K63Z3XNHX6;
 				ENABLE_BITCODE = NO;
@@ -985,6 +849,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = RNDemo/RNDemo.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K63Z3XNHX6;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1016,7 +881,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = YueLunVPN/YueLunVPN.entitlements;
+				CODE_SIGN_ENTITLEMENTS = RNDemo/tunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = K63Z3XNHX6;
@@ -1046,7 +911,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = YueLunVPN/YueLunVPN.entitlements;
+				CODE_SIGN_ENTITLEMENTS = RNDemo/tunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1183,15 +1048,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00AB2F5324E383E6008FA706 /* Build configuration list for PBXNativeTarget "yulunPersonalVPN" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				00AB2F5424E383E6008FA706 /* Debug */,
-				00AB2F5524E383E6008FA706 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "RNDemoTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

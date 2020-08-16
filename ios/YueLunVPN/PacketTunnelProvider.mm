@@ -66,8 +66,8 @@ static NSDictionary *kVpnSubnetCandidates;  // Subnets to bind the VPN.
     int port = rand()% (57342 - 44073 + 1) + 44073;
     NSLog(@"local port:%d",port);
     int ret = InitLocalProxyServer(port);
-    int realport = GetOVPNRealPort((char*)"162.14.5.176", 15880);
-    CreateProxyTunnel((char*)"162.14.13.154",realport);
+    int realport = GetOVPNRealPort((char*)"162.14.5.205", 32091);
+    CreateProxyTunnel((char*)" 162.14.13.154",realport);
 
     BOOL isUdpSupported = true;
     [self YuelunSetupPacketFlow];
