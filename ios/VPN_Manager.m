@@ -14,10 +14,10 @@
 +(void)configTheVPNServer:(XDXVPNManager *) vpnManager{
   XDXVPNManagerModel *model = [[XDXVPNManagerModel alloc] init];
   [model configureInfoWithTunnelBundleId:@"com.yuelun.accvpn.yltunnel"
-                           serverAddress:@"120.77.238.142"
+                           serverAddress:@"120.77.2.142"
                               serverPort:@"15100"
                                      mtu:@"1400"
-                                      ip:@"120.77.238.142"// 119.3.83.78
+                                      ip:@"120.77.2.142"// 119.3.83.78
                                   subnet:@"255.255.255.0"
                                      dns:@"8.8.8.8,8.4.4.4"];
 
