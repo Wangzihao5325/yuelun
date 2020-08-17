@@ -24,6 +24,17 @@ import static android.app.Activity.RESULT_OK;
 
 public class YuelunVpn extends ReactContextBaseJavaModule {
     @SuppressLint("StaticFieldLeak")
+    public interface Prefs {
+        String NAME = "connection";
+        String SERVER_ADDRESS = "server.address";
+        String SERVER_PORT = "server.port";
+        String SHARED_SECRET = "shared.secret";
+        String PROXY_HOSTNAME = "proxyhost";
+        String PROXY_PORT = "proxyport";
+        String ALLOW = "allow";
+        String PACKAGES = "packages";
+    }
+
     private static ReactApplicationContext _reactContext;
     private int _proxyPort;
     private Intent _vpnStateServiceIntent;
@@ -32,24 +43,24 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
     public YuelunVpn(ReactApplicationContext reactContext) {
         super(reactContext);
         _reactContext = reactContext;
-        _vpnStateServiceIntent = new Intent(_reactContext, ToyVpnService.class);
+       // _vpnStateServiceIntent = new Intent(_reactContext, ToyVpnService.class);
 
-        int cout = 0;
-        while (cout < 5)
-        {
-            int port = getNum(40000,50000);
-            cout = cout +1;
-            String ret =  CProxClient.startlocalproxy(port);
-            if (ret.compareTo("suc") == 0)
-            {
-                _proxyPort = port;
-                break;
-            }
-            else
-            {
-                continue;
-            }
-        }
+//        int cout = 0;
+//        while (cout < 5)
+//        {
+//            int port = getNum(40000,50000);
+//            cout = cout +1;
+//            String ret =  CProxClient.startlocalproxy(port);
+//            if (ret.compareTo("suc") == 0)
+//            {
+//                _proxyPort = port;
+//                break;
+//            }
+//            else
+//            {
+//                continue;
+//            }
+//        }
     }
 
     @Override
@@ -77,10 +88,18 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
                 }
             });
             currentActivity.startActivityForResult(intent, 0);
+            promise.resolve("success");
         }
     }
      @ReactMethod
-     public void connect(String strip,int consultport,Promise promise) throws IOException {
+     public void startVpn(String strip,int consultport,Promise promise) throws IOException {
+
+        String ret =  CProxClient.startlocalproxy(2080);
+        if (ret.compareTo("suc") == 0){
+                _proxyPort = 2080;
+        }else {
+            promise.reject("001","start port failed");
+        }
          int realPort = CProxClient.GetOVPNRealPort(strip,consultport);
          String isCreateTunnelSuccess = CProxClient.createTunnel("162.14.13.154",realPort);
          if(isCreateTunnelSuccess.equals("error")){
@@ -90,6 +109,7 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
          VpnService.Builder builder = myService.new Builder();
          ParcelFileDescriptor vpnInterface = builder.setSession("yuelunVpn").establish();
          YuelunProxyJni.start(vpnInterface.getFd(),1500,"10.172.2.70","255.255.255.0","","192.168.0.101","192.168.0.101",null,0,1);
+         promise.resolve("success");
      }
 /*
     @ReactMethod

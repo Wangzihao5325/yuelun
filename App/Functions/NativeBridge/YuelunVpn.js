@@ -17,12 +17,17 @@ export function prepare(serverAddress, serverPort, mtu, ip, subnet, dns, listene
 
         // }
         return Promise.resolve(YuelunVpnModule.prepare(serverAddress, serverPort, mtu, ip, subnet, dns));
+    } else {
+        console.log('hhhhh');
+        return Promise.resolve(YuelunVpnModule.prepare());
     }
 }
 
-export function startVpn() {
+export function startVpn(ip, port) {
     if (Platform.OS === 'ios') {
         YuelunVpnModule.startVpn();
+    } else {
+        YuelunVpnModule.startVpn(ip, port);
     }
 }
 

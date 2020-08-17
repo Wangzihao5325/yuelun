@@ -153,10 +153,13 @@ export default class AccelerateDetails extends Component {
         
         vpnModule.prepare()
              .then(()=>{
-                vpnModule.startVpn()
+                vpnModule.startVpn('162.14.5.205',32091);
              });
          
-
+        // vpnModule.prepare();
+        // setTimeout(()=>{
+        //     vpnModule.startVpn('162.14.5.205',32091);
+        // },1000)
 
 
     }
