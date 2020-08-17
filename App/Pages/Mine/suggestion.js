@@ -57,7 +57,7 @@ export default class suggestion extends Component {
                 <Button
                     onPress={() => { this.sendTheSuggestion() }}
                     title="发送"
-                    color="transparent"
+                    color={Platform.OS === 'ios' ? "white" : "transparent"}
                 />)
         });
     }
