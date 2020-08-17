@@ -41,7 +41,7 @@
     self.vpnConfigurationModel.tunnelBundleId   = model.tunnelBundleId;
     log4cplus_info("XDXVPNManager", "The vpn configuration tunnelBundleId is %s ,port is %s, server is %s, ip is %s, subnet is %s, mtu is %s, dns is %s",model.tunnelBundleId.UTF8String, model.serverPort.UTF8String, model.serverAddress.UTF8String, model.ip.UTF8String, model.subnet.UTF8String, model.mtu.UTF8String, model.dns.UTF8String);
     
-    [self applyVpnConfiguration];
+    [self applyVpnConfiguration:NO];
 }
 
 - (BOOL)startVPN {
@@ -79,7 +79,7 @@
 }
 
 #pragma mark - Main Func Private
-- (void)applyVpnConfiguration {
+- (void)applyVpnConfiguration:(BOOL)callSelf {
     [NETunnelProviderManager loadAllFromPreferencesWithCompletionHandler:^(NSArray<NETunnelProviderManager *> * _Nullable managers, NSError * _Nullable error) {
         if (managers.count > 0) {
             self.vpnManager = managers[0];
@@ -88,7 +88,9 @@
                 [self.delegate loadFromPreferencesComplete];
             }
             log4cplus_error("XDXVPNManager", "The vpn already configured. We will use it.");
+          if(callSelf){
             return;
+          }
         }else {
             log4cplus_error("XDXVPNManager", "The vpn config is NULL, we will config it later.");
         }
@@ -122,7 +124,7 @@
                     const char *errorInfo = [NSString stringWithFormat:@"%@",error].UTF8String;
                     log4cplus_error("XDXVPNManager", "applyVpnConfiguration saveToPreferencesWithCompletionHandler Failed - %s !",errorInfo);
                 }else {
-                    [self applyVpnConfiguration];
+                    [self applyVpnConfiguration:YES];
                     log4cplus_info("XDXVPNManager", "Save vpn configuration successfully !");
                 }
 
