@@ -88,7 +88,7 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
         }
 
         // Create the intent to "configure" the connection (just start ToyVpnClient).
-        mConfigureIntent = PendingIntent.getActivity(this, 0, new Intent(this, ToyVpnClient.class),
+        mConfigureIntent = PendingIntent.getActivity(this, 0, new Intent(this, YuelunVpn.class),
                 PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
@@ -138,15 +138,15 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
         String  straddress1  =   Utils.getMACAddress("wlan0");//MAC wlan0
         String  straddress2 =  Utils.getMACAddress("eth0");//MAC eth0
         // Extract information from the shared preferences.
-        final SharedPreferences prefs = getSharedPreferences(ToyVpnClient.Prefs.NAME, MODE_PRIVATE);
-        final String server = prefs.getString(ToyVpnClient.Prefs.SERVER_ADDRESS, "");
-        final byte[] secret = prefs.getString(ToyVpnClient.Prefs.SHARED_SECRET, "").getBytes();
-        final boolean allow = prefs.getBoolean(ToyVpnClient.Prefs.ALLOW, true);
+        final SharedPreferences prefs = getSharedPreferences(YuelunVpn.Prefs.NAME, MODE_PRIVATE);
+        final String server = prefs.getString(YuelunVpn.Prefs.SERVER_ADDRESS, "");
+        final byte[] secret = prefs.getString(YuelunVpn.Prefs.SHARED_SECRET, "").getBytes();
+        final boolean allow = prefs.getBoolean(YuelunVpn.Prefs.ALLOW, true);
         final Set<String> packages =
-                prefs.getStringSet(ToyVpnClient.Prefs.PACKAGES, Collections.emptySet());
-        final int port = prefs.getInt(ToyVpnClient.Prefs.SERVER_PORT, 0);
-        final String proxyHost = prefs.getString(ToyVpnClient.Prefs.PROXY_HOSTNAME, "");
-        final int proxyPort = prefs.getInt(ToyVpnClient.Prefs.PROXY_PORT, 0);
+                prefs.getStringSet(YuelunVpn.Prefs.PACKAGES, Collections.emptySet());
+        final int port = prefs.getInt(YuelunVpn.Prefs.SERVER_PORT, 0);
+        final String proxyHost = prefs.getString(YuelunVpn.Prefs.PROXY_HOSTNAME, "");
+        final int proxyPort = prefs.getInt(YuelunVpn.Prefs.PROXY_PORT, 0);
       //  ParcelFileDescriptor vpnInterface = null;
         mVpnConnection = new ToyVpnConnection(
                 this, mNextConnectionId.getAndIncrement(), server, port, secret,
