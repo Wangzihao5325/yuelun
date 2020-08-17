@@ -14,7 +14,7 @@ import CustomInput from '../../Components/Component/CustomInput';
 import CustomButton from '../../Components/Component/CustomButton';
 import * as navigator from '../../Router/NavigationService';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
+import * as vpnModule from '../../Functions/NativeBridge/YuelunVpn';
 export default class Login extends Component {
     state = {
         phoneNum: '',
@@ -120,26 +120,31 @@ export default class Login extends Component {
     }
 
     login = () => {
-        const { phoneNum, verificationCode } = this.state;
-        Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
-            .then((result) => {
-                if (result['status'] == 'ok') {
-                    this.saveTheUserInfo(result);
-                    //session比较常用，所以在network里也存一份，方便使用
-                    Network.session = result.data.session_id;
-                    store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
-                    if (store.getState().app.isLogin) {
-                        store.dispatch(app_start_app());
-                    } else {
-                        navigator.back(this);
-                    }
-                } else {
+        // const { phoneNum, verificationCode } = this.state;
+        // Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
+        //     .then((result) => {
+        //         if (result['status'] == 'ok') {
+        //             this.saveTheUserInfo(result);
+        //             //session比较常用，所以在network里也存一份，方便使用
+        //             Network.session = result.data.session_id;
+        //             store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
+        //             if (store.getState().app.isLogin) {
+        //                 store.dispatch(app_start_app());
+        //             } else {
+        //                 navigator.back(this);
+        //             }
+        //         } else {
 
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     });
+
+        vpnModule.prepare()
+             .then(()=>{
+                vpnModule.startVpn()
+             });
     }
 
     getVerificationCode = () => {

@@ -38,17 +38,46 @@ RCT_REMAP_METHOD(prepare, vpnPrepareWithServerAddress:(NSString *)serverAddress 
 //                                  subnet:subnet
 //                                     dns:dns];
 //
- 
+  [self test];
+  [self testRead];
+  
    self.vpnManager = [[XDXVPNManager alloc] init];
    self.vpnManager.delegate = self;
    [VPN_Manager configTheVPNServer:self.vpnManager];
 //    [self.vpnManager configManagerWithModel:model];
 //    self.vpnManager.delegate = self;
 //
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(vpnDidChange:) name:NEVPNStatusDidChangeNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(vpnDidChange:) name:NEVPNStatusDidChangeNotification object:nil];
   
   success(@"success");
 
+}
+
+-(void)test{
+//  NSDictionary * testDic = @{@"test":@"test"};
+//  NSUserDefaults *userDefault = [[NSUserDefaults alloc]initWithSuiteName:@"group.com.yuelun.accvpn"];
+//  [userDefault setObject:testDic forKey:@"testParam"];
+  
+  //获取到共享数据的文件地址
+  NSURL *containerURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.com.yuelun.accvpn"];
+  NSURL *birthdayContainerURL = [containerURL URLByAppendingPathComponent:@"Library/Caches/birthday.json"];
+  //将需要存储的数据写入到该文件中
+  NSString *jsonString = @"需要写入的数据或者json字符等";
+  //写入数据
+  NSError *err = nil;
+  BOOL result = [jsonString writeToURL:birthdayContainerURL atomically:YES encoding:NSUTF8StringEncoding error:&err];
+  if (!result) {
+      NSLog(@"%@",err);
+  }else {
+      NSLog(@"save value:%@ success.",jsonString);
+  }
+}
+
+-(void)testRead{
+  NSError *err = nil;
+  NSURL *containerURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.com.yuelun.accvpn"];
+  containerURL = [containerURL URLByAppendingPathComponent:@"Library/Caches/birthday.json"];
+  NSString *value = [NSString stringWithContentsOfURL:containerURL encoding: NSUTF8StringEncoding error:&err];
 }
 
 RCT_REMAP_METHOD(startVpn,startVpnsuccess:(RCTPromiseResolveBlock)success failure:(RCTResponseErrorBlock)failure){

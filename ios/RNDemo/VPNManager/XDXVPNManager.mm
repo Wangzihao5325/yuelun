@@ -59,10 +59,9 @@
     }else {
         log4cplus_error("XDXVPNManager", "Start VPN - The current connect status isn't NEVPNStatusDisconnected !");
     }
-    
     return NO;
 }
- 
+
 - (BOOL)stopVPN {
     if (self.vpnManager.connection.status == NEVPNStatusConnected) {
         [self.vpnManager.connection stopVPNTunnel];
