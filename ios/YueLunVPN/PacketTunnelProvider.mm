@@ -39,18 +39,9 @@ static NSDictionary *kVpnSubnetCandidates;  // Subnets to bind the VPN.
     return self;
 }
 
--(void)testRead{
-  NSError *err = nil;
-  NSURL *containerURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.com.yuelun.accvpn"];
-  containerURL = [containerURL URLByAppendingPathComponent:@"Library/Caches/birthday.json"];
-  NSString *value = [NSString stringWithContentsOfURL:containerURL encoding: NSUTF8StringEncoding error:&err];
-}
-
 - (void)startTunnelWithOptions:(NSDictionary *)options completionHandler:(void (^)(NSError *))completionHandler
 {
-//  log4cplus_info("XDXVPNManager", "XDXPacketTunnelManager - Start Tunel !");
-   
-  [self testRead];
+    log4cplus_info("XDXVPNManager", "XDXPacketTunnelManager - Start Tunel !");
   
     NEPacketTunnelNetworkSettings *tunnelNetworkSettings = [[NEPacketTunnelNetworkSettings alloc] initWithTunnelRemoteAddress:@XDX_NET_REMOTEADDRESS];
     tunnelNetworkSettings.MTU = [NSNumber numberWithInteger:XDX_NET_MTU];
