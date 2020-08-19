@@ -75,7 +75,6 @@ export default class search extends Component {
                         searchText={this.state.searchText}
                         changeTheTextFunction={(text) => { this.setState({ searchText: text }); }}
                         onEndEditing={() => {
-                            this.setState({ pageType: searchType });
                             this.clickTheHistoryTextAndSearch(this.state.searchText);
                         }}
                         cancleFunction={() => {
@@ -252,6 +251,15 @@ export default class search extends Component {
         if (historyText == '') {
             return;
         }
+
+        let searchString = historyText.replace(/ /g,'');
+        if(searchString.length == 0){
+            this.setState({
+                searchText:''
+            });
+            return;
+        }
+
         this.setState({ pageType: searchType });
         this.searchTheGame(historyText);
 
