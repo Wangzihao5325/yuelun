@@ -47,7 +47,9 @@
 - (BOOL)startVPN {
     if (self.vpnManager.connection.status == NEVPNStatusDisconnected) {
         NSError *error;
-      NSDictionary * test = @{@"test":@"1"};
+      
+      NSDictionary * test2 = @{@"1":@"1",@"2":@"2",@"3":@"3"};
+      NSDictionary * test = @{@"test":@"1",@"test2":test2};
       [self.vpnManager.connection startVPNTunnelWithOptions:test andReturnError:&error];
         
         if (error != 0) {
