@@ -31,7 +31,7 @@
  *   Start VPN.
  *   If success return YES, otherwise return NO.
  */
-- (BOOL)startVPN;
+- (BOOL)startVPNConsultIP:(NSString *)consultIP consultPort:(NSString*)consultPort tunnelIP:(NSString*)tunnelIP;
 
 /**
  *  Stop VPN.

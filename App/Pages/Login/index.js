@@ -15,11 +15,7 @@ import CustomButton from '../../Components/Component/CustomButton';
 import * as navigator from '../../Router/NavigationService';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as vpnModule from '../../Functions/NativeBridge/YuelunVpn';
-<<<<<<< HEAD
 
-
-=======
->>>>>>> temp
 export default class Login extends Component {
     state = {
         phoneNum: '',
@@ -125,11 +121,11 @@ export default class Login extends Component {
     }
 
     login = () => {
-        vpnModule.prepare()
-        .then(()=>{
-           vpnModule.startVpn('162.14.5.205',32091);
-        });
-        /*
+        // vpnModule.prepare()
+        // .then(()=>{
+        //    vpnModule.startVpn('162.14.5.205',32091);
+        // });
+        
         const { phoneNum, verificationCode } = this.state;
         Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
             .then((result) => {
@@ -150,7 +146,7 @@ export default class Login extends Component {
             .catch((error) => {
                 console.log(error);
             });
-            */
+            
     }
 
     getVerificationCode = () => {

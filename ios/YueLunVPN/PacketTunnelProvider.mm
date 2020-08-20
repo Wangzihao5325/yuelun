@@ -44,7 +44,6 @@ static NSDictionary *kVpnSubnetCandidates;  // Subnets to bind the VPN.
    
 //  NSUserDefaults *userDefault = [[NSUserDefaults alloc]initWithSuiteName:@"group.com.yuelun.accvpn"];
 //
-//  NSDictionary * testDic = [userDefault objectForKey:@"testParam"];
   
     NEPacketTunnelNetworkSettings *tunnelNetworkSettings = [[NEPacketTunnelNetworkSettings alloc] initWithTunnelRemoteAddress:@XDX_NET_REMOTEADDRESS];
     tunnelNetworkSettings.MTU = [NSNumber numberWithInteger:XDX_NET_MTU];
@@ -66,12 +65,21 @@ static NSDictionary *kVpnSubnetCandidates;  // Subnets to bind the VPN.
         }
     }];
     //启动本地代理，创建隧道，启动VPN
+//  NSDictionary * consulDic = [options objectForKey:@"consulDic"];
+    NSString * consultIP   = [options objectForKey:@"consultIP"];
+    NSString * consultPort = [options objectForKey:@"consultPort"];
+    int consulport = [consultPort intValue];
+    NSString * tunnelIP    = [options objectForKey:@"tunnelIP"];
     srand((int)time(0));
     int port = rand()% (57342 - 44073 + 1) + 44073;
     NSLog(@"local port:%d",port);
     int ret = InitLocalProxyServer(port);
-    int realport = GetOVPNRealPort((char*)"162.14.5.205", 32091);
-    CreateProxyTunnel((char*)" 162.14.13.154",realport);
+  
+   const char * consultIPChar = [consultIP UTF8String];
+   const char * tunnelIPChar  = [tunnelIP UTF8String];
+  
+    int realport = GetOVPNRealPort((char*)consultIPChar, consulport);
+    CreateProxyTunnel((char*)tunnelIPChar,realport);
 
     BOOL isUdpSupported = true;
     [self YuelunSetupPacketFlow];

@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) XDXVPNManager   *vpnManager;
 
-+(void)configTheVPNServer:(XDXVPNManager *) vpnManager;
+-(void)configTheVPNServer:(XDXVPNManager *) vpnManager;
 
 @end
 
