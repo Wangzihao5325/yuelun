@@ -3,9 +3,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.VpnService;
+import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
+
+import androidx.core.content.ContextCompat;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -37,30 +41,12 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
 
     private static ReactApplicationContext _reactContext;
     private int _proxyPort;
-    private Intent _vpnStateServiceIntent;
+    private Intent intent;
     private VpnService _myService;
 
     public YuelunVpn(ReactApplicationContext reactContext) {
         super(reactContext);
         _reactContext = reactContext;
-       // _vpnStateServiceIntent = new Intent(_reactContext, ToyVpnService.class);
-
-//        int cout = 0;
-//        while (cout < 5)
-//        {
-//            int port = getNum(40000,50000);
-//            cout = cout +1;
-//            String ret =  CProxClient.startlocalproxy(port);
-//            if (ret.compareTo("suc") == 0)
-//            {
-//                _proxyPort = port;
-//                break;
-//            }
-//            else
-//            {
-//                continue;
-//            }
-//        }
     }
 
     @Override
@@ -76,7 +62,7 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
             promise.reject("E_ACTIVITY_DOES_NOT_EXIST", "Activity doesn't exist");
             return;
         }
-        Intent intent = VpnService.prepare(currentActivity);
+        intent = VpnService.prepare(currentActivity);
         if (intent != null) {
             _reactContext.addActivityEventListener(new BaseActivityEventListener() {
                 public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
@@ -88,28 +74,50 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
                 }
             });
             currentActivity.startActivityForResult(intent, 0);
-            promise.resolve("success");
         }
+        promise.resolve("success");
     }
      @ReactMethod
      public void startVpn(String strip,int consultport,Promise promise) throws IOException {
-
-        String ret =  CProxClient.startlocalproxy(2080);
+        //占用2020端口
+        String ret =  CProxClient.startlocalproxy(2020);
         if (ret.compareTo("suc") == 0){
-                _proxyPort = 2080;
+                _proxyPort = 2020;
         }else {
             promise.reject("001","start port failed");
         }
          int realPort = CProxClient.GetOVPNRealPort(strip,consultport);
+        //已经取得真正的参数，开始启动vpn
+         Bundle profileInfo = new Bundle();
+         profileInfo.putString("Address", "162.14.13.154");
+         profileInfo.putInt("Port", realPort);
+         profileInfo.putInt("MTU", 1500);
+         //通过 intent传给子类
          String isCreateTunnelSuccess = CProxClient.createTunnel("162.14.13.154",realPort);
          if(isCreateTunnelSuccess.equals("error")){
              promise.reject("002","create tunnel failed");
          }
+         Intent intent = new Intent(_reactContext, ToyVpnService.class);
+         intent.putExtras(profileInfo);
+         //通过intent传递参数 启动service 代码跳转至toyVpnService
+         ContextCompat.startForegroundService(_reactContext, intent);
+         promise.resolve("success");
+
+         /*
+
          VpnService myService = new VpnService();
          VpnService.Builder builder = myService.new Builder();
-         ParcelFileDescriptor vpnInterface = builder.setSession("yuelunVpn").establish();
+         // PendingIntent pendingIntent = PendingIntent.getActivity(getCurrentActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+         builder.setSession("yuelunVpn");
+         builder.setMtu(1500);
+         builder.addAddress("10.172.2.70", 24);
+         builder.addRoute("0.0.0.0",0);
+         builder.addDnsServer("216.146.35.35");
+         // builder.setConfigureIntent(pendingIntent);
+         ParcelFileDescriptor vpnInterface =builder.establish();
          YuelunProxyJni.start(vpnInterface.getFd(),1500,"10.172.2.70","255.255.255.0","","192.168.0.101","192.168.0.101",null,0,1);
          promise.resolve("success");
+         */
      }
 /*
     @ReactMethod

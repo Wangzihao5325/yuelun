@@ -20,12 +20,20 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ProxyInfo;
 import android.net.VpnService;
+import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.core.content.ContextCompat;
+
+import com.yuelun.ylsdk.CProxClient;
+
+import org.yuelun.ylproxy.YuelunProxyJni;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -97,9 +105,9 @@ public class ToyVpnConnection implements Runnable {
     private final Set<String> mPackages;
 
     public ToyVpnConnection(final VpnService service, final int connectionId,
-                            final String serverName, final int serverPort, final byte[] sharedSecret,
-                            final String proxyHostName, final int proxyHostPort, boolean allow,
-                            final Set<String> packages, Object o) {
+            final String serverName, final int serverPort, final byte[] sharedSecret,
+            final String proxyHostName, final int proxyHostPort, boolean allow,
+            final Set<String> packages) {
         mService = service;
         mConnectionId = connectionId;
 
@@ -159,12 +167,14 @@ public class ToyVpnConnection implements Runnable {
         }
     }
 
-    @SuppressLint("NewApi")
     private boolean run(SocketAddress server)
             throws IOException, InterruptedException, IllegalArgumentException {
         ParcelFileDescriptor iface = null;
         boolean connected = false;
         // Create a DatagramChannel as the VPN tunnel.
+
+
+/*
         try (DatagramChannel tunnel = DatagramChannel.open()) {
 
             // Protect the tunnel before connecting to avoid loopback.
@@ -184,6 +194,7 @@ public class ToyVpnConnection implements Runnable {
 
             // Now we are connected. Set the flag.
             connected = true;
+
 
             // Packets to be sent are queued in this input stream.
             FileInputStream in = new FileInputStream(iface.getFileDescriptor());
@@ -255,9 +266,16 @@ public class ToyVpnConnection implements Runnable {
                     }
                 }
             }
-        } catch (SocketException e) {
-            Log.e(getTag(), "Cannot use socket", e);
-        } finally {
+            */
+
+        String isCreateTunnelSuccess = CProxClient.createTunnel("162.14.13.154",32010);
+        if(isCreateTunnelSuccess.equals("error")){
+        }else {
+            iface = handshake();
+            int a = iface.getFd();
+            YuelunProxyJni.start(iface.getFd(),1500,"10.172.2.70","255.255.255.0","","192.168.0.101","192.168.0.101",null,0,1);
+        }
+
             if (iface != null) {
                 try {
                     iface.close();
@@ -265,12 +283,12 @@ public class ToyVpnConnection implements Runnable {
                     Log.e(getTag(), "Unable to close interface", e);
                 }
             }
-        }
-        return connected;
+
+        return true;
     }
 
     @SuppressLint("NewApi")
-    private ParcelFileDescriptor handshake(DatagramChannel tunnel)
+    private ParcelFileDescriptor handshake()
             throws IOException, InterruptedException {
         // To build a secured tunnel, we should perform mutual authentication
         // and exchange session keys for encryption. To keep things simple in
@@ -285,55 +303,17 @@ public class ToyVpnConnection implements Runnable {
         // Control messages always start with zero.
         packet.put((byte) 0).put(mSharedSecret).flip();
 
-        // Send the secret several times in case of packet loss.
-        for (int i = 0; i < 3; ++i) {
-            packet.position(0);
-            tunnel.write(packet);
-        }
         packet.clear();
-
-        // Wait for the parameters within a limited time.
-        for (int i = 0; i < MAX_HANDSHAKE_ATTEMPTS; ++i) {
-            Thread.sleep(IDLE_INTERVAL_MS);
-
-            // Normally we should not receive random packets. Check that the first
-            // byte is 0 as expected.
-            int length = tunnel.read(packet);
-            if (length > 0 && packet.get(0) == 0) {
-                return configure(new String(packet.array(), 1, length - 1, US_ASCII).trim());
-            }
-        }
-        throw new IOException("Timed out");
+        return configure(new String(packet.array(), 1, 255 - 1, US_ASCII).trim());
     }
 
     @SuppressLint("NewApi")
     private ParcelFileDescriptor configure(String parameters) throws IllegalArgumentException {
         // Configure a builder while parsing the parameters.
         VpnService.Builder builder = mService.new Builder();
-        for (String parameter : parameters.split(" ")) {
-            String[] fields = parameter.split(",");
-            try {
-                switch (fields[0].charAt(0)) {
-                    case 'm':
-                        builder.setMtu(Short.parseShort(fields[1]));
-                        break;
-                    case 'a':
-                        builder.addAddress(fields[1], Integer.parseInt(fields[2]));
-                        break;
-                    case 'r':
-                        builder.addRoute(fields[1], Integer.parseInt(fields[2]));
-                        break;
-                    case 'd':
-                        builder.addDnsServer(fields[1]);
-                        break;
-                    case 's':
-                        builder.addSearchDomain(fields[1]);
-                        break;
-                }
-            } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Bad parameter: " + parameter);
-            }
-        }
+        builder.setMtu(1500);
+        builder.addAddress("162.14.13.154",24);
+        builder.addRoute("0.0.0.0", 0);
 
         // Create a new interface using the builder and save the parameters.
         final ParcelFileDescriptor vpnInterface;
@@ -349,9 +329,9 @@ public class ToyVpnConnection implements Runnable {
             }
         }
         builder.setSession(mServerName).setConfigureIntent(mConfigureIntent);
-        if (!TextUtils.isEmpty(mProxyHostName)) {
-          //  builder.setHttpProxy(ProxyInfo.buildDirectProxy(mProxyHostName, mProxyHostPort));
-        }
+//        if (!TextUtils.isEmpty(mProxyHostName)) {
+//            builder.setHttpProxy(ProxyInfo.buildDirectProxy(mProxyHostName, mProxyHostPort));
+//        }
         synchronized (mService) {
             vpnInterface = builder.establish();
             if (mOnEstablishListener != null) {

@@ -16,7 +16,6 @@
 
 package com.rndemo;
 
-import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -25,6 +24,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.VpnService;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.ParcelFileDescriptor;
@@ -42,7 +42,6 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-@SuppressLint("NewApi")
 public class ToyVpnService extends VpnService implements Handler.Callback {
 
     private static final String VPN_INTERFACE_PRIVATE_LAN = "10.111.222.%s";
@@ -103,7 +102,7 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
             }
             return START_NOT_STICKY;
         } else {
-            connect();
+            connect(intent);
             return START_STICKY;
         }
     }
@@ -128,29 +127,20 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void connect() {
+    private void connect(Intent intent) {
         // Become a foreground service. Background services can be VPN services too, but they can
         // be killed by background check before getting a chance to receive onRevoke().
         updateForegroundNotification(R.string.connecting);
         mHandler.sendEmptyMessage(R.string.connecting);
-        String  straddressipv4  = Utils.getIPAddress(true); // IPv4
-        String  straddressipv6  = Utils.getIPAddress(false); // IPv6
-        String  straddress1  =   Utils.getMACAddress("wlan0");//MAC wlan0
-        String  straddress2 =  Utils.getMACAddress("eth0");//MAC eth0
+
         // Extract information from the shared preferences.
-        final SharedPreferences prefs = getSharedPreferences(YuelunVpn.Prefs.NAME, MODE_PRIVATE);
-        final String server = prefs.getString(YuelunVpn.Prefs.SERVER_ADDRESS, "");
-        final byte[] secret = prefs.getString(YuelunVpn.Prefs.SHARED_SECRET, "").getBytes();
-        final boolean allow = prefs.getBoolean(YuelunVpn.Prefs.ALLOW, true);
-        final Set<String> packages =
-                prefs.getStringSet(YuelunVpn.Prefs.PACKAGES, Collections.emptySet());
-        final int port = prefs.getInt(YuelunVpn.Prefs.SERVER_PORT, 0);
-        final String proxyHost = prefs.getString(YuelunVpn.Prefs.PROXY_HOSTNAME, "");
-        final int proxyPort = prefs.getInt(YuelunVpn.Prefs.PROXY_PORT, 0);
-      //  ParcelFileDescriptor vpnInterface = null;
+        Bundle bundle = intent.getExtras();
+        final String server = bundle.getString("Address");
+
+        final int port = bundle.getInt("Port");
         mVpnConnection = new ToyVpnConnection(
-                this, mNextConnectionId.getAndIncrement(), server, port, secret,
-                proxyHost, proxyPort, allow, packages, null);
+                this, mNextConnectionId.getAndIncrement(), server, port, "".getBytes(),
+                "", 0, true, Collections.emptySet());
         startConnection(mVpnConnection);
     }
 
@@ -193,15 +183,15 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
 
     private void disconnect() throws InterruptedException {
 
-//        mHandler.sendEmptyMessage(R.string.disconnected);
-//        com.fucknmb.myapplication.CProxClient.stoplocalproxy();
-//        YuelunProxyJni.stop();
-//        mVpnConnection.tearDownVpn();
-//
-//        setConnectingThread(null);
-//        setConnection(null);
-//        stopForeground(true);
-//        mHandler.sendEmptyMessage(R.string.disconnected_suc);
+        mHandler.sendEmptyMessage(R.string.disconnected);
+        com.yuelun.ylsdk.CProxClient.stoplocalproxy();
+        YuelunProxyJni.stop();
+      //  mVpnConnection.tearDownVpn();
+
+        setConnectingThread(null);
+        setConnection(null);
+        stopForeground(true);
+      //  mHandler.sendEmptyMessage(R.string.disconnected_suc);
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void updateForegroundNotification(final int message) {
