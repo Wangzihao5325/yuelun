@@ -227,6 +227,7 @@ export default class acceleratorPage extends Component {
                     title={item['name']}
                     showFavoratorIcon={true}
                     favorator={false} 
+                    pressCallback = {()=>{this.clickGameNormalItemBtn(item)}}
                     clickTheCollecButton={()=>{
                         this.saveTheCollectionGames(item['id']);
                     }}/>

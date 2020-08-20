@@ -38,14 +38,14 @@ RCT_REMAP_METHOD(prepare, vpnPrepareWithServerAddress:(NSString *)serverAddress 
 //                                  subnet:subnet
 //                                     dns:dns];
 //
- 
+  
    self.vpnManager = [[XDXVPNManager alloc] init];
    self.vpnManager.delegate = self;
    [VPN_Manager configTheVPNServer:self.vpnManager];
 //    [self.vpnManager configManagerWithModel:model];
 //    self.vpnManager.delegate = self;
 //
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(vpnDidChange:) name:NEVPNStatusDidChangeNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(vpnDidChange:) name:NEVPNStatusDidChangeNotification object:nil];
   
   success(@"success");
 

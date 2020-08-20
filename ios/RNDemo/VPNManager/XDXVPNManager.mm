@@ -47,7 +47,10 @@
 - (BOOL)startVPN {
     if (self.vpnManager.connection.status == NEVPNStatusDisconnected) {
         NSError *error;
-        [self.vpnManager.connection startVPNTunnelAndReturnError:&error];
+      
+      NSDictionary * test2 = @{@"1":@"1",@"2":@"2",@"3":@"3"};
+      NSDictionary * test = @{@"test":@"1",@"test2":test2};
+      [self.vpnManager.connection startVPNTunnelWithOptions:test andReturnError:&error];
         
         if (error != 0) {
             const char *errorInfo = [NSString stringWithFormat:@"%@",error].UTF8String;
@@ -59,10 +62,9 @@
     }else {
         log4cplus_error("XDXVPNManager", "Start VPN - The current connect status isn't NEVPNStatusDisconnected !");
     }
-    
     return NO;
 }
- 
+
 - (BOOL)stopVPN {
     if (self.vpnManager.connection.status == NEVPNStatusConnected) {
         [self.vpnManager.connection stopVPNTunnel];

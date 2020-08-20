@@ -27,6 +27,7 @@ import * as navigator from '../../Router/NavigationService';
 import { TextInput } from 'react-native-gesture-handler';
 import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import PageName from '../../Config/PageName';
 
 const NoramType = 1;
 const searchType = 2;
@@ -74,11 +75,18 @@ export default class search extends Component {
                         searchText={this.state.searchText}
                         changeTheTextFunction={(text) => { this.setState({ searchText: text }); }}
                         onEndEditing={() => {
-                            this.setState({ pageType: searchType });
                             this.clickTheHistoryTextAndSearch(this.state.searchText);
                         }}
                         cancleFunction={() => {
-                            navigator.back(this);
+                            if(this.state.pageType == searchType){
+                                this.setState({
+                                    pageType:NoramType,
+                                    resultGames:[],
+                                    searchText:''
+                                });
+                            }else{
+                                navigator.back(this);
+                            }
                         }}
                     />
                     <ScrollView style={[styles.scrollRoot, { height: SCREEN_HEIGHT - UIConfig.NavigatorViewHeight }]}>
@@ -163,7 +171,7 @@ export default class search extends Component {
                 {
                     this.state.resultGames.length == 0
                         ?
-                        <Text style={{ fontSize: 14, color: 'white', marginTop: 54 }}>为搜索到该游戏</Text>
+                        <Text style={{ fontSize: 14, color: 'white', marginTop: 54 }}>未搜索到该游戏</Text>
                         :
                         null
                 }
@@ -243,6 +251,15 @@ export default class search extends Component {
         if (historyText == '') {
             return;
         }
+
+        let searchString = historyText.replace(/ /g,'');
+        if(searchString.length == 0){
+            this.setState({
+                searchText:''
+            });
+            return;
+        }
+
         this.setState({ pageType: searchType });
         this.searchTheGame(historyText);
 
@@ -342,9 +359,16 @@ export default class search extends Component {
                     source={{ uri: item.icon }}
                     title={item['name']}
                     showFavoratorIcon={true}
-                    favorator={false} />
+                    favorator={false} 
+                    pressCallback = {()=>{this.clickGameNormalItemBtn(item)}}/>
             </View>
         );
+    }
+
+    clickGameNormalItemBtn = (item) => {
+        console.log("测试单个点击",item);
+        let payload = { data: JSON.stringify(item) }
+        navigator.jump(this, PageName.ACCELERATE_DETAILS_PAGE, payload);
     }
 
     /**

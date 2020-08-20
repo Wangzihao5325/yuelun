@@ -40,8 +40,12 @@ static NSDictionary *kVpnSubnetCandidates;  // Subnets to bind the VPN.
 }
 - (void)startTunnelWithOptions:(NSDictionary *)options completionHandler:(void (^)(NSError *))completionHandler
 {
-  log4cplus_info("XDXVPNManager", "XDXPacketTunnelManager - Start Tunel !");
+//  log4cplus_info("XDXVPNManager", "XDXPacketTunnelManager - Start Tunel !");
    
+//  NSUserDefaults *userDefault = [[NSUserDefaults alloc]initWithSuiteName:@"group.com.yuelun.accvpn"];
+//
+//  NSDictionary * testDic = [userDefault objectForKey:@"testParam"];
+  
     NEPacketTunnelNetworkSettings *tunnelNetworkSettings = [[NEPacketTunnelNetworkSettings alloc] initWithTunnelRemoteAddress:@XDX_NET_REMOTEADDRESS];
     tunnelNetworkSettings.MTU = [NSNumber numberWithInteger:XDX_NET_MTU];
     tunnelNetworkSettings.IPv4Settings = [[NEIPv4Settings alloc] initWithAddresses:[NSArray arrayWithObjects:@XDX_NET_TUNNEL_IPADDRESS, nil]  subnetMasks:[NSArray arrayWithObjects:@XDX_NET_SUBNETMASKS, nil]];
