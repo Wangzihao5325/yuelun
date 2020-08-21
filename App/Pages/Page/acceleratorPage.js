@@ -162,8 +162,8 @@ export default class acceleratorPage extends Component {
         alreadyAccelerate = Math.floor(alreadyAccelerate / 1000);
 
         let h = Math.floor(alreadyAccelerate / 3600);
-        let m = Math.floor((alreadyAccelerate - 60 * h) / 60);
-        let s = alreadyAccelerate - 60 * h - 60 * m;
+        let m = Math.floor((alreadyAccelerate - 3600 * h) / 60);
+        let s = alreadyAccelerate - 3600 * h - 60 * m;
 
         if (h < 10) h = '0' + h;
         if (m < 10) m = '0' + m;
@@ -267,7 +267,7 @@ export default class acceleratorPage extends Component {
                         <Text style={{ color: 'white' }}>停止所有游戏加速</Text>
                     </TouchableOpacity>
                     <View style={[styles.stopItemStyle, { marginBottom: 1.5 }]}>
-                        <Text style={{ color: 'white' }}>您当前有2款游戏正在加速，停止加速可能导致游戏断线，是否停止所有游戏的加速？</Text>
+                        <Text style={{ color: 'white' }}>游戏正在加速，停止加速可能导致游戏断线，是否停止所有游戏的加速？</Text>
                     </View>
                 </TouchableOpacity>
             </Modal>
