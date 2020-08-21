@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as LogManager from '../Functions/LogManager/LogManager';
 import PageName from '../Config/PageName';
+import store from '../store';
 
 /** 为无法访问到navigation的地方提供路由能力 */
 export const navigationRef = React.createRef();
@@ -28,11 +29,20 @@ export function jump(component, routeName, params) {
     if (component && component.props.navigation && component.props.route) {
         navi = component.props.navigation;
         route = component.props.route;
+    } else {
+        navi = navigationRef.current;
     }
 
-    if (navi && route && routeName) {
-        navi.navigate(routeName, params);
-        RecordPagePathData(route.name, routeName);
+    if (navi && routeName) {
+        //对加速详情页特别处理，需要判断是否登录
+        if (routeName === PageName.ACCELERATE_DETAILS_PAGE && !store.getState().user.isLogin) {
+            navi?.navigate(PageName.NORAML_LOGIN_PAGE);
+        } else {
+            navi?.navigate(routeName, params);
+        }
+        if (route) {
+            RecordPagePathData(route.name, routeName);
+        }
     }
 }
 
