@@ -26,7 +26,7 @@ RCT_EXPORT_MODULE(YuelunVpn);
 
 RCT_REMAP_METHOD(prepare, vpnPrepareWithServerAddress:(NSString *)serverAddress serverPort:(NSString *)serverPort mtu:(NSString *)mtu ip:(NSString *)ip subnet:(NSString *)subnet dns:(NSString *)dns success:(RCTPromiseResolveBlock)success failure:(RCTResponseErrorBlock)failure){
 //    XDXVPNManagerModel *model = [[XDXVPNManagerModel alloc] init];
-//
+
 //  /*  Note   - 在运行代码前必须按照博客所说配置好Target及开放权限，否则Demo无法正常运行
 //   *  @param TunnelBundleId : 必须填写你Extension Target的bundile ID,且必须合法，博客里有详细说明
 //   */
@@ -41,7 +41,8 @@ RCT_REMAP_METHOD(prepare, vpnPrepareWithServerAddress:(NSString *)serverAddress 
   
    self.vpnManager = [[XDXVPNManager alloc] init];
    self.vpnManager.delegate = self;
-   [VPN_Manager configTheVPNServer:self.vpnManager];
+  VPN_Manager * manager = [[VPN_Manager alloc] init];
+   [manager configTheVPNServer:self.vpnManager];
 //    [self.vpnManager configManagerWithModel:model];
 //    self.vpnManager.delegate = self;
 //
@@ -51,8 +52,8 @@ RCT_REMAP_METHOD(prepare, vpnPrepareWithServerAddress:(NSString *)serverAddress 
 
 }
 
-RCT_REMAP_METHOD(startVpn,startVpnsuccess:(RCTPromiseResolveBlock)success failure:(RCTResponseErrorBlock)failure){
-    [self.vpnManager startVPN];
+RCT_REMAP_METHOD(startVpn,consultIP:(NSString *)consultIP consultPort:(NSString*)consultPort tunnelIP:(NSString*)tunnelIP startVpnsuccess:(RCTPromiseResolveBlock)success failure:(RCTResponseErrorBlock)failure){
+    [self.vpnManager startVPNConsultIP:consultIP consultPort:consultPort tunnelIP:tunnelIP];
     success(@"success");
 }
 

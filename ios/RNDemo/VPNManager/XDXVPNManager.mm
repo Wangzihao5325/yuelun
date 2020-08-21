@@ -44,13 +44,12 @@
     [self applyVpnConfiguration:NO];
 }
 
-- (BOOL)startVPN {
+- (BOOL)startVPNConsultIP:(NSString *)consultIP consultPort:(NSString*)consultPort tunnelIP:(NSString*)tunnelIP {
     if (self.vpnManager.connection.status == NEVPNStatusDisconnected) {
         NSError *error;
       
-      NSDictionary * test2 = @{@"1":@"1",@"2":@"2",@"3":@"3"};
-      NSDictionary * test = @{@"test":@"1",@"test2":test2};
-      [self.vpnManager.connection startVPNTunnelWithOptions:test andReturnError:&error];
+      NSDictionary * consulDic = @{@"consultIP":consultIP,@"consultPort":consultPort,@"tunnelIP":tunnelIP};
+      [self.vpnManager.connection startVPNTunnelWithOptions:consulDic andReturnError:&error];
         
         if (error != 0) {
             const char *errorInfo = [NSString stringWithFormat:@"%@",error].UTF8String;

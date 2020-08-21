@@ -23,9 +23,9 @@ export function prepare(serverAddress, serverPort, mtu, ip, subnet, dns, listene
     }
 }
 
-export function startVpn(ip, port) {
+export function startVpn(ip, port,tunnel) {
     if (Platform.OS === 'ios') {
-        YuelunVpnModule.startVpn();
+        YuelunVpnModule.startVpn(ip,port,tunnel);
     } else {
         YuelunVpnModule.startVpn(ip, port);
     }

@@ -201,7 +201,7 @@ export const getTheHotGames = async () => {
  * 
 */
 export const sendTheFeedbackWithTheSessionID = async (suggestion, contactValue) => {
-    let resultStr = await CApiClientManager.yuelunSaveFeedBack(_sessionId, suggestion, contactValue);
+    let resultStr = await CApiClientManager.yuelunSaveFeedBack(_sessionId, encodeURIComponent(suggestion), encodeURIComponent(contactValue));
     return _dealResult(resultStr);
 }
 

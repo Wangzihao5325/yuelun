@@ -11,7 +11,7 @@
 
 @implementation VPN_Manager
 
-+(void)configTheVPNServer:(XDXVPNManager *) vpnManager{
+-(void)configTheVPNServer:(XDXVPNManager *) vpnManager{
   XDXVPNManagerModel *model = [[XDXVPNManagerModel alloc] init];
   [model configureInfoWithTunnelBundleId:@"com.yuelun.accvpn.yltunnel"
                            serverAddress:@"120.77.2.142"

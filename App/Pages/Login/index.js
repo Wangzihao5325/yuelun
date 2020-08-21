@@ -16,7 +16,6 @@ import * as navigator from '../../Router/NavigationService';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as vpnModule from '../../Functions/NativeBridge/YuelunVpn';
 
-
 export default class Login extends Component {
     state = {
         phoneNum: '',
