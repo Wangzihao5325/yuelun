@@ -160,8 +160,8 @@ export default class AccelerateDetails extends Component {
 
     alertPayload = (api) => {
         return {
-            title: 'status error!',
-            content: `${api}接口报错\n具体情况请联系管理人员!`,
+            title: '后台接口报错',
+            content: `${api}\n接口报错了\n具体情况请联系管理人员!`,
             bottomObjs: [
                 {
                     key: 'confirm',
