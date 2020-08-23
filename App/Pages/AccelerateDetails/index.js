@@ -30,7 +30,7 @@ export default class AccelerateDetails extends Component {
         //gameInfo.id
         Api.getGameInfoById(gameInfo.id, '').then((request) => {
             if (request.status === 'error') {
-                NavigationService.alert(this.alertPayload('getGameInfoById'));
+                NavigationService.alert(this.alertPayload('getGameInfoById存在报错'));
             } else {
                 this.setState({
                     ...request.data.game_info,
@@ -103,6 +103,7 @@ export default class AccelerateDetails extends Component {
 
         let { accelerateInfo } = this.state;
         if (this.state.isAccelerate) {
+            vpnModule.stopVPN();
             //各种断线操作
             delete accelerateInfo[this.state.id];
             AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
@@ -114,11 +115,12 @@ export default class AccelerateDetails extends Component {
 
             if (use_server_id.length > 0) {
                 Api.connectServer(id, use_server_id[0]).then((res) => {
-                    if (res.status === 'ok') {
+                    if (res.status === 'ok' && res.data.consult_ip) {
                         //各种连接操作
                         vpnModule.prepare()
                             .then(() => {
-                                vpnModule.startVpn('162.14.5.205', 32091);
+                                
+                                vpnModule.startVpn('162.14.5.205', "32091",res.data.consult_ip);
                                 let _date = new Date();
                                 this.state.gameFullInfo._timeReg = _date;
                                 accelerateInfo[this.state.id] = this.state.gameFullInfo;
@@ -130,7 +132,12 @@ export default class AccelerateDetails extends Component {
                                 });
                             });
                     } else {
-                        NavigationService.alert(this.alertPayload('yuelunConnectServer'));
+                        if(res.status === 'ok'){
+                            NavigationService.alert(this.alertPayload("后台服务正忙，请重试"));
+                        }else{
+                            NavigationService.alert(this.alertPayload(res.msg));
+                        }
+                        
                     }
                 })
             }
@@ -157,10 +164,10 @@ export default class AccelerateDetails extends Component {
 
     }
 
-    alertPayload = (api) => {
+    alertPayload = (msg) => {
         return {
-            title: '后台接口报错',
-            content: `${api}\n接口报错了\n具体情况请联系管理人员!`,
+            title: '注意',
+            content: `${msg}`,
             bottomObjs: [
                 {
                     key: 'confirm',

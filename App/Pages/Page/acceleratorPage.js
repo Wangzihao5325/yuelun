@@ -107,7 +107,7 @@ export default class acceleratorPage extends Component {
                 <View style={{ flex: 1, alignItems: 'center' }}><Text style={{ color: 'white', marginTop: 30, fontSize: 18 }}>加速</Text></View>
                 <View style={{ flex: 1, flexDirection: 'row-reverse' }}>
                     {
-                        this.state.dataArray.length > 0
+                        this.state.dataArray.length > 1
                             ?
                             <TouchableOpacity onPress={() => { this.stopAllGames() }}>
                                 <Text style={{ color: 'white', marginRight: 15, marginTop: 30, fontSize: 18 }}>全部停止</Text>
