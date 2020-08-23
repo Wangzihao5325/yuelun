@@ -16,7 +16,8 @@ import {
     ScrollView,
     Keyboard,
     AsyncStorage,
-    Modal
+    Modal,
+    Alert
 } from 'react-native';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../Config/UIConfig';
 import * as mock_home from '../../Mock/home';
@@ -57,17 +58,17 @@ export default class search extends Component {
                 <KeyboardAwareScrollView>
                     <SearchNavigator
                         searchText={this.state.searchText}
-                        changeTheTextFunction={(text) => { this.setState({ searchText: text }); }}
+                        changeTheTextFunction={(text) => {
+                            if(text.length == 0){
+                                this.clearAndBackToSearchNoramlPage();
+                            }
+                             this.setState({ searchText: text }); }}
                         onEndEditing={() => {
                             this.clickTheHistoryTextAndSearch(this.state.searchText);
                         }}
                         cancleFunction={() => {
                             if(this.state.pageType == searchType){
-                                this.setState({
-                                    pageType:NoramType,
-                                    resultGames:[],
-                                    searchText:''
-                                });
+                                this.clearAndBackToSearchNoramlPage();
                             }else{
                                 navigator.back(this);
                             }
@@ -102,6 +103,14 @@ export default class search extends Component {
         );
     }
 
+    clearAndBackToSearchNoramlPage = () =>{
+        this.setState({
+            pageType:NoramType,
+            resultGames:[],
+            searchText:''
+        });
+    }
+
     renderThePageView = () => {
         if (this.state.pageType == NoramType) {
             return (
@@ -119,6 +128,12 @@ export default class search extends Component {
         }
     }
 
+    popTheClearAllHistoryAlert = () =>{
+        Alert.alert('', '删除全部历史记录？', [
+            { text: '取消', onPress: ()=>{} },
+            { text: '删除', onPress: this.clearAllSearchHistory }
+        ]);
+    }
 
     renderTheSearchHistorySection = () => {
         if (this.state.searchHistory.length == 0) {
@@ -128,7 +143,7 @@ export default class search extends Component {
             <View style={{ marginLeft: 0, marginTop: 10, width: SCREEN_WIDTH }}>
                 <View style={styles.searchRootView}>
                     <Text style={styles.searchText}>搜索历史</Text>
-                    <TouchableOpacity onPress={() => { this.clearAllSearchHistory() }}>
+                    <TouchableOpacity onPress={() => { this.popTheClearAllHistoryAlert() }}>
                         <Image
                             source={require('../../resource/Image/Normal/delete.png')}
                             style={styles.clearIconStyle}
@@ -180,7 +195,9 @@ export default class search extends Component {
 
     renderTheHistoryTagItem = (historyText = '', key) => {
         return (
-            <TouchableOpacity onPress={() => { this.clickTheHistoryTextAndSearch(historyText) }}>
+            <TouchableOpacity onPress={() => { 
+                this.setState({searchText:historyText});
+                  this.clickTheHistoryTextAndSearch(historyText) }}>
                 <View style={[styles.tagRoot, { marginRight: 14.5, marginBottom: 10 }]}>
                     <Text style={styles.tagText}>{historyText}</Text>
                 </View>
@@ -345,7 +362,7 @@ export default class search extends Component {
                     index={index}
                     source={{ uri: item.icon }}
                     title={item['name']}
-                    showFavoratorIcon={true}
+                    showFavoratorIcon={false}
                     favorator={false} 
                     pressCallback = {()=>{this.clickGameNormalItemBtn(item)}}/>
             </View>
