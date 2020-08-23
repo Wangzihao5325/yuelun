@@ -21,8 +21,13 @@ class MinePage extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <ImageBackground 
+                    resizeMode='stretch'
+                    source={require('../../resource/Image/Mine/mineBack.png')}
+                    style={{ marginTop: 0, marginLeft: 0,marginBottom:20, width: SCREEN_WIDTH, height: SCREEN_WIDTH / 375 * 217.5, alignItems: 'center', }}>
                 {this.renderTheUserInforItem()}
                 {this.renderTheGuideToBuyVIPView()}
+                </ImageBackground>
                 {this.renderTheSettingsItem(require('../../resource/Image/Mine/remind.png'), '公告消息', 1)}
                 {this.renderTheSettingsItem(require('../../resource/Image/Mine/aboutUs.png'), '关于我们', 2)}
                 {this.renderTheSettingsItem(require('../../resource/Image/Mine/setting.png'), '设置', 3)}
@@ -75,6 +80,7 @@ class MinePage extends Component {
     renderTheGuideToBuyVIPView = () => {
         return (
             <ImageBackground
+                resizeMode='stretch'
                 source={require('../../resource/Image/Mine/VIPRoot.png')}
                 style={styles.backImageStyle}>
                 <Image style={styles.VIPIcon} source={require('../../resource/Image/Mine/VIPicon.png')} />
