@@ -170,11 +170,7 @@ export default class Login extends Component {
     }
 
     saveTheUserInfo = (userInfo) => {
-        AsyncStorage.setItem('userInfo', JSON.stringify(userInfo)).then(value => {
-
-        }).catch(reason => {
-
-        });
+        AsyncStorage.setItem('userInfo', JSON.stringify(userInfo))
     }
 }
 

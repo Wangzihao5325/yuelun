@@ -4,6 +4,7 @@ const initialState = {
     isLogin: false,
     mobile: '',
 
+    head_url: '',//get userInfo by session ONLY
     end_time: 0,
     login_ip: null,
     network_ip: null,
@@ -12,7 +13,7 @@ const initialState = {
     package_type: "0",
     remaining_time: "0",
     server_list: null,
-    session_id: "30aeb009eb61995d2fc22611dcc9d89a5301d0a2",
+    session_id: "",
     session_limit: "1",
     source: "0",
     status: "sleeping",

@@ -17,28 +17,6 @@ import { connect } from 'react-redux';
 class MinePage extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            loginStatus: false,
-            userIcon: '',
-            userName: '',
-            sessionID: ''
-        };
-    }
-
-    componentDidMount() {
-        this._unsubscribe = this.props.navigation.addListener('focus', () => {
-            this.loadTheUserInfomation();
-        });
-    }
-
-    componentWillUnmount() {
-        this._unsubscribe();
-    }
-
-
-    componentWillMount() {
-        this.loadTheUserInfomation();
     }
 
     render() {
@@ -77,10 +55,10 @@ class MinePage extends Component {
         return (
             <View style={styles.inforRootView}>
                 {
-                    this.state.loginStatus
+                    this.props.loginStatus
                         ?
                         <TouchableOpacity onPress={() => { this.clickTheCheckUserInformationFunction() }}>
-                            <Text style={styles.nameStyle}>{this.state.userName}</Text>
+                            <Text style={styles.nameStyle}>{this.props.userName}</Text>
                             <Text style={styles.showInfoText}>查看个人信息</Text>
                         </TouchableOpacity>
                         :
@@ -104,7 +82,7 @@ class MinePage extends Component {
                 <Text style={styles.buyVIPRootStyle}>立即开通会员</Text>
                 <TouchableOpacity style={styles.buyBtnRoot} onPress={() => {
                     if (this.props.loginStatus) {
-                        let url = 'https://page.yuelun.com/mobile/recharge?session_id=' + this.state.sessionID;
+                        let url = 'https://page.yuelun.com/mobile/recharge?session_id=' + this.props.sessionID;
                         navigator.jump(this, PageName.NORMAL_VIP_BUY_WEB, { url: url });
                     } else {
                         navigator.jump(this, PageName.NORAML_LOGIN_PAGE);
@@ -150,35 +128,13 @@ class MinePage extends Component {
     clickTheCheckUserInformationFunction = () => {
         navigator.jump(this, PageName.NORMAL_PERSONAL_INFO);
     }
-
-    loadTheUserInfomation = () => {
-        AsyncStorage.getItem('userInfo').then(value => {
-            if (value == null) {
-                this.setState({
-                    loginStatus: false,
-                    userIcon: '',
-                    userName: '',
-                    sessionID: ''
-                });
-            } else {
-                let userData = JSON.parse(value);
-                console.log('个人信息', userData);
-                this.setState({
-                    loginStatus: true,
-                    userIcon: '',
-                    userName: userData['data']['username'] ? userData['data']['username'] : '',
-                    sessionID: userData['data']['session_id'] ? userData['data']['session_id'] : '',
-                });
-            }
-        }).catch(reason => {
-
-        });
-    }
 }
 
 const mapStateToProps = (state) => ({
     loginStatus: state.user.isLogin,
-    userName: state.user.username
+    userIcon: state.user.head_url,
+    userName: state.user.username,
+    sessionID: state.user.session_id,
 })
 
 export default connect(mapStateToProps)(MinePage);
