@@ -18,7 +18,7 @@ export default class GameNormalItem extends Component {
                             <TouchableOpacity style={styles.favoratorIcon} onPress={this.props.clickTheCollecButton}>
                             <Image
                                 resizeMode={'contain'}
-                                source={this.props.favorator ? require('../../../resource/Image/GameHomePage/hot.png') : require('../../../resource/Image/GameHomePage/search.png')}
+                                source={this.props.favorator ? require('../../../resource/Image/GameHomePage/collect.png') : require('../../../resource/Image/GameHomePage/uncollect.png')}
                                 style={{width: 20.5, height: 18.5,}} />
                             </TouchableOpacity>
                             :

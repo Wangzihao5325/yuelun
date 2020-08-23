@@ -2,6 +2,7 @@ import { NativeModules, Platform } from 'react-native';
 
 //是否启用mock数据
 const CApiClientManager = NativeModules.CApiClient;
+
 let _sessionId = '';
 
 function _dealResult(strRequest) {
@@ -179,7 +180,7 @@ export const getAllUserCollectGames = async () => {
  * 
 */
 export const YuelunSverCollection = async (gameIDArray) => {
-    let strRequest = await CApiClientManager.yuelunSverCollection(_sessionId, gameIDArray);
+    let strRequest = await CApiClientManager.yuelunSaveCollection(_sessionId, encodeURIComponent(gameIDArray));
     return _dealResult(strRequest);
 }
 

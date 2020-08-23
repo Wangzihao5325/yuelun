@@ -15,7 +15,9 @@ import {
     TouchableOpacity,
     ScrollView,
     ImageBackground,
-    RefreshControl
+    RefreshControl,
+    Modal,
+    AsyncStorage
 } from 'react-native';
 import { SCREEN_WIDTH, BannerWidth, BannerHeight } from '../../Config/UIConfig';
 import GameHomeNavigation from '../../Components/Component/NavigationItem/GameHomeNavigation';
@@ -50,6 +52,7 @@ export default class acceleratorPage extends Component {
             bannerArray:[],
 
             collection_games_array : [],
+            showCollectAlert:false
         }
     }
 
@@ -57,6 +60,10 @@ export default class acceleratorPage extends Component {
         this.getTheBannerData();
         this.getAllGames();
         this.getTheCollectionGames();
+        //10分钟轮询更新collect游戏ID
+        setInterval(() => {
+            this.saveTheCollectedGamesToServer();
+        }, 600000);
     }
 
     render() {
@@ -88,6 +95,7 @@ export default class acceleratorPage extends Component {
                     {this.state.selectStatus == 2 ? this.renderTheNormalGamePage() : null}
                     {this.state.selectStatus == 3 ? this.renderTheNormalGamePage() : null}
                 </ScrollView>
+                {this.collectTheGameAlert()}
             </View>
         );
     }
@@ -219,18 +227,22 @@ export default class acceleratorPage extends Component {
 
     renderTheNormalGameItem = (item, index) => {
         let unitWidth = SCREEN_WIDTH / 4;
+        let favorator = this.state.collection_games_array.some(gameID => {
+            if(gameID == item['id']){
+                return true;
+            }
+        });
+        
         return (
             <View style={[styles.normalItemRootCell, { width: unitWidth }]}>
                 <GameNormalItem
                     index={index}
                     source={{ uri: item.icon }}
                     title={item['name']}
-                    showFavoratorIcon={true}
-                    favorator={false} 
-                    pressCallback = {()=>{this.clickGameNormalItemBtn(item)}}
-                    clickTheCollecButton={()=>{
-                        this.saveTheCollectionGames(item['id']);
-                    }}/>
+                    showFavoratorIcon={this.state.selectStatus == 3 ? true : false}
+                    favorator={favorator} 
+                    pressCallback = {()=>{this.state.selectStatus == 3 ? this.saveTheCollectionGames(item['id']) :this.clickGameNormalItemBtn(item)}}
+                />
             </View>
         );
     }
@@ -374,23 +386,113 @@ export default class acceleratorPage extends Component {
     }
 
     getTheCollectionGames = () =>{
+        let self = this;
         ApiModule.getAllUserCollectGames()
         .then((result)=>{
-            let collections = result;
-            console.log('collect data',collections);
+            if(result["status"] == "ok"){
+                let collections = result.data.list;
+                let collectionsCopy = collections;
+                let localCollection = self.state.collection_games_array;
+                for(let i = 0; i < collections.length ; i++){
+                    for(let j = 0 ; j < localCollection.length; i ++){
+                        if(collections[i]["id"] == localCollection[j]){
+                            collectionsCopy.splice(i,1);
+                        }
+                    }
+                }
+                for(let i = 0 ; i < collectionsCopy.length; i++){
+                    localCollection.push(collectionsCopy[i]["id"]);
+                }
+                self.setState({collection_games_array:localCollection});
+                self.saveCollectGamesToLocal(localCollection);
+            }
+            
         });
+
+        this.loadTheCollectionGamesData();
     }
 
     saveTheCollectionGames = (gameID = '') =>{
-        let sessionID = 'd6eb14382b7bd59a5d9b2557b1589fd510b4e2f1';
-        let gameIDArray = [];
-        gameIDArray.push(gameID);
-        ApiModule.YuelunSverCollection(sessionID,gameIDArray)
+        if(this.state.showCollectAlert) return;
+
+        var collectionItem = this.state.collection_games_array;
+        let deleteIndex = 0;
+        let res = collectionItem.some((item,index) => {
+            deleteIndex = index;
+            if(item == gameID){
+                return true;
+            }else{
+                return false;
+            }
+        });
+
+        if(res){
+            console.log("删除第"+deleteIndex+"  ID为"+gameID);
+            collectionItem.splice(deleteIndex,1);
+        }else{
+            this.showTheCollectAlert();
+            collectionItem.push(gameID);
+        }
+
+        this.setState({collection_games_array:collectionItem});
+
+        this.saveCollectGamesToLocal(collectionItem);
+    }
+
+    saveCollectGamesToLocal = (gamesIDArray) =>{
+        AsyncStorage.setItem('collectGames', JSON.stringify(gamesIDArray)).then(value => {
+
+        }).catch(reason => {
+
+        });
+    }
+
+    loadTheCollectionGamesData = () =>{
+        AsyncStorage.getItem('collectGames').then(value => {
+            if (value == null) {
+                
+            } else {
+                let collectionArray = JSON.parse(value);
+                this.setState({collection_games_array:collectionArray});
+            }
+        }).catch(reason => {
+
+        });
+    }
+
+    collectTheGameAlert = () => {
+        return (
+            <Modal
+                transparent={true}
+                visible={this.state.showCollectAlert}
+                onRequestClose={() => this.hide(false)}>
+                <View
+                    onPress={() => { this.setState({ showAlert: false }) }}
+                    style={{ marginLeft: 0, marginRight: 0, width: SCREEN_WIDTH, height: 64, backgroundColor: '#8FADD7', flexDirection: 'row',justifyContent:"center",alignItems:'center' }}>
+                    <Image style={{marginTop:15}} source={require('../../resource/Image/GameHomePage/smile.png')}/>
+                    <Text style={{color:'white',fontSize:14,marginLeft:6,marginTop:15}}>已关注该游戏,上线进度会实时通知</Text>
+                </View>
+            </Modal>
+        );
+    }
+
+    showTheCollectAlert = () =>{
+        this.setState({showCollectAlert:true});
+
+        setTimeout(()=>{
+            this.setState({showCollectAlert:false});
+        },1500);
+    }
+
+    saveTheCollectedGamesToServer = () =>{
+        let collectionItems = this.state.collection_games_array;
+        ApiModule.YuelunSverCollection(collectionItems)
         .then((result)=>{
             let collections = result;
             console.log('save collect data',collections);
         });
     }
+
 }
 
 const styles = StyleSheet.create({

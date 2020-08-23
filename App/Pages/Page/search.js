@@ -72,6 +72,13 @@ export default class search extends Component {
                                 navigator.back(this);
                             }
                         }}
+                        clearFunction = {()=>{
+                            this.setState({
+                                pageType:NoramType,
+                                resultGames:[],
+                                searchText:''
+                            });
+                        }}
                     />
                     <ScrollView style={[styles.scrollRoot, { height: SCREEN_HEIGHT - UIConfig.NavigatorViewHeight }]}>
                         {this.renderThePageView()}
