@@ -58,10 +58,18 @@ export default class acceleratorPage extends Component {
                 });
             });
         });
+
+        this._unfocusUnsubscribe = this.props.navigation.addListener('blur', () => {
+            if (this.requestTimer) {
+                clearInterval(this.requestTimer);
+                this.requestTimer = null;
+            }
+        })
     }
 
     componentWillUnmount() {
         this._unsubscribe();
+        this._unfocusUnsubscribe();
     }
 
 

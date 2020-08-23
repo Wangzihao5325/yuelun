@@ -28,23 +28,7 @@ export default class setting extends Component {
         
         this.state = {
             switchValue:false,
-            session_id:''
         }
-    }
-
-    componentWillMount(){
-        AsyncStorage.getItem('userInfo').then(value=>{
-            if(value == null){
-                
-            }else{
-                let userData = JSON.parse(value);
-                this.setState({
-                    session_id:userData['data']['session_id'] ? userData['data']['session_id'] : ''
-                });
-            }
-        }).catch(reason =>{
-
-        });
     }
 
     componentDidMount(){

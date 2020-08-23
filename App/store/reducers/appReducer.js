@@ -1,6 +1,7 @@
 import * as Types from '../actionTypes';
 
 const initialState = {
+    isInitPageScrollenabled: false,
     isInit: true,
     isLogin: false,
 }
@@ -12,6 +13,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 isInit: true,
                 isLogin: false,
+            };
+        case Types.APP_INIT_CAN_SCROLL:
+            return {
+                ...state,
+                isInitPageScrollenabled: true
             };
         case Types.APP_LOGIN:
             return {

@@ -83,6 +83,7 @@ export default class InitPage extends Component {
                 pagingEnabled={true}
                 data={SPLASH_DATA}
                 renderItem={({ item }) => <Item {...item} itemClick={this.goToLogin} />}
+                scrollEnabled={this.props.scrollEnabled}
             />
         );
     }

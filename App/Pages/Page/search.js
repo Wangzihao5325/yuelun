@@ -43,23 +43,7 @@ export default class search extends Component {
             pageType: NoramType,
             searchHistory: [],
             test: false,
-            session_id: ''
         }
-    }
-
-    componentWillMount() {
-        AsyncStorage.getItem('userInfo').then(value => {
-            if (value == null) {
-
-            } else {
-                let userData = JSON.parse(value);
-                this.setState({
-                    session_id: userData['data']['session_id'] ? userData['data']['session_id'] : ''
-                });
-            }
-        }).catch(reason => {
-
-        });
     }
 
     componentDidMount() {
@@ -219,11 +203,7 @@ export default class search extends Component {
     }
 
     setTheSearchHistoryData = () => {
-        AsyncStorage.setItem('historyData', JSON.stringify(this.state.searchHistory)).then(value => {
-
-        }).catch(reason => {
-
-        });
+        AsyncStorage.setItem('historyData', JSON.stringify(this.state.searchHistory))
     }
 
     deleteTheSearchHistoryData = () => {

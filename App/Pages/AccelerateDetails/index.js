@@ -116,15 +116,19 @@ export default class AccelerateDetails extends Component {
                 Api.connectServer(id, use_server_id[0]).then((res) => {
                     if (res.status === 'ok') {
                         //各种连接操作
-                        let _date = new Date();
-                        this.state.gameFullInfo._timeReg = _date;
-                        accelerateInfo[this.state.id] = this.state.gameFullInfo;
-                        this.state.gameFullInfo
-                        AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
-                            this.setState({
-                                isAccelerate: true
+                        vpnModule.prepare()
+                            .then(() => {
+                                vpnModule.startVpn('162.14.5.205', 32091);
+                                let _date = new Date();
+                                this.state.gameFullInfo._timeReg = _date;
+                                accelerateInfo[this.state.id] = this.state.gameFullInfo;
+                                this.state.gameFullInfo
+                                AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
+                                    this.setState({
+                                        isAccelerate: true
+                                    });
+                                });
                             });
-                        });
                     } else {
                         NavigationService.alert(this.alertPayload('yuelunConnectServer'));
                     }
@@ -150,12 +154,7 @@ export default class AccelerateDetails extends Component {
         //     })
         //}
 
-        /*       
-               vpnModule.prepare()
-                    .then(()=>{
-                       vpnModule.startVpn('162.14.5.205',32091);
-                    });
-         */
+
     }
 
     alertPayload = (api) => {

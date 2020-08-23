@@ -24,11 +24,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ProxyInfo;
 import android.net.VpnService;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import com.yuelun.ylsdk.CProxClient;
@@ -103,11 +105,11 @@ public class ToyVpnConnection implements Runnable {
     // Allowed/Disallowed packages for VPN usage
     private final boolean mAllow;
     private final Set<String> mPackages;
-
+    private ParcelFileDescriptor tunfd;
     public ToyVpnConnection(final VpnService service, final int connectionId,
-            final String serverName, final int serverPort, final byte[] sharedSecret,
-            final String proxyHostName, final int proxyHostPort, boolean allow,
-            final Set<String> packages) {
+                            final String serverName, final int serverPort, final byte[] sharedSecret,
+                            final String proxyHostName, final int proxyHostPort, boolean allow,
+                            final Set<String> packages) {
         mService = service;
         mConnectionId = connectionId;
 
@@ -164,11 +166,14 @@ public class ToyVpnConnection implements Runnable {
             Log.i(getTag(), "Giving up");
         } catch (IOException | InterruptedException | IllegalArgumentException e) {
             Log.e(getTag(), "Connection failed, exiting", e);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
+    @SuppressLint("NewApi")
     private boolean run(SocketAddress server)
-            throws IOException, InterruptedException, IllegalArgumentException {
+            throws IOException, InterruptedException, IllegalArgumentException, PackageManager.NameNotFoundException {
         ParcelFileDescriptor iface = null;
         boolean connected = false;
         // Create a DatagramChannel as the VPN tunnel.
@@ -271,55 +276,39 @@ public class ToyVpnConnection implements Runnable {
         String isCreateTunnelSuccess = CProxClient.createTunnel("162.14.13.154",32010);
         if(isCreateTunnelSuccess.equals("error")){
         }else {
-            iface = handshake();
+            iface = tunestablish();
             int a = iface.getFd();
             YuelunProxyJni.start(iface.getFd(),1500,"10.172.2.70","255.255.255.0","","192.168.0.101","192.168.0.101",null,0,1);
         }
 
-            if (iface != null) {
-                try {
-                    iface.close();
-                } catch (IOException e) {
-                    Log.e(getTag(), "Unable to close interface", e);
-                }
+        if (iface != null) {
+            try {
+                iface.close();
+            } catch (IOException e) {
+                Log.e(getTag(), "Unable to close interface", e);
             }
+        }
 
         return true;
     }
-
     @SuppressLint("NewApi")
-    private ParcelFileDescriptor handshake()
-            throws IOException, InterruptedException {
-        // To build a secured tunnel, we should perform mutual authentication
-        // and exchange session keys for encryption. To keep things simple in
-        // this demo, we just send the shared secret in plaintext and wait
-        // for the server to send the parameters.
-
-        // Allocate the buffer for handshaking. We have a hardcoded maximum
-        // handshake size of 1024 bytes, which should be enough for demo
-        // purposes.
-        ByteBuffer packet = ByteBuffer.allocate(1024);
-
-        // Control messages always start with zero.
-        packet.put((byte) 0).put(mSharedSecret).flip();
-
-        packet.clear();
-        return configure(new String(packet.array(), 1, 255 - 1, US_ASCII).trim());
-    }
-
-    @SuppressLint("NewApi")
-    private ParcelFileDescriptor configure(String parameters) throws IllegalArgumentException {
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private ParcelFileDescriptor tunestablish() throws IllegalArgumentException, PackageManager.NameNotFoundException {
         // Configure a builder while parsing the parameters.
         VpnService.Builder builder = mService.new Builder();
+        // builder.setSession(mService.getApplicationName());
         builder.setMtu(1500);
-        builder.addAddress("162.14.13.154",24);
-        builder.addRoute("0.0.0.0", 0);
+        builder.addAddress("10.172.2.70",24);
+        builder.addRoute("0.0.0.0",0);
+        builder.addDnsServer("216.146.35.35");
 
-        // Create a new interface using the builder and save the parameters.
-        final ParcelFileDescriptor vpnInterface;
-        for (String packageName : mPackages) {
+        String[] appPackages = {
+                "com.example.andriod.toyvpn"
+        };
+        for (String packageName : appPackages) {
             try {
                 if (mAllow) {
+                    //     packageManager.getPackageInfo(packageName, 0);
                     builder.addAllowedApplication(packageName);
                 } else {
                     builder.addDisallowedApplication(packageName);
@@ -328,19 +317,21 @@ public class ToyVpnConnection implements Runnable {
                 Log.w(getTag(), "Package not available: " + packageName, e);
             }
         }
+
         builder.setSession(mServerName).setConfigureIntent(mConfigureIntent);
-//        if (!TextUtils.isEmpty(mProxyHostName)) {
-//            builder.setHttpProxy(ProxyInfo.buildDirectProxy(mProxyHostName, mProxyHostPort));
-//        }
+        if (!TextUtils.isEmpty(mProxyHostName)) {
+
+        }
         synchronized (mService) {
-            vpnInterface = builder.establish();
+            tunfd = builder.establish();
             if (mOnEstablishListener != null) {
-                mOnEstablishListener.onEstablish(vpnInterface);
+                mOnEstablishListener.onEstablish(tunfd);
             }
         }
-        Log.i(getTag(), "New interface: " + vpnInterface + " (" + parameters + ")");
-        return vpnInterface;
+        Log.i(getTag(), "New interface: " + tunfd );
+        return tunfd;
     }
+
 
     private final String getTag() {
         return ToyVpnConnection.class.getSimpleName() + "[" + mConnectionId + "]";
