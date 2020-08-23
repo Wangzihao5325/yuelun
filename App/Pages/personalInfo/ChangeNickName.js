@@ -4,10 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { themeColor } from '../../Config/UIConfig';
 import { connect } from 'react-redux';
 import store from '../../store';
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../Config/UIConfig';
 import { unsafe_update } from '../../store/actions/userAction';
-import { Toast } from '../../Components/Toast/Toast';
-
+import * as NavigationService from '../../Router/NavigationService';
 import CustomButton from '../../Components/Component/CustomButton';
 import * as APi from '../../Functions/NativeBridge/ApiModule';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -28,7 +26,7 @@ class ChangeNickName extends Component {
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: bgColor, paddingTop: 0 }}>
                 <KeyboardAwareScrollView>
-                    <View style={{ marginTop: 20,marginBottom:40 }}>
+                    <View style={{ marginTop: 20, marginBottom: 40 }}>
                         <TextInput style={styles.input} value={this.state.nickName} onChangeText={this.nickNameChange} />
                         <Text style={styles.tipsText}>昵称最长不超过7个汉字，不能包含敏感词汇和特殊字符</Text>
                     </View>
@@ -51,8 +49,10 @@ class ChangeNickName extends Component {
 
     confirm = () => {
         APi.modifyUserInfo('', '', this.state.nickName, '').then((res) => {
+            console.log(res);
             if (res.status == 'ok') {
                 store.dispatch(unsafe_update({ username: this.state.nickName }))
+                NavigationService.back(this);
             }
         });
     }
