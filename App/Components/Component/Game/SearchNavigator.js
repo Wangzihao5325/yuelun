@@ -33,6 +33,14 @@ export default class GameTitleItem extends Component{
                                     this.props.onEndEditing();
                                 }
                             }}/>
+                            {
+                                this.props.searchText.length == 0
+                                ?
+                                null:
+                                <TouchableOpacity onPress={()=>{this.clearFunction()}}>
+                                    <Image style={[styles.searchIcon,{marginRight:10}]} source={require('../../../resource/Image/GameHomePage/clear.png')}/>
+                                 </TouchableOpacity>
+                            }
                     </View>
                     <TouchableOpacity onPress={()=>{this.cancleFunction()}}>
                         <Text style={styles.cancleText}>取消</Text>
@@ -45,6 +53,12 @@ export default class GameTitleItem extends Component{
     cancleFunction = () =>{
         if(this.props.cancleFunction){
             this.props.cancleFunction();
+        }
+    }
+
+    clearFunction = () =>{
+        if(this.props.clearFunction){
+            this.props.clearFunction();
         }
     }
 }

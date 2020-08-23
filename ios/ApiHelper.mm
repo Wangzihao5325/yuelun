@@ -151,7 +151,7 @@ RCT_REMAP_METHOD(yuelunGetCollection,session_id:(NSString *)strsession_id resolv
 * @param strgameids 收藏游戏ID （1,2,3,4,5）字符串
 * @return
 */
-RCT_REMAP_METHOD(yuelunSaveCollection,session_id:(NSString *)strsession_id strgameids:(NSArray *)strgameids resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+RCT_REMAP_METHOD(yuelunSaveCollection,session_id:(NSString *)strsession_id strgameids:(id)strgameids resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   NSString * userInfoStr = [self YuelunSverCollection:strsession_id andGamesID:strgameids];
   resolve(userInfoStr);
 };
@@ -280,7 +280,7 @@ RCT_REMAP_METHOD(yuelunSaveSearchGameList,sessionid:(NSString *)strsession_id st
   return return_string;
 }
 
--(NSString *)YuelunSverCollection:(NSString *)session_id andGamesID:(NSArray *)gameids{
+-(NSString *)YuelunSverCollection:(NSString *)session_id andGamesID:(id)gameids{
   NSString * gamesStr = [NSString stringWithFormat:@"%@",gameids];
   std::string session_ID = [session_id UTF8String];
   std::string gameIDs = [gamesStr UTF8String];
