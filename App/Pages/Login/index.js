@@ -120,7 +120,14 @@ export default class Login extends Component {
         });
     }
 
-    login = () => {     
+    login = () => {
+
+        // vpnModule.prepare()
+        //     .then(() => {
+        //         vpnModule.startVpn('162.14.5.205', 32091);
+        //     });
+
+        
         const { phoneNum, verificationCode } = this.state;
         Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
             .then((result) => {
@@ -129,11 +136,15 @@ export default class Login extends Component {
                     //session比较常用，所以在network里也存一份，方便使用
                     Network.session = result.data.session_id;
                     store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
-                    if (store.getState().app.isLogin) {
-                        store.dispatch(app_start_app());
-                    } else {
-                        navigator.back(this);
-                    }
+                    console.log(result);
+                    Api.getTheUserInforWithSessionID().then((res)=>{
+                        console.log(res);
+                    })
+                    // if (store.getState().app.isLogin) {
+                    //     store.dispatch(app_start_app());
+                    // } else {
+                    //     navigator.back(this);
+                    // }
                 } else {
 
                 }
@@ -141,6 +152,7 @@ export default class Login extends Component {
             .catch((error) => {
                 console.log(error);
             });
+            
     }
 
     getVerificationCode = () => {

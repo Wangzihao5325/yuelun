@@ -2,7 +2,7 @@ import { NativeModules, Platform } from 'react-native';
 
 //是否启用mock数据
 const CApiClientManager = NativeModules.CApiClient;
-let _sessionId = '2be8dc1d25fe84149fa5ee03bdf143282f2e555b';
+let _sessionId = '';
 
 function _dealResult(strRequest) {
     if (strRequest) {
@@ -10,6 +10,10 @@ function _dealResult(strRequest) {
     } else {
         return { status: 'error' }
     }
+}
+
+export const _unsafe_setSession = (session) => {
+    _sessionId = session;
 }
 
 /**
