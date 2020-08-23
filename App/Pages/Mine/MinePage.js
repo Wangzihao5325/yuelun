@@ -5,8 +5,7 @@ import {
     Image,
     StyleSheet,
     ImageBackground,
-    TouchableOpacity,
-    AsyncStorage
+    TouchableOpacity
 } from 'react-native';
 
 import PageName from '../../Config/PageName';
