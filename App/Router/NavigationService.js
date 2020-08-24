@@ -57,6 +57,17 @@ export function back(component) {
     }
 };
 
+export function pop(component, level = 1) {
+    let navi;
+    if (component && component.props.navigation) {
+        navi = component.props.navigation;
+    }
+
+    if (navi) {
+        navi.pop(level);
+    }
+};
+
 RecordPagePathData = (rootPageName = '', targetPageName = '', type = 'jump') => {
     LogManager.recordThePagePushLog(rootPageName, targetPageName, type);
     // console.log('页面路径日志：从页面：', rootPageName, '跳转到页面：', targetPageName);

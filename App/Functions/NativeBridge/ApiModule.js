@@ -9,7 +9,7 @@ function _dealResult(strRequest) {
     if (strRequest) {
         return JSON.parse(strRequest);
     } else {
-        return { status: 'error' }
+        return { status: 'error',msg:'接口未响应(code:-1)' }
     }
 }
 
@@ -42,8 +42,8 @@ export const sendPhoneCode = async (phoneNum) => {
  */
 export const loginByPhoneNum = async (phoneNum, code, platform, version) => {
     let strRequest = await CApiClientManager.yuelunPhoneLogin(phoneNum, code, platform, version);
-    let result = JSON.parse(strRequest);
-    _sessionId = result.data.session_id;
+    let result = _dealResult(strRequest)
+    _sessionId = result.data?.session_id;
     return result;
 }
 /**
@@ -71,8 +71,6 @@ export const disConnectServer = async (serverId) => {
  */
 export const getGameInfoById = async (gameId, gameToken) => {
     let strRequest = await CApiClientManager.yuelunGetGameInfoById(_sessionId, gameId, gameToken);
-    console.log("---kkk----");
-    console.log(strRequest);
     return _dealResult(strRequest);
 }
 /**

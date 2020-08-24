@@ -150,7 +150,10 @@ export default class Login extends Component {
                         navigator.back(this);
                     }
                 } else {
-
+                    if (store.getState().app.isLogin) {
+                    } else {
+                        navigator.alert(this.alertPayload(result.msg));
+                    }
                 }
             })
             .catch((error) => {
@@ -175,6 +178,23 @@ export default class Login extends Component {
 
     saveTheUserInfo = (userInfo) => {
         AsyncStorage.setItem('userInfo', JSON.stringify(userInfo))
+    }
+
+    alertPayload = (msg) => {
+        return {
+            title: '注意',
+            content: `${msg}`,
+            bottomObjs: [
+                {
+                    key: 'confirm',
+                    type: 'button',
+                    title: '确认',
+                    callback: () => {
+                       // navigator.pop(this);
+                    }
+                }
+            ]
+        };
     }
 }
 
