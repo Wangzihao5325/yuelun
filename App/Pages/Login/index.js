@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableHighlight, Image, Text, Platform, StyleSheet, AsyncStorage } from 'react-native';
+import { View, TouchableHighlight, ImageBackground, Image, Text, Platform, StyleSheet, AsyncStorage } from 'react-native';
 import { themeColor, SCREEN_WIDTH } from '../../Config/UIConfig';
 import * as Api from '../../Functions/NativeBridge/ApiModule';
 import store from '../../store';
@@ -30,71 +30,77 @@ export default class Login extends Component {
         return (
             <SafeAreaView style={[{ flex: 1, backgroundColor: bgColor }, additionalStyle]}>
                 <KeyboardAwareScrollView>
-                    <View style={{ height: 20, width: SCREEN_WIDTH, paddingHorizontal: 15, marginTop: 10 }}>
-                        {isSinglePageMode &&
-                            <TouchableHighlight onPress={this.startAppWithUnLogin} underlayColor='transparent'>
-                                <Icon name='chevron-left' size={20} color="#666" />
-                            </TouchableHighlight>
-                        }
-                    </View>
-                    <Image
-                        style={styles.headerImage}
-                        resizeMode='contain'
-                        source={require('../../resource/Image/Login/header.png')}
-                    />
-                    <CustomInput
-                        iconComponent={
-                            <View style={{ height: 30, flexDirection: 'row', alignItems: 'center' }}>
-                                <View
-                                    style={{ height: 30, width: 30, justifyContent: 'center', alignItems: 'center' }}
-                                >
-                                    <Image
-                                        style={{ height: 21, width: 16 }}
-                                        resizeMode='contain'
-                                        source={require('../../resource/Image/Normal/mobile.png')}
-                                    />
-                                </View>
-                                <Text style={{ color: '#707070', fontSize: 19, marginRight: 20 }}>+86</Text>
-                            </View>
-                        }
-                        style={{ alignSelf: 'center', backgroundColor: 'transparent', paddingHorizontal: 0 }}
-                        iconName='mobile-phone'
-                        placeholder='请输入手机号'
-                        placeholderTextColor='#707070'
-                        value={phoneNum}
-                        onChangeText={this.phoneNumChange}
-                        clearButtonMode='while-editing'
-                    />
-                    <View style={styles.separator} />
-                    <View style={{ marginTop: 20, height: 45, width: 350, alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <ImageBackground
+                        style={{ display: 'flex' }}
+                        source={require('../../resource/Image/Login/login_bg.png')}
+                        resizeMode='cover'
+                    >
+                        <View style={{ height: 20, width: SCREEN_WIDTH, paddingHorizontal: 15, marginTop: 10 }}>
+                            {isSinglePageMode &&
+                                <TouchableHighlight onPress={this.startAppWithUnLogin} underlayColor='transparent'>
+                                    <Icon name='chevron-left' size={20} color="#666" />
+                                </TouchableHighlight>
+                            }
+                        </View>
+                        <Image
+                            style={styles.headerImage}
+                            resizeMode='contain'
+                            source={require('../../resource/Image/Login/header.png')}
+                        />
                         <CustomInput
                             iconComponent={
-                                <View
-                                    style={{ height: 30, width: 30, justifyContent: 'center', alignItems: 'center' }}
-                                >
-                                    <Image
-                                        style={{ height: 15, width: 17 }}
-                                        resizeMode='contain'
-                                        source={require('../../resource/Image/Normal/verificationCode.png')}
-                                    />
+                                <View style={{ height: 30, flexDirection: 'row', alignItems: 'center' }}>
+                                    <View
+                                        style={{ height: 30, width: 30, justifyContent: 'center', alignItems: 'center' }}
+                                    >
+                                        <Image
+                                            style={{ height: 21, width: 16 }}
+                                            resizeMode='contain'
+                                            source={require('../../resource/Image/Normal/mobile.png')}
+                                        />
+                                    </View>
+                                    <Text style={{ color: '#707070', fontSize: 19, marginRight: 20 }}>+86</Text>
                                 </View>
                             }
-                            style={{ width: 210, backgroundColor: 'transparent', paddingHorizontal: 0 }}
+                            style={{ alignSelf: 'center', backgroundColor: 'transparent', paddingHorizontal: 0 }}
                             iconName='mobile-phone'
-                            placeholder='请输入验证码'
+                            placeholder='请输入手机号'
                             placeholderTextColor='#707070'
-                            value={verificationCode}
-                            onChangeText={this.verificationCodeChange}
+                            value={phoneNum}
+                            onChangeText={this.phoneNumChange}
                             clearButtonMode='while-editing'
                         />
-                        <CustomButton
-                            title='获取验证码'
-                            buttonStyle={styles.verificationCodeBtn}
-                            titleStyle={{ color: '#f2cc2e', fontSize: 17 }}
-                            clickEvent={this.getVerificationCode}
-                        />
-                    </View>
-                    <View style={styles.separator} />
+                        <View style={styles.separator} />
+                        <View style={{ marginTop: 20, height: 45, width: 350, alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <CustomInput
+                                iconComponent={
+                                    <View
+                                        style={{ height: 30, width: 30, justifyContent: 'center', alignItems: 'center' }}
+                                    >
+                                        <Image
+                                            style={{ height: 15, width: 17 }}
+                                            resizeMode='contain'
+                                            source={require('../../resource/Image/Normal/verificationCode.png')}
+                                        />
+                                    </View>
+                                }
+                                style={{ width: 210, backgroundColor: 'transparent', paddingHorizontal: 0 }}
+                                iconName='mobile-phone'
+                                placeholder='请输入验证码'
+                                placeholderTextColor='#707070'
+                                value={verificationCode}
+                                onChangeText={this.verificationCodeChange}
+                                clearButtonMode='while-editing'
+                            />
+                            <CustomButton
+                                title='获取验证码'
+                                buttonStyle={styles.verificationCodeBtn}
+                                titleStyle={{ color: '#f2cc2e', fontSize: 17 }}
+                                clickEvent={this.getVerificationCode}
+                            />
+                        </View>
+                        <View style={styles.separator} />
+                    </ImageBackground>
                     <CustomButton
                         title='登录'
                         buttonStyle={styles.confirmButton}
