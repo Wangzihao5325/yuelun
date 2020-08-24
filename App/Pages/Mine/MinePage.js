@@ -12,6 +12,7 @@ import PageName from '../../Config/PageName';
 import * as navigator from '../../Router/NavigationService';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../Config/UIConfig';
 import { connect } from 'react-redux';
+import * as SystemConfig from '../../Config/SystemConfig';
 
 class MinePage extends Component {
     constructor(props) {
@@ -19,12 +20,13 @@ class MinePage extends Component {
     }
 
     render() {
+        let fullDevice = SystemConfig.theDeviceIsFullScreenMobilePhone();
         return (
             <View style={styles.container}>
                 <ImageBackground 
                     resizeMode='stretch'
                     source={require('../../resource/Image/Mine/mineBack.png')}
-                    style={{ marginTop: 0, marginLeft: 0,marginBottom:20, width: SCREEN_WIDTH, height: SCREEN_WIDTH / 375 * 217.5, alignItems: 'center', }}>
+                    style={{ marginTop: 0, marginLeft: 0,marginBottom:fullDevice?50:20, width: SCREEN_WIDTH, height: SCREEN_WIDTH / 375 * 217.5, alignItems: 'center', }}>
                 {this.renderTheUserInforItem()}
                 {this.renderTheGuideToBuyVIPView()}
                 </ImageBackground>
@@ -36,8 +38,9 @@ class MinePage extends Component {
     }
 
     renderTheUserInforItem = () => {
+        let fullDevice = SystemConfig.theDeviceIsFullScreenMobilePhone();
         return (
-            <View style={styles.userInfoRootView}>
+            <View style={[styles.userInfoRootView,{marginTop:fullDevice?120:90}]}>
                 {this.renderTheAvatorView()}
                 {this.renderTheUserInformationView()}
             </View>
@@ -150,7 +153,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#00132D'
     },
     userInfoRootView: {
-        marginTop: 80,
+        marginTop: 90,
         marginLeft: 0,
         width: SCREEN_WIDTH,
         height: 60,
@@ -186,18 +189,18 @@ const styles = StyleSheet.create({
     nameStyle: {
         fontSize: 18,
         color: 'white',
-        marginLeft: 25
+        marginLeft: 30
     },
     showInfoText: {
         fontSize: 12,
         color: 'white',
         marginTop: 8,
-        marginLeft: 20,
+        marginLeft: 30
     },
     backImageStyle: {
-        marginLeft: 20,
+        marginLeft: 10,
         marginTop: 19,
-        width: SCREEN_WIDTH - 40,
+        width: SCREEN_WIDTH - 30,
         height: 60,
         resizeMode: 'contain',
         flexDirection: 'row',
@@ -232,7 +235,7 @@ const styles = StyleSheet.create({
         marginTop: 0,
         marginLeft: 0,
         width: SCREEN_WIDTH,
-        height: 70,
+        height: 80,
         flexDirection: 'row',
         alignItems: 'center',
     },

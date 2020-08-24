@@ -124,7 +124,11 @@ export default class acceleratorPage extends Component {
     /** 渲染列表单元组件 */
     renderTheItem = (item) => {
         return (
-            <View style={styles.acceleratorItemRoot}>
+            <TouchableOpacity 
+                style={styles.acceleratorItemRoot}
+                onPress={() => {
+                    NavigationService.navigate(PageName.ACCELERATE_DETAILS_PAGE, { data: JSON.stringify(item) });
+                }}>
                 <View style={styles.gameIconRoot}>
                     <Image source={{ uri: item.icon }} style={styles.gameIcon} />
                 </View>
@@ -133,7 +137,7 @@ export default class acceleratorPage extends Component {
                     {/* {this.renderTheButton(item)} */}
                     {this.accelarateTimeButton(item)}
                 </View>
-            </View>
+            </TouchableOpacity>
         );
     }
 

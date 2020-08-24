@@ -22,8 +22,9 @@ const InfoItem = (props) => {
                     Boolean(props.imageSource) &&
                     <Image style={styles.avater} source={props.imageSource} />
                 }
-                <View style={{ marginLeft: 10 }}>
-                    <Icon name='chevron-right' size={20} color="#666" />
+                <View style={{ marginLeft: 15 }}>
+                <Image source={require('../../resource/Image/GameHomePage/more.png')}
+                        style={styles.setIcon} />
                 </View>
             </View>
         </View>
@@ -99,5 +100,10 @@ const styles = StyleSheet.create({
         height: 35,
         width: 35,
         borderRadius: 17
+    },
+    setIcon: {
+        width: 7,
+        height: 12,
+        marginRight: 10
     }
 });

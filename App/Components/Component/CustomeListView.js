@@ -106,6 +106,10 @@ export default class CustomeListView extends Component {
 
     /** 下拉刷新执行函数 */
     _onRefresh = () => {
+        if (!this.props.asyncFunc){
+            return;
+        }
+
         if (this.freashStatus) {
             console.log('触发下拉刷新---过滤');
             return;
