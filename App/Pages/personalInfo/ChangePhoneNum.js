@@ -38,6 +38,7 @@ export default class ChangePhoneNum extends Component {
                         placeholder='请输入新的手机号'
                         value={phoneNum}
                         onChangeText={this.phoneNumChange}
+                        clearButtonMode='while-editing'
                     />
                     <View style={{ marginTop: 20, height: 45, width: 350, alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <CustomInput
@@ -46,6 +47,7 @@ export default class ChangePhoneNum extends Component {
                             placeholder='请输入验证码'
                             value={verificationCode}
                             onChangeText={this.verificationCodeChange}
+                            clearButtonMode='while-editing'
                         />
                         <CustomButton
                             title='获取验证码'

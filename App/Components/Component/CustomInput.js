@@ -1,19 +1,19 @@
 import React, { Component, ReactElement } from 'react';
-import { View, TextInput, Platform, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, Image, Platform, StyleSheet } from 'react-native';
 import { themeColor } from '../../Config/UIConfig';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class CustomInput extends Component {
     render() {
-        const { value, onChangeText, iconName = '"mobile-phone"', iconComponent, placeholder, style, placeholderTextColor = '#818995'} = this.props;
+        const { value, onChangeText, iconName = '"mobile-phone"', iconComponent, placeholder, style, placeholderTextColor = '#818995' } = this.props;
         //待优化 assign会拷贝所有可枚举对象,不需要那么多
         let containerStyle = Object.assign({}, styles.defaultContainer, style);
 
         // $$typeof 是用来鉴别react element的属性 issue:https://www.jianshu.com/p/f93b8a400002
         // 确定传入的值是element才进行加载
         let isCustomIcon = iconComponent && (iconComponent.$$typeof === Symbol.for('react.element'));
-
+        let isShowClearBtn = this.clearBtnHandle();
         return (
             <View style={containerStyle} >
                 {
@@ -28,8 +28,35 @@ export default class CustomInput extends Component {
                     value={value}
                     onChangeText={onChangeText}
                 />
+                {isShowClearBtn &&
+                    <TouchableOpacity onPress={this.clearValue}>
+                        <Image style={styles.clearBtn} source={require('../../resource/Image/GameHomePage/clear_gray.png')} />
+                    </TouchableOpacity>
+                }
             </View>
         );
+    }
+
+    clearValue = () => {
+        this.props.onChangeText('');
+    }
+
+    clearBtnHandle = () => {
+        let isShowClearBtn = false;
+        switch (this.props.clearButtonMode) {
+            case 'never':
+                isShowClearBtn = false;
+                break;
+            case 'while-editing':
+                isShowClearBtn = this.props.value ? true : false;
+                break;
+            case 'always':
+                isShowClearBtn = true;
+                break;
+            default:
+                break;
+        }
+        return isShowClearBtn;
     }
 }
 
@@ -57,5 +84,10 @@ const styles = StyleSheet.create({
         fontSize: 18,
         paddingVertical: 0,
         fontFamily: 'PingFang-SC-Regular'
+    },
+    clearBtn: {
+        height: 15,
+        width: 15,
+        marginHorizontal: 5
     }
 });

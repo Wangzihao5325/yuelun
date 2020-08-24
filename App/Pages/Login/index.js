@@ -63,6 +63,7 @@ export default class Login extends Component {
                         placeholderTextColor='#707070'
                         value={phoneNum}
                         onChangeText={this.phoneNumChange}
+                        clearButtonMode='while-editing'
                     />
                     <View style={styles.separator} />
                     <View style={{ marginTop: 20, height: 45, width: 350, alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -84,6 +85,7 @@ export default class Login extends Component {
                             placeholderTextColor='#707070'
                             value={verificationCode}
                             onChangeText={this.verificationCodeChange}
+                            clearButtonMode='while-editing'
                         />
                         <CustomButton
                             title='获取验证码'
