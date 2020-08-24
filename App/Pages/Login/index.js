@@ -22,26 +22,24 @@ export default class Login extends Component {
         verificationCode: ''
     };
 
+    componentDidMount() {
+        if (store.getState().app.isLogin) {
+            store.dispatch(app_start_app());
+        }
+    }
+
     render() {
         const { bgColor } = themeColor;
         const { phoneNum, verificationCode } = this.state;
-        let isSinglePageMode = this.props.type == 'singlePage';//判断是作为单页面调用还是在stack navi中调用
-        let additionalStyle = isSinglePageMode ? null : { paddingTop: 0 }
         return (
-            <SafeAreaView style={[{ flex: 1, backgroundColor: bgColor }, additionalStyle]}>
+            <SafeAreaView style={[{ flex: 1, backgroundColor: bgColor }, { paddingTop: 0 }]}>
                 <KeyboardAwareScrollView>
                     <ImageBackground
                         style={{ display: 'flex' }}
                         source={require('../../resource/Image/Login/login_bg.png')}
                         resizeMode='cover'
                     >
-                        <View style={{ height: 20, width: SCREEN_WIDTH, paddingHorizontal: 15, marginTop: 10 }}>
-                            {isSinglePageMode &&
-                                <TouchableHighlight onPress={this.startAppWithUnLogin} underlayColor='transparent'>
-                                    <Icon name='chevron-left' size={20} color="#666" />
-                                </TouchableHighlight>
-                            }
-                        </View>
+                        <View style={{ height: 20, width: SCREEN_WIDTH, paddingHorizontal: 15, marginTop: 10 }} />
                         <Image
                             style={styles.headerImage}
                             resizeMode='contain'
@@ -144,16 +142,9 @@ export default class Login extends Component {
                     //session比较常用，所以在network里也存一份，方便使用
                     Network.session = result.data.session_id;
                     store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
-                    if (store.getState().app.isLogin) {
-                        store.dispatch(app_start_app());
-                    } else {
-                        navigator.back(this);
-                    }
+                    navigator.back(this);
                 } else {
-                    if (store.getState().app.isLogin) {
-                    } else {
-                        navigator.alert(this.alertPayload(result.msg));
-                    }
+                    navigator.alert(this.alertPayload(result.msg));
                 }
             })
             .catch((error) => {
@@ -190,7 +181,7 @@ export default class Login extends Component {
                     type: 'button',
                     title: '确认',
                     callback: () => {
-                       // navigator.pop(this);
+                        // navigator.pop(this);
                     }
                 }
             ]
