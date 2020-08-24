@@ -40,10 +40,7 @@ static NSDictionary *kVpnSubnetCandidates;  // Subnets to bind the VPN.
 }
 - (void)startTunnelWithOptions:(NSDictionary *)options completionHandler:(void (^)(NSError *))completionHandler
 {
-//  log4cplus_info("XDXVPNManager", "XDXPacketTunnelManager - Start Tunel !");
-   
-//  NSUserDefaults *userDefault = [[NSUserDefaults alloc]initWithSuiteName:@"group.com.yuelun.accvpn"];
-//
+  log4cplus_info("XDXVPNManager", "XDXPacketTunnelManager - Start Tunel !");
   
     NEPacketTunnelNetworkSettings *tunnelNetworkSettings = [[NEPacketTunnelNetworkSettings alloc] initWithTunnelRemoteAddress:@XDX_NET_REMOTEADDRESS];
     tunnelNetworkSettings.MTU = [NSNumber numberWithInteger:XDX_NET_MTU];
@@ -65,7 +62,6 @@ static NSDictionary *kVpnSubnetCandidates;  // Subnets to bind the VPN.
         }
     }];
     //启动本地代理，创建隧道，启动VPN
-//  NSDictionary * consulDic = [options objectForKey:@"consulDic"];
     NSString * consultIP   = [options objectForKey:@"consultIP"];
     NSString * consultPort = [options objectForKey:@"consultPort"];
     int consulport = [consultPort intValue];
