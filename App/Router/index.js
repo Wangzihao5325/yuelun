@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { AsyncStorage } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { navigationRef } from './NavigationService';
+import { navigationRef, navigate } from './NavigationService';
+import PageName from '../Config/PageName';
 import store from '../store';
 import { connect } from 'react-redux';
 import { login_user_info_init } from '../store/actions/userAction';
@@ -52,10 +53,6 @@ class Root extends Component {
             /** InitPage负责App的初始化 */
             return (
                 <InitPage scrollEnabled={this.props.isInitPageScrollenabled} />
-            );
-        } else if (this.props.isLogin) {
-            return (
-                <Login type='singlePage' />
             );
         } else {
             return (

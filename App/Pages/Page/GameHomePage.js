@@ -29,9 +29,11 @@ import GameNormalItem from '../../Components/Component/Game/GameNormalItem';
 import PageName from '../../Config/PageName';
 import * as navigator from '../../Router/NavigationService';
 import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
-import { result } from 'lodash';
 
-export default class acceleratorPage extends Component {
+import { connect } from 'react-redux'
+
+
+class acceleratorPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -49,14 +51,17 @@ export default class acceleratorPage extends Component {
             overseas_games: [],
             upcoming_games: [],
 
-            bannerArray:[],
+            bannerArray: [],
 
-            collection_games_array : [],
-            showCollectAlert:false
+            collection_games_array: [],
+            showCollectAlert: false
         }
     }
 
     componentDidMount() {
+        if (this.props.isLogin) {
+            navigator.jump(this, PageName.NORAML_LOGIN_PAGE);
+        }
         this.getTheBannerData();
         this.getAllGames();
         this.getTheCollectionGames();
@@ -178,14 +183,14 @@ export default class acceleratorPage extends Component {
                         console.log('查看', title, '的更多');
                         let type_name = '国内';
                         let classification;
-                        if(type == 1){
+                        if (type == 1) {
                             classification = '精选';
-                        }else if(type == 2){
+                        } else if (type == 2) {
                             classification = '热门';
-                        }else if(type == 3){
+                        } else if (type == 3) {
                             classification = '最新';
                         }
-                        this.clickTheMoreGamesButton(title,type_name,classification,);
+                        this.clickTheMoreGamesButton(title, type_name, classification,);
                     }} />
 
                 <ScrollView
@@ -228,11 +233,11 @@ export default class acceleratorPage extends Component {
     renderTheNormalGameItem = (item, index) => {
         let unitWidth = SCREEN_WIDTH / 4;
         let favorator = this.state.collection_games_array.some(gameID => {
-            if(gameID == item['id']){
+            if (gameID == item['id']) {
                 return true;
             }
         });
-        
+
         return (
             <View style={[styles.normalItemRootCell, { width: unitWidth }]}>
                 <GameNormalItem
@@ -240,8 +245,8 @@ export default class acceleratorPage extends Component {
                     source={{ uri: item.icon }}
                     title={item['name']}
                     showFavoratorIcon={this.state.selectStatus == 3 ? true : false}
-                    favorator={favorator} 
-                    pressCallback = {()=>{this.state.selectStatus == 3 ? this.saveTheCollectionGames(item['id']) :this.clickGameNormalItemBtn(item)}}
+                    favorator={favorator}
+                    pressCallback={() => { this.state.selectStatus == 3 ? this.saveTheCollectionGames(item['id']) : this.clickGameNormalItemBtn(item) }}
                 />
             </View>
         );
@@ -259,10 +264,10 @@ export default class acceleratorPage extends Component {
                         return (
                             <View style={{ marginLeft: 10 }}>
                                 <GameUnitItem
-                                    key={inedx+200}
+                                    key={inedx + 200}
                                     nameText={item['name']}
-                                    source={{ uri: item.icon }} 
-                                    pressCallback={() => {this.clickGameNormalItemBtn(item)}}
+                                    source={{ uri: item.icon }}
+                                    pressCallback={() => { this.clickGameNormalItemBtn(item) }}
                                 />
                             </View>);
                     })
@@ -286,7 +291,7 @@ export default class acceleratorPage extends Component {
                                     key={inedx}
                                     title={item['name']}
                                     source={{ uri: item.icon }}
-                                    pressCallback={() => {this.clickGameNormalItemBtn(item)}}
+                                    pressCallback={() => { this.clickGameNormalItemBtn(item) }}
                                 />
                             </View>);
                     })
@@ -296,7 +301,7 @@ export default class acceleratorPage extends Component {
     }
 
     clickGameNormalItemBtn = (item) => {
-        console.log("测试单个点击",item);
+        console.log("测试单个点击", item);
         let payload = { data: JSON.stringify(item) }
         navigator.jump(this, PageName.ACCELERATE_DETAILS_PAGE, payload);
     }
@@ -309,52 +314,52 @@ export default class acceleratorPage extends Component {
         navigator.jump(this, PageName.NORMAL_PAGE_SEARCH);
     }
 
-    clickTheMoreGamesButton = (gameType = '') =>{
-        navigator.jump(this, PageName.NORMAL_PAGE_GAME_MORE_PAGE,{title:gameType});
+    clickTheMoreGamesButton = (gameType = '') => {
+        navigator.jump(this, PageName.NORMAL_PAGE_GAME_MORE_PAGE, { title: gameType });
     }
 
     /**
      * 获取banner数据
      * 
     */
-    getTheBannerData = () =>{
+    getTheBannerData = () => {
         ApiModule.getTheBannerData()
-        .then((result)=>{
-            let bannerData = result;
-            let ad_list = bannerData.data.ad_list;
-            console.log('return data',ad_list);
-            let bannerList = [];
-            for(let i = 0; i < ad_list.length;i++){
-                let unitItem = ad_list[i];
-                bannerUnit = {imageUrl:unitItem.image_url};
-                bannerList.push(bannerUnit);
-            }
+            .then((result) => {
+                let bannerData = result;
+                let ad_list = bannerData.data.ad_list;
+                console.log('return data', ad_list);
+                let bannerList = [];
+                for (let i = 0; i < ad_list.length; i++) {
+                    let unitItem = ad_list[i];
+                    bannerUnit = { imageUrl: unitItem.image_url };
+                    bannerList.push(bannerUnit);
+                }
 
-            this.setState({bannerArray:bannerList});
-        });
+                this.setState({ bannerArray: bannerList });
+            });
     }
 
     /**
      * 获取所有的游戏数据
     */
-    getAllGames = () =>{
+    getAllGames = () => {
         ApiModule.getAllGameConfig('')
-        .then((result)=>{
-            console.log('allGameDataallGameData',result);
-            this.parseAllGameData(result);
-        })
+            .then((result) => {
+                console.log('allGameDataallGameData', result);
+                this.parseAllGameData(result);
+            })
     }
 
-    parseAllGameData = (allGameData) =>{
+    parseAllGameData = (allGameData) => {
         //国服数据解析
         let all_game_collection = allGameData['data']['gameList'][1]['game_list']['精选'];
-        let all_game_hot        = allGameData['data']['gameList'][1]['game_list']['热门'];
-        let all_game_new        = allGameData['data']['gameList'][1]['game_list']['最新'];
+        let all_game_hot = allGameData['data']['gameList'][1]['game_list']['热门'];
+        let all_game_new = allGameData['data']['gameList'][1]['game_list']['最新'];
 
         //外服数据解析
         let overseas_game_colloection = allGameData['data']['gameList'][2]['game_list']['精选'];
-        let overseas_game_hot         = allGameData['data']['gameList'][2]['game_list']['热门'];
-        let overseas_game_new         = allGameData['data']['gameList'][2]['game_list']['最新'];
+        let overseas_game_hot = allGameData['data']['gameList'][2]['game_list']['热门'];
+        let overseas_game_new = allGameData['data']['gameList'][2]['game_list']['最新'];
 
         if (!overseas_game_colloection) overseas_game_colloection = [];
         if (!overseas_game_hot) overseas_game_hot = [];
@@ -366,11 +371,11 @@ export default class acceleratorPage extends Component {
 
         //解析即将上线
         let upcoming_game_collection = allGameData['data']['gameList'][0]['game_list']['精选'];
-        let upcoming_game_hot        = allGameData['data']['gameList'][0]['game_list']['热门'];
-        let upcoming_game_new        = allGameData['data']['gameList'][0]['game_list']['最新'];
+        let upcoming_game_hot = allGameData['data']['gameList'][0]['game_list']['热门'];
+        let upcoming_game_new = allGameData['data']['gameList'][0]['game_list']['最新'];
         if (!upcoming_game_collection) upcoming_game_collection = [];
-        if (!upcoming_game_hot)        upcoming_game_hot        = [];
-        if (!upcoming_game_new)        upcoming_game_new        = [];
+        if (!upcoming_game_hot) upcoming_game_hot = [];
+        if (!upcoming_game_new) upcoming_game_new = [];
         let upcoming_games = [];
         upcoming_games.push(...upcoming_game_collection);
         upcoming_games.push(...upcoming_game_hot);
@@ -385,61 +390,61 @@ export default class acceleratorPage extends Component {
         });
     }
 
-    getTheCollectionGames = () =>{
+    getTheCollectionGames = () => {
         let self = this;
         ApiModule.getAllUserCollectGames()
-        .then((result)=>{
-            if(result["status"] == "ok"){
-                let collections = result.data.list;
-                let collectionsCopy = collections;
-                let localCollection = self.state.collection_games_array;
-                for(let i = 0; i < collections.length ; i++){
-                    for(let j = 0 ; j < localCollection.length; i ++){
-                        if(collections[i]["id"] == localCollection[j]){
-                            collectionsCopy.splice(i,1);
+            .then((result) => {
+                if (result["status"] == "ok") {
+                    let collections = result.data.list;
+                    let collectionsCopy = collections;
+                    let localCollection = self.state.collection_games_array;
+                    for (let i = 0; i < collections.length; i++) {
+                        for (let j = 0; j < localCollection.length; i++) {
+                            if (collections[i]["id"] == localCollection[j]) {
+                                collectionsCopy.splice(i, 1);
+                            }
                         }
                     }
+                    for (let i = 0; i < collectionsCopy.length; i++) {
+                        localCollection.push(collectionsCopy[i]["id"]);
+                    }
+                    self.setState({ collection_games_array: localCollection });
+                    self.saveCollectGamesToLocal(localCollection);
                 }
-                for(let i = 0 ; i < collectionsCopy.length; i++){
-                    localCollection.push(collectionsCopy[i]["id"]);
-                }
-                self.setState({collection_games_array:localCollection});
-                self.saveCollectGamesToLocal(localCollection);
-            }
-            
-        });
+
+            });
 
         this.loadTheCollectionGamesData();
     }
 
-    saveTheCollectionGames = (gameID = '') =>{
-        if(this.state.showCollectAlert) return;
+    saveTheCollectionGames = (gameID = '') => {
+        if (this.state.showCollectAlert) return;
 
         var collectionItem = this.state.collection_games_array;
         let deleteIndex = 0;
-        let res = collectionItem.some((item,index) => {
+        let res = collectionItem.some((item, index) => {
             deleteIndex = index;
-            if(item == gameID){
+            if (item == gameID) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         });
 
-        if(res){
-            console.log("删除第"+deleteIndex+"  ID为"+gameID);
-            collectionItem.splice(deleteIndex,1);
-        }else{
+        if (res) {
+            console.log("删除第" + deleteIndex + "  ID为" + gameID);
+            collectionItem.splice(deleteIndex, 1);
+        } else {
             this.showTheCollectAlert();
             collectionItem.push(gameID);
         }
 
-        this.setState({collection_games_array:collectionItem});
+        this.setState({ collection_games_array: collectionItem });
 
         this.saveCollectGamesToLocal(collectionItem);
     }
 
-    saveCollectGamesToLocal = (gamesIDArray) =>{
+    saveCollectGamesToLocal = (gamesIDArray) => {
         AsyncStorage.setItem('collectGames', JSON.stringify(gamesIDArray)).then(value => {
 
         }).catch(reason => {
@@ -447,13 +452,13 @@ export default class acceleratorPage extends Component {
         });
     }
 
-    loadTheCollectionGamesData = () =>{
+    loadTheCollectionGamesData = () => {
         AsyncStorage.getItem('collectGames').then(value => {
             if (value == null) {
-                
+
             } else {
                 let collectionArray = JSON.parse(value);
-                this.setState({collection_games_array:collectionArray});
+                this.setState({ collection_games_array: collectionArray });
             }
         }).catch(reason => {
 
@@ -468,32 +473,38 @@ export default class acceleratorPage extends Component {
                 onRequestClose={() => this.hide(false)}>
                 <View
                     onPress={() => { this.setState({ showAlert: false }) }}
-                    style={{ marginLeft: 0, marginRight: 0, width: SCREEN_WIDTH, height: 64, backgroundColor: '#8FADD7', flexDirection: 'row',justifyContent:"center",alignItems:'center' }}>
-                    <Image style={{marginTop:15}} source={require('../../resource/Image/GameHomePage/smile.png')}/>
-                    <Text style={{color:'white',fontSize:14,marginLeft:6,marginTop:15}}>已关注该游戏,上线进度会实时通知</Text>
+                    style={{ marginLeft: 0, marginRight: 0, width: SCREEN_WIDTH, height: 64, backgroundColor: '#8FADD7', flexDirection: 'row', justifyContent: "center", alignItems: 'center' }}>
+                    <Image style={{ marginTop: 15 }} source={require('../../resource/Image/GameHomePage/smile.png')} />
+                    <Text style={{ color: 'white', fontSize: 14, marginLeft: 6, marginTop: 15 }}>已关注该游戏,上线进度会实时通知</Text>
                 </View>
             </Modal>
         );
     }
 
-    showTheCollectAlert = () =>{
-        this.setState({showCollectAlert:true});
+    showTheCollectAlert = () => {
+        this.setState({ showCollectAlert: true });
 
-        setTimeout(()=>{
-            this.setState({showCollectAlert:false});
-        },1500);
+        setTimeout(() => {
+            this.setState({ showCollectAlert: false });
+        }, 1500);
     }
 
-    saveTheCollectedGamesToServer = () =>{
+    saveTheCollectedGamesToServer = () => {
         let collectionItems = this.state.collection_games_array;
         ApiModule.YuelunSverCollection(collectionItems)
-        .then((result)=>{
-            let collections = result;
-            console.log('save collect data',collections);
-        });
+            .then((result) => {
+                let collections = result;
+                console.log('save collect data', collections);
+            });
     }
 
 }
+
+const mapStateToProps = (state) => ({
+    isLogin: state.app.isLogin,
+});
+
+export default connect(mapStateToProps)(acceleratorPage);
 
 const styles = StyleSheet.create({
     container: {
