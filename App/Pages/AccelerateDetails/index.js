@@ -7,6 +7,7 @@ import * as Api from '../../Functions/NativeBridge/ApiModule';
 import * as vpnModule from '../../Functions/NativeBridge/YuelunVpn';
 import StowPage from './StowPage';
 import UnfoldPage from './UnfoldPage';
+import { Loading } from '../../Components/Toast/Loading';
 
 export default class AccelerateDetails extends Component {
     state = {
@@ -28,7 +29,9 @@ export default class AccelerateDetails extends Component {
             //headerTransparent: true
         });
         //gameInfo.id
+        Loading.show();
         Api.getGameInfoById(gameInfo.id, '').then((request) => {
+            Loading.hidden();
             if (request.status === 'error') {
                 NavigationService.alert(this.alertPayload('getGameInfoById存在报错'));
             } else {
