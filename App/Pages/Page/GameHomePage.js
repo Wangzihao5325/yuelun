@@ -31,7 +31,7 @@ import * as navigator from '../../Router/NavigationService';
 import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
 
 import { connect } from 'react-redux'
-
+import { Loading } from '../../Components/Toast/Loading';
 
 class acceleratorPage extends Component {
     constructor(props) {
@@ -87,6 +87,9 @@ class acceleratorPage extends Component {
                         <RefreshControl
                             refreshing={this.state.isRefreshingStatus}
                             onRefresh={() => {
+                                this.getAllGames();
+                                this.getTheBannerData();
+                                this.getTheCollectionGames();
                                 this.setState({ isRefreshingStatus: false });
                             }}
                             colors={['red', 'blue', 'green']}
@@ -343,8 +346,10 @@ class acceleratorPage extends Component {
      * 获取所有的游戏数据
     */
     getAllGames = () => {
+        Loading.show();
         ApiModule.getAllGameConfig('')
             .then((result) => {
+                Loading.hidden();
                 console.log('allGameDataallGameData', result);
                 this.parseAllGameData(result);
             })

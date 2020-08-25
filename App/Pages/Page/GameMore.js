@@ -27,6 +27,7 @@ import GameNormalItem from '../../Components/Component/Game/GameNormalItem';
 import PageName from '../../Config/PageName';
 import * as navigator from '../../Router/NavigationService';
 import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
+import { Loading } from '../../Components/Toast/Loading';
 
 export default class GameMore extends Component {
     constructor(props) {
@@ -67,7 +68,7 @@ export default class GameMore extends Component {
                         <RefreshControl
                         refreshing={this.state.isRefreshingStatus}
                         onRefresh={() => {
-                            this.setState({ isRefreshingStatus: false });
+                            this.setState({ isRefreshingStatus: false,pageNo:0 });
                         }}
                         colors={['red', 'blue', 'green']}
                         progressBackgroundColor='#ffff00'
@@ -143,16 +144,23 @@ export default class GameMore extends Component {
     }
 
     getTheMoreGamesData = (type_name,page,classification) =>{
+        Loading.show();
         let pageNumber = page;
         pageNumber = pageNumber.toString();
         ApiModule.getSearchGamesData('','',type_name,pageNumber,classification)
         .then((result)=>{
+            Loading.hidden();
             let allGameData = result;
             console.log('hahahahhahahahah',allGameData);
             if(allGameData['status'] == 'ok'){
                 let allData = this.state.more_games;
                 let dataList = allGameData['data']['list'];
-                allData = allData.concat(dataList);
+                if(page == 0){
+                    allData = dataList;
+                }else{
+                    allData = allData.concat(dataList);
+                }
+                
                 this.setState({
                     more_games: allData
                 });

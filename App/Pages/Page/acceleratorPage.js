@@ -127,7 +127,14 @@ export default class acceleratorPage extends Component {
             <TouchableOpacity 
                 style={styles.acceleratorItemRoot}
                 onPress={() => {
-                    NavigationService.navigate(PageName.ACCELERATE_DETAILS_PAGE, { data: JSON.stringify(item) });
+                    console.log('item["speedup"]',item["speedup"]);
+                    if(item["speedup"] == '1'){
+                        item["speedup"] = '0';
+                    }else{
+                        item["speedup"] = '1';
+                    }
+                    
+                    this.setState({"freashData":true});
                 }}>
                 <View style={styles.gameIconRoot}>
                     <Image source={{ uri: item.icon }} style={styles.gameIcon} />
@@ -168,6 +175,16 @@ export default class acceleratorPage extends Component {
     }
 
     accelarateTimeButton = (data) => {
+        if(data["speedup"] == '0'){
+            return(
+                <View style={styles.buttonStyle}>
+                    <Image
+                        source = {require('../../resource/Image/GameHomePage/lightning.png')} 
+                        style={styles.iconStyle}/>
+                    <Text style={styles.activeText}>加速</Text>
+                </View>
+            );
+        }
         let date = Date.parse(new Date());
         let gameDate = Date.parse(data._timeReg);
         let alreadyAccelerate = date - gameDate;
@@ -256,6 +273,7 @@ export default class acceleratorPage extends Component {
     }
 
     stopAccelerateAlert = () => {
+        let gamecount = this.state.dataArray.length;
         return (
             <Modal
                 transparent={true}
@@ -271,19 +289,35 @@ export default class acceleratorPage extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.stopItemStyle, { marginBottom: 6.5 }]} onPress={() => {
                         this.setState({ showAlert: false });
-                        AsyncStorage.removeItem('accelerateInfo').then(value => {
-                            this.setState({ dataArray: [] });
-                        }).catch(reason => {
-                        });
+                        // AsyncStorage.removeItem('accelerateInfo').then(value => {
+                        //     this.setState({ dataArray: [] });
+                        // }).catch(reason => {
+                        // });
+                        this.stopAllGameSpeedUp();
                     }}>
                         <Text style={{ color: 'white' }}>停止所有游戏加速</Text>
                     </TouchableOpacity>
                     <View style={[styles.stopItemStyle, { marginBottom: 1.5 }]}>
-                        <Text style={{ color: 'white' }}>游戏正在加速，停止加速可能导致游戏断线，是否停止所有游戏的加速？</Text>
+                        <Text style={{ color: 'white' }}>{gamecount+"款游戏正在加速，停止加速可能导致游戏断线，是否停止所有游戏的加速？"}</Text>
                     </View>
                 </TouchableOpacity>
             </Modal>
         );
+    }
+
+    stopAllGameSpeedUp = () =>{
+        let gamesArray = this.state.dataArray;
+        for(let i = 0; i < gamesArray.length; i++){
+            let gameInfo = gamesArray[i];
+            gameInfo["speedup"] = "0";
+        }
+
+        this.setState({"dataArray":gamesArray});
+        AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
+            this.setState({
+                isAccelerate: false
+            });
+        });
     }
 }
 
@@ -357,5 +391,23 @@ const styles = StyleSheet.create({
         backgroundColor: '#153970',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    buttonStyle:{
+        width:90,
+        height:40,
+        borderRadius:20,
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'#F5CC00'
+    },
+    iconStyle:{
+        width:9.5,
+        height:16.5,
+    },
+    activeText:{
+        marginLeft:3,
+        fontSize:15,
+        color:'#4F2F00'
     }
 });

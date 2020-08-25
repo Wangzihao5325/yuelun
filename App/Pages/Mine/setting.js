@@ -23,6 +23,8 @@ import * as navigator from '../../Router/NavigationService';
 import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
 import store from '../../store';
 import { logout_user_info_clear } from '../../store/actions/userAction';
+import { Loading } from '../../Components/Toast/Loading';
+import { Toast } from '../../Components/Toast/Toast';
 
 export default class setting extends Component {
     constructor(props) {
@@ -35,7 +37,12 @@ export default class setting extends Component {
 
     componentDidMount() {
         const { params } = this.props.route.params;
-
+        AsyncStorage.getItem('autoStart').then(value => {
+            console.log('autoStartautoStart',value);
+            this.setState({
+                switchValue:value === 'true' ? true : false
+            });
+        });
     }
 
     render() {
@@ -64,6 +71,7 @@ export default class setting extends Component {
                 <Switch
                     onValueChange={(event) => {
                         this.setState({ switchValue: event });
+                        AsyncStorage.setItem('autoStart', JSON.stringify(event));
                     }}
                     value={this.state.switchValue}
                 />
@@ -102,17 +110,22 @@ export default class setting extends Component {
     }
 
     sureLogoutFunction = () => {
+        Loading.show();
         ApiModule.userLogoutWithSessionID()
             .then((result) => {
+                Loading.hidden();
                 let feedback = result;
                 if (feedback['status'] == 'ok') {
+                    Toast.show('退出成功');
                     AsyncStorage.removeItem('userInfo').then(value => {
                         store.dispatch(logout_user_info_clear());
                     }).catch(reason => {
                     });
-                    navigator.back(this);
+                    setTimeout(() => {
+                        navigator.back(this);
+                    }, 1500);
                 } else {
-                    Alert.alert('退出登录失败');
+                    Toast.show('退出登录失败');
                 }
                 console.log('feedbackfeedback', feedback);
             });
