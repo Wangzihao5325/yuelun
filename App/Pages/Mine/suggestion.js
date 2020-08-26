@@ -22,6 +22,8 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../Config/UIConfig';
 import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
 import * as NavigationService from '../../Router/NavigationService';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Loading } from '../../Components/Toast/Loading';
+import { Toast } from '../../Components/Toast/Toast';
 
 export default class suggestion extends Component {
     constructor(props) {
@@ -127,14 +129,17 @@ export default class suggestion extends Component {
             return;
         }
 
+        Loading.show();
         ApiModule.sendTheFeedbackWithTheSessionID(this.state.suggestion, this.state.contactValue)
             .then((result) => {
+                Loading.hidden();
                 let feedback = result;
                 console.log('feedbackfeedback', feedback);
                 if (result.status == 'ok') {
-                    NavigationService.back(this);
+                    Toast.show('反馈成功');
+                    setTimeout(()=>{NavigationService.back(this);},1500);
                 } else {
-
+                    Toast.show('反馈失败');
                 }
             });
     }

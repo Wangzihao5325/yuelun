@@ -29,7 +29,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import PageName from '../../Config/PageName';
-
+import { Loading } from '../../Components/Toast/Loading';
 const NoramType = 1;
 const searchType = 2;
 
@@ -302,9 +302,11 @@ export default class search extends Component {
      * 
     */
     searchTheGame = (game_name = '') => {
+        Loading.show();
         let game_name_encode = encodeURI(game_name);
         ApiModule.getSearchGamesData(game_name_encode, '', '', '')
             .then((result) => {
+                Loading.hidden();
                 let allGameData = result;
                 console.log('searchsearch', allGameData);
                 if (allGameData['status'] == 'ok') {

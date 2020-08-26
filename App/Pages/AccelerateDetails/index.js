@@ -7,8 +7,7 @@ import * as Api from '../../Functions/NativeBridge/ApiModule';
 import * as vpnModule from '../../Functions/NativeBridge/YuelunVpn';
 import StowPage from './StowPage';
 import UnfoldPage from './UnfoldPage';
-import store from '../../store';
-import { unsafe_update } from '../../store/actions/userAction';
+import { Loading } from '../../Components/Toast/Loading';
 
 export default class AccelerateDetails extends Component {
     state = {
@@ -30,7 +29,9 @@ export default class AccelerateDetails extends Component {
             //headerTransparent: true
         });
         //gameInfo.id
+        Loading.show();
         Api.getGameInfoById(gameInfo.id, '').then((request) => {
+            Loading.hidden();
             if (request.status === 'error') {
                 NavigationService.alert(this.alertPayload('getGameInfoById存在报错'));
             } else {
@@ -167,6 +168,7 @@ export default class AccelerateDetails extends Component {
                             let _date = new Date();
                             this.state.gameFullInfo._timeReg = _date;
                             accelerateInfo[this.state.id] = this.state.gameFullInfo;
+                            accelerateInfo["speedup"] = "1";
                             this.state.gameFullInfo
                             AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
                                 this.setState({
