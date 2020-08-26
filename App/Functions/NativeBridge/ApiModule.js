@@ -112,7 +112,7 @@ export const getNewsList = async (page, limits) => {
  */
 
 export const modifyUserInfo = async (phoneNum, verificationCode, name, avater) => {
-    let strRequest = await CApiClientManager.yuelunModifUserInfo(_sessionId, phoneNum, verificationCode, encodeURIComponent(name), avater);
+    let strRequest = await CApiClientManager.yuelunModifyUserInfo(_sessionId, phoneNum, verificationCode, encodeURIComponent(name), avater);
     return _dealResult(strRequest);
 }
 
