@@ -56,6 +56,7 @@ export default class GameMore extends Component {
             classification: classification ? classification : ''
         });
 
+        console.log('type_name',type_name,classification);
         this.getTheMoreGamesData(type_name, this.state.pageNo, classification);
     }
 
@@ -147,7 +148,7 @@ export default class GameMore extends Component {
         Loading.show();
         let pageNumber = page;
         pageNumber = pageNumber.toString();
-        ApiModule.getSearchGamesData('','',type_name,pageNumber,classification)
+        ApiModule.getSearchGamesData('',type_name,pageNumber,classification,'')
         .then((result)=>{
             Loading.hidden();
             let allGameData = result;
@@ -183,10 +184,13 @@ const styles = StyleSheet.create({
     },
     normalRootViewStyle: {
         marginLeft: 0,
-        marginTop: 0,
+        marginTop: 10,
         width: SCREEN_WIDTH,
         flex: 1,
         flexWrap: 'wrap',
         flexDirection: 'row'
+    },
+    normalItemRootCell:{
+        marginTop:10
     }
 });

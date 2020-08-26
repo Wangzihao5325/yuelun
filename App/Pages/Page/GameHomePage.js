@@ -318,7 +318,8 @@ class acceleratorPage extends Component {
     }
 
     clickTheMoreGamesButton = (gameType = '') => {
-        navigator.jump(this, PageName.NORMAL_PAGE_GAME_MORE_PAGE, { title: gameType });
+        console.log("gameType"+gameType);
+        navigator.jump(this, PageName.NORMAL_PAGE_GAME_MORE_PAGE, { title: gameType,classification:gameType,type_name:'国内' });
     }
 
     /**
