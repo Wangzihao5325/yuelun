@@ -8,6 +8,7 @@ import PageName from '../../Config/PageName';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import buttonWrapper from '../../Components/Component/HOCButtonWrapper';
 import ImagePicker from 'react-native-image-crop-picker';
+import * as Api from '../../Functions/NativeBridge/ApiModule';
 
 const InfoItem = (props) => {
     return (
@@ -63,6 +64,8 @@ class PersonalInfo extends Component {
             height: 300,
             includeBase64: true,
         }).then(image => {
+            let base64 = image.data;
+            //Api.
             console.log(image);
         }).catch(error => {
             console.log('cancel or');
