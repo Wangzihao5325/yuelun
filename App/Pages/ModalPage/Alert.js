@@ -11,7 +11,7 @@ https://reactnavigation.org/docs/troubleshooting/#i-get-the-warning-non-serializ
 */
 export default class Alert extends Component {
     render() {
-        const { title = '', content = '', imageContent = null, bottomObjs = null } = this.props.route.params;
+        const { title = '', content = '', imageContent = null, bottomObjs = null, bottomVertical = false } = this.props.route.params;
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.alertContainer}>
@@ -26,6 +26,7 @@ export default class Alert extends Component {
                         <Image
                             source={imageContent.source}
                             style={[styles.defaultImageContainer, imageContent.style]}
+                            resizeMode='contain'
                         />
                     }
                     {
@@ -34,29 +35,56 @@ export default class Alert extends Component {
                             <Text style={styles.content}>{`${content}`}</Text>
                         </View>
                     }
-                    <View style={styles.bottomBtnsContainer}>
-                        {
-                            Boolean(bottomObjs) &&
-                            bottomObjs.map((item, index) => {
-                                if (item.type == 'button') {
-                                    return (
-                                        <CustomButton
-                                            key={item.key}
-                                            title={item.title}
-                                            buttonStyle={styles.btnItems}
-                                            titleStyle={styles.btnTitle}
-                                            clickEvent={() => this.bottomBtnItemClick(item.callback)}
-                                            underlayColor='white'
-                                        />
-                                    );
-                                } else {
-                                    return (
-                                        <View key={item.key} style={styles.separator} />
-                                    );
-                                }
-                            })
-                        }
-                    </View>
+                    {!bottomVertical &&
+                        <View style={styles.bottomBtnsContainer}>
+                            {
+                                Boolean(bottomObjs) &&
+                                bottomObjs.map((item, index) => {
+                                    if (item.type == 'button') {
+                                        return (
+                                            <CustomButton
+                                                key={item.key}
+                                                title={item.title}
+                                                buttonStyle={styles.btnItems}
+                                                titleStyle={styles.btnTitle}
+                                                clickEvent={() => this.bottomBtnItemClick(item.callback)}
+                                                underlayColor='white'
+                                            />
+                                        );
+                                    } else {
+                                        return (
+                                            <View key={item.key} style={styles.separator} />
+                                        );
+                                    }
+                                })
+                            }
+                        </View>
+                    }
+                    {bottomVertical &&
+                        <View>
+                            {
+                                Boolean(bottomObjs) &&
+                                bottomObjs.map((item, index) => {
+                                    if (item.type == 'button') {
+                                        return (
+                                            <CustomButton
+                                                key={item.key}
+                                                title={item.title}
+                                                buttonStyle={styles.btnItemsVect}
+                                                titleStyle={styles.btnTitle}
+                                                clickEvent={() => this.bottomBtnItemClick(item.callback)}
+                                                underlayColor='white'
+                                            />
+                                        );
+                                    } else {
+                                        return (
+                                            <View key={item.key} style={styles.separatorVect} />
+                                        );
+                                    }
+                                })
+                            }
+                        </View>
+                    }
                 </View>
             </SafeAreaView>
         );
@@ -86,13 +114,15 @@ const styles = StyleSheet.create({
         width: SCREEN_WIDTH - 60,
         justifyContent: 'center',
         alignItems: 'center',
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: '#c9cacb'
+        // borderBottomWidth: StyleSheet.hairlineWidth,
+        // borderBottomColor: '#c9cacb'
     },
     title: {
         alignSelf: 'center',
-        color: 'rgb(34,34,34)',
-        fontSize: 20
+        color: 'rgb(0,0,0)',
+        fontSize: 15,
+        fontWeight: 'bold',
+        fontFamily: 'PingFang-SC-Medium'
     },
     defaultImageContainer: {
         alignSelf: 'center',
@@ -112,9 +142,11 @@ const styles = StyleSheet.create({
     },
     content: {
         alignSelf: 'center',
-        color: 'rgb(34,34,34)',
+        color: '#333',
         fontSize: 16,
-        lineHeight: 20
+        lineHeight: 20,
+        textAlign: 'center',
+        fontFamily: 'PingFang-SC-Medium'
     },
     bottomBtnsContainer: {
         display: 'flex',
@@ -128,6 +160,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    btnItemsVect: {
+        height: 50,
+        width: SCREEN_WIDTH - 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     btnTitle: {
         fontSize: 16,
         color: '#1b82fb'
@@ -135,6 +173,11 @@ const styles = StyleSheet.create({
     separator: {
         height: 50,
         width: StyleSheet.hairlineWidth,
+        backgroundColor: '#c9cacb'
+    },
+    separatorVect: {
+        height: StyleSheet.hairlineWidth,
+        width: SCREEN_WIDTH - 60,
         backgroundColor: '#c9cacb'
     }
 });

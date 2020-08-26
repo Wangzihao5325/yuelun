@@ -2,6 +2,7 @@ import * as Types from '../actionTypes';
 
 const initialState = {
     isLogin: false,
+    isFirstAccelerate:true,//用来判断是否是第一次加速，第一次加速需要弹一堆窗
     mobile: '',
 
     head_url: '',//get userInfo by session ONLY
