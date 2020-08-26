@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     defaultImageContainer: {
         alignSelf: 'center',
         height: 130,
-        width: 280
+        width: 280,
     },
     contentContainer: {
         display: 'flex',

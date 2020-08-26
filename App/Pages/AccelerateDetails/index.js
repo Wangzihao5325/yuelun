@@ -8,6 +8,7 @@ import * as vpnModule from '../../Functions/NativeBridge/YuelunVpn';
 import StowPage from './StowPage';
 import UnfoldPage from './UnfoldPage';
 import store from '../../store';
+import { unsafe_update } from '../../store/actions/userAction';
 
 export default class AccelerateDetails extends Component {
     state = {
@@ -47,14 +48,17 @@ export default class AccelerateDetails extends Component {
                     });
                 });
 
-                if (store.getState().user.isFirstAccelerate) {//第一次加速需要增加监听
-                    this._unsubscribe = this.props.navigation.addListener('focus', () => {
-                        if (this.goToAlert) {
-                            this.goToAlert = false;
-                            this.next(this.goToAlertType);
-                        }
-                    });
-                }
+                AsyncStorage.getItem('isFirstAccelerate').then(value => {
+                    this._isFirstAccelerate = value;
+                    if (!value) {
+                        this._unsubscribe = this.props.navigation.addListener('focus', () => {
+                            if (this.goToAlert) {
+                                this.goToAlert = false;
+                                this.next(this.goToAlertType);
+                            }
+                        });
+                    }
+                })
             }
             /*
             game_info: {
@@ -127,7 +131,7 @@ export default class AccelerateDetails extends Component {
                 });
             });
         } else {
-            if (store.getState().user.isFirstAccelerate) {//第一次加速，进行弹窗提示
+            if (!this._isFirstAccelerate) {//第一次加速，进行弹窗提示
                 NavigationService.alert(this.vpnAlertPayload('want_add_setting'));
             } else {
                 this.finallyStep();
@@ -183,7 +187,8 @@ export default class AccelerateDetails extends Component {
     }
 
     cancel = (type) => {
-        console.log('取消');
+        this.goToAlert = false;
+        this.goToAlertType = '';
     }
 
     _next = (type) => {
@@ -192,8 +197,6 @@ export default class AccelerateDetails extends Component {
     }
 
     next = (type) => {
-        console.log('dddd');
-        console.log(type);
         switch (type) {
             case 'want_add_setting':
                 NavigationService.alert(this.vpnAlertPayload('use_position'));
@@ -202,8 +205,9 @@ export default class AccelerateDetails extends Component {
                 NavigationService.alert(this.vpnAlertPayload('vpn_tips'));
                 break;
             case 'vpn_tips':
-                console.log('kkkk');
-                //this.finallyStep();
+                this._isFirstAccelerate = 'done';
+                AsyncStorage.setItem('isFirstAccelerate', 'done');
+                this.finallyStep();
                 break;
         }
     }
@@ -269,10 +273,10 @@ export default class AccelerateDetails extends Component {
                 }
             case 'vpn_tips':
                 return {
-                    content: '同意授权将帮助我们为您分配更稳定\n和更近的加速节点',
+                    content: '首次加速需要您授权安装证书，安装过程\n中系统需要您输入锁屏密码或者使用\nTouch ID，请在接下来的系统提示框中\n选择“Allow”',
                     imageContent: {
                         source: require('../../resource/Image/AccelerateDetails/vpnTips.png'),
-                        style: { height: 180 }//可选参数
+                        style: { height: 180, marginTop: 20 }//可选参数
                     },
                     bottomObjs: [
                         {
