@@ -3,6 +3,7 @@ import {
     View,
     TouchableHighlight,
     Text,
+    Image,
     StyleSheet,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -33,18 +34,46 @@ export default class ChangePhoneNum extends Component {
             <SafeAreaView style={{ flex: 1, backgroundColor: bgColor, paddingTop: 0 }}>
                 <KeyboardAwareScrollView>
                     <CustomInput
-                        style={{ alignSelf: 'center', marginTop: 20 }}
+                        iconComponent={
+                            <View style={{ height: 30, flexDirection: 'row', alignItems: 'center' }}>
+                                <View
+                                    style={{ height: 30, width: 30, justifyContent: 'center', alignItems: 'center' }}
+                                >
+                                    <Image
+                                        style={{ height: 21, width: 16 }}
+                                        resizeMode='contain'
+                                        source={require('../../resource/Image/Normal/mobile.png')}
+                                    />
+                                </View>
+                                <Text style={{ color: '#707070', fontSize: 19, marginRight: 20 }}>+86</Text>
+                            </View>
+                        }
+                        style={{ alignSelf: 'center', backgroundColor: 'transparent', paddingHorizontal: 0 }}
                         iconName='mobile-phone'
-                        placeholder='请输入新的手机号'
+                        placeholder='请输入手机号'
+                        placeholderTextColor='#707070'
                         value={phoneNum}
                         onChangeText={this.phoneNumChange}
                         clearButtonMode='while-editing'
                     />
+                    <View style={styles.separator} />
                     <View style={{ marginTop: 20, height: 45, width: 350, alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <CustomInput
-                            style={{ width: 210 }}
+                            iconComponent={
+                                <View
+                                    style={{ height: 30, width: 30, justifyContent: 'center', alignItems: 'center' }}
+                                >
+                                    <Image
+                                        style={{ height: 15, width: 17 }}
+                                        resizeMode='contain'
+                                        source={require('../../resource/Image/Normal/verificationCode.png')}
+                                    />
+                                </View>
+                            }
+                            style={{ width: 210, backgroundColor: 'transparent', paddingHorizontal: 0 }}
                             iconName='mobile-phone'
                             placeholder='请输入验证码'
+                            placeholderTextColor='#707070'
                             value={verificationCode}
                             onChangeText={this.verificationCodeChange}
                             clearButtonMode='while-editing'
@@ -52,10 +81,11 @@ export default class ChangePhoneNum extends Component {
                         <CustomButton
                             title='获取验证码'
                             buttonStyle={styles.verificationCodeBtn}
-                            titleStyle={{ color: '#f2cc2e' }}
+                            titleStyle={{ color: '#f2cc2e', fontSize: 17 }}
                             clickEvent={this.getVerificationCode}
                         />
                     </View>
+                    <View style={styles.separator} />
                     <CustomButton
                         title='确定'
                         buttonStyle={styles.confirmButton}
@@ -113,11 +143,6 @@ export default class ChangePhoneNum extends Component {
                     }
                 })
             }
-            //  else if (this.state.inputType == 'old') {
-            //     Api.modifyUserInfo(this.state.newPhoneNum, this.state.newCode, '', '').then((res) => {
-            //         console.log(res);
-            //     })
-            // }
         }
     }
 }
@@ -143,5 +168,11 @@ const styles = StyleSheet.create({
         borderRadius: 45,
         alignSelf: 'center',
         marginTop: 60
-    }
+    },
+    separator: {
+        height: StyleSheet.hairlineWidth,
+        width: 360,
+        backgroundColor: '#092852',
+        alignSelf: 'center'
+    },
 });
