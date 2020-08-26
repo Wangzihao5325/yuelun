@@ -7,7 +7,7 @@ import PageName from '../../Config/PageName';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import buttonWrapper from '../../Components/Component/HOCButtonWrapper';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import ImagePicker from 'react-native-image-crop-picker';
 
 const InfoItem = (props) => {
     return (
@@ -23,7 +23,7 @@ const InfoItem = (props) => {
                     <Image style={styles.avater} source={props.imageSource} />
                 }
                 <View style={{ marginLeft: 15 }}>
-                <Image source={require('../../resource/Image/GameHomePage/more.png')}
+                    <Image source={require('../../resource/Image/GameHomePage/more.png')}
                         style={styles.setIcon} />
                 </View>
             </View>
@@ -58,7 +58,15 @@ class PersonalInfo extends Component {
     }
 
     changeAvater = () => {
-        console.log('更换头像');
+        ImagePicker.openPicker({
+            width: 300,
+            height: 300,
+            includeBase64: true,
+        }).then(image => {
+            console.log(image);
+        }).catch(error => {
+            console.log('cancel or');
+        });
     }
 
     changeNickName = () => {
