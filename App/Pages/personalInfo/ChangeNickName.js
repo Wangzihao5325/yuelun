@@ -53,8 +53,24 @@ class ChangeNickName extends Component {
             if (res.status == 'ok') {
                 store.dispatch(unsafe_update({ username: this.state.nickName }))
                 NavigationService.back(this);
+            }else{
+                NavigationService.alert(this.alertPayload(res.msg));
             }
         });
+    }
+
+    alertPayload = (msg) => {
+        return {
+            title: '注意',
+            content: `${msg}`,
+            bottomObjs: [
+                {
+                    key: 'confirm',
+                    type: 'button',
+                    title: '确认',
+                }
+            ]
+        };
     }
 }
 

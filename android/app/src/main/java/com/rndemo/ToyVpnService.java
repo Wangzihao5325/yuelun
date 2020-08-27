@@ -140,7 +140,7 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
         final int port = bundle.getInt("Port");
         mVpnConnection = new ToyVpnConnection(
                 this, mNextConnectionId.getAndIncrement(), server, port, "".getBytes(),
-                "", 0, true, Collections.emptySet());
+                "", 0, false, Collections.emptySet());
         startConnection(mVpnConnection);
     }
 

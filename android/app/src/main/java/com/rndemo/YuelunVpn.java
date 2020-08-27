@@ -80,23 +80,29 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
      @ReactMethod
      public void startVpn(String strip,int consultport,Promise promise) throws IOException {
         //占用2020端口
-        String ret =  CProxClient.startlocalproxy(2020);
-        if (ret.compareTo("suc") == 0){
-                _proxyPort = 2020;
-        }else {
-            promise.reject("001","start port failed");
-        }
-         int realPort = CProxClient.GetOVPNRealPort(strip,consultport);
+         int cout = 0;
+         while (cout < 5)
+         {
+             int port = getNum(40000,50000);
+             cout = cout +1;
+             String ret =   com.yuelun.ylsdk.CProxClient.startlocalproxy(port);
+             if (ret.compareTo("suc") == 0)
+             {
+                 _proxyPort = port;
+                 Log.w(getTag(),"create  localproxy suc...\n");
+                 break;
+             }
+             else
+             {
+                 promise.reject("001","start port failed");
+                 continue;
+             }
+         }
         //已经取得真正的参数，开始启动vpn
          Bundle profileInfo = new Bundle();
          profileInfo.putString("Address", "162.14.13.154");
-         profileInfo.putInt("Port", realPort);
+         profileInfo.putInt("Port", _proxyPort);
          profileInfo.putInt("MTU", 1500);
-         //通过 intent传给子类
-         String isCreateTunnelSuccess = CProxClient.createTunnel("162.14.13.154",realPort);
-         if(isCreateTunnelSuccess.equals("error")){
-             promise.reject("002","create tunnel failed");
-         }
          Intent intent = new Intent(_reactContext, ToyVpnService.class);
          intent.putExtras(profileInfo);
          //通过intent传递参数 启动service 代码跳转至toyVpnService
@@ -119,6 +125,9 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
          promise.resolve("success");
          */
      }
+    private final String getTag() {
+        return ToyVpnConnection.class.getSimpleName() + "[" + 1 + "]";
+    }
 /*
     @ReactMethod
     public void yuelunGetNewConfig(String strip,int consultport,Promise promise){
