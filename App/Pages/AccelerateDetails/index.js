@@ -164,7 +164,7 @@ export default class AccelerateDetails extends Component {
                     //各种连接操作
                     vpnModule.prepare()
                         .then(() => {
-                            vpnModule.startVpn('162.14.5.205', "32091", res.data.consult_ip);
+                            vpnModule.startVpn('162.14.5.205', 32091);
                             let _date = new Date();
                             this.state.gameFullInfo._timeReg = _date;
                             accelerateInfo[this.state.id] = this.state.gameFullInfo;

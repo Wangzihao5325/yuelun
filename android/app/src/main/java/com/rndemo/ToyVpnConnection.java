@@ -45,6 +45,7 @@ import java.net.SocketAddress;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
+import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -154,7 +155,7 @@ public class ToyVpnConnection implements Runnable {
             // TODO: The better way is to work with ConnectivityManager, trying only when the
             // network is available.
             // Here we just use a counter to keep things simple.
-            for (int attempt = 0; attempt < 10; ++attempt) {
+            for (int attempt = 0; attempt < 2; ++attempt) {
                 // Reset the counter if we were connected.
                 if (run(serverAddress)) {
                     attempt = 0;
@@ -179,106 +180,31 @@ public class ToyVpnConnection implements Runnable {
         // Create a DatagramChannel as the VPN tunnel.
 
 
-/*
-        try (DatagramChannel tunnel = DatagramChannel.open()) {
-
-            // Protect the tunnel before connecting to avoid loopback.
-            if (!mService.protect(tunnel.socket())) {
-                throw new IllegalStateException("Cannot protect the tunnel");
-            }
-
-            // Connect to the server.
-            tunnel.connect(server);
-
-            // For simplicity, we use the same thread for both reading and
-            // writing. Here we put the tunnel into non-blocking mode.
-            tunnel.configureBlocking(false);
-
-            // Authenticate and configure the virtual network interface.
-            iface = handshake(tunnel);
-
+        int realport;
+        String ret;
+        realport =  CProxClient.GetOVPNRealPort("162.14.5.176",31090);
+        System.out.println(realport);
+        ret = CProxClient.createTunnel("162.14.13.154",realport);
+     //   String isCreateTunnelSuccess = CProxClient.createTunnel("162.14.13.154",32010);
+        //创建本地代理及其隧道成功
+        if (ret.compareTo("suc") == 0)
+        {
+            iface = tunestablish();
+            String socksServerAddress = String.format(Locale.ROOT, "%s:%d", "127.0.0.1", mServerPort);
+            boolean remoteUdpForwardingEnabled = true;
+            Object dnsResolverAddress = null;
+            Log.w(getTag(), "begin create ylproxy...\n");
+            YuelunProxyJni.start(iface.getFd(), 1500,
+                    "10.172.2.70",  // Router IP address
+                    "255.255.255.0", null, socksServerAddress,
+                    socksServerAddress, // UDP relay IP address
+                    null,
+                    0,
+                    1);
             // Now we are connected. Set the flag.
             connected = true;
 
-
-            // Packets to be sent are queued in this input stream.
-            FileInputStream in = new FileInputStream(iface.getFileDescriptor());
-
-            // Packets received need to be written to this output stream.
-            FileOutputStream out = new FileOutputStream(iface.getFileDescriptor());
-
-            // Allocate the buffer for a single packet.
-            ByteBuffer packet = ByteBuffer.allocate(MAX_PACKET_SIZE);
-
-            // Timeouts:
-            //   - when data has not been sent in a while, send empty keepalive messages.
-            //   - when data has not been received in a while, assume the connection is broken.
-            long lastSendTime = System.currentTimeMillis();
-            long lastReceiveTime = System.currentTimeMillis();
-
-            // We keep forwarding packets till something goes wrong.
-            while (true) {
-                // Assume that we did not make any progress in this iteration.
-                boolean idle = true;
-
-                // Read the outgoing packet from the input stream.
-                int length = in.read(packet.array());
-                if (length > 0) {
-                    // Write the outgoing packet to the tunnel.
-                    packet.limit(length);
-                    tunnel.write(packet);
-                    packet.clear();
-
-                    // There might be more outgoing packets.
-                    idle = false;
-                    lastReceiveTime = System.currentTimeMillis();
-                }
-
-                // Read the incoming packet from the tunnel.
-                length = tunnel.read(packet);
-                if (length > 0) {
-                    // Ignore control messages, which start with zero.
-                    if (packet.get(0) != 0) {
-                        // Write the incoming packet to the output stream.
-                        out.write(packet.array(), 0, length);
-                    }
-                    packet.clear();
-
-                    // There might be more incoming packets.
-                    idle = false;
-                    lastSendTime = System.currentTimeMillis();
-                }
-
-                // If we are idle or waiting for the network, sleep for a
-                // fraction of time to avoid busy looping.
-                if (idle) {
-                    Thread.sleep(IDLE_INTERVAL_MS);
-                    final long timeNow = System.currentTimeMillis();
-
-                    if (lastSendTime + KEEPALIVE_INTERVAL_MS <= timeNow) {
-                        // We are receiving for a long time but not sending.
-                        // Send empty control messages.
-                        packet.put((byte) 0).limit(1);
-                        for (int i = 0; i < 3; ++i) {
-                            packet.position(0);
-                            tunnel.write(packet);
-                        }
-                        packet.clear();
-                        lastSendTime = timeNow;
-                    } else if (lastReceiveTime + RECEIVE_TIMEOUT_MS <= timeNow) {
-                        // We are sending for a long time but not receiving.
-                        throw new IllegalStateException("Timed out");
-                    }
-                }
-            }
-            */
-
-        String isCreateTunnelSuccess = CProxClient.createTunnel("162.14.13.154",32010);
-        if(isCreateTunnelSuccess.equals("error")){
-        }else {
-            iface = tunestablish();
-            int a = iface.getFd();
-            YuelunProxyJni.start(iface.getFd(),1500,"10.172.2.70","255.255.255.0","","192.168.0.101","192.168.0.101",null,0,1);
+            return true;
         }
 
         if (iface != null) {
@@ -289,7 +215,7 @@ public class ToyVpnConnection implements Runnable {
             }
         }
 
-        return true;
+        return false;
     }
     @SuppressLint("NewApi")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -303,7 +229,7 @@ public class ToyVpnConnection implements Runnable {
         builder.addDnsServer("216.146.35.35");
 
         String[] appPackages = {
-                "com.example.andriod.toyvpn"
+                "com.rndemo"
         };
         for (String packageName : appPackages) {
             try {

@@ -1,5 +1,10 @@
 package  com.yuelun.ylsdk;
 
+import android.app.MediaRouteActionProvider;
+
+import java.util.Map;
+import java.util.Vector;
+
 public class CProxClient {
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -32,6 +37,9 @@ public class CProxClient {
      * @return  "suc" 成功 "error" 失败
      */
     public static native String startlocalproxy(int port);
+
+    public static native int SetFilePath(String strfilepath);
+    public static native int SetMutiTunnel( Map map1);
 
 
 }
