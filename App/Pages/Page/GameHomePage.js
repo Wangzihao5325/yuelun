@@ -154,6 +154,10 @@ class acceleratorPage extends Component {
 
 
     renderTheGameSection = (type = 0, title = '', iconSource = require('../../resource/Image/GameHomePage/diamond.png'), dataArray = []) => {
+        if(dataArray.length == 0){
+            return null;
+        }
+
         return (
             <View style={{ marginLeft: 0, marginTop: 10, width: SCREEN_WIDTH, }}>
                 <GameTitleItem
@@ -174,9 +178,13 @@ class acceleratorPage extends Component {
                 </ScrollView>
             </View>
         );
+        
     }
 
     renderTheGameUnitSection = (type = 0, title = '', iconSource = require('../../resource/Image/GameHomePage/diamond.png'), dataArray = []) => {
+        if(dataArray.length == 0){
+            return null;
+        }
         return (
             <View style={{ marginLeft: 0, marginTop: 10, width: SCREEN_WIDTH, }}>
                 <GameTitleItem

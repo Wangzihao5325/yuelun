@@ -160,7 +160,7 @@ export const getTheUserInforWithSessionID = async () => {
  * 
 */
 export const getSearchGamesData = async (game_name, typeName = '', page = '', strclassification = '', limit = '') => {
-    let strRequest = await CApiClientManager.yuelunSearchGamelist(_sessionId, encodeURIComponent(game_name), typeName, strclassification, page, limit);
+    let strRequest = await CApiClientManager.yuelunSearchGamelist(_sessionId, encodeURIComponent(game_name), encodeURIComponent(typeName), encodeURIComponent(strclassification), page, limit);
     return _dealResult(strRequest);
 }
 
