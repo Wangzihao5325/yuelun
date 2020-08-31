@@ -31,8 +31,8 @@ export default class GameHomeNavigation extends Component{
         return(
             <View style={[styles.rootView]}>
                 <View style={[styles.gameItemRootView]}>
-                    {this.renderTheSelectItemRootView('国服',1)}
-                    {this.renderTheSelectItemRootView('外服',2)}
+                    {this.renderTheSelectItemRootView('发现',1)}
+                    {this.renderTheSelectItemRootView('全部',2)}
                     {this.renderTheSelectItemRootView('即将上线',3)}
                 </View>
                 <TouchableOpacity 
