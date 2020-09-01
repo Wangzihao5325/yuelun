@@ -196,7 +196,7 @@ class acceleratorPage extends Component {
                     title={title}
                     clickFunction={() => {
                         console.log('查看', title, '的更多');
-                        let type_name = '国内';
+                        let type_name = '国服';
                         let classification;
                         if (type == 1) {
                             classification = '精选';

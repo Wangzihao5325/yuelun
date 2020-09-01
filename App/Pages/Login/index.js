@@ -168,8 +168,13 @@ export default class Login extends Component {
             return;
         }
         const { phoneNum, verificationCode } = this.state;
+        if(phoneNum.length !== 11){
+            return;
+        }
+        Loading.show();
         Api.sendPhoneCode(phoneNum)
             .then((result) => {
+                Loading.hidden();
                 this.setState({
                     messageBtnTitle: '60S',
                     isMessageBtnCanPress: false
