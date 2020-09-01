@@ -25,7 +25,15 @@ export default class ChangePhoneNum extends Component {
         verificationCode: '',
         oldCode: '',
         newCode: '',
+        messageBtnTitle: '获取验证码',
+        isMessageBtnCanPress: true
     };
+
+    componentWillUnmount() {
+        if (this._messageTimer) {
+            clearInterval(this._messageTimer);
+        }
+    }
 
     render() {
         const { bgColor } = themeColor;
@@ -79,7 +87,7 @@ export default class ChangePhoneNum extends Component {
                             clearButtonMode='while-editing'
                         />
                         <CustomButton
-                            title='获取验证码'
+                            title={this.state.messageBtnTitle}
                             buttonStyle={styles.verificationCodeBtn}
                             titleStyle={{ color: '#f2cc2e', fontSize: 17 }}
                             clickEvent={this.getVerificationCode}
@@ -126,10 +134,34 @@ export default class ChangePhoneNum extends Component {
     }
 
     getVerificationCode = () => {
+        if (!this.state.isMessageBtnCanPress) {
+            return;
+        }
         const { phoneNum } = this.state;
         Api.sendPhoneCode(phoneNum)
             .then((result) => {
+                this.setState({
+                    messageBtnTitle: '60S',
+                    isMessageBtnCanPress: false
+                }, () => {
+                    let time = 60;
+                    this._messageTimer = setInterval(() => {
+                        time--;
+                        if (time == 0) {
+                            this.setState({
+                                messageBtnTitle: `获取验证码`,
+                                isMessageBtnCanPress: true
+                            });
+                            clearInterval(this._messageTimer);
+                            this._messageTimer = null;
+                        } else {
+                            this.setState({
+                                messageBtnTitle: `${time}s`,
+                            });
 
+                        }
+                    }, 1000)
+                });
             });
     }
 

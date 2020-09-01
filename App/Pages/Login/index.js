@@ -19,12 +19,20 @@ import { Loading } from '../../Components/Toast/Loading';
 export default class Login extends Component {
     state = {
         phoneNum: '',
-        verificationCode: ''
+        verificationCode: '',
+        messageBtnTitle: '获取验证码',
+        isMessageBtnCanPress: true
     };
 
     componentDidMount() {
         if (store.getState().app.isLogin) {
             store.dispatch(app_start_app());
+        }
+    }
+
+    componentWillUnmount() {
+        if (this._messageTimer) {
+            clearInterval(this._messageTimer);
         }
     }
 
@@ -91,7 +99,7 @@ export default class Login extends Component {
                                 clearButtonMode='while-editing'
                             />
                             <CustomButton
-                                title='获取验证码'
+                                title={this.state.messageBtnTitle}
                                 buttonStyle={styles.verificationCodeBtn}
                                 titleStyle={{ color: '#f2cc2e', fontSize: 17 }}
                                 clickEvent={this.getVerificationCode}
@@ -109,6 +117,7 @@ export default class Login extends Component {
                         <Text style={{ color: '#666' }}>我已阅读并同意<Text style={{ color: '#f2cc2e' }}>隐私政策</Text>和<Text style={{ color: '#f2cc2e' }}>软件许可及使用协议</Text></Text>
                     </View>
                 </KeyboardAwareScrollView>
+                <Text style={{marginBottom:60,alignSelf:'center',color:'#777',fontSize:13}}>首次使用手机号登录将自动为注册</Text>
             </SafeAreaView>
         );
     }
@@ -155,11 +164,34 @@ export default class Login extends Component {
     }
 
     getVerificationCode = () => {
+        if (!this.state.isMessageBtnCanPress) {
+            return;
+        }
         const { phoneNum, verificationCode } = this.state;
-
         Api.sendPhoneCode(phoneNum)
             .then((result) => {
+                this.setState({
+                    messageBtnTitle: '60S',
+                    isMessageBtnCanPress: false
+                }, () => {
+                    let time = 60;
+                    this._messageTimer = setInterval(() => {
+                        time--;
+                        if (time == 0) {
+                            this.setState({
+                                messageBtnTitle: `获取验证码`,
+                                isMessageBtnCanPress: true
+                            });
+                            clearInterval(this._messageTimer);
+                            this._messageTimer = null;
+                        } else {
+                            this.setState({
+                                messageBtnTitle: `${time}s`,
+                            });
 
+                        }
+                    }, 1000)
+                });
             });
     }
 

@@ -56,7 +56,7 @@ export default class GameMore extends Component {
             classification: classification ? classification : ''
         });
 
-        console.log('type_name',type_name,classification);
+        console.log('type_name', type_name, classification);
         this.getTheMoreGamesData(type_name, this.state.pageNo, classification);
     }
 
@@ -67,16 +67,16 @@ export default class GameMore extends Component {
                     onMomentumScrollEnd={this._contentViewScroll}
                     refreshControl={
                         <RefreshControl
-                        refreshing={this.state.isRefreshingStatus}
-                        onRefresh={() => {
-                            this.setState({ isRefreshingStatus: false,pageNo:0 });
-                        }}
-                        colors={['red', 'blue', 'green']}
-                        progressBackgroundColor='#ffff00'
-                        enabled={true}
-                    />
-                }> 
-                {this.renderTheNormalGamePage()}
+                            refreshing={this.state.isRefreshingStatus}
+                            onRefresh={() => {
+                                this.setState({ isRefreshingStatus: false, pageNo: 0 });
+                            }}
+                            colors={['red', 'blue', 'green']}
+                            progressBackgroundColor='#ffff00'
+                            enabled={true}
+                        />
+                    }>
+                    {this.renderTheNormalGamePage()}
                 </ScrollView>
             </View>
         );
@@ -144,29 +144,33 @@ export default class GameMore extends Component {
         );
     }
 
-    getTheMoreGamesData = (type_name,page,classification) =>{
+    getTheMoreGamesData = (type_name, page, classification) => {
         Loading.show();
         let pageNumber = page;
         pageNumber = pageNumber.toString();
-        ApiModule.getSearchGamesData('',type_name,pageNumber,classification,'')
-        .then((result)=>{
-            Loading.hidden();
-            let allGameData = result;
-            console.log('hahahahhahahahah',allGameData);
-            if(allGameData['status'] == 'ok'){
-                let allData = this.state.more_games;
-                let dataList = allGameData['data']['list'];
-                if(page == 0){
-                    allData = dataList;
-                }else{
-                    allData = allData.concat(dataList);
+        console.log('---start----');
+        console.log(type_name);
+        console.log(pageNumber);
+        console.log(classification);
+        ApiModule.getSearchGamesData('', type_name, '1', classification, '')
+            .then((result) => {
+                Loading.hidden();
+                let allGameData = result;
+                console.log('hahahahhahahahah', allGameData);
+                if (allGameData['status'] == 'ok') {
+                    let allData = this.state.more_games;
+                    let dataList = allGameData['data']['list'];
+                    if (page == 0) {
+                        allData = dataList;
+                    } else {
+                        allData = allData.concat(dataList);
+                    }
+
+                    this.setState({
+                        more_games: allData
+                    });
                 }
-                
-                this.setState({
-                    more_games: allData
-                });
-            }
-        });
+            });
     }
 
     clickGameNormalItemBtn = (item) => {
@@ -190,7 +194,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         flexDirection: 'row'
     },
-    normalItemRootCell:{
-        marginTop:10
+    normalItemRootCell: {
+        marginTop: 10
     }
 });
