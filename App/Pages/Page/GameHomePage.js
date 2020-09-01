@@ -47,6 +47,8 @@ class acceleratorPage extends Component {
             all_game_collection: [],
             all_game_hot: [],
             all_game_new: [],
+            all_game_domestic:[],
+            all_game_overseas:[],
 
             overseas_games: [],
             upcoming_games: [],
@@ -133,6 +135,8 @@ class acceleratorPage extends Component {
                 {this.renderTheGameSection(1, '精选游戏', require('../../resource/Image/GameHomePage/diamond.png'), this.state.all_game_collection)}
                 {this.renderTheGameUnitSection(2, '热门游戏', require('../../resource/Image/GameHomePage/new.png'), this.state.all_game_hot)}
                 {this.renderTheGameUnitSection(3, '最新游戏', require('../../resource/Image/GameHomePage/hot.png'), this.state.all_game_new)}
+                {this.renderTheGameUnitSection(4, '国服游戏', require('../../resource/Image/GameHomePage/hot.png'), this.state.all_game_domestic)}
+                {this.renderTheGameUnitSection(5, '外服游戏', require('../../resource/Image/GameHomePage/hot.png'), this.state.overseas_games)}
             </View>
         );
     }
@@ -154,6 +158,10 @@ class acceleratorPage extends Component {
 
 
     renderTheGameSection = (type = 0, title = '', iconSource = require('../../resource/Image/GameHomePage/diamond.png'), dataArray = []) => {
+        if(dataArray.length == 0){
+            return null;
+        }
+
         return (
             <View style={{ marginLeft: 0, marginTop: 10, width: SCREEN_WIDTH, }}>
                 <GameTitleItem
@@ -174,9 +182,13 @@ class acceleratorPage extends Component {
                 </ScrollView>
             </View>
         );
+        
     }
 
     renderTheGameUnitSection = (type = 0, title = '', iconSource = require('../../resource/Image/GameHomePage/diamond.png'), dataArray = []) => {
+        if(dataArray.length == 0){
+            return null;
+        }
         return (
             <View style={{ marginLeft: 0, marginTop: 10, width: SCREEN_WIDTH, }}>
                 <GameTitleItem
@@ -361,6 +373,15 @@ class acceleratorPage extends Component {
         let all_game_collection = allGameData['data']['gameList'][1]['game_list']['精选'];
         let all_game_hot = allGameData['data']['gameList'][1]['game_list']['热门'];
         let all_game_new = allGameData['data']['gameList'][1]['game_list']['最新'];
+        if (!all_game_collection) all_game_collection = [];
+        if (!all_game_hot) all_game_hot = [];
+        if (!all_game_new) all_game_new = [];
+
+        //全部国内游戏
+        let all_game_domestic = [];
+        all_game_domestic.push(...all_game_collection);
+        all_game_domestic.push(...all_game_hot);
+        all_game_domestic.push(...all_game_new);
 
         //外服数据解析
         let overseas_game_colloection = allGameData['data']['gameList'][2]['game_list']['精选'];
@@ -374,6 +395,10 @@ class acceleratorPage extends Component {
         overseas_games.push(...overseas_game_colloection);
         overseas_games.push(...overseas_game_hot);
         overseas_games.push(...overseas_game_new);
+
+        all_game_collection = all_game_collection.concat(overseas_game_colloection);
+        all_game_hot = all_game_hot.concat(overseas_game_hot);
+        all_game_new = all_game_new.concat(overseas_game_new);
 
         //解析即将上线
         let upcoming_game_collection = allGameData['data']['gameList'][0]['game_list']['精选'];
@@ -391,6 +416,7 @@ class acceleratorPage extends Component {
             all_game_collection: all_game_collection,
             all_game_hot: all_game_hot,
             all_game_new: all_game_new,
+            all_game_domestic:all_game_domestic,
             overseas_games: overseas_games,
             upcoming_games: upcoming_games
         });

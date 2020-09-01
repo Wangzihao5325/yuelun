@@ -75,7 +75,7 @@ static NSDictionary *kVpnSubnetCandidates;  // Subnets to bind the VPN.
    const char * tunnelIPChar  = [tunnelIP UTF8String];
   
     int realport = GetOVPNRealPort((char*)consultIPChar, consulport);
-    CreateProxyTunnel((char*)tunnelIPChar,realport);
+    int returnresult = CreateProxyTunnel((char*)tunnelIPChar,realport);
 
     BOOL isUdpSupported = true;
     [self YuelunSetupPacketFlow];
