@@ -21,6 +21,7 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../Config/UIConfig';
 import _ from 'lodash';
 import * as NavigationService from '../../Router/NavigationService';
 import PageName from '../../Config/PageName';
+import { SwipeListView } from 'react-native-swipe-list-view';
 
 export default class acceleratorPage extends Component {
     static navigationOptions = {
@@ -46,25 +47,27 @@ export default class acceleratorPage extends Component {
     }
 
     componentDidMount() {
-        this._unsubscribe = this.props.navigation.addListener('focus', () => {
-            AsyncStorage.getItem('accelerateInfo').then(value => {
-                let accelerateInfo = JSON.parse(value || '{}');
-                let data = _.values(accelerateInfo);
-                console.log(data);
-                this.setState({
-                    dataArray: data
-                }, () => {
-                    this.startTheTimerInterval();
-                });
-            });
-        });
+        // this._unsubscribe = this.props.navigation.addListener('focus', () => {
+        //     AsyncStorage.getItem('accelerateInfo').then(value => {
+        //         let accelerateInfo = JSON.parse(value || '{}');
+        //         let data = _.values(accelerateInfo);
+        //         console.log(data);
+        //         this.setState({
+        //             dataArray: data
+        //         }, () => {
+        //             this.startTheTimerInterval();
+        //         });
+        //     });
+        // });
 
-        this._unfocusUnsubscribe = this.props.navigation.addListener('blur', () => {
-            if (this.requestTimer) {
-                clearInterval(this.requestTimer);
-                this.requestTimer = null;
-            }
-        })
+        // this._unfocusUnsubscribe = this.props.navigation.addListener('blur', () => {
+        //     if (this.requestTimer) {
+        //         clearInterval(this.requestTimer);
+        //         this.requestTimer = null;
+        //     }
+        // })
+
+        this.setState(({dataArray: [1,2,3,4]}));
     }
 
     componentWillUnmount() {
@@ -74,7 +77,7 @@ export default class acceleratorPage extends Component {
 
 
     render() {
-        console.log('测试触发render', this.state.showAlert);
+        console.log('测试触发render', this.state.dataArray);
         if (this.state.dataArray.length == 0) {
             return (
                 <View style={styles.container}>
@@ -87,17 +90,35 @@ export default class acceleratorPage extends Component {
         return (
             <View style={styles.container}>
                 {this.renderTheNavigation()}
-                <CustomeListView
-                    ref={(listView) => this.listView = listView}
-                    style={styles.flatlistStyle}
+                <SwipeListView
+                    style={{marginLeft:0,marginTop:0,width:SCREEN_WIDTH,flex:1}}
                     data={this.state.dataArray}
-                    renderItem={({ item }) => this.renderTheItem(item)}
-                    notSupportLoadMore={true}
-                    showSeparator={false}
+                    renderItem={(data, rowMap) => (
+                        <View style={styles.rowFront}>{this.renderTheItem(data.item)}</View>
+                )}
+                    renderHiddenItem={(data, rowMap) => (
+                    <View style={styles.rowBack}>
+                        <Text></Text>
+                        <TouchableOpacity style={styles.deleteButton} onPress={()=>{this.deleteTheItem(data)}}>
+                        <Text style={{color:"white"}}>删除</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
+                    leftOpenValue={0}
+                    rightOpenValue={-75}
                 />
+                
                 {this.stopAccelerateAlert()}
             </View>
         );
+    }
+
+    deleteTheItem = (item) =>{
+        var dataArray = this.state.dataArray;
+        dataArray.splice(item.index,1);
+        this.setState({
+            dataArray:dataArray
+        });
     }
 
     renderTheNavigation = () => {
@@ -207,23 +228,6 @@ export default class acceleratorPage extends Component {
                 </View>
             </TouchableOpacity>
         );
-    }
-
-
-    getTheData = (pageNum = 1) => {
-        // let testData = [];
-        // for(let until in testUntilArray){
-        //     until = pageNum + '----' +until;
-        //     testData.push(until);
-        // }
-
-        // console.log('触发下拉刷新-----请求第'+pageNum+'页数据++++++++++'+testData.length);
-        // Loading.show();
-        // this.timer = setTimeout(()=>{
-        //     Loading.hidden();
-        //     console.log('触发下拉刷新-----成功'+pageNum);
-        //     this.listView.asyncSuccess(testData,pageNum);
-        // },3000);
     }
 
     renderEmptyItem = () => {
@@ -409,5 +413,25 @@ const styles = StyleSheet.create({
         marginLeft:3,
         fontSize:15,
         color:'#4F2F00'
+    },
+    rowFront: {
+        backgroundColor: '#00132D',
+        justifyContent: 'center',
+        height: 90,
+    },
+    rowBack: {
+        alignItems: 'center',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        height:80,
+        backgroundColor:'#00132D'
+    },
+    deleteButton:{
+        height:90,
+        width:75,
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'red'
     }
 });
