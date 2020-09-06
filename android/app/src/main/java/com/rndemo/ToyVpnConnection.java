@@ -46,6 +46,7 @@ import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.util.Locale;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -177,33 +178,33 @@ public class ToyVpnConnection implements Runnable {
             throws IOException, InterruptedException, IllegalArgumentException, PackageManager.NameNotFoundException {
         ParcelFileDescriptor iface = null;
         boolean connected = false;
-        // Create a DatagramChannel as the VPN tunnel.
-
-
-        int realport;
-        String ret;
-        realport =  CProxClient.GetOVPNRealPort("162.14.5.176",31090);
-        System.out.println(realport);
-        ret = CProxClient.createTunnel("162.14.13.154",realport);
-     //   String isCreateTunnelSuccess = CProxClient.createTunnel("162.14.13.154",32010);
-        //创建本地代理及其隧道成功
-        if (ret.compareTo("suc") == 0)
+        CProxClient.YuelunGetGameInfoById("","7","");
+        int port = getNum(40000,50000);
+        int ret = CProxClient.createTunnel("","7",port,2);
+        if (ret == 0)
         {
             iface = tunestablish();
-            String socksServerAddress = String.format(Locale.ROOT, "%s:%d", "127.0.0.1", mServerPort);
+            String socksServerAddress = String.format(Locale.ROOT, "%s:%d", "127.0.0.1", port);
             boolean remoteUdpForwardingEnabled = true;
             Object dnsResolverAddress = null;
             Log.w(getTag(), "begin create ylproxy...\n");
-            YuelunProxyJni.start(iface.getFd(), 1500,
-                    "10.172.2.70",  // Router IP address
-                    "255.255.255.0", null, socksServerAddress,
-                    socksServerAddress, // UDP relay IP address
-                    null,
-                    0,
-                    1);
+
+            ParcelFileDescriptor finalIface = iface;
+            Thread proxycllientThread = new Thread() {
+                public void run() {
+                    YuelunProxyJni.start(finalIface.getFd(), 1500,
+                            "10.172.2.70",  // Router IP address
+                            "255.255.255.0", null, socksServerAddress,
+                            socksServerAddress, // UDP relay IP address
+                            null,
+                            0,
+                            1);
+                }
+            };
+            proxycllientThread.start();
+
             // Now we are connected. Set the flag.
             connected = true;
-
             return true;
         }
 
@@ -261,5 +262,13 @@ public class ToyVpnConnection implements Runnable {
 
     private final String getTag() {
         return ToyVpnConnection.class.getSimpleName() + "[" + mConnectionId + "]";
+    }
+
+    public static int getNum(int startNum,int endNum){
+        if(endNum > startNum){
+            Random random = new Random();
+            return random.nextInt(endNum - startNum) + startNum;
+        }
+        return 0;
     }
 }

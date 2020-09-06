@@ -85,8 +85,8 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
          {
              int port = getNum(40000,50000);
              cout = cout +1;
-             String ret =   com.yuelun.ylsdk.CProxClient.startlocalproxy(port);
-             if (ret.compareTo("suc") == 0)
+             int ret =   CProxClient.createTunnel("sd", "7",port,2);
+             if (ret==0)
              {
                  _proxyPort = port;
                  Log.w(getTag(),"create  localproxy suc...\n");
@@ -108,7 +108,6 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
          //通过intent传递参数 启动service 代码跳转至toyVpnService
          ContextCompat.startForegroundService(_reactContext, intent);
          promise.resolve("success");
-
          /*
 
          VpnService myService = new VpnService();
