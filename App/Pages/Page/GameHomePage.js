@@ -135,8 +135,8 @@ class acceleratorPage extends Component {
                 {this.renderTheGameSection(1, '精选游戏', require('../../resource/Image/GameHomePage/diamond.png'), this.state.all_game_collection)}
                 {this.renderTheGameUnitSection(2, '热门游戏', require('../../resource/Image/GameHomePage/new.png'), this.state.all_game_hot)}
                 {this.renderTheGameUnitSection(3, '最新游戏', require('../../resource/Image/GameHomePage/hot.png'), this.state.all_game_new)}
-                {this.renderTheGameUnitSection(4, '国服游戏', require('../../resource/Image/GameHomePage/hot.png'), this.state.all_game_domestic)}
-                {this.renderTheGameUnitSection(5, '外服游戏', require('../../resource/Image/GameHomePage/hot.png'), this.state.overseas_games)}
+                {this.renderTheGameUnitSection(4, '国服游戏', require('../../resource/Image/GameHomePage/mainland.png'), this.state.all_game_domestic)}
+                {this.renderTheGameUnitSection(5, '外服游戏', require('../../resource/Image/GameHomePage/foreign.png'), this.state.overseas_games)}
             </View>
         );
     }

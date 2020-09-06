@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RNDemo</string>
+    <string name="app_name">月轮加速器</string>
     <string name="disconnected">Disconnect!</string>
     <string name="connecting">ToyVPN is connecting...</string>
     <string name="connected">ToyVPN is connected!</string>
