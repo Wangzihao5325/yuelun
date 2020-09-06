@@ -67,7 +67,7 @@ export default class acceleratorPage extends Component {
         //     }
         // })
 
-        this.setState(({dataArray: [1,2,3,4]}));
+        this.setState(({dataArray: [{key:'1'},{key:'2'},{key:'3'},{key:'4'}]}));
     }
 
     componentWillUnmount() {

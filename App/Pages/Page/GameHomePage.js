@@ -47,8 +47,8 @@ class acceleratorPage extends Component {
             all_game_collection: [],
             all_game_hot: [],
             all_game_new: [],
-            all_game_domestic:[],
-            all_game_overseas:[],
+            all_game_domestic: [],
+            all_game_overseas: [],
 
             overseas_games: [],
             upcoming_games: [],
@@ -158,7 +158,7 @@ class acceleratorPage extends Component {
 
 
     renderTheGameSection = (type = 0, title = '', iconSource = require('../../resource/Image/GameHomePage/diamond.png'), dataArray = []) => {
-        if(dataArray.length == 0){
+        if (dataArray.length == 0) {
             return null;
         }
 
@@ -169,7 +169,20 @@ class acceleratorPage extends Component {
                     title={title}
                     clickFunction={() => {
                         console.log('查看', title, '的更多');
-                        this.clickTheMoreGamesButton(title);
+                        let type_name = '';
+                        let classification = '';
+                        if (type == 1) {
+                            classification = '精选';
+                        } else if (type == 2) {
+                            classification = '热门';
+                        } else if (type == 3) {
+                            classification = '最新';
+                        } else if (type == 4) {
+                            type_name = '国服';
+                        } else if (type == 5) {
+                            type_name = '外服';
+                        }
+                        this.clickTheMoreGamesButton(title, type_name, classification);
                     }} />
 
                 <ScrollView
@@ -182,11 +195,11 @@ class acceleratorPage extends Component {
                 </ScrollView>
             </View>
         );
-        
+
     }
 
     renderTheGameUnitSection = (type = 0, title = '', iconSource = require('../../resource/Image/GameHomePage/diamond.png'), dataArray = []) => {
-        if(dataArray.length == 0){
+        if (dataArray.length == 0) {
             return null;
         }
         return (
@@ -196,16 +209,20 @@ class acceleratorPage extends Component {
                     title={title}
                     clickFunction={() => {
                         console.log('查看', title, '的更多');
-                        let type_name = '国服';
-                        let classification;
+                        let type_name = '';
+                        let classification = '';
                         if (type == 1) {
                             classification = '精选';
                         } else if (type == 2) {
                             classification = '热门';
                         } else if (type == 3) {
                             classification = '最新';
+                        } else if (type == 4) {
+                            type_name = '国服';
+                        } else if (type == 5) {
+                            type_name = '外服';
                         }
-                        this.clickTheMoreGamesButton(title, type_name, classification,);
+                        this.clickTheMoreGamesButton(title, type_name, classification);
                     }} />
 
                 <ScrollView
@@ -329,9 +346,8 @@ class acceleratorPage extends Component {
         navigator.jump(this, PageName.NORMAL_PAGE_SEARCH);
     }
 
-    clickTheMoreGamesButton = (gameType = '') => {
-        console.log("gameType"+gameType);
-        navigator.jump(this, PageName.NORMAL_PAGE_GAME_MORE_PAGE, { title: gameType,classification:gameType,type_name:'国内' });
+    clickTheMoreGamesButton = (title = '', gameType = '', classification = '') => {
+        navigator.jump(this, PageName.NORMAL_PAGE_GAME_MORE_PAGE, { title, classification, type_name: gameType });
     }
 
     /**
@@ -416,7 +432,7 @@ class acceleratorPage extends Component {
             all_game_collection: all_game_collection,
             all_game_hot: all_game_hot,
             all_game_new: all_game_new,
-            all_game_domestic:all_game_domestic,
+            all_game_domestic: all_game_domestic,
             overseas_games: overseas_games,
             upcoming_games: upcoming_games
         });

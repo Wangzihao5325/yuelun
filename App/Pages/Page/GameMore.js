@@ -56,7 +56,7 @@ export default class GameMore extends Component {
             classification: classification ? classification : ''
         });
 
-        console.log('type_name', type_name, classification);
+        console.log('type_name', '', classification);
         this.getTheMoreGamesData(type_name, this.state.pageNo, classification);
     }
 
@@ -148,10 +148,6 @@ export default class GameMore extends Component {
         Loading.show();
         let pageNumber = page;
         pageNumber = pageNumber.toString();
-        console.log('---start----');
-        console.log(type_name);
-        console.log(pageNumber);
-        console.log(classification);
         ApiModule.getSearchGamesData('', type_name, '1', classification, '')
             .then((result) => {
                 Loading.hidden();
