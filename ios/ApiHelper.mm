@@ -257,8 +257,8 @@ RCT_REMAP_METHOD(yuelunSaveSearchGameList,sessionid:(NSString *)strsession_id st
 
 -(NSString *)getThePhoneCode:(NSString *)phoneNum{
   std::string phoneNumStr  = [phoneNum UTF8String];
-  char* feedbackStr = YuelunSendPhoneCode(phoneNumStr);
-  NSString * feedbackString = [NSString stringWithFormat:@"%s",feedbackStr];
+  std::string feedbackStr = YuelunSendPhoneCode(phoneNumStr);
+  NSString * feedbackString = [NSString stringWithFormat:@"%s",feedbackStr.c_str()];
   return feedbackString;
 }
 

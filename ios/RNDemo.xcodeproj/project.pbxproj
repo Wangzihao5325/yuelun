@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		00675C46243094DC00085827 /* KeyChainModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 00675C44243094DC00085827 /* KeyChainModule.m */; };
 		00675C492430AE7100085827 /* QRScanReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 00675C482430AE7100085827 /* QRScanReader.m */; };
-		00E1FC0824C2CD280092895E /* libyuelun_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E1FC0424C2CD270092895E /* libyuelun_api.a */; };
-		00E1FC0A24C2CD280092895E /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E1FC0624C2CD280092895E /* libcurl.a */; };
 		00E356F31AD99517003FC87E /* RNDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RNDemoTests.m */; };
 		00F29DD6242889D600A54037 /* BridgeDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F29DD5242889D600A54037 /* BridgeDemo.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -19,7 +17,20 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		34F713CE243C2C6C001034CF /* AuthenticationModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F713CD243C2C6C001034CF /* AuthenticationModule.m */; };
 		8013CCCD24E901D200493822 /* VPN_Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8013CCCC24E901D200493822 /* VPN_Manager.m */; };
+		8027712725050DB3005AEBB1 /* libz.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E1FC1F24C3FD330092895E /* libz.1.tbd */; };
+		80277138250519C7005AEBB1 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802771352505142F005AEBB1 /* CocoaAsyncSocket.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		8027713B25051CB0005AEBB1 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E1FC1224C2DD670092895E /* libc++.tbd */; };
 		802CF95924DB070800685ACF /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802CF95824DB070800685ACF /* NetworkExtension.framework */; };
+		8046CC3525052AEC0089A9D4 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8046CC3025052AEB0089A9D4 /* libcrypto.a */; };
+		8046CC3625052AEC0089A9D4 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8046CC3025052AEB0089A9D4 /* libcrypto.a */; };
+		8046CC3725052AEC0089A9D4 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8046CC3125052AEB0089A9D4 /* libssl.a */; };
+		8046CC3825052AEC0089A9D4 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8046CC3125052AEB0089A9D4 /* libssl.a */; };
+		8046CC3925052AEC0089A9D4 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8046CC3225052AEB0089A9D4 /* libcurl.a */; };
+		8046CC3A25052AEC0089A9D4 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8046CC3225052AEB0089A9D4 /* libcurl.a */; };
+		8046CC3B25052AEC0089A9D4 /* libYuelunProxy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8046CC3325052AEB0089A9D4 /* libYuelunProxy.a */; };
+		8046CC3C25052AEC0089A9D4 /* libYuelunProxy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8046CC3325052AEB0089A9D4 /* libYuelunProxy.a */; };
+		8046CC3D25052AEC0089A9D4 /* libproxy_clientios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8046CC3425052AEC0089A9D4 /* libproxy_clientios.a */; };
+		8046CC3E25052AEC0089A9D4 /* libproxy_clientios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8046CC3425052AEC0089A9D4 /* libproxy_clientios.a */; };
 		806A22E424E81D20000E7040 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 806A22DF24E81D1F000E7040 /* GCDAsyncSocket.m */; };
 		806A22E524E81D20000E7040 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 806A22E024E81D1F000E7040 /* GCDAsyncUdpSocket.m */; };
 		806A22E724E81D46000E7040 /* CocoaAsyncSocket in Resources */ = {isa = PBXBuildFile; fileRef = 806A22E624E81D46000E7040 /* CocoaAsyncSocket */; };
@@ -37,10 +48,6 @@
 		80F8AA7624E43F7C0073A30C /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802CF95824DB070800685ACF /* NetworkExtension.framework */; };
 		80F8AA7A24E4400A0073A30C /* NSMutableDictionary+TVUSafeSetRemove.m in Sources */ = {isa = PBXBuildFile; fileRef = 80F8AA7924E4400A0073A30C /* NSMutableDictionary+TVUSafeSetRemove.m */; };
 		80F8AA7D24E4418E0073A30C /* YuelunVpn.m in Sources */ = {isa = PBXBuildFile; fileRef = 80F8AA7C24E4418E0073A30C /* YuelunVpn.m */; };
-		80F8AA8924E446A50073A30C /* libYuelunProxy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F8AA8724E446A40073A30C /* libYuelunProxy.a */; };
-		80F8AA8A24E446A50073A30C /* libproxy_clientios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F8AA8824E446A50073A30C /* libproxy_clientios.a */; };
-		80F8AA8D24E44A0D0073A30C /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F8AA8B24E44A0C0073A30C /* libcrypto.a */; };
-		80F8AA8E24E44A0D0073A30C /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F8AA8C24E44A0D0073A30C /* libssl.a */; };
 		A522A05CEDAAB65C1D9333F3 /* libPods-RNDemo-RNDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3464F86A16DE9EF64A13562A /* libPods-RNDemo-RNDemoTests.a */; };
 		C6ADE1C2F0F2E4FFB75C6354 /* libPods-RNDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D086370BEB68C40B80F3C07D /* libPods-RNDemo.a */; };
 /* End PBXBuildFile section */
@@ -83,8 +90,6 @@
 		00675C472430AE4800085827 /* QRScanReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = QRScanReader.h; path = RNDemo/BridgeModule/QRScanModule/QRScanReader.h; sourceTree = "<group>"; };
 		00675C482430AE7100085827 /* QRScanReader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = QRScanReader.m; path = RNDemo/BridgeModule/QRScanModule/QRScanReader.m; sourceTree = "<group>"; };
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E1FC0424C2CD270092895E /* libyuelun_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libyuelun_api.a; sourceTree = "<group>"; };
-		00E1FC0624C2CD280092895E /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcurl.a; sourceTree = "<group>"; };
 		00E1FC0B24C2CDEA0092895E /* apiyuelun.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = apiyuelun.h; sourceTree = "<group>"; };
 		00E1FC1224C2DD670092895E /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		00E1FC1424C2DD980092895E /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
@@ -114,7 +119,13 @@
 		8013CCCC24E901D200493822 /* VPN_Manager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VPN_Manager.m; sourceTree = "<group>"; };
 		8013CCCE24E909BF00493822 /* YueLunVPN.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = YueLunVPN.entitlements; path = YueLunVPN/YueLunVPN.entitlements; sourceTree = SOURCE_ROOT; };
 		8013CCD024E91F7400493822 /* RNDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = RNDemo.entitlements; path = RNDemo/RNDemo.entitlements; sourceTree = "<group>"; };
+		802771352505142F005AEBB1 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = "../../../../../Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/11ffa7470cbb4c0c57800565c879ee2f/Message/MessageTemp/006229311e74f516563f170bd667d98e/File/CocoaAsyncSocket.framework"; sourceTree = "<group>"; };
 		802CF95824DB070800685ACF /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		8046CC3025052AEB0089A9D4 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = VPNFramework/libcrypto.a; sourceTree = "<group>"; };
+		8046CC3125052AEB0089A9D4 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = VPNFramework/libssl.a; sourceTree = "<group>"; };
+		8046CC3225052AEB0089A9D4 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = VPNFramework/libcurl.a; sourceTree = "<group>"; };
+		8046CC3325052AEB0089A9D4 /* libYuelunProxy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYuelunProxy.a; path = VPNFramework/libYuelunProxy.a; sourceTree = "<group>"; };
+		8046CC3425052AEC0089A9D4 /* libproxy_clientios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libproxy_clientios.a; path = VPNFramework/libproxy_clientios.a; sourceTree = "<group>"; };
 		806A22DF24E81D1F000E7040 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = RNDemo/GCDAsyncSocket.m; sourceTree = "<group>"; };
 		806A22E024E81D1F000E7040 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncUdpSocket.m; path = RNDemo/GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
 		806A22E124E81D1F000E7040 /* CocoaAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CocoaAsyncSocket.h; path = RNDemo/CocoaAsyncSocket.h; sourceTree = "<group>"; };
@@ -141,10 +152,6 @@
 		80F8AA7C24E4418E0073A30C /* YuelunVpn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YuelunVpn.m; sourceTree = "<group>"; };
 		80F8AA8524E446370073A30C /* libclient_proxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libclient_proxy.h; sourceTree = SOURCE_ROOT; };
 		80F8AA8624E446370073A30C /* YuelunProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YuelunProxy.h; sourceTree = SOURCE_ROOT; };
-		80F8AA8724E446A40073A30C /* libYuelunProxy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libYuelunProxy.a; sourceTree = SOURCE_ROOT; };
-		80F8AA8824E446A50073A30C /* libproxy_clientios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libproxy_clientios.a; sourceTree = SOURCE_ROOT; };
-		80F8AA8B24E44A0C0073A30C /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = SOURCE_ROOT; };
-		80F8AA8C24E44A0D0073A30C /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = SOURCE_ROOT; };
 		94B62AE16F593BCC4BF6E40C /* Pods-RNDemo-RNDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemo-RNDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-RNDemo-RNDemoTests/Pods-RNDemo-RNDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A2D3E4E44A8036272CCDE589 /* libPods-RNDemo-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNDemo-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF80F1A94A0D6D7AC204937E /* Pods-RNDemo-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemo-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-RNDemo-tvOSTests/Pods-RNDemo-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -171,10 +178,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				806A22EF24E81DA0000E7040 /* Security.framework in Frameworks */,
+				8046CC3925052AEC0089A9D4 /* libcurl.a in Frameworks */,
+				8046CC3B25052AEC0089A9D4 /* libYuelunProxy.a in Frameworks */,
+				8046CC3525052AEC0089A9D4 /* libcrypto.a in Frameworks */,
+				8046CC3725052AEC0089A9D4 /* libssl.a in Frameworks */,
 				806A22ED24E81D95000E7040 /* CFNetwork.framework in Frameworks */,
-				00E1FC0A24C2CD280092895E /* libcurl.a in Frameworks */,
 				802CF95924DB070800685ACF /* NetworkExtension.framework in Frameworks */,
-				00E1FC0824C2CD280092895E /* libyuelun_api.a in Frameworks */,
+				8046CC3D25052AEC0089A9D4 /* libproxy_clientios.a in Frameworks */,
 				C6ADE1C2F0F2E4FFB75C6354 /* libPods-RNDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -183,11 +193,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8027713B25051CB0005AEBB1 /* libc++.tbd in Frameworks */,
+				8027712725050DB3005AEBB1 /* libz.1.tbd in Frameworks */,
+				8046CC3825052AEC0089A9D4 /* libssl.a in Frameworks */,
+				8046CC3625052AEC0089A9D4 /* libcrypto.a in Frameworks */,
+				80277138250519C7005AEBB1 /* CocoaAsyncSocket.framework in Frameworks */,
+				8046CC3E25052AEC0089A9D4 /* libproxy_clientios.a in Frameworks */,
+				8046CC3A25052AEC0089A9D4 /* libcurl.a in Frameworks */,
+				8046CC3C25052AEC0089A9D4 /* libYuelunProxy.a in Frameworks */,
 				806A22EB24E81D85000E7040 /* ExternalAccessory.framework in Frameworks */,
-				80F8AA8E24E44A0D0073A30C /* libssl.a in Frameworks */,
-				80F8AA8924E446A50073A30C /* libYuelunProxy.a in Frameworks */,
-				80F8AA8A24E446A50073A30C /* libproxy_clientios.a in Frameworks */,
-				80F8AA8D24E44A0D0073A30C /* libcrypto.a in Frameworks */,
 				80F8AA7624E43F7C0073A30C /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,6 +277,12 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8046CC3025052AEB0089A9D4 /* libcrypto.a */,
+				8046CC3225052AEB0089A9D4 /* libcurl.a */,
+				8046CC3425052AEC0089A9D4 /* libproxy_clientios.a */,
+				8046CC3125052AEB0089A9D4 /* libssl.a */,
+				8046CC3325052AEB0089A9D4 /* libYuelunProxy.a */,
+				802771352505142F005AEBB1 /* CocoaAsyncSocket.framework */,
 				806A22EE24E81DA0000E7040 /* Security.framework */,
 				806A22EC24E81D94000E7040 /* CFNetwork.framework */,
 				806A22EA24E81D85000E7040 /* ExternalAccessory.framework */,
@@ -314,10 +334,6 @@
 			isa = PBXGroup;
 			children = (
 				806A22E624E81D46000E7040 /* CocoaAsyncSocket */,
-				80F8AA8B24E44A0C0073A30C /* libcrypto.a */,
-				80F8AA8C24E44A0D0073A30C /* libssl.a */,
-				80F8AA8824E446A50073A30C /* libproxy_clientios.a */,
-				80F8AA8724E446A40073A30C /* libYuelunProxy.a */,
 				80F8AA8524E446370073A30C /* libclient_proxy.h */,
 				80F8AA8624E446370073A30C /* YuelunProxy.h */,
 				80F8AA6B24E43F180073A30C /* PacketTunnelProvider.h */,
@@ -339,8 +355,6 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				00E1FC0624C2CD280092895E /* libcurl.a */,
-				00E1FC0424C2CD270092895E /* libyuelun_api.a */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -827,6 +841,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/VPNFramework",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -838,6 +853,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "RNDemo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -858,6 +874,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/VPNFramework",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -868,6 +885,7 @@
 				PRODUCT_NAME = RNDemo;
 				SWIFT_OBJC_BRIDGING_HEADER = "RNDemo-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -885,6 +903,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = K63Z3XNHX6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Containers/com.tencent.xinWeChat/Data/Library/Application\\ Support/com.tencent.xinWeChat/2.0b4.0.9/11ffa7470cbb4c0c57800565c879ee2f/Message/MessageTemp/006229311e74f516563f170bd667d98e/File",
+					"$(USER_LIBRARY_DIR)/Containers/com.tencent.xinWeChat/Data/Library/Application\\ Support/com.tencent.xinWeChat/2.0b4.0.9/11ffa7470cbb4c0c57800565c879ee2f/Message/MessageTemp/006229311e74f516563f170bd667d98e/File",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = YueLunVPN/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -892,6 +915,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/VPNFramework",
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -916,6 +940,11 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = K63Z3XNHX6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Containers/com.tencent.xinWeChat/Data/Library/Application\\ Support/com.tencent.xinWeChat/2.0b4.0.9/11ffa7470cbb4c0c57800565c879ee2f/Message/MessageTemp/006229311e74f516563f170bd667d98e/File",
+					"$(USER_LIBRARY_DIR)/Containers/com.tencent.xinWeChat/Data/Library/Application\\ Support/com.tencent.xinWeChat/2.0b4.0.9/11ffa7470cbb4c0c57800565c879ee2f/Message/MessageTemp/006229311e74f516563f170bd667d98e/File",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = YueLunVPN/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -923,6 +952,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/VPNFramework",
 				);
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuelun.accvpn.yltunnel;
