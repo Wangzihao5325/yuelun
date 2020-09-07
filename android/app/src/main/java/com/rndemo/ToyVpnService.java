@@ -185,14 +185,28 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
 
         mHandler.sendEmptyMessage(R.string.disconnected);
         com.yuelun.ylsdk.CProxClient.stoplocalproxy();
-        YuelunProxyJni.stop();
-      //  mVpnConnection.tearDownVpn();
+        disconnectTunnel();
 
         setConnectingThread(null);
         setConnection(null);
         stopForeground(true);
       //  mHandler.sendEmptyMessage(R.string.disconnected_suc);
     }
+
+    public synchronized void disconnectTunnel(){
+        if(proxycllientThread ==null){
+            return;
+        }
+        try{
+            YuelunProxyJni.stop();
+            proxycllientThread.join();
+        }catch (InterruptedException e){
+            Thread.currentThread().interrupt();
+        }finally {
+            proxycllientThread = null;
+        }
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void updateForegroundNotification(final int message) {
 

@@ -214,6 +214,7 @@ public class ToyVpnConnection implements Runnable {
 
         return false;
     }
+
     @SuppressLint("NewApi")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private ParcelFileDescriptor tunestablish() throws IllegalArgumentException, PackageManager.NameNotFoundException {
@@ -255,6 +256,18 @@ public class ToyVpnConnection implements Runnable {
         return tunfd;
     }
 
+    public synchronized void tearDownVpn(){
+        if(tunfd ==null){
+            return;
+        }
+        try {
+                tunfd.close();
+        }catch (IOException e){
+
+        } finally {
+            tunfd = null;
+        }
+    }
 
     private final String getTag() {
         return ToyVpnConnection.class.getSimpleName() + "[" + mConnectionId + "]";
