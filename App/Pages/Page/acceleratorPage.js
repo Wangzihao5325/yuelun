@@ -47,27 +47,27 @@ export default class acceleratorPage extends Component {
     }
 
     componentDidMount() {
-        // this._unsubscribe = this.props.navigation.addListener('focus', () => {
-        //     AsyncStorage.getItem('accelerateInfo').then(value => {
-        //         let accelerateInfo = JSON.parse(value || '{}');
-        //         let data = _.values(accelerateInfo);
-        //         console.log(data);
-        //         this.setState({
-        //             dataArray: data
-        //         }, () => {
-        //             this.startTheTimerInterval();
-        //         });
-        //     });
-        // });
+        this._unsubscribe = this.props.navigation.addListener('focus', () => {
+            AsyncStorage.getItem('accelerateInfo').then(value => {
+                let accelerateInfo = JSON.parse(value || '{}');
+                let data = _.values(accelerateInfo);
+                console.log('---here---', data);
+                this.setState({
+                    dataArray: data
+                }, () => {
+                    this.startTheTimerInterval();
+                });
+            });
+        });
 
-        // this._unfocusUnsubscribe = this.props.navigation.addListener('blur', () => {
-        //     if (this.requestTimer) {
-        //         clearInterval(this.requestTimer);
-        //         this.requestTimer = null;
-        //     }
-        // })
+        this._unfocusUnsubscribe = this.props.navigation.addListener('blur', () => {
+            if (this.requestTimer) {
+                clearInterval(this.requestTimer);
+                this.requestTimer = null;
+            }
+        })
 
-        this.setState(({dataArray: [{key:'1'},{key:'2'},{key:'3'},{key:'4'}]}));
+        //this.setState(({ dataArray: [{ key: '1' }, { key: '2' }, { key: '3' }, { key: '4' }] }));
     }
 
     componentWillUnmount() {
@@ -91,33 +91,34 @@ export default class acceleratorPage extends Component {
             <View style={styles.container}>
                 {this.renderTheNavigation()}
                 <SwipeListView
-                    style={{marginLeft:0,marginTop:0,width:SCREEN_WIDTH,flex:1}}
+                    style={{ marginLeft: 0, marginTop: 0, width: SCREEN_WIDTH, flex: 1 }}
                     data={this.state.dataArray}
                     renderItem={(data, rowMap) => (
                         <View style={styles.rowFront}>{this.renderTheItem(data.item)}</View>
-                )}
+                    )}
                     renderHiddenItem={(data, rowMap) => (
-                    <View style={styles.rowBack}>
-                        <Text></Text>
-                        <TouchableOpacity style={styles.deleteButton} onPress={()=>{this.deleteTheItem(data)}}>
-                        <Text style={{color:"white"}}>删除</Text>
-                        </TouchableOpacity>
-                    </View>
-                )}
+                        <View style={styles.rowBack}>
+                            <Text></Text>
+                            <TouchableOpacity style={styles.deleteButton} onPress={() => { this.deleteTheItem(data) }}>
+                                <Text style={{ color: "white" }}>删除</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
                     leftOpenValue={0}
                     rightOpenValue={-75}
+                    keyExtractor={(item) => `${item.id}`}
                 />
-                
+
                 {this.stopAccelerateAlert()}
             </View>
         );
     }
 
-    deleteTheItem = (item) =>{
+    deleteTheItem = (item) => {
         var dataArray = this.state.dataArray;
-        dataArray.splice(item.index,1);
+        dataArray.splice(item.index, 1);
         this.setState({
-            dataArray:dataArray
+            dataArray: dataArray
         });
     }
 
@@ -145,17 +146,17 @@ export default class acceleratorPage extends Component {
     /** 渲染列表单元组件 */
     renderTheItem = (item) => {
         return (
-            <TouchableOpacity 
+            <TouchableOpacity
                 style={styles.acceleratorItemRoot}
                 onPress={() => {
-                    console.log('item["speedup"]',item["speedup"]);
-                    if(item["speedup"] == '1'){
+                    console.log('item["speedup"]', item["speedup"]);
+                    if (item["speedup"] == '1') {
                         item["speedup"] = '0';
-                    }else{
+                    } else {
                         item["speedup"] = '1';
                     }
-                    
-                    this.setState({"freashData":true});
+
+                    this.setState({ "freashData": true });
                 }}>
                 <View style={styles.gameIconRoot}>
                     <Image source={{ uri: item.icon }} style={styles.gameIcon} />
@@ -196,12 +197,12 @@ export default class acceleratorPage extends Component {
     }
 
     accelarateTimeButton = (data) => {
-        if(data["speedup"] == '0'){
-            return(
+        if (data["speedup"] == '0') {
+            return (
                 <View style={styles.buttonStyle}>
                     <Image
-                        source = {require('../../resource/Image/GameHomePage/lightning.png')} 
-                        style={styles.iconStyle}/>
+                        source={require('../../resource/Image/GameHomePage/lightning.png')}
+                        style={styles.iconStyle} />
                     <Text style={styles.activeText}>加速</Text>
                 </View>
             );
@@ -302,21 +303,21 @@ export default class acceleratorPage extends Component {
                         <Text style={{ color: 'white' }}>停止所有游戏加速</Text>
                     </TouchableOpacity>
                     <View style={[styles.stopItemStyle, { marginBottom: 1.5 }]}>
-                        <Text style={{ color: 'white' }}>{gamecount+"款游戏正在加速，停止加速可能导致游戏断线，是否停止所有游戏的加速？"}</Text>
+                        <Text style={{ color: 'white' }}>{gamecount + "款游戏正在加速，停止加速可能导致游戏断线，是否停止所有游戏的加速？"}</Text>
                     </View>
                 </TouchableOpacity>
             </Modal>
         );
     }
 
-    stopAllGameSpeedUp = () =>{
+    stopAllGameSpeedUp = () => {
         let gamesArray = this.state.dataArray;
-        for(let i = 0; i < gamesArray.length; i++){
+        for (let i = 0; i < gamesArray.length; i++) {
             let gameInfo = gamesArray[i];
             gameInfo["speedup"] = "0";
         }
 
-        this.setState({"dataArray":gamesArray});
+        this.setState({ "dataArray": gamesArray });
         AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
             this.setState({
                 isAccelerate: false
@@ -396,23 +397,23 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    buttonStyle:{
-        width:90,
-        height:40,
-        borderRadius:20,
-        flexDirection:'row',
-        justifyContent:'center',
-        alignItems:'center',
-        backgroundColor:'#F5CC00'
+    buttonStyle: {
+        width: 90,
+        height: 40,
+        borderRadius: 20,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5CC00'
     },
-    iconStyle:{
-        width:9.5,
-        height:16.5,
+    iconStyle: {
+        width: 9.5,
+        height: 16.5,
     },
-    activeText:{
-        marginLeft:3,
-        fontSize:15,
-        color:'#4F2F00'
+    activeText: {
+        marginLeft: 3,
+        fontSize: 15,
+        color: '#4F2F00'
     },
     rowFront: {
         backgroundColor: '#00132D',
@@ -424,14 +425,14 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        height:80,
-        backgroundColor:'#00132D'
+        height: 80,
+        backgroundColor: '#00132D'
     },
-    deleteButton:{
-        height:90,
-        width:75,
-        justifyContent:'center',
-        alignItems:'center',
-        backgroundColor:'red'
+    deleteButton: {
+        height: 90,
+        width: 75,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'red'
     }
 });

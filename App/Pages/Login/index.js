@@ -146,6 +146,7 @@ export default class Login extends Component {
         const { phoneNum, verificationCode } = this.state;
         Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
             .then((result) => {
+                console.log('login---here',result);
                 Loading.hidden();
                 if (result['status'] == 'ok') {
                     this.saveTheUserInfo(result);

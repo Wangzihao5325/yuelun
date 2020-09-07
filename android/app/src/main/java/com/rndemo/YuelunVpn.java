@@ -80,24 +80,6 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
      @ReactMethod
      public void startVpn(String strip,int consultport,Promise promise) throws IOException {
         //占用2020端口
-         int cout = 0;
-         while (cout < 5)
-         {
-             int port = getNum(40000,50000);
-             cout = cout +1;
-             int ret =   CProxClient.createTunnel("sd", "7",port,2);
-             if (ret==0)
-             {
-                 _proxyPort = port;
-                 Log.w(getTag(),"create  localproxy suc...\n");
-                 break;
-             }
-             else
-             {
-                 promise.reject("001","start port failed");
-                 continue;
-             }
-         }
         //已经取得真正的参数，开始启动vpn
          Bundle profileInfo = new Bundle();
          profileInfo.putString("Address", "162.14.13.154");

@@ -178,9 +178,9 @@ public class ToyVpnConnection implements Runnable {
             throws IOException, InterruptedException, IllegalArgumentException, PackageManager.NameNotFoundException {
         ParcelFileDescriptor iface = null;
         boolean connected = false;
-        CProxClient.YuelunGetGameInfoById("","7","");
+        CProxClient.YuelunGetGameInfoById("41ffc2c7e0b1d9db6999cdce3d5c626432eb2a45","7","");
         int port = getNum(40000,50000);
-        int ret = CProxClient.createTunnel("","7",port,2);
+        int ret = CProxClient.createTunnel("41ffc2c7e0b1d9db6999cdce3d5c626432eb2a45","7",port,2);
         if (ret == 0)
         {
             iface = tunestablish();
@@ -189,19 +189,15 @@ public class ToyVpnConnection implements Runnable {
             Object dnsResolverAddress = null;
             Log.w(getTag(), "begin create ylproxy...\n");
 
-            ParcelFileDescriptor finalIface = iface;
-            Thread proxycllientThread = new Thread() {
-                public void run() {
-                    YuelunProxyJni.start(finalIface.getFd(), 1500,
+
+                    YuelunProxyJni.start(iface.getFd(), 1500,
                             "10.172.2.70",  // Router IP address
                             "255.255.255.0", null, socksServerAddress,
                             socksServerAddress, // UDP relay IP address
                             null,
                             0,
                             1);
-                }
-            };
-            proxycllientThread.start();
+
 
             // Now we are connected. Set the flag.
             connected = true;
