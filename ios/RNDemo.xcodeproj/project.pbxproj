@@ -39,6 +39,7 @@
 		806A22EB24E81D85000E7040 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806A22EA24E81D85000E7040 /* ExternalAccessory.framework */; };
 		806A22ED24E81D95000E7040 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806A22EC24E81D94000E7040 /* CFNetwork.framework */; };
 		806A22EF24E81DA0000E7040 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806A22EE24E81DA0000E7040 /* Security.framework */; };
+		80A39F8C25066F28005AD0CE /* ip2region.db in Resources */ = {isa = PBXBuildFile; fileRef = 80A39F8B25066F27005AD0CE /* ip2region.db */; };
 		80F7766A24C7CE92004DCDB1 /* apiyuelun.h in Sources */ = {isa = PBXBuildFile; fileRef = 00E1FC0B24C2CDEA0092895E /* apiyuelun.h */; };
 		80F7767324D07210004DCDB1 /* ApiHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80F7767224D07210004DCDB1 /* ApiHelper.mm */; };
 		80F8AA6124E43EBA0073A30C /* XDXVPNManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80F8AA5E24E43EBA0073A30C /* XDXVPNManager.mm */; };
@@ -135,6 +136,7 @@
 		806A22EA24E81D85000E7040 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		806A22EC24E81D94000E7040 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		806A22EE24E81DA0000E7040 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		80A39F8B25066F27005AD0CE /* ip2region.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = ip2region.db; sourceTree = "<group>"; };
 		80F7767124D07210004DCDB1 /* ApiHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiHelper.h; sourceTree = "<group>"; };
 		80F7767224D07210004DCDB1 /* ApiHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ApiHelper.mm; sourceTree = "<group>"; };
 		80F8AA5D24E43EBA0073A30C /* XDXVPNManagerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDXVPNManagerModel.h; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				80F8AA7924E4400A0073A30C /* NSMutableDictionary+TVUSafeSetRemove.m */,
 				8013CCCB24E901D200493822 /* VPN_Manager.h */,
 				8013CCCC24E901D200493822 /* VPN_Manager.m */,
+				80A39F8B25066F27005AD0CE /* ip2region.db */,
 			);
 			name = RNDemo;
 			sourceTree = "<group>";
@@ -507,6 +510,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80A39F8C25066F28005AD0CE /* ip2region.db in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);

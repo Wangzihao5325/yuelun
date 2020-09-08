@@ -62,21 +62,31 @@ static NSDictionary *kVpnSubnetCandidates;  // Subnets to bind the VPN.
         }
     }];
     //启动本地代理，创建隧道，启动VPN
-    NSString * consultIP   = [options objectForKey:@"consultIP"];
-    NSString * consultPort = [options objectForKey:@"consultPort"];
-    int consulport = [consultPort intValue];
-    NSString * tunnelIP    = [options objectForKey:@"tunnelIP"];
+    NSString * nssessionid   = [options objectForKey:@"sessionid"];
+    NSString * nsgamid = [options objectForKey:@"gamid"];
+    NSString * path = [options objectForKey:@"appath"];
     srand((int)time(0));
     int port = rand()% (57342 - 44073 + 1) + 44073;
     NSLog(@"local port:%d",port);
-//    int ret = InitLocalProxyServer(port);
-//  
-//   const char * consultIPChar = [consultIP UTF8String];
-//   const char * tunnelIPChar  = [tunnelIP UTF8String];
-//  
-//    int realport = GetOVPNRealPort((char*)consultIPChar, consulport);
-//    int returnresult = CreateProxyTunnel((char*)tunnelIPChar,realport);
-
+    
+  const char * pathchar = [path UTF8String];
+  const char * csessionid = [nssessionid UTF8String];
+  const char * cgameid = [nsgamid UTF8String];
+  
+  int ret = SetFilePath((char *)pathchar);
+  if(ret != 0){
+    NSLog(@"set file path is error");
+    return;
+  }
+  
+  YuelunGetGameInfoById(csessionid, cgameid, "");
+  //启动加速
+  ret = CreatTunnel((char *)csessionid, "7", port, 2);
+  if(ret == -1){
+    NSLog(@"creat tunnel is error\n");
+    return;
+  }
+  
     BOOL isUdpSupported = true;
     [self YuelunSetupPacketFlow];
     [YuelunProxy YuelunSetUdpForwardingEnabled:isUdpSupported];

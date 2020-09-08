@@ -12,6 +12,7 @@
 //#import  "NSMutableDictionary+XDXSafeSetRemove.h"
 #import "NSMutableDictionary+TVUSafeSetRemove.h"
 #include "log4cplus.h"
+#import "libclient_proxy.h"
 
 @interface XDXVPNManager()
 
@@ -47,8 +48,11 @@
 - (BOOL)startVPNConsultIP:(NSString *)consultIP consultPort:(NSString*)consultPort tunnelIP:(NSString*)tunnelIP {
     if (self.vpnManager.connection.status == NEVPNStatusDisconnected) {
         NSError *error;
+      NSString * nstrpath = [[NSBundle mainBundle] pathForResource:@"ip2region.db" ofType:@"db"];
+      const char * cpath = [nstrpath UTF8String];
+      int ret = SetFilePath((char *)cpath);
       
-      NSDictionary * consulDic = @{@"consultIP":consultIP,@"consultPort":consultPort,@"tunnelIP":tunnelIP};
+      NSDictionary * consulDic = @{@"sessionid":consultIP,@"gamid":consultPort,@"dppath":nstrpath};
       [self.vpnManager.connection startVPNTunnelWithOptions:consulDic andReturnError:&error];
         
         if (error != 0) {
