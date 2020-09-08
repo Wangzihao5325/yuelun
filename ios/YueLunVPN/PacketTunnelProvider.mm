@@ -64,7 +64,7 @@ static NSDictionary *kVpnSubnetCandidates;  // Subnets to bind the VPN.
     //启动本地代理，创建隧道，启动VPN
     NSString * nssessionid   = [options objectForKey:@"sessionid"];
     NSString * nsgamid = [options objectForKey:@"gamid"];
-    NSString * path = [options objectForKey:@"appath"];
+    NSString * path = [options objectForKey:@"dppath"];
     srand((int)time(0));
     int port = rand()% (57342 - 44073 + 1) + 44073;
     NSLog(@"local port:%d",port);
@@ -87,10 +87,10 @@ static NSDictionary *kVpnSubnetCandidates;  // Subnets to bind the VPN.
     return;
   }
   
-    BOOL isUdpSupported = true;
-    [self YuelunSetupPacketFlow];
-    [YuelunProxy YuelunSetUdpForwardingEnabled:isUdpSupported];
-    [self YuelunStarAccWithPort:port];
+//    BOOL isUdpSupported = true;
+//    [self YuelunSetupPacketFlow];
+//    [YuelunProxy YuelunSetUdpForwardingEnabled:isUdpSupported];
+//    [self YuelunStarAccWithPort:port];
 }
 
 
