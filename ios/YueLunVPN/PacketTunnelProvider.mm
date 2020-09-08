@@ -81,16 +81,16 @@ static NSDictionary *kVpnSubnetCandidates;  // Subnets to bind the VPN.
   
   YuelunGetGameInfoById(csessionid, cgameid, "");
   //启动加速
-  ret = CreatTunnel((char *)csessionid, "7", port, 2);
+  ret = CreatTunnel((char *)csessionid, "7", port, 1);
   if(ret == -1){
     NSLog(@"creat tunnel is error\n");
     return;
   }
   
-//    BOOL isUdpSupported = true;
-//    [self YuelunSetupPacketFlow];
-//    [YuelunProxy YuelunSetUdpForwardingEnabled:isUdpSupported];
-//    [self YuelunStarAccWithPort:port];
+    BOOL isUdpSupported = true;
+    [self YuelunSetupPacketFlow];
+    [YuelunProxy YuelunSetUdpForwardingEnabled:isUdpSupported];
+    [self YuelunStarAccWithPort:port];
 }
 
 
