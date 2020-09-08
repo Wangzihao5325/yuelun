@@ -19,9 +19,11 @@ import com.facebook.react.bridge.ReactMethod;
 import com.yuelun.ylsdk.CProxClient;
 import org.yuelun.ylproxy.YuelunProxyJni;
 
+import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Random;
 
 import static android.app.Activity.RESULT_OK;
@@ -56,26 +58,32 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void prepare(Promise promise) {
-        Activity currentActivity = getCurrentActivity();
-
-        if (currentActivity == null) {
-            promise.reject("E_ACTIVITY_DOES_NOT_EXIST", "Activity doesn't exist");
-            return;
-        }
-        intent = VpnService.prepare(currentActivity);
-        if (intent != null) {
-            _reactContext.addActivityEventListener(new BaseActivityEventListener() {
-                public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-                    if(requestCode == 0 && resultCode == RESULT_OK){
-                        promise.resolve(null);
-                    } else {
-                        promise.reject("PrepareError", "Failed to prepare");
+        copyAssetAndWrite("ip2region.db");
+        File dataFile=new File(_reactContext.getCacheDir(),"ip2region.db");
+        int ret = com.yuelun.ylsdk.CProxClient.SetFilePath(dataFile.getAbsolutePath());
+        if(ret ==-2){
+            promise.reject("DB_LOAD_FAILED", "loading db failed!");
+        }else {
+            Activity currentActivity = getCurrentActivity();
+            if (currentActivity == null) {
+                promise.reject("E_ACTIVITY_DOES_NOT_EXIST", "Activity doesn't exist");
+                return;
+            }
+            intent = VpnService.prepare(currentActivity);
+            if (intent != null) {
+                _reactContext.addActivityEventListener(new BaseActivityEventListener() {
+                    public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+                        if(requestCode == 0 && resultCode == RESULT_OK){
+                            promise.resolve(null);
+                        } else {
+                            promise.reject("PrepareError", "Failed to prepare");
+                        }
                     }
-                }
-            });
-            currentActivity.startActivityForResult(intent, 0);
+                });
+                currentActivity.startActivityForResult(intent, 0);
+            }
+            promise.resolve("success");
         }
-        promise.resolve("success");
     }
      @ReactMethod
      public void startVpn(String strip,int consultport,Promise promise) throws IOException {
@@ -90,59 +98,43 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
          //通过intent传递参数 启动service 代码跳转至toyVpnService
          ContextCompat.startForegroundService(_reactContext, intent);
          promise.resolve("success");
-         /*
-
-         VpnService myService = new VpnService();
-         VpnService.Builder builder = myService.new Builder();
-         // PendingIntent pendingIntent = PendingIntent.getActivity(getCurrentActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-         builder.setSession("yuelunVpn");
-         builder.setMtu(1500);
-         builder.addAddress("10.172.2.70", 24);
-         builder.addRoute("0.0.0.0",0);
-         builder.addDnsServer("216.146.35.35");
-         // builder.setConfigureIntent(pendingIntent);
-         ParcelFileDescriptor vpnInterface =builder.establish();
-         YuelunProxyJni.start(vpnInterface.getFd(),1500,"10.172.2.70","255.255.255.0","","192.168.0.101","192.168.0.101",null,0,1);
-         promise.resolve("success");
-         */
      }
     private final String getTag() {
         return ToyVpnConnection.class.getSimpleName() + "[" + 1 + "]";
     }
-/*
-    @ReactMethod
-    public void yuelunGetNewConfig(String strip,int consultport,Promise promise){
-        String startProxySuccess = CProxClient.startlocalproxy(8090);
-        if(startProxySuccess.equals("error")){
-            promise.reject("001","start proxy failed");
-        }
-        int realPort = CProxClient.GetOVPNRealPort(strip,consultport);
-        String isCreateTunnelSuccess = CProxClient.createTunnel("162.14.13.154",realPort);
-        if(isCreateTunnelSuccess.equals("error")){
-            //没有创建成功链接隧道
-            promise.reject("002","create tunnel failed");
-        }
-        promise.resolve("success");
-       // String localIP = "127.0.0.1" +":8090";
-        //VpnService.Builder builder = new
 
-        YuelunProxyJni.start(10,1500,"10.172.2.70","255.255.255.0","","192.168.0.101","192.168.0.101",null,0,1);
-        VpnService myService = new VpnService();
-        VpnService.Builder builder = myService.new Builder();
-////
-        mConfigureIntent = PendingIntent.getActivity(getCurrentActivity(), 0, VpnService.prepare(getCurrentActivity()),
-//                PendingIntent.FLAG_UPDATE_CURRENT);
-//       // builder.addAddress(VPN_ADDRESS, 32);//vpn网卡的ip
-////        builder.addRoute(VPN_ROUTE, ROUTE_PREFIX);//设置路由规则
-////        builder.setMtu(15000);//数据超过多少之后 分包
-//        vpnInterface = builder.setSession("yuelunVpn").setConfigureIntent(mConfigureIntent).establish();
-    }
-*/
-    public static int getNum(int startNum,int endNum){
-        if(endNum > startNum){
-            Random random = new Random();
-            return random.nextInt(endNum - startNum) + startNum;
+    private boolean copyAssetAndWrite(String fileName){
+        try {
+            File cacheDir=_reactContext.getCacheDir();
+            if (!cacheDir.exists()){
+                cacheDir.mkdirs();
+            }
+            File outFile =new File(cacheDir,fileName);
+            if (!outFile.exists()){
+                boolean res=outFile.createNewFile();
+                if (!res){
+                    return false;
+                }
+            }else {
+                if (outFile.length()>10){//表示已经写入一次
+                    return true;
+                }
+            }
+            InputStream is=_reactContext.getAssets().open(fileName);
+            FileOutputStream fos = new FileOutputStream(outFile);
+            byte[] buffer = new byte[1024];
+            int byteCount;
+            while ((byteCount = is.read(buffer)) != -1) {
+                fos.write(buffer, 0, byteCount);
+            }
+            fos.flush();
+            is.close();
+            fos.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return 0;
+
+        return false;
     }
 }

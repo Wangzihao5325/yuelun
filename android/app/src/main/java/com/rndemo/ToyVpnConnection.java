@@ -178,9 +178,9 @@ public class ToyVpnConnection implements Runnable {
             throws IOException, InterruptedException, IllegalArgumentException, PackageManager.NameNotFoundException {
         ParcelFileDescriptor iface = null;
         boolean connected = false;
-        CProxClient.YuelunGetGameInfoById("41ffc2c7e0b1d9db6999cdce3d5c626432eb2a45","7","");
+        CProxClient.YuelunGetGameInfoById("a3ce3e1635427adb01e1e1435ba390f0c9542935","7","");
         int port = getNum(40000,50000);
-        int ret = CProxClient.createTunnel("41ffc2c7e0b1d9db6999cdce3d5c626432eb2a45","7",port,2);
+        int ret = CProxClient.createTunnel("a3ce3e1635427adb01e1e1435ba390f0c9542935","7",port,2);
         if (ret == 0)
         {
             iface = tunestablish();
@@ -214,6 +214,7 @@ public class ToyVpnConnection implements Runnable {
 
         return false;
     }
+
     @SuppressLint("NewApi")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private ParcelFileDescriptor tunestablish() throws IllegalArgumentException, PackageManager.NameNotFoundException {
@@ -255,6 +256,18 @@ public class ToyVpnConnection implements Runnable {
         return tunfd;
     }
 
+    public synchronized void tearDownVpn(){
+        if(tunfd ==null){
+            return;
+        }
+        try {
+                tunfd.close();
+        }catch (IOException e){
+
+        } finally {
+            tunfd = null;
+        }
+    }
 
     private final String getTag() {
         return ToyVpnConnection.class.getSimpleName() + "[" + mConnectionId + "]";
