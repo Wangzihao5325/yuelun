@@ -28,7 +28,7 @@ class MinePage extends Component {
                     source={require('../../resource/Image/Mine/mineBack.png')}
                     style={{ marginTop: 0, marginLeft: 0,marginBottom:fullDevice?50:20, width: SCREEN_WIDTH, height: SCREEN_WIDTH / 375 * 217.5, alignItems: 'center', }}>
                 {this.renderTheUserInforItem()}
-                {this.renderTheGuideToBuyVIPView()}
+                {this.renderTheVIPInfoView()}
                 </ImageBackground>
                 {this.renderTheSettingsItem(require('../../resource/Image/Mine/remind.png'), '公告消息', 1)}
                 {this.renderTheSettingsItem(require('../../resource/Image/Mine/aboutUs.png'), '关于我们', 2)}
@@ -97,6 +97,28 @@ class MinePage extends Component {
                     }
                 }}>
                     <Text style={styles.buyStyle}>立即开通</Text>
+                </TouchableOpacity>
+            </ImageBackground>
+        );
+    }
+
+    renderTheVIPInfoView = () => {
+        return (
+            <ImageBackground
+                resizeMode='stretch'
+                source={require('../../resource/Image/Mine/VIPRoot.png')}
+                style={styles.backImageStyle}>
+                <Image style={styles.VIPIcon} source={require('../../resource/Image/Mine/VIPicon.png')} />
+                <Text style={styles.buyVIPRootStyle}>立即开通会员</Text>
+                <TouchableOpacity style={styles.buyBtnRoot} onPress={() => {
+                    if (this.props.loginStatus) {
+                        let url = 'https://page.yuelun.com/mobile/recharge?session_id=' + this.props.sessionID;
+                        navigator.jump(this, PageName.NORMAL_VIP_BUY_WEB, { url: url });
+                    } else {
+                        navigator.jump(this, PageName.NORAML_LOGIN_PAGE);
+                    }
+                }}>
+                    <Text style={styles.buyStyle}>立即续费</Text>
                 </TouchableOpacity>
             </ImageBackground>
         );
