@@ -22,6 +22,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.VpnService;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,7 +37,10 @@ import androidx.annotation.RequiresApi;
 
 import org.yuelun.ylproxy.YuelunProxyJni;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -135,28 +139,68 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
 
         // Extract information from the shared preferences.
         Bundle bundle = intent.getExtras();
-        final String server = bundle.getString("Address");
+        final String strsessionid = bundle.getString("sessionid");
 
-        final int port = bundle.getInt("Port");
+        final String strgameid = bundle.getString("gameid");
         mVpnConnection = new ToyVpnConnection(
-                this, mNextConnectionId.getAndIncrement(), server, port, "".getBytes(),
+                this, mNextConnectionId.getAndIncrement(), strsessionid, strgameid, "".getBytes(),
                 "", 0, false, Collections.emptySet());
         startConnection(mVpnConnection);
     }
+    private boolean copyAssetAndWrite(String fileName){
+        try {
+            File cacheDir=getCacheDir();
+            if (!cacheDir.exists()){
+                cacheDir.mkdirs();
+            }
+            File outFile =new File(cacheDir,fileName);
+            if (!outFile.exists()){
+                boolean res=outFile.createNewFile();
+                if (!res){
+                    return false;
+                }
+            }else {
+                if (outFile.length()>10){//表示已经写入一次
+                    return true;
+                }
+            }
+            InputStream is=getAssets().open(fileName);
+            FileOutputStream fos = new FileOutputStream(outFile);
+            byte[] buffer = new byte[1024];
+            int byteCount;
+            while ((byteCount = is.read(buffer)) != -1) {
+                fos.write(buffer, 0, byteCount);
+            }
+            fos.flush();
+            is.close();
+            fos.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        return false;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void startConnection(final ToyVpnConnection connection) {
-        // Replace any existing connecting thread with the  new one.
-       proxycllientThread  = new Thread(connection, "ToyVpnThread");
-        setConnectingThread(proxycllientThread);
+        proxycllientThread =
+                new Thread() {
+                    public void run() {
+                        connection.setConfigureIntent(mConfigureIntent);
 
-        // Handler to mark as connected once onEstablish is called.
-        connection.setConfigureIntent(mConfigureIntent);
-        connection.setOnEstablishListener(tunInterface -> {
-            mHandler.sendEmptyMessage(R.string.connected);
+                        connection.setOnEstablishListener(tunInterface -> {
+                            mHandler.sendEmptyMessage(R.string.connected);
 
-            mConnectingThread.compareAndSet(proxycllientThread, null);
-            setConnection(new Connection(proxycllientThread, tunInterface));
-        });
+                            mConnectingThread.compareAndSet(proxycllientThread, null);
+                            setConnection(new Connection(proxycllientThread, tunInterface));
+                        });
+                        try {
+                            connection.run();
+                        } catch (PackageManager.NameNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
         proxycllientThread.start();
 
 
@@ -185,28 +229,13 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
 
         mHandler.sendEmptyMessage(R.string.disconnected);
         com.yuelun.ylsdk.CProxClient.stoplocalproxy();
-        disconnectTunnel();
 
-        setConnectingThread(null);
-        setConnection(null);
+
+        mVpnConnection.disconnectTunnel();
+        mVpnConnection.tearDownVpn();
         stopForeground(true);
-      //  mHandler.sendEmptyMessage(R.string.disconnected_suc);
+        //  mHandler.sendEmptyMessage(R.string.disconnected_suc);
     }
-
-    public synchronized void disconnectTunnel(){
-        if(proxycllientThread ==null){
-            return;
-        }
-        try{
-            YuelunProxyJni.stop();
-            proxycllientThread.join();
-        }catch (InterruptedException e){
-            Thread.currentThread().interrupt();
-        }finally {
-            proxycllientThread = null;
-        }
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void updateForegroundNotification(final int message) {
 

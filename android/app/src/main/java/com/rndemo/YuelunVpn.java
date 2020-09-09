@@ -85,20 +85,20 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
             promise.resolve("success");
         }
     }
-     @ReactMethod
-     public void startVpn(String strip,int consultport,Promise promise) throws IOException {
+    @ReactMethod
+    public void startVpn(String strsessionid,String strgameid,Promise promise) throws IOException {
         //占用2020端口
         //已经取得真正的参数，开始启动vpn
-         Bundle profileInfo = new Bundle();
-         profileInfo.putString("Address", "162.14.13.154");
-         profileInfo.putInt("Port", _proxyPort);
-         profileInfo.putInt("MTU", 1500);
-         Intent intent = new Intent(_reactContext, ToyVpnService.class);
-         intent.putExtras(profileInfo);
-         //通过intent传递参数 启动service 代码跳转至toyVpnService
-         ContextCompat.startForegroundService(_reactContext, intent);
-         promise.resolve("success");
-     }
+        System.out.print("star vpn is begin");
+        Bundle profileInfo = new Bundle();
+        profileInfo.putString("sessionid", strsessionid);
+        profileInfo.putString("gameid", strgameid);
+        Intent intent = new Intent(_reactContext, ToyVpnService.class);
+        intent.putExtras(profileInfo);
+        //通过intent传递参数 启动service 代码跳转至toyVpnService
+        ContextCompat.startForegroundService(_reactContext, intent);
+        promise.resolve("success");
+    }
     private final String getTag() {
         return ToyVpnConnection.class.getSimpleName() + "[" + 1 + "]";
     }
