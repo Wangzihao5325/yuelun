@@ -44,19 +44,21 @@
     
     [self applyVpnConfiguration:NO];
 }
-
-- (BOOL)startVPNConsultIP:(NSString *)consultIP consultPort:(NSString*)consultPort tunnelIP:(NSString*)tunnelIP {
+- (BOOL)startVPNConsultIP:(NSString *)sessionid gameid:(NSString*)gameid {
     if (self.vpnManager.connection.status == NEVPNStatusDisconnected) {
         NSError *error;
-      NSString * nstrpath = [[NSBundle mainBundle] pathForResource:@"ip2region" ofType:@"db"];
-      const char * cpath = [nstrpath UTF8String];
-      int ret = SetFilePath((char *)cpath);
-      
-      if(ret != 0){
+
+          NSLog(@"resource path = %@",[[NSBundle mainBundle] resourcePath]);
+          NSLog(@"path resource = %@",[[NSBundle mainBundle] pathForResource:@"ip2region" ofType:@"db"]);
+          NSString *nstrpath = [[NSBundle mainBundle] pathForResource:@"ip2region" ofType:@"db"];
+          const char *cpath = [nstrpath UTF8String];
+          int ret = SetFilePath((char*)cpath);
+      if (ret !=0 ) {
         return NO;
       }
-      
-      NSDictionary * consulDic = @{@"sessionid":@"0293bf8cb113aff0c285ac9c7b4d36505cdf108e",@"gamid":@"",@"dppath":nstrpath};
+          NSLog(@"%d",ret);
+            
+            NSDictionary * consulDic = @{@"sessionid":sessionid,@"gamid":gameid,@"dppath":nstrpath};
       [self.vpnManager.connection startVPNTunnelWithOptions:consulDic andReturnError:&error];
         
         if (error != 0) {

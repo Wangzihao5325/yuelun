@@ -39,7 +39,7 @@
 		806A22ED24E81D95000E7040 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806A22EC24E81D94000E7040 /* CFNetwork.framework */; };
 		806A22EF24E81DA0000E7040 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806A22EE24E81DA0000E7040 /* Security.framework */; };
 		80A39F8C25066F28005AD0CE /* ip2region.db in Resources */ = {isa = PBXBuildFile; fileRef = 80A39F8B25066F27005AD0CE /* ip2region.db */; };
-		80A39F8E2507D8B2005AD0CE /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A39F8D2507D8B2005AD0CE /* CocoaAsyncSocket.framework */; };
+		80A39F8E2507D8B2005AD0CE /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A39F8D2507D8B2005AD0CE /* CocoaAsyncSocket.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		80F7766A24C7CE92004DCDB1 /* apiyuelun.h in Sources */ = {isa = PBXBuildFile; fileRef = 00E1FC0B24C2CDEA0092895E /* apiyuelun.h */; };
 		80F7767324D07210004DCDB1 /* ApiHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80F7767224D07210004DCDB1 /* ApiHelper.mm */; };
 		80F8AA6124E43EBA0073A30C /* XDXVPNManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80F8AA5E24E43EBA0073A30C /* XDXVPNManager.mm */; };
