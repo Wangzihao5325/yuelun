@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import * as NavigationService from '../../Router/NavigationService';
 import { themeColor } from '../../Config/UIConfig';
 import * as Api from '../../Functions/NativeBridge/ApiModule';
+import { _sessionId} from '../../Functions/NativeBridge/ApiModule';
 import * as vpnModule from '../../Functions/NativeBridge/YuelunVpn';
 import StowPage from './StowPage';
 import UnfoldPage from './UnfoldPage';
@@ -164,9 +165,7 @@ export default class AccelerateDetails extends Component {
                     //各种连接操作
                     vpnModule.prepare()
                         .then(() => {
-                            // vpnModule.startVpn('162.14.5.205', "32091", res.data.consult_ip);
-                            // vpnModule.startVpn("162.14.5.205", "15880",  "162.14.13.154");
-                            vpnModule.startVpn('162.14.5.205', "32091");
+                            vpnModule.startVpn(_sessionId, id);
                             let _date = new Date();
                             this.state.gameFullInfo._timeReg = _date;
                             accelerateInfo[this.state.id] = this.state.gameFullInfo;

@@ -3,7 +3,7 @@ import { NativeModules, Platform } from 'react-native';
 //是否启用mock数据
 const CApiClientManager = NativeModules.CApiClient;
 
-let _sessionId = '';
+export let _sessionId = '';
 
 function _dealResult(strRequest) {
     if (strRequest) {
