@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import * as NavigationService from '../../Router/NavigationService';
 import { themeColor } from '../../Config/UIConfig';
 import * as Api from '../../Functions/NativeBridge/ApiModule';
-import { _sessionId} from '../../Functions/NativeBridge/ApiModule';
+import { _sessionId } from '../../Functions/NativeBridge/ApiModule';
 import * as vpnModule from '../../Functions/NativeBridge/YuelunVpn';
 import StowPage from './StowPage';
 import UnfoldPage from './UnfoldPage';
@@ -121,8 +121,7 @@ export default class AccelerateDetails extends Component {
     }
 
     speedUp = () => {
-        const { use_server_id, id } = this.state;
-        let { accelerateInfo } = this.state;
+        const { use_server_id, id, accelerateInfo } = this.state;
         if (this.state.isAccelerate) {
             vpnModule.stopVPN();
             //各种断线操作
@@ -142,7 +141,7 @@ export default class AccelerateDetails extends Component {
     }
 
     finallyStep = () => {
-        const { use_server_id, id } = this.state;
+        const { use_server_id, id, accelerateInfo } = this.state;
         if (use_server_id.length > 0) {
             Api.connectServer(id, use_server_id[0]).then((res) => {
                 // const { use_server_id, id } = this.state;
