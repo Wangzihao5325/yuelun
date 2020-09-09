@@ -172,6 +172,35 @@ public class CProxClient {
     public static native String YuelunSaveSearchGameList(String strsession_id, String strgameid);
 
     /**
+     * 创建订单号
+     * @param strsession_id 用户登录上sessionid
+     * @param strtype 购买套餐1
+     * @param strpacket_id  套餐类型ID 对应 获取套餐列表接口 package_id 字段
+     * @param packet_plan_id 套餐ID 对应 获取套餐列表接口 id 字段
+     * @param strpayment_fee 支付金额
+     * @param strtotal_fee 总金额
+     * @param strpayment_platform 支付类型 2：支付宝 3:微信  10:苹果
+     * @return 返回json
+     */
+    public static  native String YuelunCeateOrder(String strsession_id,String strtype, String strpacket_id,String packet_plan_id,String strpayment_fee, String strtotal_fee, String strpayment_platform);
+
+    /**
+     * 获取套餐列表及其信息
+     * @param strsession_id
+     * @return 返回json
+     */
+    public  static  native String YuelunGetPacektList(String strsession_id);
+
+    /**
+     * 苹果订单支付验证
+     * @param strsession_id 用户SessionID
+     * @param strorder_code 订单号
+     * @param strreceipt 苹果返回票据
+     * @return 返回json
+     */
+    public static native  String YuelunVerifyReceiptByios(String strsession_id, String strorder_code, String strreceipt);
+
+    /**
      * 启动加速方法
      * @param strsessioid 登录sessionid
      * @param strgameid 游戏id
@@ -192,5 +221,11 @@ public class CProxClient {
      * @return
      */
     public static native int SetFilePath(String strfilepath);
+
+    /**
+     * 获取流量
+     * @return
+     */
+    public static native String GetFlow();
 
 }

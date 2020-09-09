@@ -35,6 +35,9 @@ import androidx.core.content.ContextCompat;
 
 import com.yuelun.ylsdk.CProxClient;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.yuelun.ylproxy.YuelunProxyJni;
 
 import java.io.FileInputStream;
@@ -48,9 +51,10 @@ import java.nio.channels.DatagramChannel;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
+import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
-public class ToyVpnConnection implements Runnable {
+public class ToyVpnConnection {
     /**
      * Callback interface to let the {@link ToyVpnService} know about new connections
      * and update the foreground notification with connection status.
@@ -93,8 +97,8 @@ public class ToyVpnConnection implements Runnable {
     private final VpnService mService;
     private final int mConnectionId;
 
-    private final String mServerName;
-    private final int mServerPort;
+    private final String mStrsessionid;
+    private final String mStrgameid;
     private final byte[] mSharedSecret;
 
     private PendingIntent mConfigureIntent;
@@ -107,16 +111,21 @@ public class ToyVpnConnection implements Runnable {
     // Allowed/Disallowed packages for VPN usage
     private final boolean mAllow;
     private final Set<String> mPackages;
+    public boolean m_wokring = true;
     private ParcelFileDescriptor tunfd;
+    private Thread proxycllientThread = null;
+    private Thread checkThread = null;
+    private Thread GetFlowThread = null;
+    private Vector vecprocesslsit = new Vector();
     public ToyVpnConnection(final VpnService service, final int connectionId,
-                            final String serverName, final int serverPort, final byte[] sharedSecret,
+                            final String strsessonid, final String strgameid, final byte[] sharedSecret,
                             final String proxyHostName, final int proxyHostPort, boolean allow,
                             final Set<String> packages) {
         mService = service;
         mConnectionId = connectionId;
 
-        mServerName = serverName;
-        mServerPort= serverPort;
+        mStrsessionid = strsessonid;
+        mStrgameid= strgameid;
         mSharedSecret = sharedSecret;
 
         if (!TextUtils.isEmpty(proxyHostName)) {
@@ -141,68 +150,78 @@ public class ToyVpnConnection implements Runnable {
         mOnEstablishListener = listener;
     }
 
-    @Override
-    public void run() {
-        try {
-            Log.i(getTag(), "Starting");
-
-            // If anything needs to be obtained using the network, get it now.
-            // This greatly reduces the complexity of seamless handover, which
-            // tries to recreate the tunnel without shutting down everything.
-            // In this demo, all we need to know is the server address.
-            final SocketAddress serverAddress = new InetSocketAddress(mServerName, mServerPort);
-
-            // We try to create the tunnel several times.
-            // TODO: The better way is to work with ConnectivityManager, trying only when the
-            // network is available.
-            // Here we just use a counter to keep things simple.
-            for (int attempt = 0; attempt < 2; ++attempt) {
-                // Reset the counter if we were connected.
-                if (run(serverAddress)) {
-                    attempt = 0;
-                }
-
-                // Sleep for a while. This also checks if we got interrupted.
-                Thread.sleep(3000);
-            }
-            Log.i(getTag(), "Giving up");
-        } catch (IOException | InterruptedException | IllegalArgumentException e) {
-            Log.e(getTag(), "Connection failed, exiting", e);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
     @SuppressLint("NewApi")
-    private boolean run(SocketAddress server)
-            throws IOException, InterruptedException, IllegalArgumentException, PackageManager.NameNotFoundException {
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public boolean run() throws PackageManager.NameNotFoundException {
         ParcelFileDescriptor iface = null;
         boolean connected = false;
-        CProxClient.YuelunGetGameInfoById("a3ce3e1635427adb01e1e1435ba390f0c9542935","7","");
-        int port = getNum(40000,50000);
-        int ret = CProxClient.createTunnel("a3ce3e1635427adb01e1e1435ba390f0c9542935","7",port,2);
-        if (ret == 0)
-        {
+        int port = getNum(40000, 50000);
+        String json = CProxClient.YuelunGetGameInfoById(mStrsessionid, mStrgameid, "");
+        String gameid;
+        String process_name;
+        JSONArray process_list;
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+//            int id = jsonObject.getInt("id");
+            JSONObject data = jsonObject.optJSONObject("data");
+            JSONObject gameinfo = data.optJSONObject("game_info");
+            gameid = gameinfo.optString("id");
+            process_list = gameinfo.optJSONArray("process_list");
+            for (int i = 0; i < process_list.length(); i++) {
+                process_name = process_list.getString(i);
+                vecprocesslsit.add(process_name);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //启动加速成功
+        int ret = CProxClient.createTunnel(mStrsessionid, mStrgameid, port, 1);
+        //创建本地代理及其隧道成功
+        if (ret == 0) {
             iface = tunestablish();
             String socksServerAddress = String.format(Locale.ROOT, "%s:%d", "127.0.0.1", port);
             boolean remoteUdpForwardingEnabled = true;
             Object dnsResolverAddress = null;
             Log.w(getTag(), "begin create ylproxy...\n");
 
-
-                    YuelunProxyJni.start(iface.getFd(), 1500,
-                            "10.172.2.70",  // Router IP address
-                            "255.255.255.0", null, socksServerAddress,
-                            socksServerAddress, // UDP relay IP address
-                            null,
-                            0,
-                            1);
-
-
-            // Now we are connected. Set the flag.
+            ParcelFileDescriptor finalIface = iface;
+            proxycllientThread =
+                    new Thread() {
+                        public void run() {
+                            YuelunProxyJni.start(finalIface.getFd(), 1500,
+                                    "10.172.2.70",  // Router IP address
+                                    "255.255.255.0", null, socksServerAddress,
+                                    socksServerAddress, // UDP relay IP address
+                                    null,
+                                    0,
+                                    1);
+                        }
+                    };
+            proxycllientThread.start();
+            m_wokring = true;
+            GetFlowThread =
+                    new Thread() {
+                        public void run() {
+                            while (m_wokring)
+                            {
+                                try {
+                                    String json =  CProxClient.GetFlow();
+                                    JSONObject jsonObject = new JSONObject(json);
+                                    String uplaod = jsonObject.optString("upload");
+                                    System.out.print(json);
+                                    sleep(1000);
+                                } catch (InterruptedException | JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    };
+            GetFlowThread.start();
             connected = true;
+
             return true;
         }
+        Log.w(getTag(), "create ylproxy is failed...\n");
 
         if (iface != null) {
             try {
@@ -211,13 +230,42 @@ public class ToyVpnConnection implements Runnable {
                 Log.e(getTag(), "Unable to close interface", e);
             }
         }
-
         return false;
     }
 
+
+
+    public synchronized void disconnectTunnel() {
+        Log.w(getTag(), "Disconnecting the tunnel.");
+        if (proxycllientThread == null) {
+            return;
+        }
+        try {
+            YuelunProxyJni.stop();
+            proxycllientThread.join();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } finally {
+            proxycllientThread = null;
+        }
+    }
+    public synchronized void tearDownVpn() {
+        Log.w(getTag(), "Tearing down the VPN.");
+        if (tunfd == null) {
+            return;
+        }
+        try {
+
+            tunfd.close();
+        } catch (IOException e) {
+            Log.w(getTag(), "Failed to close the VPN interface file descriptor.");
+        } finally {
+            tunfd = null;
+        }
+    }
     @SuppressLint("NewApi")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private ParcelFileDescriptor tunestablish() throws IllegalArgumentException, PackageManager.NameNotFoundException {
+    private ParcelFileDescriptor tunestablish() throws PackageManager.NameNotFoundException {
         // Configure a builder while parsing the parameters.
         VpnService.Builder builder = mService.new Builder();
         // builder.setSession(mService.getApplicationName());
@@ -229,23 +277,26 @@ public class ToyVpnConnection implements Runnable {
         String[] appPackages = {
                 "com.rndemo"
         };
-        for (String packageName : appPackages) {
-            try {
-                if (mAllow) {
-                    //     packageManager.getPackageInfo(packageName, 0);
-                    builder.addAllowedApplication(packageName);
-                } else {
-                    builder.addDisallowedApplication(packageName);
-                }
-            } catch (PackageManager.NameNotFoundException e){
-                Log.w(getTag(), "Package not available: " + packageName, e);
-            }
+        for(int i = 0;i < vecprocesslsit.size();i++){
+            String strprocessname = (String) vecprocesslsit.get(i);
+            builder.addAllowedApplication(strprocessname);
         }
+//        for (String packageName : appPackages) {
+//            try {
+//                if (mAllow) {
+//                    //     packageManager.getPackageInfo(packageName, 0);
+//                    String strprocessname = packageName
+//                    builder.addAllowedApplication(packageName);
+//                } else {
+//                    builder.addDisallowedApplication(packageName);
+//                }
+//            } catch (PackageManager.NameNotFoundException e){
+//                Log.w(getTag(), "Package not available: " + packageName, e);
+//            }
+//        }
 
-        builder.setSession(mServerName).setConfigureIntent(mConfigureIntent);
-        if (!TextUtils.isEmpty(mProxyHostName)) {
+        builder.setSession(mStrsessionid).setConfigureIntent(mConfigureIntent);
 
-        }
         synchronized (mService) {
             tunfd = builder.establish();
             if (mOnEstablishListener != null) {
@@ -256,18 +307,6 @@ public class ToyVpnConnection implements Runnable {
         return tunfd;
     }
 
-    public synchronized void tearDownVpn(){
-        if(tunfd ==null){
-            return;
-        }
-        try {
-                tunfd.close();
-        }catch (IOException e){
-
-        } finally {
-            tunfd = null;
-        }
-    }
 
     private final String getTag() {
         return ToyVpnConnection.class.getSimpleName() + "[" + mConnectionId + "]";
