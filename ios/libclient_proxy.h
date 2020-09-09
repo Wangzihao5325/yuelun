@@ -1,4 +1,4 @@
-﻿#ifndef LIBCLIENT_PROXY_H
+#ifndef LIBCLIENT_PROXY_H
 #define LIBCLIENT_PROXY_H
 #include <string>
 void CurlInit();
@@ -138,6 +138,32 @@ std::string  YuelunHotGameList(std::string strsession_id);
 */
 std::string  YuelunSaveSearchGameList(std::string strsession_id, std::string strgameid);
 /**
+* 创建订单号
+* @param strsession_id 用户登录上sessionid
+* @param strtype 购买套餐1
+* @param strpacket_id  套餐类型ID 对应 获取套餐列表接口 package_id 字段
+* @param packet_plan_id 套餐ID 对应 获取套餐列表接口 id 字段
+* @param strpayment_fee 支付金额
+* @param strtotal_fee 总金额
+* @param strpayment_platform 支付类型 2：支付宝 3:微信  10:苹果
+* @return 返回json
+*/
+std::string  YuelunCeateOrder(std::string strsession_id, std::string strtype, std::string strpacket_id, std::string packet_plan_id, std::string strpayment_fee, std::string strtotal_fee, std::string strpayment_platform);
+/**
+* 获取套餐列表及其信息
+* @param strsession_id
+* @return 返回json
+*/
+std::string  YuelunGetPacektList(std::string strsession_id);
+/**
+* 苹果订单支付验证
+* @param strsession_id 用户SessionID
+* @param strorder_code 订单号
+* @param strreceipt 苹果返回票据
+* @return 返回json
+*/
+std::string  YuelunVerifyReceiptByios(std::string strsession_id, std::string strorder_code, std::string strreceipt);
+/**
 * 停止本地代理服务器及其隧道
 */
 void stopproxy();
@@ -156,4 +182,9 @@ int CreatTunnel(std::string strsession_id, std::string strgameid,int port,int nt
 * @return
 */
 int SetFilePath(char* path);
+/**
+ * 获取流量
+ * @return 返回json
+ */
+std::string GetFlow();
 #endif
