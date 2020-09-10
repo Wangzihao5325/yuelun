@@ -168,8 +168,9 @@ export default class AccelerateDetails extends Component {
                             let _date = new Date();
                             this.state.gameFullInfo._timeReg = _date;
                             accelerateInfo[this.state.id] = this.state.gameFullInfo;
-                            accelerateInfo["speedup"] = "1";
+                            accelerateInfo[this.state.id]["speedup"] = "1";
                             this.state.gameFullInfo
+                            console.log('JSON.stringify(accelerateInfo)',accelerateInfo);
                             AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
                                 this.setState({
                                     isAccelerate: true

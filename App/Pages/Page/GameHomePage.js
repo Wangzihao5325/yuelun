@@ -65,7 +65,7 @@ class acceleratorPage extends Component {
             navigator.jump(this, PageName.NORAML_LOGIN_PAGE);
         }
         this.getTheBannerData();
-        this.getAllGames();
+        this.readTheHomePageDataFromLocal();
         this.getTheCollectionGames();
         //10分钟轮询更新collect游戏ID
         setInterval(() => {
@@ -380,6 +380,7 @@ class acceleratorPage extends Component {
             .then((result) => {
                 Loading.hidden();
                 console.log('allGameDataallGameData', result);
+                this.saveTheHomePageDataToLocal(result);
                 this.parseAllGameData(result);
             })
     }
@@ -546,6 +547,23 @@ class acceleratorPage extends Component {
             });
     }
 
+
+    saveTheHomePageDataToLocal = (result = "") =>{
+        AsyncStorage.setItem('HomePageData', JSON.stringify(result));
+    }
+
+    readTheHomePageDataFromLocal = () =>{
+        let self = this;
+        AsyncStorage.getItem('HomePageData').then(value => {
+            if(value == null){
+                self.getAllGames();
+            }else{
+                let homePageData = JSON.parse(value);
+                self.parseAllGameData(homePageData);
+            }
+            console.log('autoStartautoStartautoStartautoStart',value);
+        });
+    }
 }
 
 const mapStateToProps = (state) => ({

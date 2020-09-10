@@ -16,12 +16,14 @@ import * as navigator from '../../Router/NavigationService';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as vpnModule from '../../Functions/NativeBridge/YuelunVpn';
 import { Loading } from '../../Components/Toast/Loading';
+import { Toast } from '../../Components/Toast/Toast';
 export default class Login extends Component {
     state = {
         phoneNum: '',
         verificationCode: '',
         messageBtnTitle: '获取验证码',
-        isMessageBtnCanPress: true
+        isMessageBtnCanPress: true,
+        agreePolicy:false,
     };
 
     componentDidMount() {
@@ -113,7 +115,22 @@ export default class Login extends Component {
                         titleStyle={{ color: '#000' }}
                         clickEvent={this.login}
                     />
-                    <View style={{ alignSelf: 'center', marginTop: 20 }}>
+                    <View style={{ alignSelf: 'center', marginTop: 20,flexDirection:'row',justifyContent:"center" }}>
+                        <TouchableHighlight onPress={()=>{this.clickTheAgreementOfPolicy()}}>
+                            {
+                                this.state.agreePolicy
+                                ?
+                                <Image 
+                                   style={{width:15,height:15,marginRight:6}}
+                                   resizeMode='contain'
+                                   source={require('../../resource/Image/Login/select.png')}/>
+                                :
+                                <Image 
+                                   style={{width:15,height:15,marginRight:6}}
+                                   resizeMode='contain'
+                                   source={require('../../resource/Image/Login/unselect.png')}/>
+                            }
+                        </TouchableHighlight>
                         <Text style={{ color: '#666' }}>我已阅读并同意<Text style={{ color: '#f2cc2e' }}>隐私政策</Text>和<Text style={{ color: '#f2cc2e' }}>软件许可及使用协议</Text></Text>
                     </View>
                 </KeyboardAwareScrollView>
@@ -122,6 +139,11 @@ export default class Login extends Component {
         );
     }
 
+    clickTheAgreementOfPolicy = () =>{
+        let agreePolicy = this.state.agreePolicy;
+        agreePolicy = !agreePolicy;
+        this.setState({agreePolicy:agreePolicy});
+    }
 
     phoneNumChange = (value) => {
         this.setState({
@@ -136,14 +158,23 @@ export default class Login extends Component {
     }
 
     login = () => {
+        const { phoneNum, verificationCode,agreePolicy } = this.state;
 
-        // vpnModule.prepare()
-        //     .then(() => {
-        //         vpnModule.startVpn('162.14.5.205', 32091);
-        //     });
+        if(phoneNum.length == 0){
+            Toast.show('请输入手机号');
+            return;
+        }else if (verificationCode.length == 0){
+            Toast.show('请输入验证码');
+            return;
+        }
+
+        if(agreePolicy == false){
+            Toast.show('请勾选同意隐私政策');
+            return;
+        }
 
         Loading.show();
-        const { phoneNum, verificationCode } = this.state;
+        
         Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
             .then((result) => {
                 console.log('login---here',result);
