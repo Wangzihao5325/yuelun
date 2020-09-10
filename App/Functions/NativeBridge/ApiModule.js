@@ -217,3 +217,35 @@ export const saveSearchGameList = async (gameId) => {
     return _dealResult(resultStr);
 }
 
+/**
+ * 
+ * @param {string} strtype 购买套餐1
+ * @param {string} strpacket_id 套餐类型ID 对应 获取套餐列表接口 package_id 字段
+ * @param {string} packet_plan_id 套餐ID 对应 获取套餐列表接口 id 字段
+ * @param {string} strpayment_fee 支付金额
+ * @param {string} strtotal_fee 总金额
+ * @param {string} strpayment_platform 支付类型 2：支付宝 3:微信  10:苹果
+ */
+export const createOrder = async (strtype, strpacket_id, packet_plan_id, strpayment_fee, strtotal_fee, strpayment_platform) => {
+    let resultStr = await CApiClientManager.yuelunCeateOrder(_sessionId, strtype, strpacket_id, packet_plan_id, strpayment_fee, strtotal_fee, strpayment_platform);
+    return _dealResult(resultStr);
+}
+
+/**
+ * 获取套餐列表及其信息
+ */
+export const getPacektList = async () => {
+    let resultStr = await CApiClientManager.yuelunGetPacektList(_sessionId);
+    return _dealResult(resultStr);
+}
+
+/**
+ * 苹果订单支付验证
+ * @param {string} strorder_code 订单号
+ * @param {string} strreceipt 苹果返回票据
+ */
+export const verifyReceiptByios = async (strorder_code, strreceipt) => {
+    let resultStr = await CApiClientManager.yuelunVerifyReceiptByios(_sessionId, strorder_code, strreceipt);
+    return _dealResult(resultStr);
+}
+

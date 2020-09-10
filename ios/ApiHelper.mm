@@ -212,6 +212,21 @@ RCT_REMAP_METHOD(yuelunSaveSearchGameList,sessionid:(NSString *)strsession_id st
   resolve(returnStr);
 };
 
+RCT_REMAP_METHOD(yuelunCeateOrder,sessionid:(NSString *)strsession_id strtype:(NSString *)strtype strpacket_id:(NSString *)strpacket_id packet_plan_id:(NSString *)packet_plan_id strpayment_fee:(NSString *)strpayment_fee strtotal_fee:(NSString *)strtotal_fee strpayment_platform:(NSString *)strpayment_platform resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  NSString * returnStr = [self yuelunCeateOrder:strsession_id strtype:strtype strpacket_id:strpacket_id packet_plan_id:packet_plan_id strpayment_fee:strpayment_fee strtotal_fee:strtotal_fee strpayment_platform:strpayment_platform];
+  resolve(returnStr);
+};
+
+RCT_REMAP_METHOD(yuelunGetPacektList,sessionid:(NSString *)strsession_id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  NSString * returnStr = [self yuelunGetPacektList:strsession_id];
+  resolve(returnStr);
+};
+
+RCT_REMAP_METHOD(yuelunVerifyReceiptByios,sessionid:(NSString *)strsession_id strorder_code:(NSString *)strorder_code strreceipt:(NSString *)strreceipt resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  NSString * returnStr = [self yuelunVerifyReceiptByios:strsession_id strorder_code:strorder_code strreceipt:strreceipt];
+  resolve(returnStr);
+};
+
 
 -(NSString *)getTheBannerData{
   std::string str = YuelunGetAdList();
@@ -368,4 +383,35 @@ RCT_REMAP_METHOD(yuelunSaveSearchGameList,sessionid:(NSString *)strsession_id st
   return return_string;
 }
 
+-(NSString *)yuelunCeateOrder:(NSString *)session_id strtype:(NSString *)strtype strpacket_id:(NSString *)strpacket_id packet_plan_id:(NSString *)packet_plan_id strpayment_fee:(NSString *)strpayment_fee strtotal_fee:(NSString *)strtotal_fee strpayment_platform:(NSString *)strpayment_platform{
+  std::string session_idstr = [session_id UTF8String];
+  std::string strtype_str    = [strtype UTF8String];
+  std::string strpacket_idstr = [strpacket_id UTF8String];
+  std::string packet_plan_idstr    = [packet_plan_id UTF8String];
+  std::string strpayment_feestr = [strpayment_fee UTF8String];
+  std::string strtotal_feestr    = [strtotal_fee UTF8String];
+  std::string strpayment_platformstr = [strpayment_platform UTF8String];
+  
+  std::string return_str = YuelunCeateOrder(session_idstr, strtype_str, strpacket_idstr, packet_plan_idstr, strpayment_feestr, strtotal_feestr, strpayment_platformstr);
+  NSString * return_string = [NSString stringWithFormat:@"%s",return_str.c_str()];
+  return return_string;
+}
+
+-(NSString *)yuelunGetPacektList:(NSString *)session_id{
+  std::string session_idstr = [session_id UTF8String];
+  
+  std::string return_str = YuelunGetPacektList(session_id)
+  NSString * return_string = [NSString stringWithFormat:@"%s",return_str.c_str()];
+  return return_string;
+}
+
+-(NSString *)yuelunVerifyReceiptByios:(NSString *)session_id strorder_code:(NSString *)strorder_code strreceipt:(NSString *)strreceipt{
+  std::string session_idstr = [session_id UTF8String];
+  std::string strorder_codestr = [strorder_code UTF8String];
+  std::string strreceipt_str = [strreceipt UTF8String];
+  
+  std::string return_str = YuelunVerifyReceiptByios(session_id, strorder_code, strreceipt)
+  NSString * return_string = [NSString stringWithFormat:@"%s",return_str.c_str()];
+  return return_string;
+}
 @end
