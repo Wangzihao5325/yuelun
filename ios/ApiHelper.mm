@@ -217,7 +217,7 @@ RCT_REMAP_METHOD(yuelunCeateOrder,sessionid:(NSString *)strsession_id strtype:(N
   resolve(returnStr);
 };
 
-RCT_REMAP_METHOD(yuelunGetPacektList,sessionid:(NSString *)strsession_id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+RCT_REMAP_METHOD(yuelunGetPacektList,strsessionid:(NSString *)strsession_id resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   NSString * returnStr = [self yuelunGetPacektList:strsession_id];
   resolve(returnStr);
 };
@@ -400,7 +400,7 @@ RCT_REMAP_METHOD(yuelunVerifyReceiptByios,sessionid:(NSString *)strsession_id st
 -(NSString *)yuelunGetPacektList:(NSString *)session_id{
   std::string session_idstr = [session_id UTF8String];
   
-  std::string return_str = YuelunGetPacektList(session_id)
+  std::string return_str = YuelunGetPacektList(session_idstr);
   NSString * return_string = [NSString stringWithFormat:@"%s",return_str.c_str()];
   return return_string;
 }
@@ -410,7 +410,7 @@ RCT_REMAP_METHOD(yuelunVerifyReceiptByios,sessionid:(NSString *)strsession_id st
   std::string strorder_codestr = [strorder_code UTF8String];
   std::string strreceipt_str = [strreceipt UTF8String];
   
-  std::string return_str = YuelunVerifyReceiptByios(session_id, strorder_code, strreceipt)
+  std::string return_str = YuelunVerifyReceiptByios(session_idstr, strorder_codestr, strreceipt_str);
   NSString * return_string = [NSString stringWithFormat:@"%s",return_str.c_str()];
   return return_string;
 }
