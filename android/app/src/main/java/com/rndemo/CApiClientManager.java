@@ -132,12 +132,12 @@ public class CApiClientManager extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void yuelunCeateOrder(String strsession_id,String strtype, String strpacket_id,String packet_plan_id,String strpayment_fee, String strtotal_fee, String strpayment_platform, Promise promise){
-        String receiveStr = CProxClient.YuelunCeateOrder(strsession_id,strtype,strpacket_id,packet_plan_id,strpayment_fee, strtotal_fee, strpayment_platform);
+        String receiveStr = CProxClient.YuelunCreateOrder(strsession_id,strtype,strpacket_id,packet_plan_id,strpayment_fee, strtotal_fee, strpayment_platform);
         promise.resolve(receiveStr);
     }
     @ReactMethod
     public void yuelunGetPacektList(String strsession_id, Promise promise){
-        String receiveStr = CProxClient.YuelunGetPacektList(strsession_id);
+        String receiveStr = CProxClient.YuelunSaveGetPacketList(strsession_id);
         promise.resolve(receiveStr);
     }
     @ReactMethod

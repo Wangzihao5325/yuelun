@@ -18,9 +18,9 @@ class MinePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            VIPStatus:false,
-            VIPStartTime:"",
-            VIPEndTime:""
+            VIPStatus: false,
+            VIPStartTime: "",
+            VIPEndTime: ""
         }
     }
 
@@ -28,18 +28,18 @@ class MinePage extends Component {
         let fullDevice = SystemConfig.theDeviceIsFullScreenMobilePhone();
         return (
             <View style={styles.container}>
-                <ImageBackground 
+                <ImageBackground
                     resizeMode='stretch'
                     source={require('../../resource/Image/Mine/mineBack.png')}
-                    style={{ marginTop: 0, marginLeft: 0,marginBottom:fullDevice?50:20, width: SCREEN_WIDTH, height: SCREEN_WIDTH / 375 * 217.5, alignItems: 'center', }}>
-                {this.renderTheUserInforItem()}
-                {
-                    this.state.VIPStatus
-                    ?
-                    this.renderTheVIPInfoView()
-                    :
-                    this.renderTheGuideToBuyVIPView()
-                }
+                    style={{ marginTop: 0, marginLeft: 0, marginBottom: fullDevice ? 50 : 20, width: SCREEN_WIDTH, height: SCREEN_WIDTH / 375 * 217.5, alignItems: 'center', }}>
+                    {this.renderTheUserInforItem()}
+                    {
+                        this.state.VIPStatus
+                            ?
+                            this.renderTheVIPInfoView()
+                            :
+                            this.renderTheGuideToBuyVIPView()
+                    }
                 </ImageBackground>
                 {this.renderTheSettingsItem(require('../../resource/Image/Mine/remind.png'), '公告消息', 1)}
                 {this.renderTheSettingsItem(require('../../resource/Image/Mine/aboutUs.png'), '关于我们', 2)}
@@ -51,7 +51,7 @@ class MinePage extends Component {
     renderTheUserInforItem = () => {
         let fullDevice = SystemConfig.theDeviceIsFullScreenMobilePhone();
         return (
-            <View style={[styles.userInfoRootView,{marginTop:fullDevice?120:90}]}>
+            <View style={[styles.userInfoRootView, { marginTop: fullDevice ? 120 : 90 }]}>
                 {this.renderTheAvatorView()}
                 {this.renderTheUserInformationView()}
             </View>
@@ -98,13 +98,13 @@ class MinePage extends Component {
                 source={require('../../resource/Image/Mine/VIPRoot.png')}
                 style={styles.backImageStyle}>
                 <Image style={styles.VIPIcon} source={require('../../resource/Image/Mine/VIPicon.png')} />
-                <View style={{flex:1}}>
+                <View style={{ flex: 1 }}>
                     <Text style={styles.buyVIPRootStyle}>立即开通会员</Text>
                 </View>
                 <TouchableOpacity style={styles.buyBtnRoot} onPress={() => {
                     if (this.props.loginStatus) {
-                        let url = 'https://page.yuelun.com/mobile/recharge?session_id=' + this.props.sessionID;
-                        navigator.jump(this, PageName.NORMAL_VIP_BUY_WEB, { url: url });
+                        let url = 'http://192.168.0.101:5000';
+                        navigator.jump(this, PageName.NORMAL_VIP_BUY_WEB, { url: url, type: 'center' });
                     } else {
                         navigator.jump(this, PageName.NORAML_LOGIN_PAGE);
                     }
@@ -121,15 +121,15 @@ class MinePage extends Component {
                 resizeMode='stretch'
                 source={require('../../resource/Image/Mine/VIPRoot.png')}
                 style={styles.backImageStyle}>
-                <Image style={[styles.VIPIcon,{marginTop:-20}]} source={require('../../resource/Image/Mine/VIPicon.png')} />
-                <View style={{flex:1}}>
-                   <Text style={styles.buyVIPRootStyle}>月轮加速器VIP</Text>
-                   <Text style={styles.VIPTimeInfoStyle}>2020.10.20 20:20:20到期</Text>
+                <Image style={[styles.VIPIcon, { marginTop: -20 }]} source={require('../../resource/Image/Mine/VIPicon.png')} />
+                <View style={{ flex: 1 }}>
+                    <Text style={styles.buyVIPRootStyle}>月轮加速器VIP</Text>
+                    <Text style={styles.VIPTimeInfoStyle}>2020.10.20 20:20:20到期</Text>
                 </View>
                 <TouchableOpacity style={styles.buyBtnRoot} onPress={() => {
                     if (this.props.loginStatus) {
-                        let url = 'https://page.yuelun.com/mobile/recharge?session_id=' + this.props.sessionID;
-                        navigator.jump(this, PageName.NORMAL_VIP_BUY_WEB, { url: url });
+                        let url = 'http://192.168.0.101:5000';
+                        navigator.jump(this, PageName.NORMAL_VIP_BUY_WEB, { url: url, type: 'center' });
                     } else {
                         navigator.jump(this, PageName.NORAML_LOGIN_PAGE);
                     }
@@ -264,9 +264,9 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#452C00',
     },
-    VIPTimeInfoStyle:{
+    VIPTimeInfoStyle: {
         marginLeft: 8,
-        marginTop:2.5,
+        marginTop: 2.5,
         fontSize: 12,
         color: '#452C00',
     },
