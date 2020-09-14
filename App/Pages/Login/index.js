@@ -23,7 +23,7 @@ export default class Login extends Component {
         verificationCode: '',
         messageBtnTitle: '获取验证码',
         isMessageBtnCanPress: true,
-        agreePolicy:false,
+        agreePolicy:true,
     };
 
     componentDidMount() {
