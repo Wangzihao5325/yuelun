@@ -148,7 +148,7 @@ std::string  YuelunSaveSearchGameList(std::string strsession_id, std::string str
 * @param strpayment_platform 支付类型 2：支付宝 3:微信  10:苹果
 * @return 返回json
 */
-std::string  YuelunCeateOrder(std::string strsession_id, std::string strtype, std::string strpacket_id, std::string packet_plan_id, std::string strpayment_fee, std::string strtotal_fee, std::string strpayment_platform, std::string from_agent_username);
+std::string  YuelunCeateOrder(std::string strsession_id, std::string strtype, std::string strpacket_id, std::string packet_plan_id, std::string strpayment_fee, std::string strtotal_fee, std::string strpayment_platform);
 /**
 * 获取套餐列表及其信息
 * @param strsession_id
