@@ -19,7 +19,7 @@ import {
     Modal,
     AsyncStorage
 } from 'react-native';
-import { SCREEN_WIDTH, BannerWidth, BannerHeight } from '../../Config/UIConfig';
+import { SCREEN_WIDTH, BannerWidth, BannerHeight,NavigatorBarHeight } from '../../Config/UIConfig';
 import GameHomeNavigation from '../../Components/Component/NavigationItem/GameHomeNavigation';
 import CustomerSwiper from '../../Components/Component/CustomeSwiper';
 import GameUnitItem from '../../Components/Component/Game/GameUnitItem';
@@ -522,7 +522,7 @@ class acceleratorPage extends Component {
                 onRequestClose={() => this.hide(false)}>
                 <View
                     onPress={() => { this.setState({ showAlert: false }) }}
-                    style={{ marginLeft: 0, marginRight: 0, width: SCREEN_WIDTH, height: 64, backgroundColor: '#8FADD7', flexDirection: 'row', justifyContent: "center", alignItems: 'center' }}>
+                    style={{ marginLeft: 0, marginRight: 0, width: SCREEN_WIDTH, height: NavigatorBarHeight, backgroundColor: '#8FADD7', flexDirection: 'row', justifyContent: "center", alignItems: 'center' }}>
                     <Image style={{ marginTop: 15 }} source={require('../../resource/Image/GameHomePage/smile.png')} />
                     <Text style={{ color: 'white', fontSize: 14, marginLeft: 6, marginTop: 15 }}>已关注该游戏,上线进度会实时通知</Text>
                 </View>

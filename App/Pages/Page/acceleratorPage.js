@@ -17,11 +17,12 @@ import {
     Modal
 } from 'react-native';
 import CustomeListView from '../../Components/Component/CustomeListView';
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../Config/UIConfig';
+import { SCREEN_WIDTH, SCREEN_HEIGHT,NavigatorBarHeight,NavigatorTop,NavigatorViewHeight } from '../../Config/UIConfig';
 import _ from 'lodash';
 import * as NavigationService from '../../Router/NavigationService';
 import PageName from '../../Config/PageName';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default class acceleratorPage extends Component {
     static navigationOptions = {
@@ -124,15 +125,15 @@ export default class acceleratorPage extends Component {
 
     renderTheNavigation = () => {
         return (
-            <View style={{ marginLeft: 0, marginTop: 0, width: SCREEN_WIDTH, height: 64, flexDirection: 'row', justifyContent: 'center' }}>
+            <View style={{ marginLeft: 0, marginTop: 0, width: SCREEN_WIDTH, height: NavigatorBarHeight, flexDirection: 'row', justifyContent: 'center' }}>
                 <View style={{ flex: 1 }}></View>
-                <View style={{ flex: 1, alignItems: 'center' }}><Text style={{ color: 'white', marginTop: 30, fontSize: 18 }}>加速</Text></View>
+                <View style={{ flex: 1, alignItems: 'center' }}><Text style={{ color: 'white', marginTop: NavigatorTop+6, fontSize: 18 }}>加速</Text></View>
                 <View style={{ flex: 1, flexDirection: 'row-reverse' }}>
                     {
                         this.state.dataArray.length > 1
                             ?
                             <TouchableOpacity onPress={() => { this.stopAllGames() }}>
-                                <Text style={{ color: 'white', marginRight: 15, marginTop: 30, fontSize: 18 }}>全部停止</Text>
+                                <Text style={{ color: 'white', marginRight: 15, marginTop: NavigatorTop+6, fontSize: 18 }}>全部停止</Text>
                             </TouchableOpacity>
                             :
                             null

@@ -103,7 +103,7 @@ class MinePage extends Component {
                 </View>
                 <TouchableOpacity style={styles.buyBtnRoot} onPress={() => {
                     if (this.props.loginStatus) {
-                        let url = 'http://192.168.0.101:5000';
+                        let url = 'http://192.168.1.103:5000';
                         navigator.jump(this, PageName.NORMAL_VIP_BUY_WEB, { url: url, type: 'center' });
                     } else {
                         navigator.jump(this, PageName.NORAML_LOGIN_PAGE);
@@ -209,7 +209,6 @@ const styles = StyleSheet.create({
         height: 60,
         marginLeft: 20,
         borderRadius: 30,
-        backgroundColor: 'red'
     },
     loginBtnStyle: {
         marginLeft: 30,
