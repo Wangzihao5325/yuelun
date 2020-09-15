@@ -182,7 +182,7 @@ public class CProxClient {
      * @param strpayment_platform 支付类型 2：支付宝 3:微信  10:苹果
      * @return 返回json
      */
-    public static  native String YuelunCreateOrder(String strsession_id,String strtype, String strpacket_id,String packet_plan_id,String strpayment_fee, String strtotal_fee, String strpayment_platform);
+    public static  native String YuelunCreateOrder(String strsession_id,String strtype, String strpacket_id,String packet_plan_id,String strpayment_fee, String strtotal_fee, String strpayment_platform,String payment_platform);
 
     /**
      * 获取套餐列表及其信息

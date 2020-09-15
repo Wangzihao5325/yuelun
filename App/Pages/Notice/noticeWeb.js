@@ -52,19 +52,18 @@ class NoticeWeb extends Component {
     }
 
     makeOrder = (selectData) => {
-
+        console.log('---un order---');
+        console.log(selectData);
         let price = selectData.price.split('.')[0];
-        console.log('type', "1");
-        console.log('package_id', selectData.package_id);
-        console.log('id', selectData.id);
-        console.log('strpayment_fee', price);
-        console.log('strtotal_fee', price);
-        console.log('strpayment_platform', "2");
-
-        Api.createOrder("1", selectData.package_id, selectData.id, price, price, "2")
+        Api.createOrder("1", selectData.package_id, selectData.id, price, price, "9")
             .then((res) => {
-                console.log('---this is order----');
+                console.log('---pppp----');
                 console.log(res);
+                if (res.data) {
+                    let payloadStr = JSON.stringify(res.data);
+                    const successCallback = `window._unsafe_change_href(${payloadStr})`;
+                    this.webView.injectJavaScript(successCallback);
+                }
             })
     }
 
