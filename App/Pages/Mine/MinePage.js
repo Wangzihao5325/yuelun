@@ -103,7 +103,7 @@ class MinePage extends Component {
                 </View>
                 <TouchableOpacity style={styles.buyBtnRoot} onPress={() => {
                     if (this.props.loginStatus) {
-                        let url = 'http://192.168.1.103:5000';
+                        let url = 'https://pages.yuelun.com/mobile/pay';
                         navigator.jump(this, PageName.NORMAL_VIP_BUY_WEB, { url: url, type: 'center' });
                     } else {
                         navigator.jump(this, PageName.NORAML_LOGIN_PAGE);
@@ -128,7 +128,7 @@ class MinePage extends Component {
                 </View>
                 <TouchableOpacity style={styles.buyBtnRoot} onPress={() => {
                     if (this.props.loginStatus) {
-                        let url = 'http://192.168.0.101:5000';
+                        let url = 'https://pages.yuelun.com/mobile/pay';
                         navigator.jump(this, PageName.NORMAL_VIP_BUY_WEB, { url: url, type: 'center' });
                     } else {
                         navigator.jump(this, PageName.NORAML_LOGIN_PAGE);
