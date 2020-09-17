@@ -394,7 +394,7 @@ RCT_REMAP_METHOD(yuelunVerifyReceiptByios,sessionid:(NSString *)strsession_id st
   std::string from_agent_usernamestr = [@"mobile" UTF8String];
 
   
-  std::string return_str = YuelunCeateOrder(session_idstr, strtype_str, strpacket_idstr, packet_plan_idstr, strpayment_feestr, strtotal_feestr, strpayment_platformstr, from_agent_usernamestr);
+  std::string return_str = YuelunCeateOrder(session_idstr, strtype_str, strpacket_idstr, packet_plan_idstr, strpayment_feestr, strtotal_feestr, strpayment_platformstr);
   NSString * return_string = [NSString stringWithFormat:@"%s",return_str.c_str()];
   return return_string;
 }

@@ -13,15 +13,48 @@ import * as navigator from '../../Router/NavigationService';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../Config/UIConfig';
 import { connect } from 'react-redux';
 import * as SystemConfig from '../../Config/SystemConfig';
+import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
+import { VpnState } from 'react-native-ip-sec-vpn';
 
 class MinePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            VIPStatus: false,
+            VIPStatus: true,
             VIPStartTime: "",
             VIPEndTime: ""
         }
+    }
+
+    componentDidMount(){
+        this._unsubscribe = this.props.navigation.addListener('focus', () => {
+            ApiModule.getTheUserInforWithSessionID().then((result) => {
+                this.dealTheVIPStatus(result);
+            });
+        });
+       
+    }
+
+    dealTheVIPStatus = (VIPdata = '') =>{
+        console.log('userInfo-------~~~~~~~',VIPdata);
+        let VIPStatus = false;
+        if(VIPdata == ''){
+            return;
+        }
+
+        let package_end_time = VIPdata.data.package_end_time ? VIPdata.data.package_end_time : "";
+        let package_add_time = VIPdata.data.package_add_time ? VIPdata.data.package_add_time : "";
+        if(package_add_time && package_end_time && package_add_time.length > 0 && package_end_time.length > 0){
+            VIPStatus = true;
+        }else{
+
+        }
+        console.log('userInfo-------+++++++++',package_end_time);
+        this.setState({
+            VIPStatus : VIPStatus,
+            VIPStartTime : package_end_time,
+            VIPEndTime : package_add_time
+        });
     }
 
     render() {
@@ -124,7 +157,7 @@ class MinePage extends Component {
                 <Image style={[styles.VIPIcon, { marginTop: -20 }]} source={require('../../resource/Image/Mine/VIPicon.png')} />
                 <View style={{ flex: 1 }}>
                     <Text style={styles.buyVIPRootStyle}>月轮加速器VIP</Text>
-                    <Text style={styles.VIPTimeInfoStyle}>2020.10.20 20:20:20到期</Text>
+                    <Text style={styles.VIPTimeInfoStyle}>{this.state.VIPEndTime + "到期"}</Text>
                 </View>
                 <TouchableOpacity style={styles.buyBtnRoot} onPress={() => {
                     if (this.props.loginStatus) {
