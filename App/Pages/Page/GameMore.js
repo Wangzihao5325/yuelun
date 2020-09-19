@@ -33,7 +33,7 @@ export default class GameMore extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pageNo: 0,
+            pageNo: 1,
             selectStatus: 1,
             isRefreshingStatus: false,
 
@@ -103,7 +103,6 @@ export default class GameMore extends Component {
         const { type_name, classification } = this.props.route.params;
         let pageNum = this.state.pageNo + 1;
         this.setState({ pageNo: pageNum });
-        console.log('下啦', this.state.pageNo);
         this.getTheMoreGamesData(type_name, pageNum, classification);
         // const {type_name,classification } = this.props.route.params;
         // this.getTheMoreGamesData(type_name,classification);
@@ -145,10 +144,11 @@ export default class GameMore extends Component {
     }
 
     getTheMoreGamesData = (type_name, page, classification) => {
+        console.log('下啦', page);
         Loading.show();
         let pageNumber = page;
         pageNumber = pageNumber.toString();
-        ApiModule.getSearchGamesData('', type_name, '1', classification, '')
+        ApiModule.getSearchGamesData('', type_name, pageNumber, classification, '')
             .then((result) => {
                 Loading.hidden();
                 let allGameData = result;
