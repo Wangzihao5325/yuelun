@@ -28,7 +28,7 @@ class NoticeWeb extends Component {
                 this.sendPackageListToWeb();
                 break;
             case 'makeOrder':
-                this.makeOrder(data.data);
+                this.makeOrder(data.data, data.payType);
                 break;
             default:
                 break;
@@ -51,16 +51,17 @@ class NoticeWeb extends Component {
         });
     }
 
-    makeOrder = (selectData) => {
+    makeOrder = (selectData, payType) => {
         console.log('---un order---');
         console.log(selectData);
-        let price = selectData.price.split('.')[0];
-        Api.createOrder("1", selectData.package_id, selectData.id, price, price, "9")
+        Api.createOrder("1", selectData.package_id, selectData.id, selectData.price, selectData.price, payType)
             .then((res) => {
                 console.log('---pppp----');
                 console.log(res);
                 if (res.data) {
                     let payloadStr = JSON.stringify(res.data);
+                    console.log('dddddd');
+                    console.log(res.data);
                     const successCallback = `window._unsafe_change_href(${payloadStr})`;
                     this.webView.injectJavaScript(successCallback);
                 }
