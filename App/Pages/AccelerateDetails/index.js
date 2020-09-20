@@ -33,6 +33,7 @@ export default class AccelerateDetails extends Component {
         Loading.show();
         Api.getGameInfoById(gameInfo.id, '').then((request) => {
             Loading.hidden();
+            console.log("getGameInfoByIdgetGameInfoById",request);
             if (request.status === 'error') {
                 NavigationService.alert(this.alertPayload('getGameInfoById存在报错'));
             } else {
@@ -125,7 +126,7 @@ export default class AccelerateDetails extends Component {
         if (this.state.isAccelerate) {
             vpnModule.stopVPN();
             //各种断线操作
-            delete accelerateInfo[this.state.id];
+            accelerateInfo[this.state.id]["speedup"] = "0";
             AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
                 this.setState({
                     isAccelerate: false
@@ -142,6 +143,18 @@ export default class AccelerateDetails extends Component {
 
     finallyStep = () => {
         const { use_server_id, id, accelerateInfo } = this.state;
+        var iplist = accelerateInfo[id]["ip_list"];
+        var iplistArray;
+        if(iplist === ''){
+            iplistArray = [];
+        }else{
+            iplist = iplist.replace("[","");
+            iplist = iplist.replace("]","");
+            iplistArray = iplist.split(',');
+        }
+        
+        console.log('accelerateInfoaccelerateInfo',id,iplistArray);
+        
         if (use_server_id.length > 0) {
             Api.connectServer(id, use_server_id[0]).then((res) => {
                 // const { use_server_id, id } = this.state;
@@ -164,7 +177,7 @@ export default class AccelerateDetails extends Component {
                     //各种连接操作
                     vpnModule.prepare()
                         .then(() => {
-                            vpnModule.startVpn(_sessionId, id);
+                            vpnModule.startVpn(_sessionId, id,iplistArray);
                             let _date = new Date();
                             this.state.gameFullInfo._timeReg = _date;
                             accelerateInfo[this.state.id] = this.state.gameFullInfo;

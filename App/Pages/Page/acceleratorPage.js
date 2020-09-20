@@ -43,7 +43,8 @@ export default class acceleratorPage extends Component {
             dataArray: [],
             freashData: false,
             accelerateStatus: false,
-            showAlert: false
+            showAlert: false,
+            accelerateInfo:{}
         }
     }
 
@@ -52,9 +53,10 @@ export default class acceleratorPage extends Component {
             AsyncStorage.getItem('accelerateInfo').then(value => {
                 let accelerateInfo = JSON.parse(value || '{}');
                 let data = _.values(accelerateInfo);
-                console.log('---here---', data);
+                console.log('---here---', accelerateInfo);
                 this.setState({
-                    dataArray: data
+                    dataArray: data,
+                    accelerateInfo : accelerateInfo
                 }, () => {
                     this.startTheTimerInterval();
                 });
@@ -67,8 +69,6 @@ export default class acceleratorPage extends Component {
                 this.requestTimer = null;
             }
         })
-
-        //this.setState(({ dataArray: [{ key: '1' }, { key: '2' }, { key: '3' }, { key: '4' }] }));
     }
 
     componentWillUnmount() {
@@ -116,10 +116,14 @@ export default class acceleratorPage extends Component {
     }
 
     deleteTheItem = (item) => {
-        var dataArray = this.state.dataArray;
+        const {dataArray,accelerateInfo} = this.state;
+        let idKey = dataArray[item.index]["id"];
+        console.log('deletedelete',idKey);
+        delete accelerateInfo[idKey];
         dataArray.splice(item.index, 1);
-        this.setState({
-            dataArray: dataArray
+        this.setState({ "dataArray": dataArray,"accelerateInfo":accelerateInfo });
+        AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
+            
         });
     }
 
@@ -150,14 +154,14 @@ export default class acceleratorPage extends Component {
             <TouchableOpacity
                 style={styles.acceleratorItemRoot}
                 onPress={() => {
-                    console.log('item["speedup"]', item["speedup"]);
+                    console.log('item["speedup"]', item);
                     if (item["speedup"] == '1') {
                         item["speedup"] = '0';
                     } else {
                         item["speedup"] = '1';
                     }
 
-                    this.setState({ "freashData": true });
+                    this.updateSpeedUpStatusToLocal(item["id"]);
                 }}>
                 <View style={styles.gameIconRoot}>
                     <Image source={{ uri: item.icon }} style={styles.gameIcon} />
@@ -169,6 +173,26 @@ export default class acceleratorPage extends Component {
                 </View>
             </TouchableOpacity>
         );
+    }
+
+    updateSpeedUpStatusToLocal = (id = '') =>{
+        const {accelerateInfo} = this.state;
+        console.log('sadasdadasd',accelerateInfo[id]["speedup"]);
+        if(accelerateInfo[id]["speedup"] === "1"){
+            let _date = new Date();
+            accelerateInfo[id]["_timeReg"] = _date;
+        }
+
+        this.setState({accelerateInfo:accelerateInfo});
+        AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
+            
+        });
+    }
+
+    freashTheAccelerateData = () =>{
+        AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
+            
+        });
     }
 
     renderTheInfomationItem = (title = '', accelerateStatus = false) => {
@@ -312,17 +336,15 @@ export default class acceleratorPage extends Component {
     }
 
     stopAllGameSpeedUp = () => {
-        let gamesArray = this.state.dataArray;
-        for (let i = 0; i < gamesArray.length; i++) {
-            let gameInfo = gamesArray[i];
+        const {dataArray,accelerateInfo} = this.state;
+        for (let i = 0; i < dataArray.length; i++) {
+            let gameInfo = dataArray[i];
             gameInfo["speedup"] = "0";
         }
 
-        this.setState({ "dataArray": gamesArray });
+        this.setState({ "dataArray": dataArray,"accelerateInfo":accelerateInfo });
         AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
-            this.setState({
-                isAccelerate: false
-            });
+            
         });
     }
 }
