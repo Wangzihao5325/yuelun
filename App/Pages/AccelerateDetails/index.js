@@ -20,6 +20,7 @@ export default class AccelerateDetails extends Component {
     componentDidMount() {
         const { data } = this.props.route.params;
         let gameInfo = JSON.parse(data);
+        console.log('caonima',gameInfo);
         /** gameInfo
             icon: "http://static.yuelun.com/game/game.png"
             id: "4"
@@ -154,7 +155,17 @@ export default class AccelerateDetails extends Component {
         }
         
         console.log('accelerateInfoaccelerateInfo',id,iplistArray);
-        
+        let IPArray = [];
+        for(let i =0;i<iplistArray.length;i++){
+            let IPUntil = iplistArray[i];
+            let index = IPUntil.indexOf("/");
+            let IP = IPUntil.substring(1,index-1);
+            let DNS = IPUntil.substring(index+1,IPUntil.length-1);
+            let newUnitItem = [IP,DNS];
+            console.log('accelerateInfoaccelerateInfo---',IPUntil,IP,DNS);
+            IPArray.push(newUnitItem);
+        }
+
         if (use_server_id.length > 0) {
             Api.connectServer(id, use_server_id[0]).then((res) => {
                 // const { use_server_id, id } = this.state;
@@ -177,7 +188,7 @@ export default class AccelerateDetails extends Component {
                     //各种连接操作
                     vpnModule.prepare()
                         .then(() => {
-                            vpnModule.startVpn(_sessionId, id,iplistArray);
+                            vpnModule.startVpn(_sessionId, id,IPArray);
                             let _date = new Date();
                             this.state.gameFullInfo._timeReg = _date;
                             accelerateInfo[this.state.id] = this.state.gameFullInfo;

@@ -333,9 +333,10 @@ class acceleratorPage extends Component {
     }
 
     clickGameNormalItemBtn = (item) => {
-        console.log("测试单个点击", item);
         let payload = { data: JSON.stringify(item) }
+        console.log("测试单个点击", payload);
         navigator.jump(this, PageName.ACCELERATE_DETAILS_PAGE, payload);
+        // navigator.navigate(PageName.ACCELERATE_DETAILS_PAGE, { data: JSON.stringify(item) });
     }
 
     selectedGameItemButton = (status = 0) => {

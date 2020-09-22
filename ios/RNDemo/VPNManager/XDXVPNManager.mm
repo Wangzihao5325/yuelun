@@ -44,7 +44,7 @@
     
     [self applyVpnConfiguration:NO];
 }
-- (BOOL)startVPNConsultIP:(NSString *)sessionid gameid:(NSString*)gameid {
+- (BOOL)startVPNConsultIP:(NSString *)sessionid gameid:(NSString*)gameid tunnelArray:(NSArray *)tunnelArray{
     if (self.vpnManager.connection.status == NEVPNStatusDisconnected) {
         NSError *error;
 
@@ -58,7 +58,7 @@
       }
           NSLog(@"%d",ret);
             
-            NSDictionary * consulDic = @{@"sessionid":sessionid,@"gamid":gameid,@"dppath":nstrpath};
+      NSDictionary * consulDic = @{@"sessionid":sessionid,@"gamid":gameid,@"dppath":nstrpath,@"tunnelArray":tunnelArray};
       [self.vpnManager.connection startVPNTunnelWithOptions:consulDic andReturnError:&error];
         
         if (error != 0) {
@@ -127,7 +127,7 @@
             protocol.providerConfiguration        = configInfo;
             protocol.serverAddress                = self.vpnConfigurationModel.serverAddress;
             self.vpnManager.protocolConfiguration = protocol;
-            self.vpnManager.localizedDescription  = @"NEPacketTunnelVPNDemoConfig";
+            self.vpnManager.localizedDescription  = @"月轮";
             
             [self.vpnManager setEnabled:YES];
             [self.vpnManager saveToPreferencesWithCompletionHandler:^(NSError * _Nullable error) {

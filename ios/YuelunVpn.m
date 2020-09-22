@@ -53,8 +53,7 @@ RCT_REMAP_METHOD(prepare, vpnPrepareWithServerAddress:(NSString *)serverAddress 
 }
 
 RCT_REMAP_METHOD(startVpn,sessionid:(NSString *)sessionid gameid:(NSString*)gameid tunnelArray:(NSArray *)tunnelArray startVpnsuccess:(RCTPromiseResolveBlock)success failure:(RCTResponseErrorBlock)failure){
-  NSLog(@"%@",tunnelArray.count);
-    [self.vpnManager startVPNConsultIP:sessionid gameid:gameid];
+    [self.vpnManager startVPNConsultIP:sessionid gameid:gameid tunnelArray:tunnelArray];
     success(@"success");
 }
 

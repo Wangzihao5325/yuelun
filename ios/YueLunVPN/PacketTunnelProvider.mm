@@ -31,11 +31,20 @@
 - (void)startTunnelWithOptions:(NSDictionary *)options completionHandler:(void (^)(NSError *))completionHandler
 {
     log4cplus_info("XDXVPNManager", "XDXPacketTunnelManager - Start Tunel !");
-    NSString *remoteAddress = [self queryIpWithDomain:@"www.baidu.com"];
     NEPacketTunnelNetworkSettings *tunnelNetworkSettings = [[NEPacketTunnelNetworkSettings alloc] initWithTunnelRemoteAddress:@XDX_NET_REMOTEADDRESS];
     tunnelNetworkSettings.MTU = [NSNumber numberWithInteger:XDX_NET_MTU];
     tunnelNetworkSettings.IPv4Settings = [[NEIPv4Settings alloc] initWithAddresses:[NSArray arrayWithObjects:@XDX_NET_TUNNEL_IPADDRESS, nil]  subnetMasks:[NSArray arrayWithObjects:@XDX_NET_SUBNETMASKS, nil]];
-    tunnelNetworkSettings.IPv4Settings.includedRoutes = @[[NEIPv4Route defaultRoute]];
+//  NSString * tunnelArrayStr = [options objectForKey:@"tunnelArray"];
+  NSArray * tunnelArray = [options objectForKey:@"tunnelArray"];
+  NSMutableArray * IPAddressArray = [NSMutableArray new];
+  for (int i = 0; i<tunnelArray.count; i++) {
+    NSArray * untilArray = tunnelArray[i];
+    NSString * addressStr = [untilArray objectAtIndex:0];
+    NSString * NDSStr = [untilArray objectAtIndex:1];
+    NEIPv4Route * untilRoute = [[NEIPv4Route alloc] initWithDestinationAddress:addressStr subnetMask:NDSStr];
+    [IPAddressArray addObject:untilRoute];
+  }
+    tunnelNetworkSettings.IPv4Settings.includedRoutes = IPAddressArray;
     // 此处不可随意设置，可根据真实情况设置
     //    NEIPv4Route *excludeRoute = [[NEIPv4Route alloc] initWithDestinationAddress:@"10.12.23.90" subnetMask:@"255.255.255.255"];
     //    tunnelNetworkSettings.IPv4Settings.excludedRoutes = @[excludeRoute];

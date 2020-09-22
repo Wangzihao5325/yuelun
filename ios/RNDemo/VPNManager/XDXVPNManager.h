@@ -31,7 +31,7 @@
  *   Start VPN.
  *   If success return YES, otherwise return NO.
  */
-- (BOOL)startVPNConsultIP:(NSString *)sessionid gameid:(NSString*)gameid;
+- (BOOL)startVPNConsultIP:(NSString *)sessionid gameid:(NSString*)gameid tunnelArray:(NSArray *)tunnelArray;
 
 /**
  *  Stop VPN.
