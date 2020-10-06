@@ -24,6 +24,8 @@ import PageName from '../../Config/PageName';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Api from '../../Functions/NativeBridge/ApiModule';
+import { _sessionId } from '../../Functions/NativeBridge/ApiModule';
+import * as vpnModule from '../../Functions/NativeBridge/YuelunVpn';
 
 export default class acceleratorPage extends Component {
     static navigationOptions = {
@@ -188,6 +190,13 @@ export default class acceleratorPage extends Component {
         AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
             
         });
+
+        if(accelerateInfo[id]["speedup"] === "1"){
+            this.startTheVPN(id,accelerateInfo[id]);
+        }else{
+            vpnModule.stopVPN();
+        }
+        
     }
 
     freashTheAccelerateData = () =>{
@@ -208,7 +217,7 @@ export default class acceleratorPage extends Component {
     renderTheButton = (item) => {
         return (
             <TouchableOpacity onPress={() => {
-                NavigationService.navigate(PageName.ACCELERATE_DETAILS_PAGE, { data: JSON.stringify(item) });
+                // NavigationService.navigate(PageName.ACCELERATE_DETAILS_PAGE, { data: JSON.stringify(item) });
             }}>
                 <View
                     style={{ borderRadius: 20, height: 40, width: 90, backgroundColor: '#F5CC00', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
@@ -247,7 +256,7 @@ export default class acceleratorPage extends Component {
         if (s < 10) s = '0' + s;
         return (
             <TouchableOpacity onPress={() => {
-                NavigationService.navigate(PageName.ACCELERATE_DETAILS_PAGE, { data: JSON.stringify(data) });
+                // NavigationService.navigate(PageName.ACCELERATE_DETAILS_PAGE, { data: JSON.stringify(data) });
             }}>
                 <View
                     style={{ borderRadius: 20, height: 40, width: 90, backgroundColor: '#F5CC00', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -347,9 +356,12 @@ export default class acceleratorPage extends Component {
         AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
             
         });
+
+        vpnModule.stopVPN();
     }
 
-    startTheVPN = (accelerateInfo) =>{
+    startTheVPN = (id,accelerateInfo) =>{
+        console.log('测试加速点击',accelerateInfo);
         var iplist = accelerateInfo["ip_list"];
         var iplistArray;
         if(iplist === ''){
@@ -370,8 +382,10 @@ export default class acceleratorPage extends Component {
             IPArray.push(newUnitItem);
         }
 
+        let use_server_id = accelerateInfo["use_server_id"];
         if (use_server_id.length > 0) {
             Api.connectServer(id, use_server_id[0]).then((res) => {
+                console.log('测试加速点击---res',res);
                 if (res.status === 'ok' && res.data.consult_ip) {
                     //各种连接操作
                     vpnModule.prepare()

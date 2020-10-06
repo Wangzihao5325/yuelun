@@ -63,24 +63,6 @@ export default class AccelerateDetails extends Component {
                     }
                 })
             }
-            /*
-            game_info: {
-                domain_black_list: ""
-                domain_white_list: "[]"
-                down_limit: "300"
-                icon: "http://static.yuelun.com/game/game.png"
-                id: "4"
-                ip_list: "[]"
-                name: "王者荣耀"
-                process_list: "["com.tencent.tmgp.sgame"]"
-                region: "王者荣耀-国服"
-                system: "android"
-                type_name: "国服"
-                up_limit: "300"
-                use_server_id: "[]"
-            }
-            timestamp: 1595213291
-            */
         })
     }
 
