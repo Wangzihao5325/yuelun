@@ -22,38 +22,39 @@ class MinePage extends Component {
         this.state = {
             VIPStatus: true,
             VIPStartTime: "",
-            VIPEndTime: ""
+            VIPEndTime: "",
+            VIPTitle:''
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this._unsubscribe = this.props.navigation.addListener('focus', () => {
             ApiModule.getTheUserInforWithSessionID().then((result) => {
                 this.dealTheVIPStatus(result);
             });
         });
-       
+
     }
 
-    dealTheVIPStatus = (VIPdata = '') =>{
-        console.log('userInfo-------~~~~~~~',VIPdata);
+    dealTheVIPStatus = (VIPdata = '') => {
+        console.log('userInfo===>', VIPdata);
         let VIPStatus = false;
-        if(VIPdata == ''){
+        if (VIPdata == '') {
             return;
         }
 
         let package_end_time = VIPdata.data.package_end_time ? VIPdata.data.package_end_time : "";
         let package_add_time = VIPdata.data.package_add_time ? VIPdata.data.package_add_time : "";
-        if(package_add_time && package_end_time && package_add_time.length > 0 && package_end_time.length > 0){
+        if (package_add_time && package_end_time && package_add_time.length > 0 && package_end_time.length > 0) {
             VIPStatus = true;
-        }else{
+        } else {
 
         }
-        console.log('userInfo-------+++++++++',package_end_time);
         this.setState({
-            VIPStatus : VIPStatus,
-            VIPStartTime : package_end_time,
-            VIPEndTime : package_add_time
+            VIPStatus: VIPStatus,
+            VIPStartTime: package_end_time,
+            VIPEndTime: package_add_time,
+            VIPTitle: VIPdata.data.package_name
         });
     }
 
@@ -157,7 +158,7 @@ class MinePage extends Component {
                 style={styles.backImageStyle}>
                 <Image style={[styles.VIPIcon, { marginTop: -20 }]} source={require('../../resource/Image/Mine/VIPicon.png')} />
                 <View style={{ flex: 1 }}>
-                    <Text style={styles.buyVIPRootStyle}>月轮加速器VIP</Text>
+                    <Text style={styles.buyVIPRootStyle}>{`${this.state.VIPTitle}`}</Text>
                     <Text style={styles.VIPTimeInfoStyle}>{this.state.VIPEndTime + "到期"}</Text>
                 </View>
                 <TouchableOpacity style={styles.buyBtnRoot} onPress={() => {
