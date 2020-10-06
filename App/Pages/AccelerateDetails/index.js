@@ -20,7 +20,6 @@ export default class AccelerateDetails extends Component {
     componentDidMount() {
         const { data } = this.props.route.params;
         let gameInfo = JSON.parse(data);
-        console.log('caonima',gameInfo);
         /** gameInfo
             icon: "http://static.yuelun.com/game/game.png"
             id: "4"
@@ -143,8 +142,8 @@ export default class AccelerateDetails extends Component {
     }
 
     finallyStep = () => {
-        const { use_server_id, id, accelerateInfo } = this.state;
-        var iplist = accelerateInfo[id]["ip_list"];
+        const { use_server_id, id, accelerateInfo,gameFullInfo } = this.state;
+        var iplist = gameFullInfo["ip_list"];
         var iplistArray;
         if(iplist === ''){
             iplistArray = [];
