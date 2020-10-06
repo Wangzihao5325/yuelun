@@ -154,7 +154,6 @@ export default class AccelerateDetails extends Component {
             iplistArray = iplist.split(',');
         }
         
-        console.log('accelerateInfoaccelerateInfo',id,iplistArray);
         let IPArray = [];
         for(let i =0;i<iplistArray.length;i++){
             let IPUntil = iplistArray[i];
@@ -162,28 +161,11 @@ export default class AccelerateDetails extends Component {
             let IP = IPUntil.substring(1,index-1);
             let DNS = IPUntil.substring(index+1,IPUntil.length-1);
             let newUnitItem = [IP,DNS];
-            console.log('accelerateInfoaccelerateInfo---',IPUntil,IP,DNS);
             IPArray.push(newUnitItem);
         }
 
         if (use_server_id.length > 0) {
             Api.connectServer(id, use_server_id[0]).then((res) => {
-                // const { use_server_id, id } = this.state;
-                // if (use_server_id.length > 0) {
-                //     Api.connectServer(id, use_server_id[0]).then((res) => {
-                //         //  res.data
-                //         //  consult_ip: "162.14.5.205"
-                //         // consult_port: "32091"
-                //         // entry_ip: "119.3.83.78"
-                //         // reserve_ip: ""
-                //         // route_ip_list: []
-                //         // tcp_port: ["15880"]
-                //         // timestamp: 1595862116
-                //         // udp_port: ["15880"]
-
-                //         console.log(res);
-                //     })
-                //}
                 if (res.status === 'ok' && res.data.consult_ip) {
                     //各种连接操作
                     vpnModule.prepare()

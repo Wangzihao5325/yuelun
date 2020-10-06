@@ -67,6 +67,7 @@ RCT_REMAP_METHOD(yuelunGetGameInfoById,Withstrsession_id:(NSString *)strsession_
 */
 RCT_REMAP_METHOD(yuelunGetAllGameConfig,Withstrsession_id:(NSString *)strsession_id andstrlist_token:(NSString *)strlist_token resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   NSString * allGameStr = [self getAllGames:strsession_id listToken:strlist_token];
+  NSLog(@"所有游戏%@",allGameStr);
   resolve(allGameStr);
 }
 
