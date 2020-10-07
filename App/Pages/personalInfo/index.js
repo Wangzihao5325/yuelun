@@ -9,6 +9,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import buttonWrapper from '../../Components/Component/HOCButtonWrapper';
 import ImagePicker from 'react-native-image-crop-picker';
 import * as Api from '../../Functions/NativeBridge/ApiModule';
+import { Toast } from '../../Components/Toast/Toast';
 
 const InfoItem = (props) => {
     return (
@@ -65,8 +66,10 @@ class PersonalInfo extends Component {
             includeBase64: true,
         }).then(image => {
             let base64 = image.data;
-            //Api.
-            console.log(image);
+            Api.modifyUserInfo('', '', '', base64).then(res => {
+                console.log('res==>',res)
+                Toast.show('头像已上传')
+            })
         }).catch(error => {
             console.log('cancel or');
         });
