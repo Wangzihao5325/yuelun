@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
@@ -6,6 +6,8 @@ import {
     StyleSheet
 } from 'react-native';
 import { LineChart } from "react-native-chart-kit";
+import { useFocusEffect } from '@react-navigation/native';
+import * as Api from '../../Functions/NativeBridge/ApiModule';
 
 const data = {
     datasets: [
@@ -25,12 +27,12 @@ const data = {
 const no_data = {
     datasets: [
         {
-            data: [20, 79, 99, 70, 50],
+            data: [0, 0, 0, 0, 0],
             color: (opacity = 1) => `rgba(213, 202, 21, 0)`, // optional
             strokeWidth: 2 // optional
         },
         {
-            data: [40, 54, 22, 45, 25],
+            data: [0, 0, 0, 0, 0],
             color: (opacity = 1) => `rgba(20, 215, 210, 0)`, // optional
             strokeWidth: 2 // optional
         }
@@ -52,7 +54,7 @@ const chartConfig = {
 };
 
 const SpeedItem = (props) => {
-    let speed = props.isAccelerate ? 75 : '/ ';
+    let speed = props.isAccelerate ? props.flowData : '/ ';
 
     return (
         <View style={styles.speedItemContainer}>
@@ -60,37 +62,114 @@ const SpeedItem = (props) => {
                 <Text style={styles.speedItemHeaderTitle}>{`${props.title}`}</Text>
                 <View style={{ height: 1.5, width: 26, backgroundColor: props.color }} />
             </View>
-            <Text style={styles.speedItemContent}>{`${speed}`}<Text style={styles.speedItemContent2}>ms</Text></Text>
+            <Text style={styles.speedItemContent}>{`${speed}`}<Text style={styles.speedItemContent2}></Text></Text>
         </View>
     );
 }
 
 const CustomChart = (props) => {
+    let timer;
+    const [flowData, setFlowData] = useState({ download: '0 KB', downloadspd: '0 KB/s', upload: '0 KB', uploadspd: '0 KB/s' })
+    const [chartData, setChartData] = useState(data)
+    //const [unit, setUnit] = useState([])
+    _spdDataTrans = (spdStr) => {
+        let regArr = spdStr.split(' ')
+        let spd = parseFloat(regArr[0])
+        switch (regArr[1]) {
+            case 'KB/s':
+                break
+            case 'MB/s':
+                spd = 1000 * spd
+                break
+            case 'GB/s':
+                spd = 1000000 * spd
+                break
+        }
+        return spd
+    }
+
+    _flowDataTrans = (payload) => {
+        if (!payload) return
+        let uploadSpd = _spdDataTrans(payload.uploadspd);
+        let downloadSpd = _spdDataTrans(payload.downloadspd);
+        let uploadData = [...chartData.datasets[0].data];
+        let downloadData = [...chartData.datasets[1].data];
+        uploadData.push(uploadSpd);
+        if (uploadData.length > 5) {
+            uploadData.shift();
+        }
+        downloadData.push(downloadSpd);
+        if (downloadData.length > 5) {
+            downloadData.shift();
+        }
+        const newChartData = { ...chartData };
+        newChartData.datasets[0].data = uploadData;
+        newChartData.datasets[1].data = downloadData;
+        setChartData(newChartData);
+    }
+
+    _getFlowTimer = () => {
+        if (!timer) {
+            timer = setInterval(() => {
+                Api.getFlow().then(res => {
+                    console.log('res==>',res)
+                    setFlowData(res);
+                    _flowDataTrans(res)
+                })
+            }, 2000)
+        }
+    }
+
+    useFocusEffect(React.useCallback(() => {
+        _getFlowTimer();
+        return () => {
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+        }
+    }, []))
+
+    // useEffect(() => {
+    //     _getFlowTimer();
+    //     return () => {
+    //         if (timer) {
+    //             clearInterval(timer);
+    //             timer = null;
+    //             setChartData(data)
+    //         }
+    //     }
+    // }, [])
+
     const { width = Dimensions.get("window").width - 50, height = 100, segments = 2 } = props;
+    console.log('props.isAccelerate==>',props.isAccelerate)
+    console.log('flowData==>',flowData.uploadspd)
     return (
         <>
             <LineChart
-                data={props.isAccelerate ? data : no_data}
+                data={chartData}
                 width={width}
                 height={height}
                 segments={segments}
                 withVerticalLines={false}
                 chartConfig={{ ...chartConfig, ...props.chartConfig }}
-                formatYLabel={value => `${parseInt(value)}ms`}
+                formatYLabel={value => `${parseInt(value)}KB`}
                 withDots={false}
                 bezier
             />
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 25 }}>
                 <SpeedItem
                     isAccelerate={props.isAccelerate}
-                    title='加速前延迟'
+                    title='上行速度'
                     color='#CEC836'
+                    flowData={flowData.uploadspd}
                 />
                 <View style={{ height: 37, width: 0.5, backgroundColor: '#90A9D3' }} />
                 <SpeedItem
                     isAccelerate={props.isAccelerate}
-                    title='加速后延迟'
+                    title='下行速度'
                     color='#14D7D2'
+                    flowData={flowData.downloadspd}
                 />
             </View>
         </>
