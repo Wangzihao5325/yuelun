@@ -249,3 +249,10 @@ export const verifyReceiptByios = async (strorder_code, strreceipt) => {
     return _dealResult(resultStr);
 }
 
+/**
+ * 获取流量数据
+ */
+export const getFlow = async () => {
+    let resultStr = await CApiClientManager.getFlow();
+    return _dealResult(resultStr);
+}

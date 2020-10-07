@@ -67,7 +67,7 @@ class PersonalInfo extends Component {
         }).then(image => {
             let base64 = image.data;
             Api.modifyUserInfo('', '', '', base64).then(res => {
-                console.log('res==>',res)
+                console.log('res==>', res)
                 Toast.show('头像已上传')
             })
         }).catch(error => {

@@ -82,6 +82,11 @@ export default class AccelerateDetails extends Component {
             timestamp: 1595213291
             */
         })
+
+        //尝试获取流量
+        Api.getFlow().then(res=>{
+            console.log('res==>',res)
+        })
     }
 
     componentWillUnmount() {

@@ -145,4 +145,9 @@ public class CApiClientManager extends ReactContextBaseJavaModule {
         String receiveStr = CProxClient.YuelunVerifyReceiptByios(strsession_id,strorder_code,strreceipt);
         promise.resolve(receiveStr);
     }
+    @ReactMethod
+    public void getFlow( Promise promise){
+        String receiveStr = CProxClient.GetFlow();
+        promise.resolve(receiveStr);
+    }
 }
