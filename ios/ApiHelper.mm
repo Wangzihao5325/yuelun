@@ -228,6 +228,10 @@ RCT_REMAP_METHOD(yuelunVerifyReceiptByios,sessionid:(NSString *)strsession_id st
   resolve(returnStr);
 };
 
+RCT_REMAP_METHOD(getFlow,resolver:(RCTPromiseResolveBlock)resolve){
+  NSString * returnStr = [self getFlowFunction];
+  resolve(returnStr);
+};
 
 -(NSString *)getTheBannerData{
   std::string str = YuelunGetAdList();
@@ -417,4 +421,11 @@ RCT_REMAP_METHOD(yuelunVerifyReceiptByios,sessionid:(NSString *)strsession_id st
   NSString * return_string = [NSString stringWithFormat:@"%s",return_str.c_str()];
   return return_string;
 }
+
+-(NSString *)getFlowFunction{
+  std::string return_str = GetFlow();
+  NSString * return_string = [NSString stringWithFormat:@"%s",return_str.c_str()];
+  return return_string;
+}
+
 @end
