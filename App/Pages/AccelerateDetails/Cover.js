@@ -6,6 +6,7 @@ import {
     Image,
     Animated,
     StyleSheet,
+    TouchableOpacity
 } from 'react-native';
 import HcdWaveView from './Wave'
 
@@ -27,17 +28,17 @@ const Cover = (props) => {
                 <Text style={styles.coverTips}>{props.isAccelerate ? '正使用专属加速通道...' : '专属通道未开启'}</Text>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <View style={styles.outerCircle}>
-                        <View style={styles.middleCircle}>
-                            <Image
+                        <TouchableOpacity style={styles.middleCircle}>
+                            {/* <Image
                                 style={styles.imageCircle}
                                 source={{ uri: props.icon }}
-                            />
-                            {/* <View>
+                            /> */}
+                            <View style={{width:193,height:193,backgroundColor:'red',borderRadius:96.5,overflow:"hidden"}}>
                                 <HcdWaveView
                                     radius={193}
                                 />
-                            </View> */}
-                        </View>
+                            </View>
+                        </TouchableOpacity>
                         <Animated.Image
                             style={{ position: 'absolute', bottom: circleOne.x, left: circleOne.y }}
                             source={require('../../resource/Image/AccelerateDetails/yellow_circle.png')}

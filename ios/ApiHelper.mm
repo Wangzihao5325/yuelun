@@ -228,7 +228,7 @@ RCT_REMAP_METHOD(yuelunVerifyReceiptByios,sessionid:(NSString *)strsession_id st
   resolve(returnStr);
 };
 
-RCT_REMAP_METHOD(getFlow,resolver:(RCTPromiseResolveBlock)resolve){
+RCT_REMAP_METHOD(getFlow,getFlowByResolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   NSString * returnStr = [self getFlowFunction];
   resolve(returnStr);
 };

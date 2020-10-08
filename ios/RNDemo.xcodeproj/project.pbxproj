@@ -16,6 +16,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		34F713CE243C2C6C001034CF /* AuthenticationModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F713CD243C2C6C001034CF /* AuthenticationModule.m */; };
+		80114B88252F5AB300686052 /* LaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 80114B87252F5AB300686052 /* LaunchImage.png */; };
 		8013CCCD24E901D200493822 /* VPN_Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8013CCCC24E901D200493822 /* VPN_Manager.m */; };
 		8027712725050DB3005AEBB1 /* libz.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E1FC1F24C3FD330092895E /* libz.1.tbd */; };
 		8027713B25051CB0005AEBB1 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E1FC1224C2DD670092895E /* libc++.tbd */; };
@@ -116,6 +117,7 @@
 		34F713CD243C2C6C001034CF /* AuthenticationModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthenticationModule.m; path = RNDemo/BridgeModule/SecurityModule/AuthenticationModule.m; sourceTree = "<group>"; };
 		60947F9E755E6771DFD0CF8E /* Pods-RNDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemoTests.release.xcconfig"; path = "Target Support Files/Pods-RNDemoTests/Pods-RNDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		60CA3976A620108703AF9021 /* Pods-RNDemo-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNDemo-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-RNDemo-tvOSTests/Pods-RNDemo-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		80114B87252F5AB300686052 /* LaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LaunchImage.png; path = RNDemo/Images.xcassets/LaunchImage.launchimage/LaunchImage.png; sourceTree = "<group>"; };
 		8013CCCB24E901D200493822 /* VPN_Manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VPN_Manager.h; sourceTree = "<group>"; };
 		8013CCCC24E901D200493822 /* VPN_Manager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VPN_Manager.m; sourceTree = "<group>"; };
 		8013CCCE24E909BF00493822 /* YueLunVPN.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = YueLunVPN.entitlements; path = YueLunVPN/YueLunVPN.entitlements; sourceTree = SOURCE_ROOT; };
@@ -260,6 +262,7 @@
 				806A22DF24E81D1F000E7040 /* GCDAsyncSocket.m */,
 				806A22E224E81D1F000E7040 /* GCDAsyncUdpSocket.h */,
 				806A22E024E81D1F000E7040 /* GCDAsyncUdpSocket.m */,
+				80114B87252F5AB300686052 /* LaunchImage.png */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
@@ -510,6 +513,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80114B88252F5AB300686052 /* LaunchImage.png in Resources */,
 				80A39F8C25066F28005AD0CE /* ip2region.db in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
