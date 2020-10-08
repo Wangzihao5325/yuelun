@@ -11,12 +11,9 @@ import {
 import HcdWaveView from './Wave'
 
 const Cover = (props) => {
-    const [circleOne, setCircleOne] = useState(new Animated.ValueXY({ x: 120 - 4, y: 0 - 4 }));
+    const [isShowImage, setImage] = useState(true);
     useEffect(() => {
-        Animated.timing(circleOne, {
-            toValue: { x: 0, y: 0 },
-            duration: 10000
-        }).start()
+
     }, [])
     return (
         <ImageBackground
@@ -28,21 +25,24 @@ const Cover = (props) => {
                 <Text style={styles.coverTips}>{props.isAccelerate ? '正使用专属加速通道...' : '专属通道未开启'}</Text>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <View style={styles.outerCircle}>
-                        <TouchableOpacity style={styles.middleCircle}>
-                            {/* <Image
-                                style={styles.imageCircle}
-                                source={{ uri: props.icon }}
-                            /> */}
-                            <View style={{width:193,height:193,backgroundColor:'red',borderRadius:96.5,overflow:"hidden"}}>
-                                <HcdWaveView
-                                    radius={193}
+                        <TouchableOpacity style={styles.middleCircle} onPress={() => setImage(!isShowImage)}>
+                            {!isShowImage &&
+                                <Image
+                                    style={styles.imageCircle}
+                                    source={{ uri: props.icon }}
                                 />
-                            </View>
+                            }
+                            {isShowImage &&
+                                <View style={{ width: 193, height: 193, borderRadius: 96.5, overflow: "hidden", position: 'relative' }}>
+                                    <HcdWaveView
+                                        radius={193}
+                                    />
+                                    <View style={{ position: 'absolute', top: 50, left: 0, right: 0, height: 60, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text style={{fontSize:30,color:'#14D7D2'}} >{`${0} MB`}</Text>
+                                    </View>
+                                </View>
+                            }
                         </TouchableOpacity>
-                        <Animated.Image
-                            style={{ position: 'absolute', bottom: circleOne.x, left: circleOne.y }}
-                            source={require('../../resource/Image/AccelerateDetails/yellow_circle.png')}
-                        />
                     </View>
                 </View>
             </View>

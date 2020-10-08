@@ -15,6 +15,7 @@ export default class AccelerateDetails extends Component {
         isAccelerate: false,
         pageType: 'stow',//stow,unfold
         icon: 'http://static.yuelun.com/game/game.png',
+        name: ''
     }
 
     componentDidMount() {
@@ -33,7 +34,7 @@ export default class AccelerateDetails extends Component {
         Loading.show();
         Api.getGameInfoById(gameInfo.id, '').then((request) => {
             Loading.hidden();
-            console.log("getGameInfoByIdgetGameInfoById",request);
+            console.log("getGameInfoByIdgetGameInfoById", request);
             if (request.status === 'error') {
                 NavigationService.alert(this.alertPayload('getGameInfoById存在报错'));
             } else {
@@ -47,7 +48,7 @@ export default class AccelerateDetails extends Component {
                     let isAccelerate = accelerateInfo[this.state.id] ? true : false;
                     this.setState({
                         isAccelerate,
-                        accelerateInfo
+                        accelerateInfo,
                     });
                 });
 
@@ -66,8 +67,8 @@ export default class AccelerateDetails extends Component {
         })
 
         //尝试获取流量
-        Api.getFlow().then(res=>{
-            console.log('res==>',res)
+        Api.getFlow().then(res => {
+            console.log('res==>', res)
         })
     }
 
@@ -83,6 +84,7 @@ export default class AccelerateDetails extends Component {
             <SafeAreaView style={{ flex: 1, backgroundColor: bgColor, paddingTop: 0 }}>
                 {this.state.pageType === 'stow' &&
                     <StowPage
+                        name={this.state.name}
                         icon={this.state.icon}
                         pageTypeChange={this.pageTypeChange}
                         speedUp={this.speedUp}
@@ -129,24 +131,24 @@ export default class AccelerateDetails extends Component {
     }
 
     finallyStep = () => {
-        const { use_server_id, id, accelerateInfo,gameFullInfo } = this.state;
+        const { use_server_id, id, accelerateInfo, gameFullInfo } = this.state;
         var iplist = gameFullInfo["ip_list"];
         var iplistArray;
-        if(iplist === ''){
+        if (iplist === '') {
             iplistArray = [];
-        }else{
-            iplist = iplist.replace("[","");
-            iplist = iplist.replace("]","");
+        } else {
+            iplist = iplist.replace("[", "");
+            iplist = iplist.replace("]", "");
             iplistArray = iplist.split(',');
         }
-        
+
         let IPArray = [];
-        for(let i =0;i<iplistArray.length;i++){
+        for (let i = 0; i < iplistArray.length; i++) {
             let IPUntil = iplistArray[i];
             let index = IPUntil.indexOf("/");
-            let IP = IPUntil.substring(1,index-1);
-            let DNS = IPUntil.substring(index+1,IPUntil.length-1);
-            let newUnitItem = [IP,DNS];
+            let IP = IPUntil.substring(1, index - 1);
+            let DNS = IPUntil.substring(index + 1, IPUntil.length - 1);
+            let newUnitItem = [IP, DNS];
             IPArray.push(newUnitItem);
         }
 
@@ -156,13 +158,13 @@ export default class AccelerateDetails extends Component {
                     //各种连接操作
                     vpnModule.prepare()
                         .then(() => {
-                            vpnModule.startVpn(_sessionId, id,IPArray);
+                            vpnModule.startVpn(_sessionId, id, IPArray);
                             let _date = new Date();
                             this.state.gameFullInfo._timeReg = _date;
                             accelerateInfo[this.state.id] = this.state.gameFullInfo;
                             accelerateInfo[this.state.id]["speedup"] = "1";
                             this.state.gameFullInfo
-                            console.log('JSON.stringify(accelerateInfo)',accelerateInfo);
+                            console.log('JSON.stringify(accelerateInfo)', accelerateInfo);
                             AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
                                 this.setState({
                                     isAccelerate: true

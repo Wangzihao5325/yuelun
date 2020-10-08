@@ -28,6 +28,7 @@ const StowPage = (props) => {
     return (
         <>
             <Cover
+                name={props.name}
                 icon={props.icon}
                 isAccelerate={props.isAccelerate}
             />
