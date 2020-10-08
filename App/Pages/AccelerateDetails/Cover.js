@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     ImageBackground,
     View,
     Text,
     Image,
     Animated,
-    StyleSheet
+    StyleSheet,
 } from 'react-native';
+import HcdWaveView from './Wave'
 
 const Cover = (props) => {
     const [circleOne, setCircleOne] = useState(new Animated.ValueXY({ x: 120 - 4, y: 0 - 4 }));
+    useEffect(() => {
+        Animated.timing(circleOne, {
+            toValue: { x: 0, y: 0 },
+            duration: 10000
+        }).start()
+    }, [])
     return (
         <ImageBackground
             style={{ flex: 1 }}
@@ -25,6 +32,11 @@ const Cover = (props) => {
                                 style={styles.imageCircle}
                                 source={{ uri: props.icon }}
                             />
+                            {/* <View>
+                                <HcdWaveView
+                                    radius={193}
+                                />
+                            </View> */}
                         </View>
                         <Animated.Image
                             style={{ position: 'absolute', bottom: circleOne.x, left: circleOne.y }}
@@ -72,7 +84,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#223047',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     imageCircle: {
         height: 193,

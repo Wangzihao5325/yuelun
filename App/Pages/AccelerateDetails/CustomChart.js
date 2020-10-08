@@ -130,16 +130,18 @@ const CustomChart = (props) => {
         }
     }, []))
 
-    // useEffect(() => {
-    //     _getFlowTimer();
-    //     return () => {
-    //         if (timer) {
-    //             clearInterval(timer);
-    //             timer = null;
-    //             setChartData(data)
-    //         }
-    //     }
-    // }, [])
+    /*
+    useEffect(() => {
+        _getFlowTimer();
+        return () => {
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+                setChartData(data)
+            }
+        }
+    }, [])
+    */
 
     const { width = Dimensions.get("window").width - 50, height = 100, segments = 2 } = props;
     console.log('props.isAccelerate==>',props.isAccelerate)
