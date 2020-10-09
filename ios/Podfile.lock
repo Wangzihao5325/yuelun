@@ -194,8 +194,6 @@ PODS:
     - React
   - react-native-camera/RN (3.31.0):
     - React
-  - react-native-ip-sec-vpn (1.0.2):
-    - React
   - react-native-netinfo (5.9.5):
     - React
   - react-native-safe-area-context (0.7.3):
@@ -309,7 +307,6 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-camera (from `../node_modules/react-native-camera`)
-  - react-native-ip-sec-vpn (from `../node_modules/react-native-ip-sec-vpn`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -375,8 +372,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-camera:
     :path: "../node_modules/react-native-camera"
-  react-native-ip-sec-vpn:
-    :path: "../node_modules/react-native-ip-sec-vpn"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-safe-area-context:
@@ -443,7 +438,6 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 1540d1c01bb493ae3124ed83351b1b6a155db7da
   React-jsinspector: 512e560d0e985d0e8c479a54a4e5c147a9c83493
   react-native-camera: 679479bfe0f59103aca704e8dc39b0cedf5e2f65
-  react-native-ip-sec-vpn: ceab5134458cc9294be7e3f26cb70623bd718b5e
   react-native-netinfo: 7f3f3ed9e8f0e7ab3e7cac00cbfdc6997e25ecaf
   react-native-safe-area-context: 8260e5157617df4b72865f44006797f895b2ada7
   react-native-webview: d2ddd1c9a3c04b2c7a034df1d14b7cd80dbb0a05

@@ -14,7 +14,6 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../Config/UIConfig';
 import { connect } from 'react-redux';
 import * as SystemConfig from '../../Config/SystemConfig';
 import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
-import { VpnState } from 'react-native-ip-sec-vpn';
 
 class MinePage extends Component {
     constructor(props) {

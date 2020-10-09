@@ -13,6 +13,7 @@
 #include <netinet/in.h>
 #include <netdb.h>
 #include <arpa/inet.h>
+#import "libclient_proxy.h"
 
 #define XDX_NET_MTU                        1400
 #define XDX_NET_REMOTEADDRESS              "222.222.222.222"
@@ -60,7 +61,28 @@
         }
     }];
 
-    [self readPakcets];
+  NSString * nssessionid = [options objectForKey:@"sessionid"];
+  NSString * nsgameid    = [options objectForKey:@"gameid"];
+  NSString * path        = [options objectForKey:@"dppath"];
+  srand((int)time(0));
+  int port = rand()%(57342 - 44073 + 1) + 44073;
+  NSLog(@"local port:%d",port);
+  const char * pathchar   = [path UTF8String];
+  const char * csessionid = [nssessionid UTF8String];
+  const char * cgameid    = [nsgameid UTF8String];
+  //设置IP数据库
+  int ret = SetFilePath((char*)pathchar);
+  if(ret != 0){
+    return;
+  }
+
+  YuelunGetGameInfoById(csessionid,cgameid,"");
+  ret = CreatTunnel((char*)csessionid,"7",port,2);
+  if(ret == -1){
+    return;
+  }
+  
+  [self readPakcets];
 }
 
 - (void)stopTunnelWithReason:(NEProviderStopReason)reason completionHandler:(void (^)(void))completionHandler
