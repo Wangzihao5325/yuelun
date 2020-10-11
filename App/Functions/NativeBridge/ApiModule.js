@@ -97,7 +97,8 @@ export const getAllGameConfig = async (listToken) => {
  */
 export const checkHeart = async (gameId, serverId) => {
     let strRequest = await CApiClientManager.yuelunCheckHear(_sessionId, gameId, serverId);
-    return _dealResult(strRequest);
+    //心跳包不能走_dealResult会递归调用
+    return JSON.parse(strRequest);
 }
 /**
  * 获取公告信息

@@ -44,10 +44,6 @@ function TabNavigator({
         initialRouteName,
     });
     const { routes } = state;
-    console.log('dddd');
-    console.log(state);
-    console.log(navigation);
-    console.log(descriptors);
     return (
         <NavigationHelpersContext.Provider value={navigation}>
             <SafeAreaProviderCompat>
