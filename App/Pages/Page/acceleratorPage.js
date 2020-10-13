@@ -17,7 +17,7 @@ import {
     Modal
 } from 'react-native';
 import CustomeListView from '../../Components/Component/CustomeListView';
-import { SCREEN_WIDTH, SCREEN_HEIGHT,NavigatorBarHeight,NavigatorTop,NavigatorViewHeight } from '../../Config/UIConfig';
+import { SCREEN_WIDTH, SCREEN_HEIGHT, NavigatorBarHeight, NavigatorTop, NavigatorViewHeight } from '../../Config/UIConfig';
 import _ from 'lodash';
 import * as NavigationService from '../../Router/NavigationService';
 import PageName from '../../Config/PageName';
@@ -47,7 +47,7 @@ export default class acceleratorPage extends Component {
             freashData: false,
             accelerateStatus: false,
             showAlert: false,
-            accelerateInfo:{}
+            accelerateInfo: {}
         }
     }
 
@@ -59,7 +59,7 @@ export default class acceleratorPage extends Component {
                 console.log('---here---', accelerateInfo);
                 this.setState({
                     dataArray: data,
-                    accelerateInfo : accelerateInfo
+                    accelerateInfo: accelerateInfo
                 }, () => {
                     this.startTheTimerInterval();
                 });
@@ -119,14 +119,14 @@ export default class acceleratorPage extends Component {
     }
 
     deleteTheItem = (item) => {
-        const {dataArray,accelerateInfo} = this.state;
+        const { dataArray, accelerateInfo } = this.state;
         let idKey = dataArray[item.index]["id"];
-        console.log('deletedelete',idKey);
+        console.log('deletedelete', idKey);
         delete accelerateInfo[idKey];
         dataArray.splice(item.index, 1);
-        this.setState({ "dataArray": dataArray,"accelerateInfo":accelerateInfo });
+        this.setState({ "dataArray": dataArray, "accelerateInfo": accelerateInfo });
         AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
-            
+
         });
     }
 
@@ -134,13 +134,13 @@ export default class acceleratorPage extends Component {
         return (
             <View style={{ marginLeft: 0, marginTop: 0, width: SCREEN_WIDTH, height: NavigatorBarHeight, flexDirection: 'row', justifyContent: 'center' }}>
                 <View style={{ flex: 1 }}></View>
-                <View style={{ flex: 1, alignItems: 'center' }}><Text style={{ color: 'white', marginTop: NavigatorTop+6, fontSize: 18 }}>加速</Text></View>
+                <View style={{ flex: 1, alignItems: 'center' }}><Text style={{ color: 'white', marginTop: NavigatorTop + 6, fontSize: 18 }}>加速</Text></View>
                 <View style={{ flex: 1, flexDirection: 'row-reverse' }}>
                     {
                         this.state.dataArray.length > 1
                             ?
                             <TouchableOpacity onPress={() => { this.stopAllGames() }}>
-                                <Text style={{ color: 'white', marginRight: 15, marginTop: NavigatorTop+6, fontSize: 18 }}>全部停止</Text>
+                                <Text style={{ color: 'white', marginRight: 15, marginTop: NavigatorTop + 6, fontSize: 18 }}>全部停止</Text>
                             </TouchableOpacity>
                             :
                             null
@@ -157,14 +157,7 @@ export default class acceleratorPage extends Component {
             <TouchableOpacity
                 style={styles.acceleratorItemRoot}
                 onPress={() => {
-                    console.log('item["speedup"]', item);
-                    if (item["speedup"] == '1') {
-                        item["speedup"] = '0';
-                    } else {
-                        item["speedup"] = '1';
-                    }
-
-                    this.updateSpeedUpStatusToLocal(item["id"]);
+                    NavigationService.navigate(PageName.ACCELERATE_DETAILS_PAGE, { data: JSON.stringify(item) });
                 }}>
                 <View style={styles.gameIconRoot}>
                     <Image source={{ uri: item.icon }} style={styles.gameIcon} />
@@ -178,30 +171,30 @@ export default class acceleratorPage extends Component {
         );
     }
 
-    updateSpeedUpStatusToLocal = (id = '') =>{
-        const {accelerateInfo} = this.state;
-        console.log('sadasdadasd',id,accelerateInfo[id]);
-        if(accelerateInfo[id]["speedup"] === "1"){
+    updateSpeedUpStatusToLocal = (id = '') => {
+        const { accelerateInfo } = this.state;
+        console.log('sadasdadasd', id, accelerateInfo[id]);
+        if (accelerateInfo[id]["speedup"] === "1") {
             let _date = new Date();
             accelerateInfo[id]["_timeReg"] = _date;
         }
 
-        this.setState({accelerateInfo:accelerateInfo});
+        this.setState({ accelerateInfo: accelerateInfo });
         AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
-            
+
         });
 
-        if(accelerateInfo[id]["speedup"] === "1"){
-            this.startTheVPN(id,accelerateInfo[id]);
-        }else{
+        if (accelerateInfo[id]["speedup"] === "1") {
+            this.startTheVPN(id, accelerateInfo[id]);
+        } else {
             vpnModule.stopVPN();
         }
-        
+
     }
 
-    freashTheAccelerateData = () =>{
+    freashTheAccelerateData = () => {
         AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
-            
+
         });
     }
 
@@ -234,12 +227,21 @@ export default class acceleratorPage extends Component {
     accelarateTimeButton = (data) => {
         if (data["speedup"] == '0') {
             return (
-                <View style={styles.buttonStyle}>
+                <TouchableOpacity style={styles.buttonStyle} onPress={() => {
+                    console.log('item["speedup"]', data);
+                    if (data["speedup"] == '1') {
+                        data["speedup"] = '0';
+                    } else {
+                        data["speedup"] = '1';
+                    }
+
+                    this.updateSpeedUpStatusToLocal(data["id"]);
+                }}>
                     <Image
                         source={require('../../resource/Image/GameHomePage/lightning.png')}
                         style={styles.iconStyle} />
                     <Text style={styles.activeText}>加速</Text>
-                </View>
+                </TouchableOpacity>
             );
         }
         let date = Date.parse(new Date());
@@ -256,7 +258,14 @@ export default class acceleratorPage extends Component {
         if (s < 10) s = '0' + s;
         return (
             <TouchableOpacity onPress={() => {
-                // NavigationService.navigate(PageName.ACCELERATE_DETAILS_PAGE, { data: JSON.stringify(data) });
+                console.log('item["speedup"]', data);
+                if (data["speedup"] == '1') {
+                    data["speedup"] = '0';
+                } else {
+                    data["speedup"] = '1';
+                }
+
+                this.updateSpeedUpStatusToLocal(data["id"]);
             }}>
                 <View
                     style={{ borderRadius: 20, height: 40, width: 90, backgroundColor: '#F5CC00', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -346,57 +355,57 @@ export default class acceleratorPage extends Component {
     }
 
     stopAllGameSpeedUp = () => {
-        const {dataArray,accelerateInfo} = this.state;
+        const { dataArray, accelerateInfo } = this.state;
         for (let i = 0; i < dataArray.length; i++) {
             let gameInfo = dataArray[i];
             gameInfo["speedup"] = "0";
         }
 
-        this.setState({ "dataArray": dataArray,"accelerateInfo":accelerateInfo });
+        this.setState({ "dataArray": dataArray, "accelerateInfo": accelerateInfo });
         AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
-            
+
         });
 
         vpnModule.stopVPN();
     }
 
-    startTheVPN = (id,accelerateInfo) =>{
-        console.log('测试加速点击',accelerateInfo);
+    startTheVPN = (id, accelerateInfo) => {
+        console.log('测试加速点击', accelerateInfo);
         var iplist = accelerateInfo["ip_list"];
         var iplistArray;
-        if(iplist === ''){
+        if (iplist === '') {
             iplistArray = [];
-        }else{
-            iplist = iplist.replace("[","");
-            iplist = iplist.replace("]","");
+        } else {
+            iplist = iplist.replace("[", "");
+            iplist = iplist.replace("]", "");
             iplistArray = iplist.split(',');
         }
-        
+
         let IPArray = [];
-        for(let i =0;i<iplistArray.length;i++){
+        for (let i = 0; i < iplistArray.length; i++) {
             let IPUntil = iplistArray[i];
             let index = IPUntil.indexOf("/");
-            let IP = IPUntil.substring(1,index-1);
-            let DNS = IPUntil.substring(index+1,IPUntil.length-1);
-            let newUnitItem = [IP,DNS];
+            let IP = IPUntil.substring(1, index - 1);
+            let DNS = IPUntil.substring(index + 1, IPUntil.length - 1);
+            let newUnitItem = [IP, DNS];
             IPArray.push(newUnitItem);
         }
 
         let use_server_id = accelerateInfo["use_server_id"];
         if (use_server_id.length > 0) {
             Api.connectServer(id, use_server_id[0]).then((res) => {
-                console.log('测试加速点击---res',res);
+                console.log('测试加速点击---res', res);
                 if (res.status === 'ok' && res.data.consult_ip) {
                     //各种连接操作
                     vpnModule.prepare()
                         .then(() => {
-                            vpnModule.startVpn(_sessionId, id,IPArray);
+                            vpnModule.startVpn(_sessionId, id, IPArray);
                             let _date = new Date();
                             this.state.gameFullInfo._timeReg = _date;
                             accelerateInfo[this.state.id] = this.state.gameFullInfo;
                             accelerateInfo[this.state.id]["speedup"] = "1";
                             this.state.gameFullInfo
-                            console.log('JSON.stringify(accelerateInfo)',accelerateInfo);
+                            console.log('JSON.stringify(accelerateInfo)', accelerateInfo);
                             AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
                                 this.setState({
                                     isAccelerate: true
