@@ -228,4 +228,9 @@ public class CProxClient {
      */
     public static native String GetFlow();
 
+    /**
+     * 获取当前延迟
+     * @return 延迟
+     */
+    public static native  int GetCurrentDelay();
 }

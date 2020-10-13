@@ -150,4 +150,9 @@ public class CApiClientManager extends ReactContextBaseJavaModule {
         String receiveStr = CProxClient.GetFlow();
         promise.resolve(receiveStr);
     }
+    @ReactMethod
+    public void getCurrentDelay( Promise promise){
+        int receiveInt = CProxClient.GetCurrentDelay();
+        promise.resolve(receiveInt);
+    }
 }
