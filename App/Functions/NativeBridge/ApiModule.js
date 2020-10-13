@@ -6,12 +6,6 @@ const CApiClientManager = NativeModules.CApiClient;
 export let _sessionId = '';
 
 function _dealResult(strRequest) {
-    if(_sessionId !== ''){
-        checkHeart('','').then((result) => {
-
-        });
-    }
-
     if (strRequest) {
         return JSON.parse(strRequest);
     } else {
