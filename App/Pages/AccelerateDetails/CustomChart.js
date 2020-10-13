@@ -111,11 +111,11 @@ const CustomChart = (props) => {
     _getFlowTimer = () => {
         if (!timer) {
             timer = setInterval(() => {
-                Api.getFlow().then(res => {
-                    console.log('res==>',res)
-                    setFlowData(res);
-                    _flowDataTrans(res)
-                })
+                // Api.getFlow().then(res => {
+                //     console.log('res==>',res)
+                //     setFlowData(res);
+                //     _flowDataTrans(res)
+                // })
             }, 2000)
         }
     }

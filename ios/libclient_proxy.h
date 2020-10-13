@@ -187,4 +187,6 @@ int SetFilePath(char* path);
  * @return 返回json
  */
 std::string GetFlow();
+
+int GetCurrentDelay();
 #endif
