@@ -6,8 +6,8 @@ const CApiClientManager = NativeModules.CApiClient;
 export let _sessionId = '';
 
 function _dealResult(strRequest) {
-    if(_sessionId !== ''){
-        checkHeart('','').then((result) => {
+    if (_sessionId !== '') {
+        checkHeart('', '').then((result) => {
 
         });
     }
@@ -262,4 +262,12 @@ export const verifyReceiptByios = async (strorder_code, strreceipt) => {
 export const getFlow = async () => {
     let resultStr = await CApiClientManager.getFlow();
     return _dealResult(resultStr);
+}
+
+/**
+ * 获取时延
+ */
+export const getDelay = async () => {
+    let resultInt = await CApiClientManager.getCurrentDelay();
+    return resultInt || 0
 }

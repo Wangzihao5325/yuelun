@@ -69,9 +69,10 @@ const SpeedItem = (props) => {
 
 const CustomChart = (props) => {
     let timer;
-    const [flowData, setFlowData] = useState({ download: '0 KB', downloadspd: '0 KB/s', upload: '0 KB', uploadspd: '0 KB/s' })
+    const [flowData, setFlowData] = useState(0)
     const [chartData, setChartData] = useState(data)
     //const [unit, setUnit] = useState([])
+    /*
     _spdDataTrans = (spdStr) => {
         let regArr = spdStr.split(' ')
         let spd = parseFloat(regArr[0])
@@ -87,18 +88,16 @@ const CustomChart = (props) => {
         }
         return spd
     }
+    */
 
-    _flowDataTrans = (payload) => {
-        if (!payload) return
-        let uploadSpd = _spdDataTrans(payload.uploadspd);
-        let downloadSpd = _spdDataTrans(payload.downloadspd);
+    _flowDataTrans = (spd) => {
         let uploadData = [...chartData.datasets[0].data];
         let downloadData = [...chartData.datasets[1].data];
-        uploadData.push(uploadSpd);
+        uploadData.push(spd);
         if (uploadData.length > 5) {
             uploadData.shift();
         }
-        downloadData.push(downloadSpd);
+        downloadData.push(spd);
         if (downloadData.length > 5) {
             downloadData.shift();
         }
@@ -111,7 +110,7 @@ const CustomChart = (props) => {
     _getFlowTimer = () => {
         if (!timer) {
             timer = setInterval(() => {
-                Api.getFlow().then(res => {
+                Api.getDelay().then(res => {
                     console.log('res==>',res)
                     setFlowData(res);
                     _flowDataTrans(res)
@@ -144,8 +143,6 @@ const CustomChart = (props) => {
     */
 
     const { width = Dimensions.get("window").width - 50, height = 100, segments = 2 } = props;
-    console.log('props.isAccelerate==>',props.isAccelerate)
-    console.log('flowData==>',flowData.uploadspd)
     return (
         <>
             <LineChart
@@ -164,14 +161,14 @@ const CustomChart = (props) => {
                     isAccelerate={props.isAccelerate}
                     title='上行速度'
                     color='#CEC836'
-                    flowData={flowData.uploadspd}
+                    flowData={flowData}
                 />
                 <View style={{ height: 37, width: 0.5, backgroundColor: '#90A9D3' }} />
                 <SpeedItem
                     isAccelerate={props.isAccelerate}
                     title='下行速度'
                     color='#14D7D2'
-                    flowData={flowData.downloadspd}
+                    flowData={flowData}
                 />
             </View>
         </>
