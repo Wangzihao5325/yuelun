@@ -65,14 +65,6 @@ export default class AccelerateDetails extends Component {
                 })
             }
         })
-<<<<<<< HEAD
-
-        //尝试获取流量
-        // Api.getFlow().then(res => {
-        //     console.log('res==>', res)
-        // })
-=======
->>>>>>> 25ec19d523a742e463441e046c358adc7c7ae893
     }
 
     componentWillUnmount() {
