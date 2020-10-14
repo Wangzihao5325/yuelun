@@ -17,6 +17,7 @@
 #import "YuelunProxy.h"
 #import <NetworkExtension/NetworkExtension.h>
 
+
 #define XDX_NET_MTU                        1500
 #define XDX_NET_REMOTEADDRESS              "222.222.222.222"
 #define XDX_NET_SUBNETMASKS                "255.255.255.255"
@@ -31,6 +32,7 @@ static NSDictionary *kVpnSubnetCandidates;  // Subnets to bind the VPN.
 @property(nonatomic) BOOL isTunnelConnected;
 @property (nonatomic) NSString *hostNetworkAddress;  // IP address of the host in the active network.
 @end
+
 
 @implementation PacketTunnelProvider
 
@@ -67,29 +69,29 @@ static NSDictionary *kVpnSubnetCandidates;  // Subnets to bind the VPN.
     }];
 
   NSString * nssessionid = [options objectForKey:@"sessionid"];
-   NSString * nsgameid    = [options objectForKey:@"gameid"];
-   NSString * path        = [options objectForKey:@"dppath"];
-   srand((int)time(0));
-   int port = rand()%(57342 - 44073 + 1) + 44073;
-   NSLog(@"local port:%d",port);
-   const char * pathchar   = [path UTF8String];
-   const char * csessionid = [nssessionid UTF8String];
-   const char * cgameid    = [nsgameid UTF8String];
-   //设置IP数据库
-   int ret = SetFilePath((char*)pathchar);
-   if(ret != 0){
-     return;
-   }
+  NSString * nsgameid    = [options objectForKey:@"gameid"];
+  NSString * path        = [options objectForKey:@"dppath"];
+  srand((int)time(0));
+  int port = rand()%(57342 - 44073 + 1) + 44073;
+  NSLog(@"local port:%d",port);
+  const char * pathchar   = [path UTF8String];
+  const char * csessionid = [nssessionid UTF8String];
+  const char * cgameid    = [nsgameid UTF8String];
+  //设置IP数据库
+  int ret = SetFilePath((char*)pathchar);
+  if(ret != 0){
+    return;
+  }
 
-   YuelunGetGameInfoById(csessionid,cgameid,"");
-   ret = CreatTunnel((char*)csessionid,cgameid,port,1);
-   if(ret == -1){
-     return;
-   }
-   BOOL isUdpSupported = true;
-  [self YuelunSetupPacketFlow];
-   [YuelunProxy YuelunSetUdpForwardingEnabled:isUdpSupported];
-   [self YuelunStarAccWithPort:port];
+  YuelunGetGameInfoById(csessionid,cgameid,"");
+  ret = CreatTunnel((char*)csessionid,cgameid,port,1);
+  if(ret == -1){
+    return;
+  }
+  BOOL isUdpSupported = true;
+ [self YuelunSetupPacketFlow];
+  [YuelunProxy YuelunSetUdpForwardingEnabled:isUdpSupported];
+  [self YuelunStarAccWithPort:port];
 }
 
 - (NSString *)queryIpWithDomain:(NSString *)domain {
@@ -166,5 +168,4 @@ static NSDictionary *kVpnSubnetCandidates;  // Subnets to bind the VPN.
     NSLog(@"onAccDone");
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
 @end

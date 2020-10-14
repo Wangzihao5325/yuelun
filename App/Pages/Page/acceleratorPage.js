@@ -173,7 +173,7 @@ export default class acceleratorPage extends Component {
 
     updateSpeedUpStatusToLocal = (id = '') => {
         const { accelerateInfo } = this.state;
-        console.log('sadasdadasd', id, accelerateInfo[id]);
+        console.log('sadasdadasd', accelerateInfo, accelerateInfo[id]);
         if (accelerateInfo[id]["speedup"] === "1") {
             let _date = new Date();
             accelerateInfo[id]["_timeReg"] = _date;
@@ -229,6 +229,23 @@ export default class acceleratorPage extends Component {
             return (
                 <TouchableOpacity style={styles.buttonStyle} onPress={() => {
                     console.log('item["speedup"]', data);
+                    if(data["speedup"] == '0'){
+                        let accelerateStatus = this.checkHasGameAcceleratedOrNot();
+                        if(accelerateStatus){
+                            NavigationService.alert({
+                                title: '提示',
+                                content: '当前有游戏正在加速中，不可同时开启',
+                                bottomObjs: [
+                                    {
+                                        key: 'cancel',
+                                        type: 'button',
+                                        title: '确定'
+                                    }
+                                ]
+                            });
+                            return;
+                        }
+                    }
                     if (data["speedup"] == '1') {
                         data["speedup"] = '0';
                     } else {
@@ -422,6 +439,22 @@ export default class acceleratorPage extends Component {
                 }
             })
         }
+    }
+
+    checkHasGameAcceleratedOrNot = () =>{
+        let allValues = Object.values(this.state.accelerateInfo);
+        if(allValues.length == 0){
+            return false;
+        }
+
+        for(var i = 0; i < allValues.length; i++){
+            let acceleratUnitDic = allValues[i];
+            if (acceleratUnitDic["speedup"] === "1") {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 
