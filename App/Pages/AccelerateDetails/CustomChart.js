@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
     View,
     Text,
     Dimensions,
-    StyleSheet
+    StyleSheet,
+    AppState
 } from 'react-native';
 import { LineChart } from "react-native-chart-kit";
 import { useFocusEffect } from '@react-navigation/native';
@@ -69,6 +70,8 @@ const SpeedItem = (props) => {
 
 const CustomChart = (props) => {
     let timer;
+    const appState = useRef(AppState.currentState);
+    const [appStateVisible, setAppStateVisible] = useState(appState.current);
     const [flowData, setFlowData] = useState(0)
     const [chartData, setChartData] = useState(data)
     //const [unit, setUnit] = useState([])
@@ -111,7 +114,7 @@ const CustomChart = (props) => {
         if (!timer) {
             timer = setInterval(() => {
                 Api.getDelay().then(res => {
-                    console.log('res==>',res)
+                    console.log('res==>', res)
                     setFlowData(res);
                     _flowDataTrans(res)
                 })
@@ -129,18 +132,33 @@ const CustomChart = (props) => {
         }
     }, []))
 
-    /*
-    useEffect(() => {
-        _getFlowTimer();
-        return () => {
+    const _handleAppStateChange = (nextAppState) => {
+        if (
+            appState.current.match(/inactive|background/) &&
+            nextAppState === "active"
+        ) {
+            _getFlowTimer()
+        } else if (appState.current === 'active' &&
+            nextAppState.match(/inactive|background/)
+        ) {
             if (timer) {
                 clearInterval(timer);
                 timer = null;
-                setChartData(data)
             }
         }
+
+        appState.current = nextAppState;
+        setAppStateVisible(appState.current);
+        console.log("AppState", appState.current);
+    };
+
+    useEffect(() => {
+        AppState.addEventListener("change", _handleAppStateChange);
+        return () => {
+            AppState.removeEventListener("change", _handleAppStateChange);
+        }
     }, [])
-    */
+
 
     const { width = Dimensions.get("window").width - 50, height = 100, segments = 2 } = props;
     return (

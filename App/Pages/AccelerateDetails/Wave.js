@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, AppState } from 'react-native';
 import {
     Surface,
     Shape,
@@ -25,6 +25,7 @@ export default class HcdWaveView extends Component {
     }
 
     componentDidMount() {
+        AppState.addEventListener("change", this._handleAppStateChange);
         this.intervalTimer = setInterval(() => {
             var a = this.state.a
             var b = this.state.b
@@ -50,16 +51,53 @@ export default class HcdWaveView extends Component {
     }
 
     componentWillUnmount() {
+        AppState.removeEventListener("change", this._handleAppStateChange);
         this.intervalTimer && clearInterval(this.intervalTimer)
     }
+
+    _handleAppStateChange = (nextAppState) => {
+        if (
+            AppState.currentState.match(/inactive|background/) &&
+            nextAppState === "active"
+        ) {
+            if (!this.intervalTimer) {
+                this.intervalTimer = setInterval(() => {
+                    var a = this.state.a
+                    var b = this.state.b
+                    var increase = this.state.increase
+                    if (increase) {
+                        a += 0.01
+                    } else {
+                        a -= 0.01
+                    }
+                    if (a <= 1) {
+                        increase = true
+                    }
+                    if (a >= 1.5) {
+                        increase = false
+                    }
+                    b += 0.1
+                    this.setState({
+                        a: a,
+                        b: b,
+                        increase: increase
+                    })
+                }, 16)
+            }
+            //App has come to the foreground
+            //console.log("App has come to the foreground!");
+        } else if (AppState.currentState === 'active' && nextAppState.match(/inactive|background/)) {
+            this.intervalTimer && clearInterval(this.intervalTimer)
+        }
+    };
 
     //绘制渐变的背景
     artBg() {
         const r = this.props.radius
         const pathBase = new Path()
-            .moveTo(r/2, 0) // 改变起点为 0,5 。默认为0,0
-            .arc(0,r, r/2) // 目标点
-            .arc(0,-r, r/2) // 目标点
+            .moveTo(r / 2, 0) // 改变起点为 0,5 。默认为0,0
+            .arc(0, r, r / 2) // 目标点
+            .arc(0, -r, r / 2) // 目标点
             .close();
         let colors = ["#3E628F", "#061834",];
         let linearGradient = new LinearGradient(colors, 0, 0, 90, 280);
@@ -67,7 +105,7 @@ export default class HcdWaveView extends Component {
         return <View style={{ backgroundColor: 'transparent' }}>
             <Surface width={this.radius} height={this.radius} >
                 <Shape d={pathBase} fill={linearGradient} />
-                {this.wave(r/4*3, 'rgba(20,181,178,0.67)')}
+                {this.wave(r / 4 * 3, 'rgba(20,181,178,0.67)')}
                 {this.wave1('rgba(20,174,104,0.61)')}
                 {this.wave2('rgba(0,183,239,0.61)')}
             </Surface>
