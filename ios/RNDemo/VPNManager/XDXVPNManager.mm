@@ -58,7 +58,7 @@
       }
           NSLog(@"%d",ret);
             
-      NSDictionary * consulDic = @{@"sessionid":sessionid,@"gamid":gameid,@"dppath":nstrpath,@"tunnelArray":tunnelArray};
+      NSDictionary * consulDic = @{@"sessionid":sessionid,@"gameid":gameid,@"dppath":nstrpath,@"tunnelArray":tunnelArray};
       [self.vpnManager.connection startVPNTunnelWithOptions:consulDic andReturnError:&error];
         
         if (error != 0) {
