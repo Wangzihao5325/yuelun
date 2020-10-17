@@ -162,7 +162,7 @@ export default class acceleratorPage extends Component {
                 <View style={styles.gameIconRoot}>
                     <Image source={{ uri: item.icon }} style={styles.gameIcon} />
                 </View>
-                {this.renderTheInfomationItem(item.name, true)}
+                {this.renderTheInfomationItem(item)}
                 <View style={styles.accelerateBtonRoot}>
                     {/* {this.renderTheButton(item)} */}
                     {this.accelarateTimeButton(item)}
@@ -198,11 +198,11 @@ export default class acceleratorPage extends Component {
         });
     }
 
-    renderTheInfomationItem = (title = '', accelerateStatus = false) => {
+    renderTheInfomationItem = (item) => {
         return (
             <View style={styles.inforRootView}>
-                <Text style={{ marginBottom: 4, color: "white" }}>{title}</Text>
-                {accelerateStatus ? <Text style={{ color: "white" }}>正在加速...</Text> : null}
+                <Text style={{ marginBottom: 4, color: "white" }}>{item.name}</Text>
+                {item.speedup === '1' ? <Text style={{ color: "white" }}>正在加速...</Text> : null}
             </View>
         );
     }
