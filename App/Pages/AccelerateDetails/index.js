@@ -45,7 +45,7 @@ export default class AccelerateDetails extends Component {
 
                 AsyncStorage.getItem('accelerateInfo').then(value => {
                     let accelerateInfo = JSON.parse(value || '{}');
-                    let isAccelerate = accelerateInfo[this.state.id]?.speedup || false;
+                    let isAccelerate = accelerateInfo[this.state.id]?.speedup === "1" ? true : false;
                     this.setState({
                         isAccelerate,
                         accelerateInfo,
