@@ -233,6 +233,12 @@ RCT_REMAP_METHOD(getFlow,getFlowByResolver:(RCTPromiseResolveBlock)resolve rejec
   resolve(returnStr);
 };
 
+RCT_REMAP_METHOD(getCurrentDelay,getCurrentDelayByResolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  int currentDelay = [self getCurrentDelay];
+  NSString * delayStr = [NSString stringWithFormat:@"%d",currentDelay];
+  resolve(delayStr);
+};
+
 -(NSString *)getTheBannerData{
   std::string str = YuelunGetAdList();
   NSString * bannerString = [NSString stringWithFormat:@"%s",str.c_str()];
@@ -426,6 +432,11 @@ RCT_REMAP_METHOD(getFlow,getFlowByResolver:(RCTPromiseResolveBlock)resolve rejec
   std::string return_str = GetFlow();
   NSString * return_string = [NSString stringWithFormat:@"%s",return_str.c_str()];
   return return_string;
+}
+
+-(int)getCurrentDelay{
+  int currentDelay = GetCurrentDelay();
+  return currentDelay;
 }
 
 @end

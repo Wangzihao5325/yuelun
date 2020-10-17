@@ -11,7 +11,6 @@ function _dealResult(strRequest) {
 
         });
     }
-
     if (strRequest) {
         return JSON.parse(strRequest);
     } else {

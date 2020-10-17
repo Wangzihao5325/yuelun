@@ -129,7 +129,8 @@ export default class AccelerateDetails extends Component {
         const { use_server_id, id, accelerateInfo, gameFullInfo } = this.state;
         var iplist = gameFullInfo["ip_list"];
         var iplistArray;
-        if (iplist === '') {
+        console.log('gameFullInfogameFullInfo',gameFullInfo);
+        if (iplist === '[]') {
             iplistArray = [];
         } else {
             iplist = iplist.replace("[", "");
