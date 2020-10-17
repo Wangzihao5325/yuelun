@@ -125,8 +125,37 @@ export default class AccelerateDetails extends Component {
         }
     }
 
-    finallyStep = () => {
+    checkVPNHasConnected = async(id='') =>{
+        let accelerateInfoStr = await AsyncStorage.getItem('accelerateInfo');
+        let accelerateInfoDic = JSON.parse(accelerateInfoStr || '{}');
+        let infoArray = Object.values(accelerateInfoDic);
+        let accelerating = false;
+        infoArray.forEach((value,index)=>{
+            if(value.speedup === "1"){
+                accelerating = true;
+            }
+        });
+
+        return Promise.resolve(accelerating);
+    }
+
+    finallyStep = async() => {
         const { use_server_id, id, accelerateInfo, gameFullInfo } = this.state;
+        let accelerating = await this.checkVPNHasConnected(id);
+        if(accelerating){
+            NavigationService.alert({
+                title: '提示',
+                content: '当前有游戏正在加速中，不可同时开启',
+                bottomObjs: [
+                    {
+                        key: 'cancel',
+                        type: 'button',
+                        title: '确定'
+                    }
+                ]
+            });
+            return
+        }
         var iplist = gameFullInfo["ip_list"];
         var iplistArray;
         console.log('gameFullInfogameFullInfo',gameFullInfo);
