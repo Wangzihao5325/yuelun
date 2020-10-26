@@ -6,6 +6,7 @@ import NormalStack from '../NormalStack';
 import ModalWrapper from '../../Pages/ModalPage/ModalWraper';
 import ModalAlert from '../../Pages/ModalPage/Alert';
 import ModalAlertBottom from '../../Pages/ModalPage/AlertBottom';
+import AccelerateProgress from '../../Pages/AccelerateingProgress';
 
 const Stack = createStackNavigator();
 
@@ -30,6 +31,11 @@ const optionArray = [
         key: PageName.MODAL_ALERT_BOTTOM,
         name: PageName.MODAL_ALERT_BOTTOM,
         component: ModalAlertBottom,
+    },
+    {
+        key: PageName.MODAL_ACCELERATE_PROGRESS,
+        name: PageName.MODAL_ACCELERATE_PROGRESS,
+        component: AccelerateProgress,
     }
 ];
 

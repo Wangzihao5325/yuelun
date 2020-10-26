@@ -9,6 +9,7 @@ import * as vpnModule from '../../Functions/NativeBridge/YuelunVpn';
 import StowPage from './StowPage';
 import UnfoldPage from './UnfoldPage';
 import { Loading } from '../../Components/Toast/Loading';
+import PageName from '../../Config/PageName';
 
 export default class AccelerateDetails extends Component {
     state = {
@@ -167,6 +168,8 @@ export default class AccelerateDetails extends Component {
                                 });
                             });
                         });
+                        //跳转加速详情页面
+                        NavigationService.navigate(PageName.MODAL_ACCELERATE_PROGRESS);      
                 } else {
                     if (res.status === 'ok') {
                         NavigationService.alert(this.alertPayload("后台服务正忙，请重试"));
