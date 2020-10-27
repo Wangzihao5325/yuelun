@@ -12,9 +12,6 @@ import HcdWaveView from './Wave'
 
 const Cover = (props) => {
     const [isShowImage, setImage] = useState(true);
-    useEffect(() => {
-
-    }, [])
     return (
         <ImageBackground
             style={{ flex: 1 }}
@@ -35,10 +32,11 @@ const Cover = (props) => {
                             {isShowImage &&
                                 <View style={{ width: 193, height: 193, borderRadius: 96.5, overflow: "hidden", position: 'relative' }}>
                                     <HcdWaveView
+                                        navigation={props.navigation}
                                         radius={193}
                                     />
                                     <View style={{ position: 'absolute', top: 50, left: 0, right: 0, height: 60, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                        <Text style={{fontSize:30,color:'#14D7D2'}} >{`${0} MB`}</Text>
+                                        <Text style={{ fontSize: 30, color: '#14D7D2' }} >{`${0} MB`}</Text>
                                     </View>
                                 </View>
                             }

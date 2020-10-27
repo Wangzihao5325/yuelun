@@ -85,6 +85,7 @@ export default class AccelerateDetails extends Component {
                         pageTypeChange={this.pageTypeChange}
                         speedUp={this.speedUp}
                         isAccelerate={this.state.isAccelerate}
+                        navigation={this.props.navigation}
                     />
                 }
                 {this.state.pageType === 'unfold' &&
@@ -126,13 +127,13 @@ export default class AccelerateDetails extends Component {
         }
     }
 
-    checkVPNHasConnected = async(id='') =>{
+    checkVPNHasConnected = async (id = '') => {
         let accelerateInfoStr = await AsyncStorage.getItem('accelerateInfo');
         let accelerateInfoDic = JSON.parse(accelerateInfoStr || '{}');
         let infoArray = Object.values(accelerateInfoDic);
         let accelerating = false;
-        infoArray.forEach((value,index)=>{
-            if(value.speedup === "1"){
+        infoArray.forEach((value, index) => {
+            if (value.speedup === "1") {
                 accelerating = true;
             }
         });
@@ -140,10 +141,12 @@ export default class AccelerateDetails extends Component {
         return Promise.resolve(accelerating);
     }
 
-    finallyStep = async() => {
+    finallyStep = async () => {
+        //NavigationService.navigate(PageName.MODAL_ACCELERATE_PROGRESS);      
+
         const { use_server_id, id, accelerateInfo, gameFullInfo } = this.state;
         let accelerating = await this.checkVPNHasConnected(id);
-        if(accelerating){
+        if (accelerating) {
             NavigationService.alert({
                 title: '提示',
                 content: '当前有游戏正在加速中，不可同时开启',
@@ -159,7 +162,7 @@ export default class AccelerateDetails extends Component {
         }
         var iplist = gameFullInfo["ip_list"];
         var iplistArray;
-        console.log('gameFullInfogameFullInfo',gameFullInfo);
+        console.log('gameFullInfogameFullInfo', gameFullInfo);
         if (iplist === '[]') {
             iplistArray = [];
         } else {
@@ -197,8 +200,7 @@ export default class AccelerateDetails extends Component {
                                 });
                             });
                         });
-                        //跳转加速详情页面
-                        NavigationService.navigate(PageName.MODAL_ACCELERATE_PROGRESS);      
+                    //跳转加速详情页面
                 } else {
                     if (res.status === 'ok') {
                         NavigationService.alert(this.alertPayload("后台服务正忙，请重试"));
@@ -209,6 +211,7 @@ export default class AccelerateDetails extends Component {
                 }
             })
         }
+
     }
 
     cancel = (type) => {

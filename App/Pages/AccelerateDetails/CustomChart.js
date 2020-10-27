@@ -69,7 +69,7 @@ const SpeedItem = (props) => {
 }
 
 const CustomChart = (props) => {
-    let timer;
+    const timer = useRef();
     const appState = useRef(AppState.currentState);
     const [appStateVisible, setAppStateVisible] = useState(appState.current);
     const [flowData, setFlowData] = useState(0)
@@ -111,8 +111,8 @@ const CustomChart = (props) => {
     }
 
     _getFlowTimer = () => {
-        if (!timer) {
-            timer = setInterval(() => {
+        if (!timer.current) {
+            timer.current = setInterval(() => {
                 Api.getDelay().then(res => {
                     console.log('res==>', res)
                     setFlowData(res);
@@ -125,9 +125,9 @@ const CustomChart = (props) => {
     useFocusEffect(React.useCallback(() => {
         _getFlowTimer();
         return () => {
-            if (timer) {
-                clearInterval(timer);
-                timer = null;
+            if (timer.current) {
+                clearInterval(timer.current);
+                timer.current = null
             }
         }
     }, []))
@@ -141,9 +141,8 @@ const CustomChart = (props) => {
         } else if (appState.current === 'active' &&
             nextAppState.match(/inactive|background/)
         ) {
-            if (timer) {
-                clearInterval(timer);
-                timer = null;
+            if (timer.current) {
+                clearInterval(timer.current);
             }
         }
 

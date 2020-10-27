@@ -8,6 +8,7 @@ import {
     Transform,
     LinearGradient,
 } from '@react-native-community/art';
+import { navigationRef } from '../../Router/NavigationService';
 
 export default class HcdWaveView extends Component {
     static defaultProps = {
@@ -24,35 +25,55 @@ export default class HcdWaveView extends Component {
         };
     }
 
+    _timer = () => {
+        if (!this.intervalTimer) {
+            this.intervalTimer = setInterval(() => {
+                var a = this.state.a
+                var b = this.state.b
+                var increase = this.state.increase
+                if (increase) {
+                    a += 0.01
+                } else {
+                    a -= 0.01
+                }
+                if (a <= 1) {
+                    increase = true
+                }
+                if (a >= 1.5) {
+                    increase = false
+                }
+                b += 0.1
+                this.setState({
+                    a: a,
+                    b: b,
+                    increase: increase
+                })
+            }, 40)
+        }
+    }
+
     componentDidMount() {
         AppState.addEventListener("change", this._handleAppStateChange);
-        this.intervalTimer = setInterval(() => {
-            var a = this.state.a
-            var b = this.state.b
-            var increase = this.state.increase
-            if (increase) {
-                a += 0.01
-            } else {
-                a -= 0.01
-            }
-            if (a <= 1) {
-                increase = true
-            }
-            if (a >= 1.5) {
-                increase = false
-            }
-            b += 0.1
-            this.setState({
-                a: a,
-                b: b,
-                increase: increase
-            })
-        }, 16)
+        this._timer()
+        this._focus_unsubscribe = this.props.navigation.addListener('focus', () => {
+            this._timer()
+        });
+        this._blur_unsubscribe = this.props.navigation.addListener('blur', () => {
+            this.intervalTimer && clearInterval(this.intervalTimer)
+            this.intervalTimer = null
+        });
     }
 
     componentWillUnmount() {
         AppState.removeEventListener("change", this._handleAppStateChange);
+        if (this._focus_unsubscribe) {
+            this._focus_unsubscribe()
+        }
+        if (this._blur_unsubscribe) {
+            this._blur_unsubscribe()
+        }
         this.intervalTimer && clearInterval(this.intervalTimer)
+        this.intervalTimer = null
     }
 
     _handleAppStateChange = (nextAppState) => {
@@ -60,34 +81,12 @@ export default class HcdWaveView extends Component {
             AppState.currentState.match(/inactive|background/) &&
             nextAppState === "active"
         ) {
-            if (!this.intervalTimer) {
-                this.intervalTimer = setInterval(() => {
-                    var a = this.state.a
-                    var b = this.state.b
-                    var increase = this.state.increase
-                    if (increase) {
-                        a += 0.01
-                    } else {
-                        a -= 0.01
-                    }
-                    if (a <= 1) {
-                        increase = true
-                    }
-                    if (a >= 1.5) {
-                        increase = false
-                    }
-                    b += 0.1
-                    this.setState({
-                        a: a,
-                        b: b,
-                        increase: increase
-                    })
-                }, 16)
-            }
+            this._timer()
             //App has come to the foreground
             //console.log("App has come to the foreground!");
         } else if (AppState.currentState === 'active' && nextAppState.match(/inactive|background/)) {
             this.intervalTimer && clearInterval(this.intervalTimer)
+            this.intervalTimer = null
         }
     };
 

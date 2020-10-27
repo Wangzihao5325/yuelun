@@ -31,6 +31,7 @@ const StowPage = (props) => {
                 name={props.name}
                 icon={props.icon}
                 isAccelerate={props.isAccelerate}
+                navigation={props.navigation}
             />
             <BottomPart
                 stowAndUnfoldBtnPress={props.pageTypeChange}
