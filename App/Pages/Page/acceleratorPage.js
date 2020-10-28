@@ -228,6 +228,9 @@ export default class acceleratorPage extends Component {
         if (data["speedup"] == '0') {
             return (
                 <TouchableOpacity style={styles.buttonStyle} onPress={() => {
+                    //不再开放快速创建vpn，所有加速过程都要在加速详情页完成
+                    NavigationService.navigate(PageName.ACCELERATE_DETAILS_PAGE, { data: JSON.stringify(data) });
+                    /*
                     console.log('item["speedup"]', data);
                     if(data["speedup"] == '0'){
                         let accelerateStatus = this.checkHasGameAcceleratedOrNot();
@@ -253,6 +256,7 @@ export default class acceleratorPage extends Component {
                     }
 
                     this.updateSpeedUpStatusToLocal(data["id"]);
+                    */
                 }}>
                     <Image
                         source={require('../../resource/Image/GameHomePage/lightning.png')}
@@ -334,12 +338,15 @@ export default class acceleratorPage extends Component {
     }
 
     stopAllGames = () => {
-        console.log('this.setState({ showAlert: true });');
-        this.setState({ showAlert: true });
+        //先判断是否有加速
+        if (this.checkHasGameAcceleratedOrNot()) {
+            this.setState({ showAlert: true });
+        } else {
+
+        }
     }
 
     stopAccelerateAlert = () => {
-        let gamecount = this.state.dataArray.length;
         return (
             <Modal
                 transparent={true}
@@ -361,10 +368,10 @@ export default class acceleratorPage extends Component {
                         // });
                         this.stopAllGameSpeedUp();
                     }}>
-                        <Text style={{ color: 'white' }}>停止所有游戏加速</Text>
+                        <Text style={{ color: 'white' }}>停止加速</Text>
                     </TouchableOpacity>
                     <View style={[styles.stopItemStyle, { marginBottom: 1.5 }]}>
-                        <Text style={{ color: 'white' }}>{gamecount + "款游戏正在加速，停止加速可能导致游戏断线，是否停止所有游戏的加速？"}</Text>
+                        <Text style={{ color: 'white' }}>{"正在加速中，停止加速可能导致游戏断线，是否停止加速？"}</Text>
                     </View>
                 </TouchableOpacity>
             </Modal>
@@ -441,13 +448,13 @@ export default class acceleratorPage extends Component {
         }
     }
 
-    checkHasGameAcceleratedOrNot = () =>{
+    checkHasGameAcceleratedOrNot = () => {
         let allValues = Object.values(this.state.accelerateInfo);
-        if(allValues.length == 0){
+        if (allValues.length == 0) {
             return false;
         }
 
-        for(var i = 0; i < allValues.length; i++){
+        for (var i = 0; i < allValues.length; i++) {
             let acceleratUnitDic = allValues[i];
             if (acceleratUnitDic["speedup"] === "1") {
                 return true;
