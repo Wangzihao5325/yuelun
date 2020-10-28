@@ -135,7 +135,7 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
         // Become a foreground service. Background services can be VPN services too, but they can
         // be killed by background check before getting a chance to receive onRevoke().
         updateForegroundNotification(R.string.connecting);
-        mHandler.sendEmptyMessage(R.string.connecting);
+        //mHandler.sendEmptyMessage(R.string.connecting);
 
         // Extract information from the shared preferences.
         Bundle bundle = intent.getExtras();
@@ -189,7 +189,7 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
                         connection.setConfigureIntent(mConfigureIntent);
 
                         connection.setOnEstablishListener(tunInterface -> {
-                            mHandler.sendEmptyMessage(R.string.connected);
+                           // mHandler.sendEmptyMessage(R.string.connected);
 
                             mConnectingThread.compareAndSet(proxycllientThread, null);
                             setConnection(new Connection(proxycllientThread, tunInterface));

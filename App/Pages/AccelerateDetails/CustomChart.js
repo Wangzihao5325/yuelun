@@ -13,15 +13,15 @@ import * as Api from '../../Functions/NativeBridge/ApiModule';
 const data = {
     datasets: [
         {
-            data: [20, 79, 99, 70, 50],
-            color: (opacity = 1) => `rgba(213, 202, 21, 1)`, // optional
-            strokeWidth: 2 // optional
-        },
-        {
-            data: [40, 54, 22, 45, 25],
+            data: [0, 0, 0, 0, 0],
             color: (opacity = 1) => `rgba(20, 215, 210, 1)`, // optional
             strokeWidth: 2 // optional
-        }
+        },
+        // {
+        //     data: [40, 54, 22, 45, 25],
+        //     color: (opacity = 1) => `rgba(213, 202, 21, 1)`, // optional
+        //     strokeWidth: 2 // optional
+        // }
     ],
 };
 
@@ -74,39 +74,15 @@ const CustomChart = (props) => {
     const [appStateVisible, setAppStateVisible] = useState(appState.current);
     const [flowData, setFlowData] = useState(0)
     const [chartData, setChartData] = useState(data)
-    //const [unit, setUnit] = useState([])
-    /*
-    _spdDataTrans = (spdStr) => {
-        let regArr = spdStr.split(' ')
-        let spd = parseFloat(regArr[0])
-        switch (regArr[1]) {
-            case 'KB/s':
-                break
-            case 'MB/s':
-                spd = 1000 * spd
-                break
-            case 'GB/s':
-                spd = 1000000 * spd
-                break
-        }
-        return spd
-    }
-    */
 
     _flowDataTrans = (spd) => {
         let uploadData = [...chartData.datasets[0].data];
-        let downloadData = [...chartData.datasets[1].data];
         uploadData.push(spd);
         if (uploadData.length > 5) {
             uploadData.shift();
         }
-        downloadData.push(spd);
-        if (downloadData.length > 5) {
-            downloadData.shift();
-        }
         const newChartData = { ...chartData };
         newChartData.datasets[0].data = uploadData;
-        newChartData.datasets[1].data = downloadData;
         setChartData(newChartData);
     }
 
@@ -169,24 +145,24 @@ const CustomChart = (props) => {
                 segments={segments}
                 withVerticalLines={false}
                 chartConfig={{ ...chartConfig, ...props.chartConfig }}
-                formatYLabel={value => `${parseInt(value)}KB`}
+                formatYLabel={value => `${parseInt(value)}ms`}
                 withDots={false}
                 bezier
             />
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 25 }}>
                 <SpeedItem
                     isAccelerate={props.isAccelerate}
-                    title='上行速度'
-                    color='#CEC836'
-                    flowData={flowData}
-                />
-                <View style={{ height: 37, width: 0.5, backgroundColor: '#90A9D3' }} />
-                <SpeedItem
-                    isAccelerate={props.isAccelerate}
-                    title='下行速度'
+                    title='时延'
                     color='#14D7D2'
                     flowData={flowData}
                 />
+                {/* <View style={{ height: 37, width: 0.5, backgroundColor: '#90A9D3' }} />
+                <SpeedItem
+                    isAccelerate={props.isAccelerate}
+                    title='下行速度'
+                    color='#CEC836'
+                    flowData={flowData}
+                /> */}
             </View>
         </>
     );

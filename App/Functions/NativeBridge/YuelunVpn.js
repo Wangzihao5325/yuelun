@@ -18,7 +18,6 @@ export function prepare(serverAddress, serverPort, mtu, ip, subnet, dns, listene
         // }
         return Promise.resolve(YuelunVpnModule.prepare(serverAddress, serverPort, mtu, ip, subnet, dns));
     } else {
-        console.log('hhhhh');
         return Promise.resolve(YuelunVpnModule.prepare());
     }
 }

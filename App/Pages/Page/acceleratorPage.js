@@ -279,7 +279,8 @@ export default class acceleratorPage extends Component {
         if (s < 10) s = '0' + s;
         return (
             <TouchableOpacity onPress={() => {
-                console.log('item["speedup"]', data);
+                NavigationService.navigate(PageName.ACCELERATE_DETAILS_PAGE, { data: JSON.stringify(data) });
+                /*
                 if (data["speedup"] == '1') {
                     data["speedup"] = '0';
                 } else {
@@ -287,6 +288,7 @@ export default class acceleratorPage extends Component {
                 }
 
                 this.updateSpeedUpStatusToLocal(data["id"]);
+                */
             }}>
                 <View
                     style={{ borderRadius: 20, height: 40, width: 90, backgroundColor: '#F5CC00', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
