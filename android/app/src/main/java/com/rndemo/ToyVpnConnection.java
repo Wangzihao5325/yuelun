@@ -199,25 +199,25 @@ public class ToyVpnConnection {
                     };
             proxycllientThread.start();
             m_wokring = true;
-            GetFlowThread =
-                    new Thread() {
-                        public void run() {
-                            while (m_wokring)
-                            {
-                                try {
-                                    String json =  CProxClient.GetFlow();
-                                    JSONObject jsonObject = new JSONObject(json);
-                                    String uplaod = jsonObject.optString("upload");
-                                    System.out.print(json);
-                                    sleep(1000);
-                                } catch (InterruptedException | JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                    };
-            GetFlowThread.start();
-            connected = true;
+//            GetFlowThread =
+//                    new Thread() {
+//                        public void run() {
+//                            while (m_wokring)
+//                            {
+//                                try {
+//                                    String json =  CProxClient.GetFlow();
+//                                    JSONObject jsonObject = new JSONObject(json);
+//                                    String uplaod = jsonObject.optString("upload");
+//                                    System.out.print(json);
+//                                    sleep(1000);
+//                                } catch (InterruptedException | JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        }
+//                    };
+//            GetFlowThread.start();
+//            connected = true;
 
             return true;
         }

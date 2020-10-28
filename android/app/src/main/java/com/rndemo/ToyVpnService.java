@@ -33,7 +33,15 @@ import android.util.Log;
 import android.util.Pair;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+
+import com.facebook.react.ReactInstanceManager;
+import com.facebook.react.ReactNativeHost;
+import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.WritableNativeArray;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import org.yuelun.ylproxy.YuelunProxyJni;
 
@@ -70,6 +78,7 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
     public static final String ACTION_DISCONNECT = "com.example.android.toyvpn.STOP";
     private ToyVpnConnection mVpnConnection;
     private Handler mHandler;
+    private ReactContext _reactContext;
     private static class Connection extends Pair<Thread, ParcelFileDescriptor> {
         public Connection(Thread thread, ParcelFileDescriptor pfd) {
             super(thread, pfd);
@@ -123,9 +132,21 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean handleMessage(Message message) {
-        Toast.makeText(this, message.what, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, message.what, Toast.LENGTH_SHORT).show();
         if (message.what != R.string.disconnected) {
             updateForegroundNotification(message.what);
+            if(_reactContext == null) {
+                MainApplication application = (MainApplication) this.getApplication();
+                ReactNativeHost reactNativeHost = application.getReactNativeHost();
+                ReactInstanceManager reactInstanceManager = reactNativeHost.getReactInstanceManager();
+                _reactContext = reactInstanceManager.getCurrentReactContext();
+            }
+            if (_reactContext != null) {
+                WritableNativeArray params = new WritableNativeArray();
+                params.pushString(getString(message.what));
+                _reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                        .emit("vpn_state", params);
+            }
         }
         return true;
     }
@@ -134,8 +155,8 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
     private void connect(Intent intent) {
         // Become a foreground service. Background services can be VPN services too, but they can
         // be killed by background check before getting a chance to receive onRevoke().
-        updateForegroundNotification(R.string.connecting);
-        //mHandler.sendEmptyMessage(R.string.connecting);
+        //updateForegroundNotification(R.string.connecting);
+        mHandler.sendEmptyMessage(R.string.connecting);
 
         // Extract information from the shared preferences.
         Bundle bundle = intent.getExtras();
@@ -189,7 +210,7 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
                         connection.setConfigureIntent(mConfigureIntent);
 
                         connection.setOnEstablishListener(tunInterface -> {
-                           // mHandler.sendEmptyMessage(R.string.connected);
+                           mHandler.sendEmptyMessage(R.string.connected);
 
                             mConnectingThread.compareAndSet(proxycllientThread, null);
                             setConnection(new Connection(proxycllientThread, tunInterface));
@@ -234,7 +255,6 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
         mVpnConnection.disconnectTunnel();
         mVpnConnection.tearDownVpn();
         stopForeground(true);
-        //  mHandler.sendEmptyMessage(R.string.disconnected_suc);
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void updateForegroundNotification(final int message) {

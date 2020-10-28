@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Button, AsyncStorage } from 'react-native';
+import { StyleSheet, Button, AsyncStorage, DeviceEventEmitter, Platform, Modal, View, Text, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as NavigationService from '../../Router/NavigationService';
 import { themeColor } from '../../Config/UIConfig';
@@ -16,10 +16,28 @@ export default class AccelerateDetails extends Component {
         isAccelerate: false,
         pageType: 'stow',//stow,unfold
         icon: 'http://static.yuelun.com/game/game.png',
-        name: ''
+        name: '',
+        showModal: false
     }
 
     componentDidMount() {
+        if (Platform.OS === 'android') {
+            this.emitterListener = DeviceEventEmitter.addListener('vpn_state', (e) => {
+                //e是原生传过来的参数
+                console.log('here is state from native', e)
+                if (e[0] === 'ToyVPN is connecting...') {
+                    this.setState({
+                        showModal: true
+                    })
+                    //正在加速中
+                } else if (e[0] === 'ToyVPN is connected!') {
+                    //加速完毕
+                    this.setState({
+                        showModal: false
+                    })
+                }
+            });
+        }
         const { data } = this.props.route.params;
         let gameInfo = JSON.parse(data);
         /** gameInfo
@@ -72,6 +90,9 @@ export default class AccelerateDetails extends Component {
         if (this._unsubscribe) {
             this._unsubscribe();
         }
+        if (this.emitterListener) {
+            this.emitterListener.remove()
+        }
     }
 
     render() {
@@ -94,6 +115,17 @@ export default class AccelerateDetails extends Component {
                         isAccelerate={this.state.isAccelerate}
                     />
                 }
+                <Modal
+                    transparent={true}
+                    visible={this.state.showModal}
+                >
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ height: 150, width: 150, backgroundColor: '#fff', justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}>
+                            <Text style={{marginBottom:10}}>正在加速</Text>
+                            <ActivityIndicator />
+                        </View>
+                    </View>
+                </Modal>
             </SafeAreaView>
         );
     }
