@@ -250,8 +250,6 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
 
         mHandler.sendEmptyMessage(R.string.disconnected);
         com.yuelun.ylsdk.CProxClient.stoplocalproxy();
-
-
         mVpnConnection.disconnectTunnel();
         mVpnConnection.tearDownVpn();
         stopForeground(true);
@@ -260,6 +258,15 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
     private void updateForegroundNotification(final int message) {
 
         final String NOTIFICATION_CHANNEL_ID = "ToyVpn";
+        String notiMessage = "";
+        switch (getString(message)){
+            case "ToyVPN is connecting...":
+                notiMessage = "加速链接创建中";
+                break;
+            case "ToyVPN is connected!":
+                notiMessage = "游戏加速中";
+                break;
+        }
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(
                 NOTIFICATION_SERVICE);
         mNotificationManager.createNotificationChannel(new NotificationChannel(
@@ -267,7 +274,7 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
                 NotificationManager.IMPORTANCE_DEFAULT));
         startForeground(1, new Notification.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentText(getString(message))
+                .setContentText(notiMessage)
                 .setContentIntent(mConfigureIntent)
                 .build());
     }

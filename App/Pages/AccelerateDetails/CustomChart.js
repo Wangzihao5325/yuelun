@@ -55,7 +55,7 @@ const chartConfig = {
 };
 
 const SpeedItem = (props) => {
-    let speed = props.isAccelerate ? props.flowData : '/ ';
+    let speed = props.isAccelerate ? props.flowData : '0ms';
 
     return (
         <View style={styles.speedItemContainer}>
@@ -72,7 +72,7 @@ const CustomChart = (props) => {
     const timer = useRef();
     const appState = useRef(AppState.currentState);
     const [appStateVisible, setAppStateVisible] = useState(appState.current);
-    const [flowData, setFlowData] = useState(0)
+    const [flowData, setFlowData] = useState('0ms')
     const [chartData, setChartData] = useState(data)
 
     _flowDataTrans = (spd) => {
@@ -91,7 +91,7 @@ const CustomChart = (props) => {
             timer.current = setInterval(() => {
                 Api.getDelay().then(res => {
                     console.log('res==>', res)
-                    setFlowData(res);
+                    setFlowData(`${res}ms`);
                     _flowDataTrans(res)
                 })
             }, 2000)

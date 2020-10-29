@@ -32,9 +32,18 @@ export default class AccelerateDetails extends Component {
                     //正在加速中
                 } else if (e[0] === 'ToyVPN is connected!') {
                     //加速完毕
-                    this.setState({
-                        showModal: false
-                    })
+                    const { accelerateInfo, gameFullInfo, id } = this.state
+                    let _date = new Date();
+                    gameFullInfo._timeReg = _date;
+                    accelerateInfo[id] = gameFullInfo;
+                    accelerateInfo[id]["speedup"] = "1";
+                    console.log('JSON.stringify(accelerateInfo)', accelerateInfo);
+                    AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
+                        this.setState({
+                            isAccelerate: true,
+                            showModal: false
+                        });
+                    });
                 }
             });
         }
@@ -121,7 +130,7 @@ export default class AccelerateDetails extends Component {
                 >
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <View style={{ height: 150, width: 150, backgroundColor: '#fff', justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}>
-                            <Text style={{marginBottom:10}}>正在加速</Text>
+                            <Text style={{ marginBottom: 10 }}>正在加速</Text>
                             <ActivityIndicator />
                         </View>
                     </View>
@@ -176,7 +185,7 @@ export default class AccelerateDetails extends Component {
     finallyStep = async () => {
         //NavigationService.navigate(PageName.MODAL_ACCELERATE_PROGRESS);      
 
-        const { use_server_id, id, accelerateInfo, gameFullInfo } = this.state;
+        const { use_server_id, id, gameFullInfo } = this.state;
         let accelerating = await this.checkVPNHasConnected(id);
         if (accelerating) {
             NavigationService.alert({
@@ -220,19 +229,7 @@ export default class AccelerateDetails extends Component {
                     vpnModule.prepare()
                         .then(() => {
                             vpnModule.startVpn(_sessionId, id, IPArray);
-                            let _date = new Date();
-                            this.state.gameFullInfo._timeReg = _date;
-                            accelerateInfo[this.state.id] = this.state.gameFullInfo;
-                            accelerateInfo[this.state.id]["speedup"] = "1";
-                            this.state.gameFullInfo
-                            console.log('JSON.stringify(accelerateInfo)', accelerateInfo);
-                            AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
-                                this.setState({
-                                    isAccelerate: true
-                                });
-                            });
                         });
-                    //跳转加速详情页面
                 } else {
                     if (res.status === 'ok') {
                         NavigationService.alert(this.alertPayload("后台服务正忙，请重试"));
