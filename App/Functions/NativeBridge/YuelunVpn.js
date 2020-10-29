@@ -22,18 +22,17 @@ export function prepare(serverAddress, serverPort, mtu, ip, subnet, dns, listene
     }
 }
 
-export function startVpn(ip, port,tunnel) {
+export function startVpn(ip, port, tunnel) {
     if (Platform.OS === 'ios') {
-        YuelunVpnModule.startVpn(ip,port,tunnel);
+        YuelunVpnModule.startVpn(ip, port, tunnel);
     } else {
         YuelunVpnModule.startVpn(ip, port);
     }
 }
 
 export function stopVPN() {
-    if (Platform.OS === 'ios') {
-        YuelunVpnModule.stopVPN();
-    }
+    console.log('ppppppppp')
+    YuelunVpnModule.stopVPN();
 }
 
 export function yuelunGetNewConfig() {

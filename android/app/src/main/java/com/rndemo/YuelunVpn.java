@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.net.VpnService;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
+import android.provider.SyncStateContract;
 import android.util.Log;
 
 import androidx.core.content.ContextCompat;
@@ -102,6 +103,18 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
         ContextCompat.startForegroundService(_reactContext, intent);
         promise.resolve("success");
     }
+
+    @ReactMethod
+    public void stopVPN(Promise promise) throws  IOException {
+        Intent stopIntent = new Intent(_reactContext, ToyVpnService.class);
+        stopIntent.setAction("com.example.android.toyvpn.STOP");
+        ContextCompat.startForegroundService(_reactContext,stopIntent);
+        //startService(stopIntent);
+        //通过intent传递参数 启动service 代码跳转至toyVpnService
+        //ContextCompat.startForegroundService(_reactContext, intent);
+        promise.resolve("success");
+    }
+
     private final String getTag() {
         return ToyVpnConnection.class.getSimpleName() + "[" + 1 + "]";
     }
