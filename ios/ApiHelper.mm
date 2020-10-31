@@ -266,7 +266,7 @@ RCT_REMAP_METHOD(getCurrentDelay,getCurrentDelayByResolver:(RCTPromiseResolveBlo
   std::string type_name = [strtype_name UTF8String];
   std::string classification = [strclassification UTF8String];
   std::string pagesStr = [pages UTF8String];
-  std::string limit = [@"" UTF8String];
+  std::string limit = [@"50" UTF8String];
   std::string searchStr = YuelunSearchGameList(session_id, game_name, type_name, classification,pagesStr,limit);
   NSString * searchString = [NSString stringWithFormat:@"%s",searchStr.c_str()];
   return searchString;
@@ -289,12 +289,13 @@ RCT_REMAP_METHOD(getCurrentDelay,getCurrentDelayByResolver:(RCTPromiseResolveBlo
 }
 
 -(NSString *)userLoginWithPhoneNum:(NSString *)phoneNum andPhoneCode:(NSString *)phoneCode andPlatForm:(NSString *)platform andVersion:(NSString *)version{
+  std::string typeStr = [@"1" UTF8String];
   std::string phoneNumStr   = [phoneNum  UTF8String];
   std::string phoneCodeStr  = [phoneCode UTF8String];
   std::string platforminfoStr = [platform UTF8String];
   std::string versionStr = [version UTF8String];
   
-  std::string feedbackStr = YuelunPhoneLogin(phoneNumStr, phoneCodeStr, platforminfoStr, versionStr);
+  std::string feedbackStr = YuelunPhoneLogin(typeStr,phoneNumStr, phoneCodeStr, platforminfoStr, versionStr);
   NSString * feedbackString = [NSString stringWithFormat:@"%s",feedbackStr.c_str()];
   return feedbackString;
 }
