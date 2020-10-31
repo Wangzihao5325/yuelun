@@ -45,8 +45,8 @@ export const sendPhoneCode = async (phoneNum) => {
  * @param {string} platform 平台 ios/android
  * @param {string} version app版本号
  */
-export const loginByPhoneNum = async (phoneNum, code, platform, version) => {
-    let strRequest = await CApiClientManager.yuelunPhoneLogin(phoneNum, code, platform, version);
+export const loginByPhoneNum = async (phoneNum, code, platform, version,type='1') => {
+    let strRequest = await CApiClientManager.yuelunPhoneLogin(type,phoneNum, code, platform, version);
     let result = _dealResult(strRequest)
     _sessionId = result.data?.session_id;
     return result;
@@ -129,7 +129,7 @@ export const modifyUserInfo = async (phoneNum, verificationCode, name, avater) =
  * @param {string} strclassification 要修改的用户名
  */
 
-export const search = async (gameName, typeName, strclassification, page = '', step = '') => {
+export const search = async (gameName, typeName, strclassification, page = '', step = '50') => {
     let strRequest = await CApiClientManager.yuelunSearchGamelist(_sessionId, encodeURIComponent(gameName), typeName, strclassification, page, step);
     return _dealResult(strRequest);
 }

@@ -30,13 +30,14 @@ public class CProxClient {
 
     /**
      * 移动端登录
+     * @param strtype 登录方式 1：验证码登录 2：账号密码
      * @param strphone 登录手机号
      * @param strcode 验证码
      * @param strplatforminfo 平台
      * @param strversion 软件版本号
      * @return
      */
-    public static native String YuelunPhoneLogin(String strphone,String strcode,String strplatforminfo,String strversion);
+    public static native String YuelunPhoneLogin(String strtype,String strphone,String strcode,String strplatforminfo,String strversion);
 
     /**
      * 连接服务器验证信心，下发加速需要使用的数据
@@ -182,14 +183,14 @@ public class CProxClient {
      * @param strpayment_platform 支付类型 2：支付宝 3:微信  10:苹果
      * @return 返回json
      */
-    public static  native String YuelunCreateOrder(String strsession_id,String strtype, String strpacket_id,String packet_plan_id,String strpayment_fee, String strtotal_fee, String strpayment_platform,String payment_platform);
+    public static  native String YuelunCeateOrder(String strsession_id,String strtype, String strpacket_id,String packet_plan_id,String strpayment_fee, String strtotal_fee, String strpayment_platform);
 
     /**
      * 获取套餐列表及其信息
      * @param strsession_id
      * @return 返回json
      */
-    public  static  native String YuelunSaveGetPacketList(String strsession_id);
+    public  static  native String YuelunGetPacektList(String strsession_id);
 
     /**
      * 苹果订单支付验证
@@ -200,6 +201,18 @@ public class CProxClient {
      */
     public static native  String YuelunVerifyReceiptByios(String strsession_id, String strorder_code, String strreceipt);
 
+    /**
+     * 用户账号绑定
+     * @param strsession_id  用户SessionID
+     * @param strtype 绑定类型 1:手机登录 绑定账户 2:账号登录 绑定手机
+     * @param struser_id 当前用户ID
+     * @param strphone 如果Type =2 必填
+     * @param strcode 手机验证码
+     * @param straccountname 绑定账户名
+     * @param straccountpassword 绑定账号密码
+     * @return
+     */
+    public static native String YuelunBindUser(String strsession_id,String strtype,String struser_id,String strphone,String strcode,String straccountname,String straccountpassword);
     /**
      * 启动加速方法
      * @param strsessioid 登录sessionid
@@ -233,4 +246,29 @@ public class CProxClient {
      * @return 延迟
      */
     public static native  int GetCurrentDelay();
+    /**
+     * 获取当前加速隧道状态
+     * @return json字符串 {"bacc":true,"gameid":"4"}
+     */
+    public static native String GetTunnelState();
+
+    /**
+     * 创建订单号
+     * @param strsession_id 用户登录上sessionid
+     * @param strtype 购买套餐1
+     * @param strpacket_id  套餐类型ID 对应 获取套餐列表接口 package_id 字段
+     * @param packet_plan_id 套餐ID 对应 获取套餐列表接口 id 字段
+     * @param strpayment_fee 支付金额
+     * @param strtotal_fee 总金额
+     * @param strpayment_platform 支付类型 2：支付宝 3:微信  10:苹果
+     * @return 返回json
+     */
+    public static  native String YuelunCreateOrder(String strsession_id,String strtype, String strpacket_id,String packet_plan_id,String strpayment_fee, String strtotal_fee, String strpayment_platform,String payment_platform);
+
+    /**
+     * 获取套餐列表及其信息
+     * @param strsession_id
+     * @return 返回json
+     */
+    public  static  native String YuelunSaveGetPacketList(String strsession_id);
 }
