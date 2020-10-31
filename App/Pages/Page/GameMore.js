@@ -148,7 +148,7 @@ export default class GameMore extends Component {
         Loading.show();
         let pageNumber = page;
         pageNumber = pageNumber.toString();
-        ApiModule.getSearchGamesData('', type_name, pageNumber, classification, '')
+        ApiModule.getSearchGamesData('', type_name, pageNumber, classification, '50')
             .then((result) => {
                 Loading.hidden();
                 let allGameData = result;

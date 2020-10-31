@@ -29,8 +29,8 @@ public class CApiClientManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void yuelunPhoneLogin(String strphone,String strcode,String strplatforminfo,String strversion, Promise promise){
-        String receiveStr = CProxClient.YuelunPhoneLogin(strphone,strcode,strplatforminfo,strversion);
+    public void yuelunPhoneLogin(String strtype,String strphone,String strcode,String strplatforminfo,String strversion, Promise promise){
+        String receiveStr = CProxClient.YuelunPhoneLogin(strtype,strphone,strcode,strplatforminfo,strversion);
         promise.resolve(receiveStr);
     }
 
