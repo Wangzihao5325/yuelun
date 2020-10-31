@@ -1,4 +1,4 @@
-#ifndef LIBCLIENT_PROXY_H
+﻿#ifndef LIBCLIENT_PROXY_H
 #define LIBCLIENT_PROXY_H
 #include <string>
 void CurlInit();
@@ -17,7 +17,7 @@ std::string  YuelunSendPhoneCode(std::string strphone);
 * @param strversion 软件版本号
 * @return
 */
-std::string YuelunPhoneLogin(std::string strphone, std::string strcode, std::string strplatforminfo, std::string strversion);
+std::string YuelunPhoneLogin(std::string strtype,std::string strphone, std::string strcode, std::string strplatforminfo, std::string strversion);
 /**
 * 连接服务器验证信心，下发加速需要使用的数据
 * @param strsession_id 用户登录session_id
@@ -163,6 +163,19 @@ std::string  YuelunGetPacektList(std::string strsession_id);
 * @return 返回json
 */
 std::string  YuelunVerifyReceiptByios(std::string strsession_id, std::string strorder_code, std::string strreceipt);
+
+    /**
+     * 用户账号绑定
+     * @param strsession_id  用户SessionID
+     * @param strtype 绑定类型 1:手机登录 绑定账户 2:账号登录 绑定手机
+     * @param struser_id 当前用户ID
+     * @param strphone 如果Type =2 必填
+     * @param strcode 手机验证码
+     * @param straccountname 绑定账户名
+     * @param straccountpassword 绑定账号密码
+     * @return
+     */
+std::string YuelunBindUsers(std::string strsession_id, std::string strtype, std::string struser_id, std::string strphone, std::string strcode, std::string straccout_name, std::string straccout_password, std::string& strResponseData);
 /**
 * 停止本地代理服务器及其隧道
 */
@@ -182,11 +195,15 @@ int CreatTunnel(std::string strsession_id, std::string strgameid,int port,int nt
 * @return
 */
 int SetFilePath(char* path);
-/**
- * 获取流量
- * @return 返回json
- */
 std::string GetFlow();
-
+/**
+* 获取当前延迟
+* @return 延迟
+*/
 int GetCurrentDelay();
+/**
+* 获取当前加速隧道状态
+* @return json字符串
+*/
+std::string GetTunnelState();
 #endif

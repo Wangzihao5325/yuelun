@@ -197,7 +197,12 @@ class MinePage extends Component {
         } else if (type == 2) {
             navigator.jump(this, PageName.NORMAL_ABOUT_US);
         } else if (type == 3) {
-            navigator.jump(this, PageName.NORMAL_PAGE_SETTING);
+            if(this.props.loginStatus){
+                navigator.jump(this, PageName.NORMAL_PAGE_SETTING);
+            }else{
+                navigator.jump(this, PageName.NORAML_LOGIN_PAGE);
+            }
+            
         }
     }
 

@@ -88,7 +88,7 @@ export default class GameMore extends Component {
         var oriageScrollHeight = e.nativeEvent.layoutMeasurement.height; //scrollView高度
 
 
-        if (offsetY + oriageScrollHeight >= contentSizeHeight) {
+        if (offsetY + oriageScrollHeight >= contentSizeHeight-20) {
             this.loadMore();
         } else if (offsetY + oriageScrollHeight <= 1) {
             //   这个是没有数据了然后给了false得时候还在往上拉
@@ -156,7 +156,7 @@ export default class GameMore extends Component {
                 if (allGameData['status'] == 'ok') {
                     let allData = this.state.more_games;
                     let dataList = allGameData['data']['list'];
-                    if (page == 0) {
+                    if (page == 1) {
                         allData = dataList;
                     } else {
                         allData = allData.concat(dataList);
