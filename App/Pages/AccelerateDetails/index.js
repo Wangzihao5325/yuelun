@@ -10,8 +10,9 @@ import StowPage from './StowPage';
 import UnfoldPage from './UnfoldPage';
 import { Loading } from '../../Components/Toast/Loading';
 import PageName from '../../Config/PageName';
+import { connect } from 'react-redux'
 
-export default class AccelerateDetails extends Component {
+class AccelerateDetails extends Component {
     state = {
         isAccelerate: false,
         pageType: 'stow',//stow,unfold
@@ -149,6 +150,21 @@ export default class AccelerateDetails extends Component {
     }
 
     speedUp = () => {
+        if (!this.props.isLogin) {
+            //未登录提示登陆
+            NavigationService.alert({
+                title: '提示',
+                content: '您尚未登陆，请前往登陆',
+                bottomObjs: [
+                    {
+                        key: 'cancel',
+                        type: 'button',
+                        title: '确定'
+                    }
+                ]
+            });
+            return
+        }
         const { use_server_id, id, accelerateInfo } = this.state;
         if (this.state.isAccelerate) {
             vpnModule.stopVPN();
@@ -364,3 +380,11 @@ export default class AccelerateDetails extends Component {
         };
     }
 }
+
+function mapState2Props(store) {
+    return {
+        isLogin: store.user.isLogin,
+    }
+}
+
+export default connect(mapState2Props)(AccelerateDetails);
