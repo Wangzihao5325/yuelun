@@ -59,11 +59,11 @@ const SpeedItem = (props) => {
 
     return (
         <View style={styles.speedItemContainer}>
-            <View style={styles.speedItemHeader}>
+            {/* <View style={styles.speedItemHeader}>
                 <Text style={styles.speedItemHeaderTitle}>{`${props.title}`}</Text>
                 <View style={{ height: 1.5, width: 26, backgroundColor: props.color }} />
-            </View>
-            <Text style={styles.speedItemContent}>{`${speed}`}<Text style={styles.speedItemContent2}></Text></Text>
+            </View> */}
+            <Text style={styles.speedItemContent}>{`${props.title} : ${speed}`}<Text style={styles.speedItemContent2}></Text></Text>
         </View>
     );
 }

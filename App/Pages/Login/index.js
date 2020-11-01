@@ -23,7 +23,7 @@ export default class Login extends Component {
         verificationCode: '',
         messageBtnTitle: '获取验证码',
         isMessageBtnCanPress: true,
-        agreePolicy:true,
+        agreePolicy: true,
     };
 
     componentDidMount() {
@@ -115,34 +115,34 @@ export default class Login extends Component {
                         titleStyle={{ color: '#000' }}
                         clickEvent={this.login}
                     />
-                    <View style={{ alignSelf: 'center', marginTop: 20,flexDirection:'row',justifyContent:"center" }}>
-                        <TouchableHighlight onPress={()=>{this.clickTheAgreementOfPolicy()}}>
+                    <View style={{ alignSelf: 'center', marginTop: 20, flexDirection: 'row', justifyContent: "center" }}>
+                        <TouchableHighlight onPress={() => { this.clickTheAgreementOfPolicy() }}>
                             {
                                 this.state.agreePolicy
-                                ?
-                                <Image 
-                                   style={{width:15,height:15,marginRight:6}}
-                                   resizeMode='contain'
-                                   source={require('../../resource/Image/Login/select.png')}/>
-                                :
-                                <Image 
-                                   style={{width:15,height:15,marginRight:6}}
-                                   resizeMode='contain'
-                                   source={require('../../resource/Image/Login/unselect.png')}/>
+                                    ?
+                                    <Image
+                                        style={{ width: 15, height: 15, marginRight: 6 }}
+                                        resizeMode='contain'
+                                        source={require('../../resource/Image/Login/select.png')} />
+                                    :
+                                    <Image
+                                        style={{ width: 15, height: 15, marginRight: 6 }}
+                                        resizeMode='contain'
+                                        source={require('../../resource/Image/Login/unselect.png')} />
                             }
                         </TouchableHighlight>
                         <Text style={{ color: '#666' }}>我已阅读并同意<Text style={{ color: '#f2cc2e' }}>隐私政策</Text>和<Text style={{ color: '#f2cc2e' }}>软件许可及使用协议</Text></Text>
                     </View>
                 </KeyboardAwareScrollView>
-                <Text style={{marginBottom:60,alignSelf:'center',color:'#777',fontSize:13}}>首次使用手机号登录将自动为注册</Text>
+                <Text style={{ marginBottom: 60, alignSelf: 'center', color: '#777', fontSize: 13 }}>首次使用手机号登录将自动为注册</Text>
             </SafeAreaView>
         );
     }
 
-    clickTheAgreementOfPolicy = () =>{
+    clickTheAgreementOfPolicy = () => {
         let agreePolicy = this.state.agreePolicy;
         agreePolicy = !agreePolicy;
-        this.setState({agreePolicy:agreePolicy});
+        this.setState({ agreePolicy: agreePolicy });
     }
 
     phoneNumChange = (value) => {
@@ -158,31 +158,31 @@ export default class Login extends Component {
     }
 
     login = () => {
-        const { phoneNum, verificationCode,agreePolicy } = this.state;
+        const { phoneNum, verificationCode, agreePolicy } = this.state;
 
-        if(phoneNum.length == 0){
+        if (phoneNum.length == 0) {
             Toast.show('请输入手机号');
             return;
-        }else if (verificationCode.length == 0){
+        } else if (verificationCode.length == 0) {
             Toast.show('请输入验证码');
             return;
         }
 
-        if(agreePolicy == false){
+        if (agreePolicy == false) {
             Toast.show('请勾选同意隐私政策');
             return;
         }
 
         Loading.show();
-        
+
         Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
             .then((result) => {
-                console.log('login---here',result);
+                console.log('login---here', result);
                 Loading.hidden();
                 if (result['status'] == 'ok') {
                     this.saveTheUserInfo(result);
                     //session比较常用，所以在network里也存一份，方便使用
-                    Network.session = result.data.session_id;
+                    Network.session = result?.data?.session_id ?? '';
                     store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
                     navigator.back(this);
                 } else {
@@ -200,7 +200,7 @@ export default class Login extends Component {
             return;
         }
         const { phoneNum, verificationCode } = this.state;
-        if(phoneNum.length !== 11){
+        if (phoneNum.length !== 11) {
             return;
         }
         Loading.show();

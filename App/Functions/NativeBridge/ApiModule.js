@@ -11,10 +11,24 @@ function _dealResult(strRequest) {
 
         });
     }
-    if (strRequest) {
-        return JSON.parse(strRequest);
-    } else {
-        return { status: 'error', msg: '接口未响应(code:-1)' }
+    switch (strRequest) {
+        case 'sign_error':
+            return { status: 'error', msg: '签名错误' }
+        case 'curl_error':
+            return { status: 'error', msg: '请求失败' }
+        case 'decrypt_error':
+            return { status: 'error', msg: '解密失败' }
+        case 'copy_error':
+            return { status: 'error', msg: '数据有误' }
+        default:
+            {
+                if (strRequest) {
+                    return JSON.parse(strRequest);
+                } else {
+                    return { status: 'error', msg: '未知错误' }
+                }
+            }
+
     }
 }
 
@@ -45,10 +59,10 @@ export const sendPhoneCode = async (phoneNum) => {
  * @param {string} platform 平台 ios/android
  * @param {string} version app版本号
  */
-export const loginByPhoneNum = async (phoneNum, code, platform, version,type='1') => {
-    let strRequest = await CApiClientManager.yuelunPhoneLogin(type,phoneNum, code, platform, version);
+export const loginByPhoneNum = async (phoneNum, code, platform, version, type = '1') => {
+    let strRequest = await CApiClientManager.yuelunPhoneLogin(type, phoneNum, code, platform, version);
     let result = _dealResult(strRequest)
-    _sessionId = result.data?.session_id;
+    _sessionId = result.data?.session_id ?? '';
     return result;
 }
 /**
