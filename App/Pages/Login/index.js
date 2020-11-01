@@ -161,6 +161,9 @@ export default class Login extends Component {
     }
 
     login = () => {
+        this.pushToBindPhonePage();
+        return;
+
         const { phoneNum, verificationCode, agreePolicy } = this.state;
 
         if (phoneNum.length == 0) {
@@ -180,7 +183,7 @@ export default class Login extends Component {
 
         Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
             .then((result) => {
-                console.log('login---here', result);
+                console.log('login---here', result.data.session_id);
                 Loading.hidden();
                 if (result['status'] == 'ok') {
                     this.saveTheUserInfo(result);
@@ -189,8 +192,8 @@ export default class Login extends Component {
                     store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
                     this.needToBindAccountAndPWD(result.is_bind);
                     this.setState({
-                        sessionID:result.session_id,
-                        userID:result.user_id,
+                        sessionID:result.data.session_id,
+                        userID:result.data.user_id,
                     });
                 } else {
                     navigator.alert(this.alertPayload(result.msg));
@@ -233,9 +236,18 @@ export default class Login extends Component {
     }
 
     pushToBindAccountPage = () =>{
-        console.log('----------+++');
+        console.log('----------+++',this.state.sessionID,'---',this.state.userID);
         let sessionAndUserID = {'sessionID':this.state.sessionID,'userID':this.state.userID};
-        navigator.navigate(PageName.NORAML_BIND_ACCOUNT,{data:sessionAndUserID});
+        setTimeout(()=>{
+            navigator.navigate(PageName.NORAML_BIND_ACCOUNT,{data:sessionAndUserID});
+        },100);
+    }
+
+    pushToBindPhonePage = () =>{
+        let sessionAndUserID = {'sessionID':this.state.sessionID,'userID':this.state.userID};
+        setTimeout(()=>{
+            navigator.navigate(PageName.NORMAL_BIND_PHONE,{data:sessionAndUserID});
+        },100);
     }
 
     getVerificationCode = () => {

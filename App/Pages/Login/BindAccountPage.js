@@ -128,11 +128,11 @@ export default class BindAccountPage extends Component {
             return;
         }
 
-        Loading.show();
+        // Loading.show();
 
-        Api.YuelunBindUsers(this.state.sessionID,"1",this.state.userID,"","",phoneNum,verificationCode)
+        Api.YuelunBindUsers(this.state.sessionID,"1",this.state.userID,"","",phoneNum,verificationCode,"")
         .then((result)=>{
-
+            console.log('sjsjsjs',result);
         })
         .catch((error) => {
             console.log(error);

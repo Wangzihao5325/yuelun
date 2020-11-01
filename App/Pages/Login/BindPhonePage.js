@@ -24,12 +24,18 @@ export default class BindPhonePage extends Component {
         messageBtnTitle: '获取验证码',
         isMessageBtnCanPress: true,
         agreePolicy: true,
+        sessionID:'',
+        userID:'',
     };
 
     componentDidMount() {
-        if (store.getState().app.isLogin) {
-            store.dispatch(app_start_app());
-        }
+        const { data } = this.props.route.params;
+        console.log('入参入参',data);
+        
+        this.setState({
+            sessionID:data.sessionID,
+            userID:data.userID
+        });
     }
 
     componentWillUnmount() {
@@ -50,11 +56,6 @@ export default class BindPhonePage extends Component {
                         resizeMode='cover'
                     >
                         <View style={{ height: 20, width: SCREEN_WIDTH, paddingHorizontal: 15, marginTop: 10 }} />
-                        <Image
-                            style={styles.headerImage}
-                            resizeMode='contain'
-                            source={require('../../resource/Image/Login/header.png')}
-                        />
                         <CustomInput
                             iconComponent={
                                 <View style={{ height: 30, flexDirection: 'row', alignItems: 'center' }}>
@@ -110,31 +111,12 @@ export default class BindPhonePage extends Component {
                         <View style={styles.separator} />
                     </ImageBackground>
                     <CustomButton
-                        title='登录'
+                        title='绑定'
                         buttonStyle={styles.confirmButton}
                         titleStyle={{ color: '#000' }}
                         clickEvent={this.login}
                     />
-                    <View style={{ alignSelf: 'center', marginTop: 20, flexDirection: 'row', justifyContent: "center" }}>
-                        <TouchableHighlight onPress={() => { this.clickTheAgreementOfPolicy() }}>
-                            {
-                                this.state.agreePolicy
-                                    ?
-                                    <Image
-                                        style={{ width: 15, height: 15, marginRight: 6 }}
-                                        resizeMode='contain'
-                                        source={require('../../resource/Image/Login/select.png')} />
-                                    :
-                                    <Image
-                                        style={{ width: 15, height: 15, marginRight: 6 }}
-                                        resizeMode='contain'
-                                        source={require('../../resource/Image/Login/unselect.png')} />
-                            }
-                        </TouchableHighlight>
-                        <Text style={{ color: '#666' }}>我已阅读并同意<Text style={{ color: '#f2cc2e' }}>隐私政策</Text>和<Text style={{ color: '#f2cc2e' }}>软件许可及使用协议</Text></Text>
-                    </View>
                 </KeyboardAwareScrollView>
-                <Text style={{ marginBottom: 60, alignSelf: 'center', color: '#777', fontSize: 13 }}>首次使用手机号登录将自动为注册</Text>
             </SafeAreaView>
         );
     }
@@ -168,13 +150,17 @@ export default class BindPhonePage extends Component {
             return;
         }
 
-        if (agreePolicy == false) {
-            Toast.show('请勾选同意隐私政策');
-            return;
-        }
-
         Loading.show();
+        Api.YuelunBindUsers(this.state.sessionID,"2",this.state.userID,phoneNum,verificationCode,"","","")
+        .then((result)=>{
+            console.log('sjsjsjs',result);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+        return;
 
+        return;
         Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
             .then((result) => {
                 console.log('login---here', result);
