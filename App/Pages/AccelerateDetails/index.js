@@ -218,15 +218,8 @@ class AccelerateDetails extends Component {
             return
         }
         var iplist = gameFullInfo["ip_list"];
-        var iplistArray;
+        var iplistArray = iplist;
         console.log('gameFullInfogameFullInfo', gameFullInfo);
-        if (iplist === '[]') {
-            iplistArray = [];
-        } else {
-            iplist = iplist.replace("[", "");
-            iplist = iplist.replace("]", "");
-            iplistArray = iplist.split(',');
-        }
 
         let IPArray = [];
         for (let i = 0; i < iplistArray.length; i++) {

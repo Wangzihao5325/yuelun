@@ -256,6 +256,7 @@ export const createOrder = async (strtype, strpacket_id, packet_plan_id, strpaym
  */
 export const getPacektList = async () => {
     let resultStr = await CApiClientManager.yuelunGetPacektList(_sessionId);
+    console.log('dsdsdsdsds',resultStr)
     return _dealResult(resultStr);
 }
 
