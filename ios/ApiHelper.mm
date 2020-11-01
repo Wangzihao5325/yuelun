@@ -22,8 +22,9 @@ RCT_REMAP_METHOD(yuelunSendPhoneCode,getThePhoneCode:(NSString *)phoneNum resolv
 /*
  *用户登录
  */
-RCT_REMAP_METHOD(yuelunPhoneLogin,userLoginWithPhoneNum:(NSString *)phoneNum andPhoneCode:(NSString *)phoneCode andPlatForm:(NSString *)platform andVersion:(NSString *)version resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-                NSString * feedbackStr = [self userLoginWithPhoneNum:phoneNum andPhoneCode:phoneCode andPlatForm:platform andVersion:version];
+RCT_REMAP_METHOD(yuelunPhoneLogin,loginType:(NSString *)type userLoginWithPhoneNum:(NSString *)phoneNum andPhoneCode:(NSString *)phoneCode andPlatForm:(NSString *)platform andVersion:(NSString *)version resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+
+  NSString * feedbackStr = [self userLoginWithLoginType:type PhoneNum:phoneNum andPhoneCode:phoneCode andPlatForm:platform andVersion:version];
                 resolve(feedbackStr);
 }
 
@@ -288,8 +289,8 @@ RCT_REMAP_METHOD(getCurrentDelay,getCurrentDelayByResolver:(RCTPromiseResolveBlo
   return feedbackString;
 }
 
--(NSString *)userLoginWithPhoneNum:(NSString *)phoneNum andPhoneCode:(NSString *)phoneCode andPlatForm:(NSString *)platform andVersion:(NSString *)version{
-  std::string typeStr = [@"1" UTF8String];
+-(NSString *)userLoginWithLoginType:(NSString *)type PhoneNum:(NSString *)phoneNum andPhoneCode:(NSString *)phoneCode andPlatForm:(NSString *)platform andVersion:(NSString *)version{
+  std::string typeStr = [type UTF8String];
   std::string phoneNumStr   = [phoneNum  UTF8String];
   std::string phoneCodeStr  = [phoneCode UTF8String];
   std::string platforminfoStr = [platform UTF8String];
