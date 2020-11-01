@@ -45,6 +45,24 @@ class AccelerateDetails extends Component {
                             showModal: false
                         });
                     });
+                } else if (e[0] === 'ToyVPN is connect failed!') {
+                    if(this.state.showModal){
+                        this.setState({
+                            showModal:false
+                        },()=>{
+                            NavigationService.alert({
+                                title: '提示',
+                                content: '加速失败',
+                                bottomObjs: [
+                                    {
+                                        key: 'cancel',
+                                        type: 'button',
+                                        title: '确定'
+                                    }
+                                ]
+                            });
+                        })
+                    }
                 }
             });
         }

@@ -218,6 +218,7 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
                         try {
                             connection.run();
                         } catch (PackageManager.NameNotFoundException e) {
+                            mHandler.sendEmptyMessage(R.string.failed);
                             e.printStackTrace();
                         }
                     }
@@ -265,6 +266,9 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
                 break;
             case "ToyVPN is connected!":
                 notiMessage = "游戏加速中";
+                break;
+            case "ToyVPN is connect failed!":
+                notiMessage = "加速失败";
                 break;
         }
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(
