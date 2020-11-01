@@ -293,3 +293,12 @@ export const YuelunBindUsers = async (strsession_id,strtype,struser_id,strphone,
     let resultStr = await CApiClientManager.YuelunBindUsers(strsession_id,strtype,struser_id,strphone,strcode,straccout_name,straccout_password,strResponseData);
     return _dealResult(resultStr);
 }
+
+/**
+ * 获取vpn状态
+ */
+
+ export const getTunnelState = async ()=>{
+     let resultStr = await CApiClientManager.getTunnelState();
+     return _dealResult(resultStr)
+ }
