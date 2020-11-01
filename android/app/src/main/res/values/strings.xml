@@ -3,4 +3,5 @@
     <string name="disconnected">Disconnect!</string>
     <string name="connecting">ToyVPN is connecting...</string>
     <string name="connected">ToyVPN is connected!</string>
+    <string name="failed">ToyVPN is connect failed!</string>
 </resources>
