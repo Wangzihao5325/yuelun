@@ -256,6 +256,7 @@ export const createOrder = async (strtype, strpacket_id, packet_plan_id, strpaym
  */
 export const getPacektList = async () => {
     let resultStr = await CApiClientManager.yuelunGetPacektList(_sessionId);
+    console.log('dsdsdsdsds',resultStr)
     return _dealResult(resultStr);
 }
 
@@ -283,4 +284,13 @@ export const getFlow = async () => {
 export const getDelay = async () => {
     let resultInt = await CApiClientManager.getCurrentDelay();
     return resultInt || 0
+}
+
+/**
+ * 用户绑定
+ * 
+*/
+export const YuelunBindUsers = async (strsession_id,strtype,struser_id,strphone,strcode,straccout_name,straccout_password,strResponseData) =>{
+    let resultStr = await CApiClientManager.YuelunBindUsers(strsession_id,strtype,struser_id,strphone,strcode,straccout_name,straccout_password,strResponseData);
+    return _dealResult(resultStr);
 }

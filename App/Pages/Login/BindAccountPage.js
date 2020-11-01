@@ -17,22 +17,24 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import * as vpnModule from '../../Functions/NativeBridge/YuelunVpn';
 import { Loading } from '../../Components/Toast/Loading';
 import { Toast } from '../../Components/Toast/Toast';
-import PageName from '../../Config/PageName';
-export default class Login extends Component {
+export default class BindAccountPage extends Component {
     state = {
         phoneNum: '',
         verificationCode: '',
-        messageBtnTitle: '获取验证码',
-        isMessageBtnCanPress: true,
-        agreePolicy: true,
         sessionID:'',
         userID:'',
+        isMessageBtnCanPress: true,
+        agreePolicy: true,
     };
 
     componentDidMount() {
-        if (store.getState().app.isLogin) {
-            store.dispatch(app_start_app());
-        }
+        const { data } = this.props.route.params;
+        console.log('入参入参',data);
+        
+        this.setState({
+            sessionID:data.sessionID,
+            userID:data.userID
+        });
     }
 
     componentWillUnmount() {
@@ -53,29 +55,15 @@ export default class Login extends Component {
                         resizeMode='cover'
                     >
                         <View style={{ height: 20, width: SCREEN_WIDTH, paddingHorizontal: 15, marginTop: 10 }} />
-                        <Image
-                            style={styles.headerImage}
-                            resizeMode='contain'
-                            source={require('../../resource/Image/Login/header.png')}
-                        />
                         <CustomInput
                             iconComponent={
                                 <View style={{ height: 30, flexDirection: 'row', alignItems: 'center' }}>
-                                    <View
-                                        style={{ height: 30, width: 30, justifyContent: 'center', alignItems: 'center' }}
-                                    >
-                                        <Image
-                                            style={{ height: 21, width: 16 }}
-                                            resizeMode='contain'
-                                            source={require('../../resource/Image/Normal/mobile.png')}
-                                        />
-                                    </View>
-                                    <Text style={{ color: '#707070', fontSize: 19, marginRight: 20 }}>+86</Text>
+                                    <Text style={{ color: '#707070', fontSize: 19, marginRight: 20 }}>账号：</Text>
                                 </View>
                             }
                             style={{ alignSelf: 'center', backgroundColor: 'transparent', paddingHorizontal: 0 }}
                             iconName='mobile-phone'
-                            placeholder='请输入手机号'
+                            placeholder='请输入账号'
                             placeholderTextColor='#707070'
                             value={phoneNum}
                             onChangeText={this.phoneNumChange}
@@ -85,59 +73,28 @@ export default class Login extends Component {
                         <View style={{ marginTop: 20, height: 45, width: 350, alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <CustomInput
                                 iconComponent={
-                                    <View
-                                        style={{ height: 30, width: 30, justifyContent: 'center', alignItems: 'center' }}
-                                    >
-                                        <Image
-                                            style={{ height: 15, width: 17 }}
-                                            resizeMode='contain'
-                                            source={require('../../resource/Image/Normal/verificationCode.png')}
-                                        />
-                                    </View>
+                                    <View style={{ height: 30, flexDirection: 'row', alignItems: 'center' }}>
+                                    <Text style={{ color: '#707070', fontSize: 19, marginRight: 20 }}>密码：</Text>
+                                </View>
                                 }
                                 style={{ width: 210, backgroundColor: 'transparent', paddingHorizontal: 0 }}
                                 iconName='mobile-phone'
-                                placeholder='请输入验证码'
+                                placeholder='请输入密码'
                                 placeholderTextColor='#707070'
                                 value={verificationCode}
                                 onChangeText={this.verificationCodeChange}
                                 clearButtonMode='while-editing'
                             />
-                            <CustomButton
-                                title={this.state.messageBtnTitle}
-                                buttonStyle={styles.verificationCodeBtn}
-                                titleStyle={{ color: '#f2cc2e', fontSize: 17 }}
-                                clickEvent={this.getVerificationCode}
-                            />
                         </View>
                         <View style={styles.separator} />
                     </ImageBackground>
                     <CustomButton
-                        title='登录'
+                        title='确认绑定'
                         buttonStyle={styles.confirmButton}
                         titleStyle={{ color: '#000' }}
                         clickEvent={this.login}
                     />
-                    <View style={{ alignSelf: 'center', marginTop: 20, flexDirection: 'row', justifyContent: "center" }}>
-                        <TouchableHighlight onPress={() => { this.clickTheAgreementOfPolicy() }}>
-                            {
-                                this.state.agreePolicy
-                                    ?
-                                    <Image
-                                        style={{ width: 15, height: 15, marginRight: 6 }}
-                                        resizeMode='contain'
-                                        source={require('../../resource/Image/Login/select.png')} />
-                                    :
-                                    <Image
-                                        style={{ width: 15, height: 15, marginRight: 6 }}
-                                        resizeMode='contain'
-                                        source={require('../../resource/Image/Login/unselect.png')} />
-                            }
-                        </TouchableHighlight>
-                        <Text style={{ color: '#666' }}>我已阅读并同意<Text style={{ color: '#f2cc2e' }}>隐私政策</Text>和<Text style={{ color: '#f2cc2e' }}>软件许可及使用协议</Text></Text>
-                    </View>
                 </KeyboardAwareScrollView>
-                <Text style={{ marginBottom: 60, alignSelf: 'center', color: '#777', fontSize: 13 }}>首次使用手机号登录将自动为注册</Text>
             </SafeAreaView>
         );
     }
@@ -164,19 +121,24 @@ export default class Login extends Component {
         const { phoneNum, verificationCode, agreePolicy } = this.state;
 
         if (phoneNum.length == 0) {
-            Toast.show('请输入手机号');
+            Toast.show('请输入账号');
             return;
         } else if (verificationCode.length == 0) {
-            Toast.show('请输入验证码');
-            return;
-        }
-
-        if (agreePolicy == false) {
-            Toast.show('请勾选同意隐私政策');
+            Toast.show('请输入密码');
             return;
         }
 
         Loading.show();
+
+        Api.YuelunBindUsers(this.state.sessionID,"1",this.state.userID,"","",phoneNum,verificationCode)
+        .then((result)=>{
+
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+        return;
+
 
         Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
             .then((result) => {
@@ -188,10 +150,6 @@ export default class Login extends Component {
                     Network.session = result?.data?.session_id ?? '';
                     store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
                     this.needToBindAccountAndPWD(result.is_bind);
-                    this.setState({
-                        sessionID:result.session_id,
-                        userID:result.user_id,
-                    });
                 } else {
                     navigator.alert(this.alertPayload(result.msg));
                 }
@@ -223,20 +181,14 @@ export default class Login extends Component {
                         type: 'button',
                         title: '确认',
                         callback: () => {
-                            this.pushToBindAccountPage();
+                            navigator.back(this);
                         }
-                        
                     }
                 ]
             });
         }
     }
 
-    pushToBindAccountPage = () =>{
-        console.log('----------+++');
-        let sessionAndUserID = {'sessionID':this.state.sessionID,'userID':this.state.userID};
-        navigator.navigate(PageName.NORAML_BIND_ACCOUNT,{data:sessionAndUserID});
-    }
 
     getVerificationCode = () => {
         if (!this.state.isMessageBtnCanPress) {

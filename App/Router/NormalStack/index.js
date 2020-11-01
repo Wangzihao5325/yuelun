@@ -23,6 +23,9 @@ import MinePage from '../../Pages/Mine/MinePage';
 import Login from '../../Pages/Login';
 import AccelerateDetails from '../../Pages/AccelerateDetails';
 import GameMore from '../../Pages/Page/GameMore';
+import BindAccountPage from '../../Pages/Login/BindAccountPage';
+import BindPhonePage from '../../Pages/Login/BindPhonePage';
+
 //个人信息页面
 import PersonalInfoPage from '../../Pages/personalInfo';
 import ChangePhoneNumPage from '../../Pages/personalInfo/ChangePhoneNum';
@@ -201,6 +204,16 @@ const optionArray = [
         name: PageName.NORMAL_VIP_BUY_WEB,
         component: NoticeWeb,
         options: Object.assign({ title: '套餐详情' }, defaultHeaderOptions)
+    },{
+        key: PageName.NORAML_BIND_ACCOUNT,
+        name: PageName.NORAML_BIND_ACCOUNT,
+        component: BindAccountPage,
+        options: Object.assign({ title: '绑定账户' }, defaultHeaderOptions)
+    },{
+        key: PageName.NORMAL_BIND_PHONE,
+        name: PageName.NORMAL_BIND_PHONE,
+        component: BindPhonePage,
+        options: Object.assign({ title: '绑定手机' }, defaultHeaderOptions)
     }
 ];
 

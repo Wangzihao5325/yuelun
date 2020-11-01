@@ -240,6 +240,11 @@ RCT_REMAP_METHOD(getCurrentDelay,getCurrentDelayByResolver:(RCTPromiseResolveBlo
   resolve(delayStr);
 };
 
+RCT_REMAP_METHOD(YuelunBindUsers, sessionid:(NSString *)strsession_id type:(NSString *)strtype userID:(NSString *)struser_id phone:(NSString *)strphone code:(NSString *)strcode account_name:(NSString *)straccout_name password:(NSString *)straccout_password responseData:(NSString *)strResponseData YuelunBindUsersByResolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  NSString * returnStr = [self YuelunBindUsersSessionid:strsession_id type:strtype userID:struser_id phone:strphone code:strcode account_name:straccout_name password:straccout_password responseData:strResponseData];
+  resolve(returnStr);
+}
+
 -(NSString *)getTheBannerData{
   std::string str = YuelunGetAdList();
   NSString * bannerString = [NSString stringWithFormat:@"%s",str.c_str()];
@@ -439,6 +444,21 @@ RCT_REMAP_METHOD(getCurrentDelay,getCurrentDelayByResolver:(RCTPromiseResolveBlo
 -(int)getCurrentDelay{
   int currentDelay = GetCurrentDelay();
   return currentDelay;
+}
+
+-(NSString *)YuelunBindUsersSessionid:(NSString *)strsession_id type:(NSString *)strtype userID:(NSString *)struser_id phone:(NSString *)strphone code:(NSString *)strcode account_name:(NSString *)straccout_name password:(NSString *)straccout_password responseData:(NSString *)strResponseData{
+  std::string strsession_idstr      = [strsession_id UTF8String];
+  std::string strtypestr            = [strtype UTF8String];
+  std::string struser_idstr         = [struser_id UTF8String];
+  std::string strphonestr           = [strphone UTF8String];
+  std::string strcodestr            = [strcode UTF8String];
+  std::string straccout_namestr     = [straccout_name UTF8String];
+  std::string straccout_passwordstr = [straccout_password UTF8String];
+  std::string strResponseDatastr    = [strResponseData UTF8String];
+  
+  std::string returnStr = YuelunBindUsers(strsession_idstr, strtypestr, struser_idstr, strphonestr, strcodestr, straccout_namestr, straccout_passwordstr, strResponseDatastr);
+  NSString * return_string = [NSString stringWithFormat:@"%s",returnStr.c_str()];
+  return return_string;
 }
 
 @end

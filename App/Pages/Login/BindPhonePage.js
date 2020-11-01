@@ -17,16 +17,13 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import * as vpnModule from '../../Functions/NativeBridge/YuelunVpn';
 import { Loading } from '../../Components/Toast/Loading';
 import { Toast } from '../../Components/Toast/Toast';
-import PageName from '../../Config/PageName';
-export default class Login extends Component {
+export default class BindPhonePage extends Component {
     state = {
         phoneNum: '',
         verificationCode: '',
         messageBtnTitle: '获取验证码',
         isMessageBtnCanPress: true,
         agreePolicy: true,
-        sessionID:'',
-        userID:'',
     };
 
     componentDidMount() {
@@ -188,10 +185,6 @@ export default class Login extends Component {
                     Network.session = result?.data?.session_id ?? '';
                     store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
                     this.needToBindAccountAndPWD(result.is_bind);
-                    this.setState({
-                        sessionID:result.session_id,
-                        userID:result.user_id,
-                    });
                 } else {
                     navigator.alert(this.alertPayload(result.msg));
                 }
@@ -223,20 +216,14 @@ export default class Login extends Component {
                         type: 'button',
                         title: '确认',
                         callback: () => {
-                            this.pushToBindAccountPage();
+                            navigator.back(this);
                         }
-                        
                     }
                 ]
             });
         }
     }
 
-    pushToBindAccountPage = () =>{
-        console.log('----------+++');
-        let sessionAndUserID = {'sessionID':this.state.sessionID,'userID':this.state.userID};
-        navigator.navigate(PageName.NORAML_BIND_ACCOUNT,{data:sessionAndUserID});
-    }
 
     getVerificationCode = () => {
         if (!this.state.isMessageBtnCanPress) {
