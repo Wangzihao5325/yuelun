@@ -155,4 +155,15 @@ public class CApiClientManager extends ReactContextBaseJavaModule {
         int receiveInt = CProxClient.GetCurrentDelay();
         promise.resolve(receiveInt);
     }
+    @ReactMethod
+    public void getTunnelState( Promise promise){
+        String receiveStr = CProxClient.GetTunnelState();
+        promise.resolve(receiveStr);
+    }
+
+    @ReactMethod
+    public void YuelunBindUsers(String strsession_id,String strtype,String struser_id,String strphone,String strcode,String straccountname,String straccountpassword, Promise promise){
+        String receiveStr = CProxClient.YuelunBindUser(strsession_id,strtype,struser_id,strphone,strcode,straccountname,straccountpassword);
+        promise.resolve(receiveStr);
+    }
 }
