@@ -48,7 +48,7 @@ export const sendPhoneCode = async (phoneNum) => {
 export const loginByPhoneNum = async (phoneNum, code, platform, version,type='1') => {
     let strRequest = await CApiClientManager.yuelunPhoneLogin(type,phoneNum, code, platform, version);
     let result = _dealResult(strRequest)
-    _sessionId = result.data?.session_id;
+    _sessionId = result.data?.session_id??'';
     return result;
 }
 /**
