@@ -161,8 +161,8 @@ export default class Login extends Component {
     }
 
     login = () => {
-        this.pushToBindPhonePage();
-        return;
+        // this.pushToBindPhonePage();
+        // return;
 
         const { phoneNum, verificationCode, agreePolicy } = this.state;
 
