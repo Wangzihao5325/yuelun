@@ -16,7 +16,7 @@ import {
 
 import * as UIConfig from './UIConfig';
 
-export const appVersion = '0.0.1';
+export const appVersion = '9.0.0.10';
 
 export const interceptTime = 500;     //time for intercept click the button repeatedly 
 

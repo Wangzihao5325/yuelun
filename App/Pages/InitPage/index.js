@@ -6,13 +6,18 @@ import {
     Text,
     Platform,
     StatusBar,
-    StyleSheet
+    StyleSheet,
+    AsyncStorage,
+    Alert
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../Config/UIConfig';
 import CustomButton from '../../Components/Component/CustomButton';
 import store from '../../store';
-import { app_login } from '../../store/actions/appAction';
+import { login_user_info_init } from '../../store/actions/userAction';
+import { init_can_scroll, app_login, app_start_app } from '../../store/actions/appAction';
+import { getTheUserInforWithSessionID, _unsafe_setSession, getAppNewConfig } from '../../Functions/NativeBridge/ApiModule';
+import { appVersion } from '../../Config/SystemConfig';
 
 const SPLASH_DATA = [
     {
@@ -69,11 +74,66 @@ const Item = (props) => {
     );
 }
 export default class InitPage extends Component {
+    _appInit = () => {
+        AsyncStorage.getItem('isFirstUse').then(useValue => {
+            if (!useValue) {
+                AsyncStorage.setItem('isFirstUse', 'done');
+                store.dispatch(init_can_scroll());
+            } else {
+                AsyncStorage.getItem('userInfo').then(value => {
+                    if (value) {
+                        let userData = JSON.parse(value);
+                        let sessionId = userData.data.session_id;
+                        if (sessionId) {
+                            _unsafe_setSession(sessionId);
+                            //使用本地token来获取用户信息，以此验证token的有效性
+                            getTheUserInforWithSessionID().then((res) => {
+                                if (res.status == 'ok') {
+                                    store.dispatch(login_user_info_init({
+                                        ...userData.data,
+                                        mobile: res.data.tel,
+                                        username: res.data.username,
+                                        package_name: res.data.package_name,
+                                        package_end_time: res.data.package_end_time
+                                    }));
+                                    store.dispatch(app_start_app());
+                                } else {
+                                    //自动登录失败，跳转登录界面
+                                    store.dispatch(app_login());
+                                }
+                            })
+                        } else {
+                            store.dispatch(app_login());
+                        }
+                    } else {
+                        store.dispatch(app_login());
+                    }
+                }).catch(reason => {
+                    store.dispatch(init_can_scroll());
+                });
+            }
+        })
+    }
+
     componentDidMount() {
         StatusBar.setBarStyle('light-content');
         if (Platform.OS === 'android') {
             StatusBar.setBackgroundColor('#00132C');
         }
+        getAppNewConfig().then(res => {
+            let last_version = res?.data?.last_version ?? '';
+            if (last_version === appVersion) {
+                this._appInit()
+            } else {
+                Alert.alert(
+                    "请更新App",
+                    "点击确认，下载最新版本(暂无下载路径，点了也没用)",
+                    [
+                        { text: "OK", onPress: () => console.log("OK Pressed") }
+                    ]
+                );
+            }
+        })
     }
     render() {
         return (
