@@ -11,6 +11,7 @@ import UnfoldPage from './UnfoldPage';
 import { Loading } from '../../Components/Toast/Loading';
 import PageName from '../../Config/PageName';
 import { connect } from 'react-redux'
+import VpnStateUtil from '../../Functions/Util/vpnStateUtil'
 
 class AccelerateDetails extends Component {
     state = {
@@ -107,12 +108,13 @@ class AccelerateDetails extends Component {
                     gameFullInfo: request.data.game_info
                 });
 
-                AsyncStorage.getItem('accelerateInfo').then(value => {
+                AsyncStorage.getItem('accelerateInfo').then(async (value) => {
                     let accelerateInfo = JSON.parse(value || '{}');
-                    let isAccelerate = accelerateInfo[this.state.id]?.speedup === "1" ? true : false;
+                    let onlineState = await VpnStateUtil(accelerateInfo, gameInfo.id)
+                    let isAccelerate = onlineState.isTheGameAccele//accelerateInfo[this.state.id]?.speedup === "1" ? true : false;
                     this.setState({
                         isAccelerate,
-                        accelerateInfo,
+                        accelerateInfo: onlineState.newLocalData
                     });
                 });
 
@@ -184,7 +186,7 @@ class AccelerateDetails extends Component {
         });
     }
 
-    speedUp = () => {
+    speedUp = async () => {
         if (!this.props.isLogin) {
             //未登录提示登陆
             NavigationService.alert({
@@ -200,18 +202,35 @@ class AccelerateDetails extends Component {
             });
             return
         }
-        const { use_server_id, id, accelerateInfo } = this.state;
-        if (this.state.isAccelerate) {
+        const { id, accelerateInfo } = this.state;
+        let onlineState = await VpnStateUtil(accelerateInfo, id)
+
+        if (onlineState.isTheGameAccele) {
             vpnModule.stopVPN();
         } else {
-            if (!this._isFirstAccelerate) {//第一次加速，进行弹窗提示
-                NavigationService.alert(this.vpnAlertPayload('want_add_setting'));
+            if (onlineState.isAppAccele) {
+                NavigationService.alert({
+                    title: '提示',
+                    content: '当前有游戏正在加速中，不可同时开启',
+                    bottomObjs: [
+                        {
+                            key: 'cancel',
+                            type: 'button',
+                            title: '确定'
+                        }
+                    ]
+                });
             } else {
-                this.finallyStep();
+                if (!this._isFirstAccelerate) {//第一次加速，进行弹窗提示
+                    NavigationService.alert(this.vpnAlertPayload('want_add_setting'));
+                } else {
+                    this.finallyStep();
+                }
             }
         }
     }
 
+    /*
     checkVPNHasConnected = async (id = '') => {
         let accelerateInfoStr = await AsyncStorage.getItem('accelerateInfo');
         let accelerateInfoDic = JSON.parse(accelerateInfoStr || '{}');
@@ -225,26 +244,11 @@ class AccelerateDetails extends Component {
 
         return Promise.resolve(accelerating);
     }
+    */
 
     finallyStep = async () => {
         //NavigationService.navigate(PageName.MODAL_ACCELERATE_PROGRESS);      
-
         const { use_server_id, id, gameFullInfo } = this.state;
-        let accelerating = await this.checkVPNHasConnected(id);
-        if (accelerating) {
-            NavigationService.alert({
-                title: '提示',
-                content: '当前有游戏正在加速中，不可同时开启',
-                bottomObjs: [
-                    {
-                        key: 'cancel',
-                        type: 'button',
-                        title: '确定'
-                    }
-                ]
-            });
-            return
-        }
         var iplist = gameFullInfo["ip_list"];
         var iplistArray = iplist;
         console.log('gameFullInfogameFullInfo', gameFullInfo);
