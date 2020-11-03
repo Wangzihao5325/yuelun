@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableHighlight, ImageBackground, Image, Text, Platform, StyleSheet, AsyncStorage } from 'react-native';
+import { View, TouchableHighlight, ImageBackground, Image, Text, Platform, StyleSheet, AsyncStorage} from 'react-native';
 import { themeColor, SCREEN_WIDTH } from '../../Config/UIConfig';
 import * as Api from '../../Functions/NativeBridge/ApiModule';
 import store from '../../store';
@@ -27,6 +27,7 @@ export default class Login extends Component {
         agreePolicy: true,
         sessionID:'',
         userID:'',
+        loginType:'1',
     };
 
     componentDidMount() {
@@ -60,6 +61,8 @@ export default class Login extends Component {
                         />
                         <CustomInput
                             iconComponent={
+                                this.state.loginType == '1'
+                                ?
                                 <View style={{ height: 30, flexDirection: 'row', alignItems: 'center' }}>
                                     <View
                                         style={{ height: 30, width: 30, justifyContent: 'center', alignItems: 'center' }}
@@ -72,10 +75,14 @@ export default class Login extends Component {
                                     </View>
                                     <Text style={{ color: '#707070', fontSize: 19, marginRight: 20 }}>+86</Text>
                                 </View>
+                                :
+                                <View style={{ height: 30, flexDirection: 'row', alignItems: 'center' }}>
+                                    <Text style={{ color: '#707070', fontSize: 19, marginRight: 20 }}>账号：</Text>
+                                </View>
                             }
                             style={{ alignSelf: 'center', backgroundColor: 'transparent', paddingHorizontal: 0 }}
                             iconName='mobile-phone'
-                            placeholder='请输入手机号'
+                            placeholder={this.state.loginType == '1' ? '请输入手机号' : '请输入账号'}
                             placeholderTextColor='#707070'
                             value={phoneNum}
                             onChangeText={this.phoneNumChange}
@@ -85,6 +92,8 @@ export default class Login extends Component {
                         <View style={{ marginTop: 20, height: 45, width: 350, alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <CustomInput
                                 iconComponent={
+                                    this.state.loginType == '1'
+                                    ?
                                     <View
                                         style={{ height: 30, width: 30, justifyContent: 'center', alignItems: 'center' }}
                                     >
@@ -94,24 +103,55 @@ export default class Login extends Component {
                                             source={require('../../resource/Image/Normal/verificationCode.png')}
                                         />
                                     </View>
+                                    :
+                                   <View style={{ height: 30, flexDirection: 'row', alignItems: 'center' }}>
+                                        <Text style={{ color: '#707070', fontSize: 19, marginRight: 20 }}>密码：</Text>
+                                    </View>
                                 }
                                 style={{ width: 210, backgroundColor: 'transparent', paddingHorizontal: 0 }}
                                 iconName='mobile-phone'
-                                placeholder='请输入验证码'
+                                placeholder={this.state.loginType == '1' ? '请输入验证码' : '请输入密码号'}
                                 placeholderTextColor='#707070'
                                 value={verificationCode}
                                 onChangeText={this.verificationCodeChange}
                                 clearButtonMode='while-editing'
                             />
-                            <CustomButton
+                            {
+                                this.state.loginType == '1'
+                                ?
+                                <CustomButton
                                 title={this.state.messageBtnTitle}
                                 buttonStyle={styles.verificationCodeBtn}
                                 titleStyle={{ color: '#f2cc2e', fontSize: 17 }}
                                 clickEvent={this.getVerificationCode}
-                            />
+                               />
+                                :
+                                null
+                            }
+                            
                         </View>
                         <View style={styles.separator} />
                     </ImageBackground>
+                    <View style={styles.chooseLoginTypeRoot}>
+                        <TouchableHighlight
+                        onPress={()=>{
+                                let {loginType} = this.state;
+                                if(loginType == '1'){
+                                    loginType = '2';
+                                }else{
+                                    loginType = '1';
+                                }
+
+                                this.setState({
+                                    loginType:loginType,
+                                    phoneNum : '',
+                                    verificationCode:''
+                                });
+                            }}
+                            >
+                            {this.state.loginType == '1' ? <Text style={{color: '#f2cc2e'}}>账号登录</Text> : <Text style={{color: '#f2cc2e'}}>手机验证码登录</Text>}
+                        </TouchableHighlight>
+                    </View>
                     <CustomButton
                         title='登录'
                         buttonStyle={styles.confirmButton}
@@ -161,9 +201,6 @@ export default class Login extends Component {
     }
 
     login = () => {
-        this.pushToBindPhonePage();
-        return;
-
         const { phoneNum, verificationCode, agreePolicy } = this.state;
 
         if (phoneNum.length == 0) {
@@ -181,9 +218,9 @@ export default class Login extends Component {
 
         Loading.show();
 
-        Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
+        Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion,this.state.loginType)
             .then((result) => {
-                console.log('login---here', result.data.session_id);
+                console.log('login---here', result);
                 Loading.hidden();
                 if (result['status'] == 'ok') {
                     this.saveTheUserInfo(result);
@@ -200,7 +237,8 @@ export default class Login extends Component {
                 }
             })
             .catch((error) => {
-                console.log(error);
+                Loading.hidden();
+                console.log('login--error',error);
             });
 
     }
@@ -226,7 +264,11 @@ export default class Login extends Component {
                         type: 'button',
                         title: '确认',
                         callback: () => {
-                            this.pushToBindAccountPage();
+                            if(this.state.loginType == '1'){
+                                this.pushToBindAccountPage();
+                            }else{
+                                this.pushToBindPhonePage();
+                            }
                         }
                         
                     }
@@ -347,6 +389,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#f2cc2e',
         borderRadius: 45,
         alignSelf: 'center',
-        marginTop: 60
+        marginTop: 40
+    },
+    chooseLoginTypeRoot:{
+        marginLeft:15,
+        marginTop:10,
+        marginRight:15,
+        height:30,
+        flexDirection:'row-reverse',
+        alignItems:'center',
     }
 });

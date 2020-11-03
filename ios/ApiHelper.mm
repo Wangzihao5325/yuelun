@@ -245,6 +245,11 @@ RCT_REMAP_METHOD(YuelunBindUsers, sessionid:(NSString *)strsession_id type:(NSSt
   resolve(returnStr);
 }
 
+RCT_REMAP_METHOD(GetTunnelState, TunnelStateByResolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  NSString * returnStr = [self GetTunnelState];
+  resolve(returnStr);
+}
+
 -(NSString *)getTheBannerData{
   std::string str = YuelunGetAdList();
   NSString * bannerString = [NSString stringWithFormat:@"%s",str.c_str()];
@@ -457,6 +462,12 @@ RCT_REMAP_METHOD(YuelunBindUsers, sessionid:(NSString *)strsession_id type:(NSSt
   std::string strResponseDatastr    = [strResponseData UTF8String];
   
   std::string returnStr = YuelunBindUsers(strsession_idstr, strtypestr, struser_idstr, strphonestr, strcodestr, straccout_namestr, straccout_passwordstr, strResponseDatastr);
+  NSString * return_string = [NSString stringWithFormat:@"%s",returnStr.c_str()];
+  return return_string;
+}
+
+-(NSString *)GetTunnelState{
+  std::string returnStr =  GetTunnelState();
   NSString * return_string = [NSString stringWithFormat:@"%s",returnStr.c_str()];
   return return_string;
 }

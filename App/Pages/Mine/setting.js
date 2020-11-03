@@ -49,7 +49,7 @@ export default class setting extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.setViewRoot}>
-                    {this.renderTheAcceleratorAutoItem()}
+                    {/* {this.renderTheAcceleratorAutoItem()} */}
                     {this.renderTheSuggestionItem()}
                 </View>
                 <View style={styles.logoutRoot}>

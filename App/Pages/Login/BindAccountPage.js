@@ -29,7 +29,6 @@ export default class BindAccountPage extends Component {
 
     componentDidMount() {
         const { data } = this.props.route.params;
-        console.log('入参入参',data);
         
         this.setState({
             sessionID:data.sessionID,
@@ -128,112 +127,25 @@ export default class BindAccountPage extends Component {
             return;
         }
 
-        // Loading.show();
+        Loading.show();
 
         Api.YuelunBindUsers(this.state.sessionID,"1",this.state.userID,"","",phoneNum,verificationCode,"")
         .then((result)=>{
+            Loading.hidden();
+            if(result['status'] == 'ok'){
+                Toast.show('绑定成功');
+                    setTimeout(() => {
+                        navigator.pop(this,2);
+                    }, 1500);
+            }else{
+                navigator.alert(this.alertPayload(result.msg));
+            }
             console.log('sjsjsjs',result);
         })
         .catch((error) => {
+            Loading.hidden();
             console.log(error);
         });
-        return;
-
-
-        Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion)
-            .then((result) => {
-                console.log('login---here', result);
-                Loading.hidden();
-                if (result['status'] == 'ok') {
-                    this.saveTheUserInfo(result);
-                    //session比较常用，所以在network里也存一份，方便使用
-                    Network.session = result?.data?.session_id ?? '';
-                    store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
-                    this.needToBindAccountAndPWD(result.is_bind);
-                } else {
-                    navigator.alert(this.alertPayload(result.msg));
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-    }
-
-    needToBindAccountAndPWD = (bind = 0) =>{
-        if(bind == 1){
-            navigator.back(this);
-        }else{
-            navigator.alert({
-                title: '提示',
-                content: '是否绑定账号和密码?',
-                bottomObjs: [
-                    {
-                        key: 'cancel',
-                        type: 'button',
-                        title: '否',
-                        callback : ()=>{
-                            navigator.back(this);
-                        }
-                    },
-                    {
-                        key: 'confirm',
-                        type: 'button',
-                        title: '确认',
-                        callback: () => {
-                            navigator.back(this);
-                        }
-                    }
-                ]
-            });
-        }
-    }
-
-
-    getVerificationCode = () => {
-        if (!this.state.isMessageBtnCanPress) {
-            return;
-        }
-        const { phoneNum, verificationCode } = this.state;
-        if (phoneNum.length !== 11) {
-            return;
-        }
-        Loading.show();
-        Api.sendPhoneCode(phoneNum)
-            .then((result) => {
-                Loading.hidden();
-                this.setState({
-                    messageBtnTitle: '60S',
-                    isMessageBtnCanPress: false
-                }, () => {
-                    let time = 60;
-                    this._messageTimer = setInterval(() => {
-                        time--;
-                        if (time == 0) {
-                            this.setState({
-                                messageBtnTitle: `获取验证码`,
-                                isMessageBtnCanPress: true
-                            });
-                            clearInterval(this._messageTimer);
-                            this._messageTimer = null;
-                        } else {
-                            this.setState({
-                                messageBtnTitle: `${time}s`,
-                            });
-
-                        }
-                    }, 1000)
-                });
-            });
-    }
-
-
-    startAppWithUnLogin = () => {
-        store.dispatch(app_start_app());
-    }
-
-    saveTheUserInfo = (userInfo) => {
-        AsyncStorage.setItem('userInfo', JSON.stringify(userInfo))
     }
 
     alertPayload = (msg) => {
