@@ -46,7 +46,8 @@ RCT_REMAP_METHOD(prepare, vpnPrepareWithServerAddress:(NSString *)serverAddress 
 //    [self.vpnManager configManagerWithModel:model];
 //    self.vpnManager.delegate = self;
 //
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(vpnDidChange:) name:NEVPNStatusDidChangeNotification object:nil];
+  
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(vpnDidChange:) name:NEVPNStatusDidChangeNotification object:nil];
   
   success(@"success");
 
@@ -70,14 +71,11 @@ RCT_REMAP_METHOD(stopVPN,stopVpnsuccess:(RCTPromiseResolveBlock)success failure:
         case NEVPNStatusConnecting:
         {
             NSLog(@"Connecting...");
-//          [self sendEventWithName:@"com.yuelun.VPN.stateListener" body:@{@"state":@"connecting"}];
-
         }
             break;
         case NEVPNStatusConnected:
         {
             NSLog(@"Connected...");
-//             [self sendEventWithName:@"com.yuelun.VPN.stateListener" body:@{@"state":@"connected"}];
             
         }
             break;
@@ -90,14 +88,11 @@ RCT_REMAP_METHOD(stopVPN,stopVpnsuccess:(RCTPromiseResolveBlock)success failure:
         case NEVPNStatusDisconnected:
         {
             NSLog(@"Disconnected...");
-//            [self sendEventWithName:@"com.yuelun.VPN.stateListener" body:@{@"state":@"disconnected"}];
-            
         }
             break;
         case NEVPNStatusInvalid:
             
             NSLog(@"Invliad");
-//         [self sendEventWithName:@"com.yuelun.VPN.stateListener" body:@{@"state":@"invliad"}];
             break;
         case NEVPNStatusReasserting:
             NSLog(@"Reasserting...");

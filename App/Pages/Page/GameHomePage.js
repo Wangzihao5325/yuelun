@@ -410,9 +410,9 @@ class acceleratorPage extends Component {
         if (!overseas_game_hot) overseas_game_hot = [];
         if (!overseas_game_new) overseas_game_new = [];
         let overseas_games = [];
-        overseas_games.push(...all_game_collection);
-        overseas_games.push(...all_game_hot);
-        overseas_games.push(...all_game_new);
+        // overseas_games.push(...all_game_collection);
+        // overseas_games.push(...all_game_hot);
+        // overseas_games.push(...all_game_new);
         overseas_games.push(...overseas_game_colloection);
         overseas_games.push(...overseas_game_hot);
         overseas_games.push(...overseas_game_new);

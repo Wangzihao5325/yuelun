@@ -40,7 +40,8 @@
 		806A22ED24E81D95000E7040 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806A22EC24E81D94000E7040 /* CFNetwork.framework */; };
 		806A22EF24E81DA0000E7040 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806A22EE24E81DA0000E7040 /* Security.framework */; };
 		80A39F8C25066F28005AD0CE /* ip2region.db in Resources */ = {isa = PBXBuildFile; fileRef = 80A39F8B25066F27005AD0CE /* ip2region.db */; };
-		80A39F8E2507D8B2005AD0CE /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A39F8D2507D8B2005AD0CE /* CocoaAsyncSocket.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		80A7270A2551B842005AB7F6 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A727092551B842005AB7F6 /* CocoaAsyncSocket.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		80A7270B2551B842005AB7F6 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A727092551B842005AB7F6 /* CocoaAsyncSocket.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		80F7766A24C7CE92004DCDB1 /* apiyuelun.h in Sources */ = {isa = PBXBuildFile; fileRef = 00E1FC0B24C2CDEA0092895E /* apiyuelun.h */; };
 		80F7767324D07210004DCDB1 /* ApiHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80F7767224D07210004DCDB1 /* ApiHelper.mm */; };
 		80F8AA6124E43EBA0073A30C /* XDXVPNManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80F8AA5E24E43EBA0073A30C /* XDXVPNManager.mm */; };
@@ -139,6 +140,7 @@
 		806A22EE24E81DA0000E7040 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		80A39F8B25066F27005AD0CE /* ip2region.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = ip2region.db; sourceTree = "<group>"; };
 		80A39F8D2507D8B2005AD0CE /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = "../../../../../Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/11ffa7470cbb4c0c57800565c879ee2f/Message/MessageTemp/006229311e74f516563f170bd667d98e/File/CocoaAsyncSocket.framework"; sourceTree = "<group>"; };
+		80A727092551B842005AB7F6 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaAsyncSocket.framework; sourceTree = "<group>"; };
 		80F7767124D07210004DCDB1 /* ApiHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiHelper.h; sourceTree = "<group>"; };
 		80F7767224D07210004DCDB1 /* ApiHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ApiHelper.mm; sourceTree = "<group>"; };
 		80F8AA5D24E43EBA0073A30C /* XDXVPNManagerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDXVPNManagerModel.h; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 			files = (
 				806A22EF24E81DA0000E7040 /* Security.framework in Frameworks */,
 				8046CC3925052AEC0089A9D4 /* libcurl.a in Frameworks */,
+				80A7270A2551B842005AB7F6 /* CocoaAsyncSocket.framework in Frameworks */,
 				8046CC3B25052AEC0089A9D4 /* libYuelunProxy.a in Frameworks */,
 				8046CC3525052AEC0089A9D4 /* libcrypto.a in Frameworks */,
 				8046CC3725052AEC0089A9D4 /* libssl.a in Frameworks */,
@@ -199,13 +202,13 @@
 			files = (
 				8027713B25051CB0005AEBB1 /* libc++.tbd in Frameworks */,
 				8027712725050DB3005AEBB1 /* libz.1.tbd in Frameworks */,
-				80A39F8E2507D8B2005AD0CE /* CocoaAsyncSocket.framework in Frameworks */,
 				8046CC3825052AEC0089A9D4 /* libssl.a in Frameworks */,
 				8046CC3625052AEC0089A9D4 /* libcrypto.a in Frameworks */,
 				8046CC3E25052AEC0089A9D4 /* libproxy_clientios.a in Frameworks */,
 				8046CC3A25052AEC0089A9D4 /* libcurl.a in Frameworks */,
 				8046CC3C25052AEC0089A9D4 /* libYuelunProxy.a in Frameworks */,
 				806A22EB24E81D85000E7040 /* ExternalAccessory.framework in Frameworks */,
+				80A7270B2551B842005AB7F6 /* CocoaAsyncSocket.framework in Frameworks */,
 				80F8AA7624E43F7C0073A30C /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,6 +286,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				80A727092551B842005AB7F6 /* CocoaAsyncSocket.framework */,
 				8046CC3025052AEB0089A9D4 /* libcrypto.a */,
 				8046CC3225052AEB0089A9D4 /* libcurl.a */,
 				8046CC3425052AEC0089A9D4 /* libproxy_clientios.a */,
@@ -840,6 +844,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K63Z3XNHX6;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -878,6 +886,10 @@
 				CODE_SIGN_ENTITLEMENTS = RNDemo/RNDemo.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K63Z3XNHX6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				INFOPLIST_FILE = RNDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -918,6 +930,7 @@
 					"$(USER_LIBRARY_DIR)/Containers/com.tencent.xinWeChat/Data/Library/Application\\ Support/com.tencent.xinWeChat/2.0b4.0.9/11ffa7470cbb4c0c57800565c879ee2f/Message/MessageTemp/006229311e74f516563f170bd667d98e/File",
 					"$(USER_LIBRARY_DIR)/Containers/com.tencent.xinWeChat/Data/Library/Application\\ Support/com.tencent.xinWeChat/2.0b4.0.9/11ffa7470cbb4c0c57800565c879ee2f/Message/MessageTemp/006229311e74f516563f170bd667d98e/File",
 					"$(USER_LIBRARY_DIR)/Containers/com.tencent.xinWeChat/Data/Library/Application\\ Support/com.tencent.xinWeChat/2.0b4.0.9/11ffa7470cbb4c0c57800565c879ee2f/Message/MessageTemp/006229311e74f516563f170bd667d98e/File",
+					"$(PROJECT_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = YueLunVPN/Info.plist;
@@ -956,6 +969,7 @@
 					"$(USER_LIBRARY_DIR)/Containers/com.tencent.xinWeChat/Data/Library/Application\\ Support/com.tencent.xinWeChat/2.0b4.0.9/11ffa7470cbb4c0c57800565c879ee2f/Message/MessageTemp/006229311e74f516563f170bd667d98e/File",
 					"$(USER_LIBRARY_DIR)/Containers/com.tencent.xinWeChat/Data/Library/Application\\ Support/com.tencent.xinWeChat/2.0b4.0.9/11ffa7470cbb4c0c57800565c879ee2f/Message/MessageTemp/006229311e74f516563f170bd667d98e/File",
 					"$(USER_LIBRARY_DIR)/Containers/com.tencent.xinWeChat/Data/Library/Application\\ Support/com.tencent.xinWeChat/2.0b4.0.9/11ffa7470cbb4c0c57800565c879ee2f/Message/MessageTemp/006229311e74f516563f170bd667d98e/File",
+					"$(PROJECT_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = YueLunVPN/Info.plist;
