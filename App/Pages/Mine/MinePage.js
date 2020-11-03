@@ -19,7 +19,7 @@ class MinePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            VIPStatus: true,
+            VIPStatus: false,
             VIPStartTime: "",
             VIPEndTime: "",
             VIPTitle: '',
@@ -39,7 +39,10 @@ class MinePage extends Component {
     dealTheVIPStatus = (VIPdata = '') => {
         console.log('userInfo===>', VIPdata);
         let VIPStatus = false;
-        if (VIPdata == '') {
+        if (VIPdata == '' || VIPdata.status == 'error') {
+            this.setState({
+                VIPStatus: false
+            });
             return;
         }
         let VIPType = VIPdata.data.package_type
