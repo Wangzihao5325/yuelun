@@ -18,7 +18,8 @@ class AccelerateDetails extends Component {
         pageType: 'stow',//stow,unfold
         icon: 'http://static.yuelun.com/game/game.png',
         name: '',
-        showModal: false
+        showModal: false,
+        modelTitle: ''
     }
 
     componentDidMount() {
@@ -28,7 +29,8 @@ class AccelerateDetails extends Component {
                 console.log('here is state from native', e)
                 if (e[0] === 'ToyVPN is connecting...') {
                     this.setState({
-                        showModal: true
+                        showModal: true,
+                        modelTitle: '正在加速'
                     })
                     //正在加速中
                 } else if (e[0] === 'ToyVPN is connected!') {
@@ -46,10 +48,10 @@ class AccelerateDetails extends Component {
                         });
                     });
                 } else if (e[0] === 'ToyVPN is connect failed!') {
-                    if(this.state.showModal){
+                    if (this.state.showModal) {
                         this.setState({
-                            showModal:false
-                        },()=>{
+                            showModal: false
+                        }, () => {
                             NavigationService.alert({
                                 title: '提示',
                                 content: '加速失败',
@@ -63,6 +65,21 @@ class AccelerateDetails extends Component {
                             });
                         })
                     }
+                } else if (e[0] === 'Disconnecting!') {
+                    this.setState({
+                        showModal: true,
+                        modelTitle: '正在关闭'
+                    })
+                } else if (e[0] === 'Disconnect!') {
+                    //各种断线操作
+                    const { accelerateInfo, id } = this.state
+                    accelerateInfo[id]["speedup"] = "0";
+                    AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
+                        this.setState({
+                            showModal: false,
+                            isAccelerate: false
+                        });
+                    });
                 }
             });
         }
@@ -149,7 +166,7 @@ class AccelerateDetails extends Component {
                 >
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <View style={{ height: 150, width: 150, backgroundColor: '#fff', justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}>
-                            <Text style={{ marginBottom: 10 }}>正在加速</Text>
+                            <Text style={{ marginBottom: 10 }}>{`${this.state.modelTitle}`}</Text>
                             <ActivityIndicator />
                         </View>
                     </View>
@@ -186,13 +203,6 @@ class AccelerateDetails extends Component {
         const { use_server_id, id, accelerateInfo } = this.state;
         if (this.state.isAccelerate) {
             vpnModule.stopVPN();
-            //各种断线操作
-            accelerateInfo[this.state.id]["speedup"] = "0";
-            AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
-                this.setState({
-                    isAccelerate: false
-                });
-            });
         } else {
             if (!this._isFirstAccelerate) {//第一次加速，进行弹窗提示
                 NavigationService.alert(this.vpnAlertPayload('want_add_setting'));

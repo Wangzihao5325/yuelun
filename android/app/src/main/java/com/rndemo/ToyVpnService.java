@@ -108,6 +108,7 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null && ACTION_DISCONNECT.equals(intent.getAction())) {
+            mHandler.sendEmptyMessage(R.string.disconnecting);
             try {
                 disconnect();
             } catch (InterruptedException e) {
@@ -120,20 +121,11 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
         }
     }
 
-    @Override
-    public void onDestroy() {
-        try {
-            disconnect();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean handleMessage(Message message) {
         //Toast.makeText(this, message.what, Toast.LENGTH_SHORT).show();
-        if (message.what != R.string.disconnected) {
+//        if (message.what != R.string.disconnected) {
             updateForegroundNotification(message.what);
             if(_reactContext == null) {
                 MainApplication application = (MainApplication) this.getApplication();
@@ -147,7 +139,7 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
                 _reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                         .emit("vpn_state", params);
             }
-        }
+        //}
         return true;
     }
 
@@ -248,12 +240,12 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
     }
 
     private void disconnect() throws InterruptedException {
-
-        mHandler.sendEmptyMessage(R.string.disconnected);
         com.yuelun.ylsdk.CProxClient.stoplocalproxy();
         mVpnConnection.disconnectTunnel();
         mVpnConnection.tearDownVpn();
         stopForeground(true);
+        mHandler.sendEmptyMessage(R.string.disconnected);
+        this.stopSelf();
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void updateForegroundNotification(final int message) {
