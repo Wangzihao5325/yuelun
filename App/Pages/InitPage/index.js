@@ -8,7 +8,8 @@ import {
     StatusBar,
     StyleSheet,
     AsyncStorage,
-    Alert
+    Alert,
+    Linking
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../Config/UIConfig';
@@ -125,11 +126,20 @@ export default class InitPage extends Component {
             if (last_version === appVersion) {
                 this._appInit()
             } else {
+                let url = Platform.OS === 'ios' ? res.data.ios_download_url : res.data.android_download_url;
                 Alert.alert(
                     "请更新App",
                     "点击确认，下载最新版本(暂无下载路径，点了也没用)",
                     [
-                        { text: "OK", onPress: () => console.log("OK Pressed") }
+                        {
+                            text: "OK", onPress: () => {
+                                if (url) {
+                                    Linking.canOpenURL(url).then(res => {
+                                        Linking.openURL(url)
+                                    })
+                                }
+                            }
+                        }
                     ]
                 );
             }
