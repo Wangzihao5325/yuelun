@@ -22,7 +22,8 @@ class MinePage extends Component {
             VIPStatus: true,
             VIPStartTime: "",
             VIPEndTime: "",
-            VIPTitle:''
+            VIPTitle: '',
+            VIPType: 3
         }
     }
 
@@ -41,7 +42,7 @@ class MinePage extends Component {
         if (VIPdata == '') {
             return;
         }
-
+        let VIPType = VIPdata.data.package_type
         let package_end_time = VIPdata.data.package_end_time ? VIPdata.data.package_end_time : "";
         let package_add_time = VIPdata.data.package_add_time ? VIPdata.data.package_add_time : "";
         if (package_add_time && package_end_time && package_add_time.length > 0 && package_end_time.length > 0) {
@@ -53,7 +54,8 @@ class MinePage extends Component {
             VIPStatus: VIPStatus,
             VIPStartTime: package_end_time,
             VIPEndTime: package_add_time,
-            VIPTitle: VIPdata.data.package_name
+            VIPTitle: VIPdata.data.package_name,
+            VIPType
         });
     }
 
@@ -138,7 +140,21 @@ class MinePage extends Component {
                     if (this.props.loginStatus) {
                         //let url = 'http://192.168.0.101:3000';
                         let url = 'https://pages.yuelun.com/mobile/pay';
-                        navigator.jump(this, PageName.NORMAL_VIP_BUY_WEB, { url: url, type: 'center' });
+                        if (this.state.VIPType === 3 || this.state.VIPType === undefined) {
+                            navigator.jump(this, PageName.NORMAL_VIP_BUY_WEB, { url: url, type: 'center' });
+                        } else {
+                            navigator.alert({
+                                title: '提示',
+                                content: 'PC套餐续费请前往官网购买，移动端只支持移动端套餐续费',
+                                bottomObjs: [
+                                    {
+                                        key: 'confirm',
+                                        type: 'button',
+                                        title: '确认',
+                                    }
+                                ]
+                            });
+                        }
                     } else {
                         navigator.jump(this, PageName.NORAML_LOGIN_PAGE);
                     }
@@ -164,7 +180,21 @@ class MinePage extends Component {
                     if (this.props.loginStatus) {
                         //let url = 'http://192.168.0.101:3000';
                         let url = 'https://pages.yuelun.com/mobile/pay';
-                        navigator.jump(this, PageName.NORMAL_VIP_BUY_WEB, { url: url, type: 'center' });
+                        if (this.state.VIPType === 3 || this.state.VIPType === undefined) {
+                            navigator.jump(this, PageName.NORMAL_VIP_BUY_WEB, { url: url, type: 'center' });
+                        } else {
+                            navigator.alert({
+                                title: '提示',
+                                content: 'PC套餐续费请前往官网购买，移动端只支持移动端套餐续费',
+                                bottomObjs: [
+                                    {
+                                        key: 'confirm',
+                                        type: 'button',
+                                        title: '确认',
+                                    }
+                                ]
+                            });
+                        }
                     } else {
                         navigator.jump(this, PageName.NORAML_LOGIN_PAGE);
                     }
@@ -197,12 +227,12 @@ class MinePage extends Component {
         } else if (type == 2) {
             navigator.jump(this, PageName.NORMAL_ABOUT_US);
         } else if (type == 3) {
-            if(this.props.loginStatus){
+            if (this.props.loginStatus) {
                 navigator.jump(this, PageName.NORMAL_PAGE_SETTING);
-            }else{
+            } else {
                 navigator.jump(this, PageName.NORAML_LOGIN_PAGE);
             }
-            
+
         }
     }
 
