@@ -244,7 +244,7 @@ export default class Login extends Component {
     }
 
     needToBindAccountAndPWD = (bind = 0) =>{
-        if(bind == 1){
+        if(bind == 0){
             navigator.back(this);
         }else{
             navigator.alert({

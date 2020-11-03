@@ -250,6 +250,11 @@ RCT_REMAP_METHOD(GetTunnelState, TunnelStateByResolver:(RCTPromiseResolveBlock)r
   resolve(returnStr);
 }
 
+RCT_REMAP_METHOD(yuelunGetNewConfig, yuelunGetNewConfigByResolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+  NSString * returnStr = [self yuelunGetNewConfig];
+  resolve(returnStr);
+}
+
 -(NSString *)getTheBannerData{
   std::string str = YuelunGetAdList();
   NSString * bannerString = [NSString stringWithFormat:@"%s",str.c_str()];
@@ -468,6 +473,12 @@ RCT_REMAP_METHOD(GetTunnelState, TunnelStateByResolver:(RCTPromiseResolveBlock)r
 
 -(NSString *)GetTunnelState{
   std::string returnStr =  GetTunnelState();
+  NSString * return_string = [NSString stringWithFormat:@"%s",returnStr.c_str()];
+  return return_string;
+}
+
+-(NSString *)yuelunGetNewConfig{
+  std::string returnStr = YuelunGetNewConfig();
   NSString * return_string = [NSString stringWithFormat:@"%s",returnStr.c_str()];
   return return_string;
 }
