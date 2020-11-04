@@ -38,17 +38,13 @@ class MinePage extends Component {
 
     dealTheVIPStatus = (VIPdata = '') => {
         console.log('userInfo===>', VIPdata);
-        console.log('sssss')
         let VIPStatus = false;
         if (VIPdata == '' || VIPdata.status == 'error') {
-            console.log('kkkk')
             this.setState({
                 VIPStatus: false
             });
             return;
         }
-        console.log('kkk111k')
-
         let VIPType = VIPdata.data.package_type
         let package_end_time = VIPdata.data.package_end_time ? VIPdata.data.package_end_time : "";
         let package_add_time = VIPdata.data.package_add_time ? VIPdata.data.package_add_time : "";
@@ -57,7 +53,6 @@ class MinePage extends Component {
         } else {
 
         }
-        console.log('VIPType',VIPType)
         this.setState({
             VIPStatus: VIPStatus,
             VIPStartTime: package_end_time,
