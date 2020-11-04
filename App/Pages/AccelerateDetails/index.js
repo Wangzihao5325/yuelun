@@ -206,7 +206,27 @@ class AccelerateDetails extends Component {
         let onlineState = await VpnStateUtil(accelerateInfo, id)
 
         if (onlineState.isTheGameAccele) {
-            vpnModule.stopVPN();
+            NavigationService.alert({
+                title: '请确认',
+                content: '是否确定停止加速功能',
+                bottomObjs: [
+                    {
+                        key: 'cancel',
+                        type: 'button',
+                        title: '手滑了',
+                    },
+                    {
+                        key: 'separator_1',
+                        type: 'separator'
+                    },
+                    {
+                        key: 'confirm',
+                        type: 'button',
+                        title: '关闭',
+                        callback: this.stopVpn
+                    }
+                ]
+            })
         } else {
             if (onlineState.isAppAccele) {
                 NavigationService.alert({
@@ -228,6 +248,10 @@ class AccelerateDetails extends Component {
                 }
             }
         }
+    }
+
+    stopVpn = () => {
+        vpnModule.stopVPN();
     }
 
     /*
