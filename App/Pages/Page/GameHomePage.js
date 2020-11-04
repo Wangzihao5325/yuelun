@@ -50,6 +50,8 @@ class acceleratorPage extends Component {
             all_game_domestic: [],
             all_game_overseas: [],
 
+            all_game_list: [],
+
             overseas_games: [],
             upcoming_games: [],
 
@@ -145,7 +147,7 @@ class acceleratorPage extends Component {
     renderTheNormalGamePage = () => {
         let dataArray = [];
         if (this.state.selectStatus == 2) {
-            dataArray = this.state.overseas_games;
+            dataArray = this.state.all_game_list;
         } else if (this.state.selectStatus == 3) {
             dataArray = this.state.upcoming_games;
         }
@@ -433,13 +435,21 @@ class acceleratorPage extends Component {
         upcoming_games.push(...upcoming_game_hot);
         upcoming_games.push(...upcoming_game_new);
 
+        let allGameList = [];
+        allGameList.push(...all_game_collection);
+        allGameList.push(...all_game_hot);
+        allGameList.push(...all_game_new);
+        allGameList.push(...all_game_domestic);
+        allGameList.push(...overseas_games);
+
         this.setState({
             all_game_collection: all_game_collection,
             all_game_hot: all_game_hot,
             all_game_new: all_game_new,
             all_game_domestic: all_game_domestic,
             overseas_games: overseas_games,
-            upcoming_games: upcoming_games
+            upcoming_games: upcoming_games,
+            all_game_list:allGameList
         });
     }
 
