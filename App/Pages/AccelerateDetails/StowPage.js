@@ -33,6 +33,8 @@ const StowPage = (props) => {
     return (
         <>
             <Cover
+                showModal={props.showModal}
+                modelTitle={props.modelTitle}
                 name={props.name}
                 icon={props.icon}
                 isAccelerate={props.isAccelerate}

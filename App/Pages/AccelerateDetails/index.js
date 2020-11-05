@@ -149,6 +149,8 @@ class AccelerateDetails extends Component {
             <SafeAreaView style={{ flex: 1, backgroundColor: bgColor, paddingTop: 0 }}>
                 {this.state.pageType === 'stow' &&
                     <StowPage
+                        showModal={this.state.showModal}
+                        modelTitle={this.state.modelTitle}
                         name={this.state.name}
                         icon={this.state.icon}
                         accelerateInfo={this.state.accelerateInfo}
@@ -170,10 +172,10 @@ class AccelerateDetails extends Component {
                     visible={this.state.showModal}
                 >
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={{ height: 150, width: 150, backgroundColor: '#fff', justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}>
+                        {/* <View style={{ height: 150, width: 150, backgroundColor: '#fff', justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}>
                             <Text style={{ marginBottom: 10 }}>{`${this.state.modelTitle}`}</Text>
                             <ActivityIndicator />
-                        </View>
+                        </View> */}
                     </View>
                 </Modal>
             </SafeAreaView>

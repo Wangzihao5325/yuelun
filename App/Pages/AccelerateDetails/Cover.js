@@ -6,7 +6,7 @@ import {
     Image,
     StyleSheet,
 } from 'react-native';
-//import HcdWaveView from './Wave'
+import HcdWaveView from './Wave'
 
 const Cover = (props) => {
     return (
@@ -20,23 +20,25 @@ const Cover = (props) => {
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <View style={styles.outerCircle}>
                         <View style={styles.middleCircle}>
-                            <Image
-                                style={styles.imageCircle}
-                                source={{ uri: props.icon }}
-                            />
+                            {!props.showModal &&
+                                <Image
+                                    style={styles.imageCircle}
+                                    source={{ uri: props.icon }}
+                                />
+                            }
                             {
-                                /*水波动画不开放
-                                isShowImage &&
-                                    <View style={{ width: 193, height: 193, borderRadius: 96.5, overflow: "hidden", position: 'relative' }}>
-                                        <HcdWaveView
-                                            navigation={props.navigation}
-                                            radius={193}
-                                        />
-                                        <View style={{ position: 'absolute', top: 50, left: 0, right: 0, height: 60, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                            <Text style={{ fontSize: 30, color: '#14D7D2' }} >{`${0} MB`}</Text>
-                                        </View>
+
+                                props.showModal &&
+                                <View style={{ width: 193, height: 193, borderRadius: 96.5, overflow: "hidden", position: 'relative' }}>
+                                    <HcdWaveView
+                                        navigation={props.navigation}
+                                        radius={193}
+                                    />
+                                    <View style={{ position: 'absolute', top: 50, left: 0, right: 0, height: 60, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text style={{ fontSize: 30, color: '#14D7D2' }} >{`${props.modelTitle}`}</Text>
                                     </View>
-                                */
+                                </View>
+
                             }
                         </View>
                     </View>
