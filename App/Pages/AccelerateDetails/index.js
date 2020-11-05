@@ -150,6 +150,8 @@ class AccelerateDetails extends Component {
                     <StowPage
                         name={this.state.name}
                         icon={this.state.icon}
+                        accelerateInfo={this.state.accelerateInfo}
+                        gameId={this.state.id}
                         pageTypeChange={this.pageTypeChange}
                         speedUp={this.speedUp}
                         isAccelerate={this.state.isAccelerate}

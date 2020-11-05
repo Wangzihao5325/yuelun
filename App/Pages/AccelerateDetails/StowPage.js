@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import StowAndUnfoldBtn from './StowAndUnfoldBtn';
 import CustomChart from './CustomChart';
+import InfoBlock from './InfoBlock';
 import CustomButton from '../../Components/Component/CustomButton';
 import Cover from './Cover';
 
@@ -11,9 +12,13 @@ const BottomPart = (props) => {
             <StowAndUnfoldBtn
                 onPress={props.stowAndUnfoldBtnPress}
             />
-            <CustomChart
-                isAccelerate={props.isAccelerate}
+            <InfoBlock
+                gameId={props.id}
+                accelerateInfo={props.accelerateInfo}
             />
+            {/* <CustomChart
+                isAccelerate={props.isAccelerate}
+            /> */}
             <CustomButton
                 title={props.isAccelerate ? '停止加速' : '立即加速'}
                 buttonStyle={styles.speedupButton}
@@ -37,6 +42,8 @@ const StowPage = (props) => {
                 stowAndUnfoldBtnPress={props.pageTypeChange}
                 speedUpBtnPress={props.speedUp}
                 isAccelerate={props.isAccelerate}
+                gameId={props.id}
+                accelerateInfo={props.accelerateInfo}
             />
         </>
     );
