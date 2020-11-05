@@ -5,7 +5,7 @@ import store from '../../store';
 import { acc_type_change } from '../../store/actions/accelerateAction';
 import VpnStateUtil from '../../Functions/Util/vpnStateUtil'
 import * as Api from '../../Functions/NativeBridge/ApiModule';
-
+import * as NavigationService from '../../Router/NavigationService';
 
 class InfoBlock extends Component {
     state = {
@@ -31,7 +31,23 @@ class InfoBlock extends Component {
     }
 
     accelerateTypeChange = () => {
-        store.dispatch(acc_type_change())
+        Api.getTunnelState().then(res => {
+            if (res.bacc) {
+                NavigationService.alert({
+                    title: '提示',
+                    content: '正在加速中，请先暂停加速再进行切换',
+                    bottomObjs: [
+                        {
+                            key: 'cancel',
+                            type: 'button',
+                            title: '确定'
+                        }
+                    ]
+                });
+            } else {
+                store.dispatch(acc_type_change())
+            }
+        })
     }
 
     render() {

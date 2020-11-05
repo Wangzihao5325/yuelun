@@ -25,7 +25,6 @@ class AccelerateDetails extends Component {
     }
 
     componentDidMount() {
-        console.log('111111', store.getState())
         if (Platform.OS === 'android') {
             this.emitterListener = DeviceEventEmitter.addListener('vpn_state', (e) => {
                 //e是原生传过来的参数
