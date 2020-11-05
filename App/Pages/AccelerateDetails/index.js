@@ -12,6 +12,7 @@ import { Loading } from '../../Components/Toast/Loading';
 import PageName from '../../Config/PageName';
 import { connect } from 'react-redux'
 import VpnStateUtil from '../../Functions/Util/vpnStateUtil'
+import store from '../../store';
 
 class AccelerateDetails extends Component {
     state = {
@@ -24,6 +25,7 @@ class AccelerateDetails extends Component {
     }
 
     componentDidMount() {
+        console.log('111111', store.getState())
         if (Platform.OS === 'android') {
             this.emitterListener = DeviceEventEmitter.addListener('vpn_state', (e) => {
                 //e是原生传过来的参数
@@ -295,7 +297,8 @@ class AccelerateDetails extends Component {
                     //各种连接操作
                     vpnModule.prepare()
                         .then(() => {
-                            vpnModule.startVpn(_sessionId, id, IPArray);
+                            let type = store.getState().acc.accelerateType === 'auto' ? '1' : '2'
+                            vpnModule.startVpn(_sessionId, id, type, IPArray);
                         });
                 } else {
                     if (res.status === 'ok') {

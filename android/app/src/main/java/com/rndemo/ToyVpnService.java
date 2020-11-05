@@ -155,9 +155,10 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
         final String strsessionid = bundle.getString("sessionid");
 
         final String strgameid = bundle.getString("gameid");
+        final String stracctype = bundle.getString("acctype");
         mVpnConnection = new ToyVpnConnection(
                 this, mNextConnectionId.getAndIncrement(), strsessionid, strgameid, "".getBytes(),
-                "", 0, false, Collections.emptySet());
+                "", 0, false,stracctype, Collections.emptySet(),mHandler);
         startConnection(mVpnConnection);
     }
     private boolean copyAssetAndWrite(String fileName){
