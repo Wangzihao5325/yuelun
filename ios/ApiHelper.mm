@@ -245,7 +245,7 @@ RCT_REMAP_METHOD(YuelunBindUsers, sessionid:(NSString *)strsession_id type:(NSSt
   resolve(returnStr);
 }
 
-RCT_REMAP_METHOD(GetTunnelState, TunnelStateByResolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+RCT_REMAP_METHOD(getTunnelState, TunnelStateByResolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
   NSString * returnStr = [self GetTunnelState];
   resolve(returnStr);
 }

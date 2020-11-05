@@ -39,6 +39,7 @@
 		806A22EB24E81D85000E7040 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806A22EA24E81D85000E7040 /* ExternalAccessory.framework */; };
 		806A22ED24E81D95000E7040 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806A22EC24E81D94000E7040 /* CFNetwork.framework */; };
 		806A22EF24E81DA0000E7040 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806A22EE24E81DA0000E7040 /* Security.framework */; };
+		807C72472554669C00809B68 /* VPNStatusNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 807C72462554669C00809B68 /* VPNStatusNotification.m */; };
 		80A39F8C25066F28005AD0CE /* ip2region.db in Resources */ = {isa = PBXBuildFile; fileRef = 80A39F8B25066F27005AD0CE /* ip2region.db */; };
 		80A7270A2551B842005AB7F6 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A727092551B842005AB7F6 /* CocoaAsyncSocket.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		80A7270B2551B842005AB7F6 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A727092551B842005AB7F6 /* CocoaAsyncSocket.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -138,6 +139,8 @@
 		806A22EA24E81D85000E7040 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		806A22EC24E81D94000E7040 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		806A22EE24E81DA0000E7040 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		807C72452554669C00809B68 /* VPNStatusNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VPNStatusNotification.h; sourceTree = "<group>"; };
+		807C72462554669C00809B68 /* VPNStatusNotification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VPNStatusNotification.m; sourceTree = "<group>"; };
 		80A39F8B25066F27005AD0CE /* ip2region.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = ip2region.db; sourceTree = "<group>"; };
 		80A39F8D2507D8B2005AD0CE /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = "../../../../../Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/11ffa7470cbb4c0c57800565c879ee2f/Message/MessageTemp/006229311e74f516563f170bd667d98e/File/CocoaAsyncSocket.framework"; sourceTree = "<group>"; };
 		80A727092551B842005AB7F6 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaAsyncSocket.framework; sourceTree = "<group>"; };
@@ -335,6 +338,8 @@
 				80F8AA5E24E43EBA0073A30C /* XDXVPNManager.mm */,
 				80F8AA5F24E43EBA0073A30C /* XDXVPNManager.h */,
 				80F8AA6024E43EBA0073A30C /* XDXVPNManagerModel.m */,
+				807C72452554669C00809B68 /* VPNStatusNotification.h */,
+				807C72462554669C00809B68 /* VPNStatusNotification.m */,
 			);
 			name = VPNManager;
 			path = RNDemo/VPNManager;
@@ -732,6 +737,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80F8AA7D24E4418E0073A30C /* YuelunVpn.m in Sources */,
+				807C72472554669C00809B68 /* VPNStatusNotification.m in Sources */,
 				806A22E524E81D20000E7040 /* GCDAsyncUdpSocket.m in Sources */,
 				80F7766A24C7CE92004DCDB1 /* apiyuelun.h in Sources */,
 				80F8AA6124E43EBA0073A30C /* XDXVPNManager.mm in Sources */,

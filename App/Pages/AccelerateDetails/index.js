@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Button, AsyncStorage, DeviceEventEmitter, Platform, Modal, View, Text, ActivityIndicator } from 'react-native';
+import { StyleSheet, Button, AsyncStorage, DeviceEventEmitter, Platform, Modal, View, Text, ActivityIndicator ,NativeEventEmitter ,NativeModules} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as NavigationService from '../../Router/NavigationService';
 import { themeColor } from '../../Config/UIConfig';
@@ -84,7 +84,17 @@ class AccelerateDetails extends Component {
                     });
                 }
             });
+        }else{
+            console.log('接收到监听-----注册');
+            this.dataToJSPresenter = new NativeEventEmitter(NativeModules.VPNStatusNotification);
+            this.dataToJSPresenter.addListener('vpn_state', (e) => {
+                console.log('接收到监听-----',e);
+                this.setState({
+                    data: e.data
+                });
+            });
         }
+        
         const { data } = this.props.route.params;
         let gameInfo = JSON.parse(data);
         /** gameInfo

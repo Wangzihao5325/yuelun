@@ -11,6 +11,7 @@
 #import "XDXVPNManager.h"
 #import "XDXVPNManagerModel.h"
 #import "VPN_Manager.h"
+#import "VPNStatusNotification.h"
 
 @interface YuelunVpn()<XDXVPNManagerDelegate>
 @property (nonatomic, strong)           XDXVPNManager   *vpnManager;
@@ -75,6 +76,8 @@ RCT_REMAP_METHOD(stopVPN,stopVpnsuccess:(RCTPromiseResolveBlock)success failure:
             break;
         case NEVPNStatusConnected:
         {
+//          VPNStatusNotification * VPN = [VPNStatusNotification shareInstance];
+//          [VPN sendEventWithName:@"vpn_state" body:@"test"];
             NSLog(@"Connected...");
             
         }
