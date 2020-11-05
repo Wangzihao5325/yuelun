@@ -199,7 +199,7 @@ class MinePage extends Component {
         if(this.state.VIPType == '2'){
             timeMsg = '剩余' + this.state.type2Msg;
         }else{
-            timeMsg = this.state.VIPEndTime;
+            timeMsg = this.state.VIPEndTime + "到期";
         }
 
         return (
@@ -210,7 +210,7 @@ class MinePage extends Component {
                 <Image style={[styles.VIPIcon, { marginTop: -20 }]} source={require('../../resource/Image/Mine/VIPicon.png')} />
                 <View style={{ flex: 1 }}>
                     <Text style={styles.buyVIPRootStyle}>{`${this.state.VIPTitle}`}</Text>
-                    <Text style={styles.VIPTimeInfoStyle}>{timeMsg + "到期"}</Text>
+                    <Text style={styles.VIPTimeInfoStyle}>{timeMsg}</Text>
                 </View>
                 <TouchableOpacity style={styles.buyBtnRoot} onPress={() => {
                     if (this.props.loginStatus) {
@@ -288,7 +288,7 @@ class MinePage extends Component {
         let m = parseInt(VIPTimestamp / 60);
         let s = VIPTimestamp - m * 60;
 
-        let type2Msg = h+'小时'+m+'分钟'+s+'秒后';
+        let type2Msg = h+'小时'+m+'分钟'+s+'秒';
         console.log('剩余时间'+h+'小时'+m+'分钟'+s+'秒');
 
         this.setState({
