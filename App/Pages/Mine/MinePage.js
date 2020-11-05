@@ -23,7 +23,9 @@ class MinePage extends Component {
             VIPStartTime: "",
             VIPEndTime: "",
             VIPTitle: '',
-            VIPType: 3
+            VIPType: 3,
+            VIPTimestamp : 0,
+            type2Msg:'',
         }
     }
 
@@ -32,8 +34,21 @@ class MinePage extends Component {
             ApiModule.getTheUserInforWithSessionID().then((result) => {
                 this.dealTheVIPStatus(result);
             });
+
+            if(this.props.loginStatus){
+                if(this.state.VIPStatus && this.state.VIPType == '2'){
+                    this.startTheTimerInterval();
+                }
+            }
         });
 
+
+        this._unfocusUnsubscribe = this.props.navigation.addListener('blur', () => {
+            if (this.requestTimer) {
+                clearInterval(this.requestTimer);
+                this.requestTimer = null;
+            }
+        })
     }
 
     dealTheVIPStatus = (VIPdata = '') => {
@@ -53,12 +68,23 @@ class MinePage extends Component {
         } else {
 
         }
+
+        let timestamp = '';
+        if(VIPType == '2'){
+            timestamp = VIPdata.data.package_end_time ? VIPdata.data.package_end_time : 0;
+        }
+
         this.setState({
             VIPStatus: VIPStatus,
-            VIPStartTime: package_end_time,
-            VIPEndTime: package_add_time,
+            VIPStartTime: package_add_time,
+            VIPEndTime: package_end_time,
             VIPTitle: VIPdata.data.package_name,
-            VIPType
+            VIPType:VIPType,
+            VIPTimestamp:timestamp
+        },()=>{
+            if(VIPStatus && VIPType == '2'){
+                this.startTheTimerInterval();
+            }
         });
     }
 
@@ -169,6 +195,13 @@ class MinePage extends Component {
     }
 
     renderTheVIPInfoView = () => {
+        let timeMsg = '';
+        if(this.state.VIPType == '2'){
+            timeMsg = '剩余' + this.state.type2Msg;
+        }else{
+            timeMsg = this.state.VIPEndTime;
+        }
+
         return (
             <ImageBackground
                 resizeMode='stretch'
@@ -177,11 +210,10 @@ class MinePage extends Component {
                 <Image style={[styles.VIPIcon, { marginTop: -20 }]} source={require('../../resource/Image/Mine/VIPicon.png')} />
                 <View style={{ flex: 1 }}>
                     <Text style={styles.buyVIPRootStyle}>{`${this.state.VIPTitle}`}</Text>
-                    <Text style={styles.VIPTimeInfoStyle}>{this.state.VIPEndTime + "到期"}</Text>
+                    <Text style={styles.VIPTimeInfoStyle}>{timeMsg + "到期"}</Text>
                 </View>
                 <TouchableOpacity style={styles.buyBtnRoot} onPress={() => {
                     if (this.props.loginStatus) {
-                        //let url = 'http://192.168.0.101:3000';
                         let url = 'https://pages.yuelun.com/mobile/pay';
                         if (this.state.VIPType === '3' || this.state.VIPType === undefined) {
                             navigator.jump(this, PageName.NORMAL_VIP_BUY_WEB, { url: url, type: 'center' });
@@ -246,6 +278,40 @@ class MinePage extends Component {
 
     clickTheCheckUserInformationFunction = () => {
         navigator.jump(this, PageName.NORMAL_PERSONAL_INFO);
+    }
+
+    calculateTheTimeBomb = () =>{
+        let VIPTimestamp = this.state.VIPTimestamp;
+        let timestamp = this.state.VIPTimestamp - 1;
+        let h = parseInt(VIPTimestamp / 3600);
+        VIPTimestamp = VIPTimestamp - h * 3600;
+        let m = parseInt(VIPTimestamp / 60);
+        let s = VIPTimestamp - m * 60;
+
+        let type2Msg = h+'小时'+m+'分钟'+s+'秒后';
+        console.log('剩余时间'+h+'小时'+m+'分钟'+s+'秒');
+
+        this.setState({
+            VIPTimestamp:timestamp,
+            type2Msg:type2Msg
+        });
+    }
+
+    startTheTimerInterval = () => {
+        if (this.state.VIPType != '2') {
+            this.destroyTheTimer();
+            return;
+        }
+
+        /** 重启timer则先销毁原timer，保证定时器的唯一性，避免野指针*/
+        this.destroyTheTimer();
+        this.requestTimer = setInterval(() => {
+            this.calculateTheTimeBomb();
+        }, 1000);
+    }
+
+    destroyTheTimer = () => {
+        this.requestTimer && clearInterval(this.requestTimer);
     }
 }
 
