@@ -26,6 +26,7 @@ import android.net.ProxyInfo;
 import android.net.VpnService;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
 import android.util.Log;
@@ -100,6 +101,8 @@ public class ToyVpnConnection {
     private final String mStrsessionid;
     private final String mStrgameid;
     private final byte[] mSharedSecret;
+    private final String acctype;
+    private final Handler acchander;
 
     private PendingIntent mConfigureIntent;
     private OnEstablishListener mOnEstablishListener;
@@ -119,14 +122,16 @@ public class ToyVpnConnection {
     private Vector vecprocesslsit = new Vector();
     public ToyVpnConnection(final VpnService service, final int connectionId,
                             final String strsessonid, final String strgameid, final byte[] sharedSecret,
-                            final String proxyHostName, final int proxyHostPort, boolean allow,
-                            final Set<String> packages) {
+                            final String proxyHostName, final int proxyHostPort, boolean allow, final String stracctype,
+                            final Set<String> packages, Handler vpnhander) {
         mService = service;
         mConnectionId = connectionId;
 
         mStrsessionid = strsessonid;
         mStrgameid= strgameid;
         mSharedSecret = sharedSecret;
+        acctype = stracctype;
+        acchander = vpnhander;
 
         if (!TextUtils.isEmpty(proxyHostName)) {
             mProxyHostName = proxyHostName;
@@ -174,8 +179,9 @@ public class ToyVpnConnection {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        int type = acctype.equals("1") ? 1:2;
         //启动加速成功
-        int ret = CProxClient.createTunnel(mStrsessionid, mStrgameid, port, 1);
+        int ret = CProxClient.createTunnel(mStrsessionid, mStrgameid, port, type);
         //创建本地代理及其隧道成功
         if (ret == 0) {
             iface = tunestablish();
@@ -220,6 +226,8 @@ public class ToyVpnConnection {
 //            connected = true;
 
             return true;
+        }else {
+            acchander.sendEmptyMessage(R.string.failed);
         }
         Log.w(getTag(), "create ylproxy is failed...\n");
 

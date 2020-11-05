@@ -90,13 +90,14 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
         }
     }
     @ReactMethod
-    public void startVpn(String strsessionid,String strgameid,Promise promise) throws IOException {
+    public void startVpn(String strsessionid,String strgameid,String strType,Promise promise) throws IOException {
         //占用2020端口
         //已经取得真正的参数，开始启动vpn
         System.out.print("star vpn is begin");
         Bundle profileInfo = new Bundle();
         profileInfo.putString("sessionid", strsessionid);
         profileInfo.putString("gameid", strgameid);
+        profileInfo.putString("acctype", strType);
         Intent intent = new Intent(_reactContext, ToyVpnService.class);
         intent.putExtras(profileInfo);
         //通过intent传递参数 启动service 代码跳转至toyVpnService
