@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Button, AsyncStorage, DeviceEventEmitter, Platform, Modal, View, Text, ActivityIndicator ,NativeEventEmitter ,NativeModules} from 'react-native';
+import { StyleSheet, Button, AsyncStorage, DeviceEventEmitter, Platform, Modal, View, Text, ActivityIndicator, NativeEventEmitter, NativeModules } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as NavigationService from '../../Router/NavigationService';
 import { themeColor } from '../../Config/UIConfig';
@@ -84,17 +84,17 @@ class AccelerateDetails extends Component {
                     });
                 }
             });
-        }else{
+        } else {
             console.log('接收到监听-----注册');
             this.dataToJSPresenter = new NativeEventEmitter(NativeModules.VPNStatusNotification);
             this.dataToJSPresenter.addListener('vpn_state', (e) => {
-                console.log('接收到监听-----',e);
+                console.log('接收到监听-----', e);
                 this.setState({
                     data: e.data
                 });
             });
         }
-        
+
         const { data } = this.props.route.params;
         let gameInfo = JSON.parse(data);
         /** gameInfo
@@ -112,7 +112,7 @@ class AccelerateDetails extends Component {
             Loading.hidden();
             console.log("getGameInfoByIdgetGameInfoById", request);
             if (request.status === 'error') {
-                NavigationService.alert(this.alertPayload('getGameInfoById存在报错'));
+                NavigationService.alert(this.alertPayload('数据解析失败'));
             } else {
                 this.setState({
                     ...request.data.game_info,
@@ -157,7 +157,19 @@ class AccelerateDetails extends Component {
         const { bgColor } = themeColor;
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: bgColor, paddingTop: 0 }}>
-                {this.state.pageType === 'stow' &&
+                <StowPage
+                    showModal={this.state.showModal}
+                    modelTitle={this.state.modelTitle}
+                    name={this.state.name}
+                    icon={this.state.icon}
+                    accelerateInfo={this.state.accelerateInfo}
+                    gameId={this.state.id}
+                    pageTypeChange={this.pageTypeChange}
+                    speedUp={this.speedUp}
+                    isAccelerate={this.state.isAccelerate}
+                    navigation={this.props.navigation}
+                />
+                {/*this.state.pageType === 'stow' &&
                     <StowPage
                         showModal={this.state.showModal}
                         modelTitle={this.state.modelTitle}
@@ -170,13 +182,13 @@ class AccelerateDetails extends Component {
                         isAccelerate={this.state.isAccelerate}
                         navigation={this.props.navigation}
                     />
-                }
-                {this.state.pageType === 'unfold' &&
+        */}
+                {/*this.state.pageType === 'unfold' &&
                     <UnfoldPage
                         pageTypeChange={this.pageTypeChange}
                         isAccelerate={this.state.isAccelerate}
                     />
-                }
+            */}
                 <Modal
                     transparent={true}
                     visible={this.state.showModal}

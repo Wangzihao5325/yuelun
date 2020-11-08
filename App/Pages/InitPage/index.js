@@ -129,7 +129,7 @@ export default class InitPage extends Component {
                 let url = Platform.OS === 'ios' ? res.data.ios_download_url : res.data.android_download_url;
                 Alert.alert(
                     "请更新App",
-                    "点击确认，下载最新版本(暂无下载路径，点了也没用)",
+                    "点击确认，下载最新版本",
                     [
                         {
                             text: "OK", onPress: () => {

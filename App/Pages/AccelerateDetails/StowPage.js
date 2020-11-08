@@ -9,9 +9,9 @@ import Cover from './Cover';
 const BottomPart = (props) => {
     return (
         <View style={{ backgroundColor: '#001B41', display: 'flex' }}>
-            <StowAndUnfoldBtn
+            {/* <StowAndUnfoldBtn
                 onPress={props.stowAndUnfoldBtnPress}
-            />
+            /> */}
             <InfoBlock
                 gameId={props.id}
                 accelerateInfo={props.accelerateInfo}
