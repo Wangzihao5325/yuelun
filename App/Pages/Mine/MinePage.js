@@ -3,9 +3,11 @@ import {
     View,
     Text,
     Image,
+    Alert,
     StyleSheet,
     ImageBackground,
-    TouchableOpacity
+    TouchableOpacity,
+    Linking
 } from 'react-native';
 
 import PageName from '../../Config/PageName';
@@ -16,6 +18,8 @@ import * as SystemConfig from '../../Config/SystemConfig';
 import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
 import store from '../../store';
 import { unsafe_update } from '../../store/actions/userAction';
+import { Toast } from '../../Components/Toast/Toast';
+import { appVersion } from '../../Config/SystemConfig';
 
 class MinePage extends Component {
     constructor(props) {
@@ -114,6 +118,7 @@ class MinePage extends Component {
                 {this.renderTheSettingsItem(require('../../resource/Image/Mine/remind.png'), '公告消息', 1)}
                 {this.renderTheSettingsItem(require('../../resource/Image/Mine/aboutUs.png'), '关于我们', 2)}
                 {this.renderTheSettingsItem(require('../../resource/Image/Mine/setting.png'), '设置', 3)}
+                {this.renderTheSettingsItem(require('../../resource/Image/Normal/mobile.png'), '检查在线更新', 4)}
             </View>
         );
     }
@@ -275,6 +280,13 @@ class MinePage extends Component {
                 navigator.jump(this, PageName.NORAML_LOGIN_PAGE);
             }
 
+        }else if (type == 4) {
+            if (this.props.loginStatus) {
+                this.checkTheSystemNeedToUpdate();
+            } else {
+                navigator.jump(this, PageName.NORAML_LOGIN_PAGE);
+            }
+
         }
     }
 
@@ -319,6 +331,37 @@ class MinePage extends Component {
 
     destroyTheTimer = () => {
         this.requestTimer && clearInterval(this.requestTimer);
+    }
+
+    checkTheSystemNeedToUpdate = () =>{
+        ApiModule.getAppNewConfig().then(res => {
+            let last_version = res?.data?.last_version ?? '';
+            if (last_version === appVersion) {
+                Toast.show('当前已经是最新版本');
+            } else {
+                let url = Platform.OS === 'ios' ? res.data.ios_download_url : res.data.android_download_url;
+                Alert.alert(
+                    "请更新App",
+                    "点击确认，下载最新版本",
+                    [
+                        {
+                            text: "暂不", onPress: () => {
+                                
+                            }
+                        },
+                        {
+                            text: "确认", onPress: () => {
+                                if (url) {
+                                    Linking.canOpenURL(url).then(res => {
+                                        Linking.openURL(url)
+                                    })
+                                }
+                            }
+                        }
+                    ]
+                );
+            }
+        })
     }
 }
 

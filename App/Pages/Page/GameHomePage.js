@@ -383,8 +383,8 @@ class acceleratorPage extends Component {
             .then((result) => {
                 Loading.hidden();
                 console.log('allGameDataallGameData', result);
-                this.saveTheHomePageDataToLocal(result);
                 this.parseAllGameData(result);
+                this.saveTheHomePageDataToLocal(result);
             })
     }
 
