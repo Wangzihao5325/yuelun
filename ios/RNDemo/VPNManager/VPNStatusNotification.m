@@ -20,17 +20,10 @@ static VPNStatusNotification *instance = nil;
 }
 
 + (instancetype)shareInstance {
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
+  if(!instance){
     instance = [[self alloc] init];
-  });
-  [instance postVPNConnectNotificationEvent:@""];
+  }
   return instance;
-}
-
-RCT_EXPORT_METHOD(postVPNConnectNotificationEvent:(NSString *)name)
-{
-  [self sendEventWithName:@"vpn_state" body:@"test"];
 }
 
 @end
