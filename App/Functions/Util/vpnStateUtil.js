@@ -4,7 +4,7 @@ export default async function VpnStateUtil(localData, id) {
     let res = await vpnModule.getTunnelState()
     let isAppAccele = false
     let isTheGameAccele = false
-    let newLocalData = JSON.parse(JSON.stringify(localData))
+    let newLocalData = localData ? JSON.parse(JSON.stringify(localData)) : {};
     if (res.bacc) {
         //在加速
         isAppAccele = true

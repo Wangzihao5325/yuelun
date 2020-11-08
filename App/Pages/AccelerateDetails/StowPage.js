@@ -12,10 +12,13 @@ const BottomPart = (props) => {
             {/* <StowAndUnfoldBtn
                 onPress={props.stowAndUnfoldBtnPress}
             /> */}
-            <InfoBlock
-                gameId={props.id}
-                accelerateInfo={props.accelerateInfo}
-            />
+            {Boolean(props.gameId) && props.accelerateInfo && Object.values(props.accelerateInfo).length > 0 &&
+                <InfoBlock
+                    gameId={props.gameId}
+                    accelerateInfo={props.accelerateInfo}
+                    isAccelerate={props.isAccelerate}
+                />
+            }
             {/* <CustomChart
                 isAccelerate={props.isAccelerate}
             /> */}
@@ -44,7 +47,7 @@ const StowPage = (props) => {
                 stowAndUnfoldBtnPress={props.pageTypeChange}
                 speedUpBtnPress={props.speedUp}
                 isAccelerate={props.isAccelerate}
-                gameId={props.id}
+                gameId={props.gameId}
                 accelerateInfo={props.accelerateInfo}
             />
         </>

@@ -56,7 +56,6 @@ export default class acceleratorPage extends Component {
             AsyncStorage.getItem('accelerateInfo').then(value => {
                 let accelerateInfo = JSON.parse(value || '{}');
                 let data = _.values(accelerateInfo);
-                console.log('---here---', accelerateInfo);
                 this.setState({
                     dataArray: data,
                     accelerateInfo: accelerateInfo
@@ -81,7 +80,6 @@ export default class acceleratorPage extends Component {
 
 
     render() {
-        console.log('测试触发render', this.state.dataArray);
         if (this.state.dataArray.length == 0) {
             return (
                 <View style={styles.container}>
@@ -121,7 +119,6 @@ export default class acceleratorPage extends Component {
     deleteTheItem = (item) => {
         const { dataArray, accelerateInfo } = this.state;
         let idKey = dataArray[item.index]["id"];
-        console.log('deletedelete', idKey);
         delete accelerateInfo[idKey];
         dataArray.splice(item.index, 1);
         this.setState({ "dataArray": dataArray, "accelerateInfo": accelerateInfo });
@@ -173,7 +170,6 @@ export default class acceleratorPage extends Component {
 
     updateSpeedUpStatusToLocal = (id = '') => {
         const { accelerateInfo } = this.state;
-        console.log('sadasdadasd', accelerateInfo, accelerateInfo[id]);
         if (accelerateInfo[id]["speedup"] === "1") {
             let _date = new Date();
             accelerateInfo[id]["_timeReg"] = _date;
@@ -318,7 +314,6 @@ export default class acceleratorPage extends Component {
 
     startTheTimerInterval = () => {
         if (this.state.dataArray.length == 0) {
-            console.log('启动循环---数量为0');
             this.destroyTheTimer();
             return;
         }
