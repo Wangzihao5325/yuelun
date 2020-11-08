@@ -12,6 +12,7 @@ const initialState = {
     package_id: "0",
     package_name: "0",
     package_type: "0",
+    package_end_time:'',
     remaining_time: "0",
     server_list: null,
     session_id: "",

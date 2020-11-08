@@ -14,6 +14,8 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../Config/UIConfig';
 import { connect } from 'react-redux';
 import * as SystemConfig from '../../Config/SystemConfig';
 import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
+import store from '../../store';
+import { unsafe_update } from '../../store/actions/userAction';
 
 class MinePage extends Component {
     constructor(props) {
@@ -24,8 +26,8 @@ class MinePage extends Component {
             VIPEndTime: "",
             VIPTitle: '',
             VIPType: 3,
-            VIPTimestamp : 0,
-            type2Msg:'',
+            VIPTimestamp: 0,
+            type2Msg: '',
         }
     }
 
@@ -35,8 +37,8 @@ class MinePage extends Component {
                 this.dealTheVIPStatus(result);
             });
 
-            if(this.props.loginStatus){
-                if(this.state.VIPStatus && this.state.VIPType == '2'){
+            if (this.props.loginStatus) {
+                if (this.state.VIPStatus && this.state.VIPType == '2') {
                     this.startTheTimerInterval();
                 }
             }
@@ -70,19 +72,23 @@ class MinePage extends Component {
         }
 
         let timestamp = '';
-        if(VIPType == '2'){
+        if (VIPType == '2') {
             timestamp = VIPdata.data.package_end_time ? VIPdata.data.package_end_time : 0;
         }
-
+        store.dispatch(unsafe_update({
+            package_type: VIPType,
+            package_name: VIPdata.data.package_name,
+            package_end_time
+        }))
         this.setState({
             VIPStatus: VIPStatus,
             VIPStartTime: package_add_time,
             VIPEndTime: package_end_time,
             VIPTitle: VIPdata.data.package_name,
-            VIPType:VIPType,
-            VIPTimestamp:timestamp
-        },()=>{
-            if(VIPStatus && VIPType == '2'){
+            VIPType: VIPType,
+            VIPTimestamp: timestamp
+        }, () => {
+            if (VIPStatus && VIPType == '2') {
                 this.startTheTimerInterval();
             }
         });
@@ -167,7 +173,7 @@ class MinePage extends Component {
                 </View>
                 <TouchableOpacity style={styles.buyBtnRoot} onPress={() => {
                     if (this.props.loginStatus) {
-                        //let url = 'http://192.168.0.101:3000';
+                        //let url = 'http://192.168.0.103:3000';
                         let url = 'https://pages.yuelun.com/mobile/pay';
                         if (this.state.VIPType === '3' || this.state.VIPType === undefined) {
                             navigator.jump(this, PageName.NORMAL_VIP_BUY_WEB, { url: url, type: 'center' });
@@ -196,9 +202,9 @@ class MinePage extends Component {
 
     renderTheVIPInfoView = () => {
         let timeMsg = '';
-        if(this.state.VIPType == '2'){
+        if (this.state.VIPType == '2') {
             timeMsg = '剩余' + this.state.type2Msg;
-        }else{
+        } else {
             timeMsg = this.state.VIPEndTime + "到期";
         }
 
@@ -214,6 +220,7 @@ class MinePage extends Component {
                 </View>
                 <TouchableOpacity style={styles.buyBtnRoot} onPress={() => {
                     if (this.props.loginStatus) {
+                        //let url = 'http://192.168.0.103:3000';
                         let url = 'https://pages.yuelun.com/mobile/pay';
                         if (this.state.VIPType === '3' || this.state.VIPType === undefined) {
                             navigator.jump(this, PageName.NORMAL_VIP_BUY_WEB, { url: url, type: 'center' });
@@ -280,7 +287,7 @@ class MinePage extends Component {
         navigator.jump(this, PageName.NORMAL_PERSONAL_INFO);
     }
 
-    calculateTheTimeBomb = () =>{
+    calculateTheTimeBomb = () => {
         let VIPTimestamp = this.state.VIPTimestamp;
         let timestamp = this.state.VIPTimestamp - 1;
         let h = parseInt(VIPTimestamp / 3600);
@@ -288,12 +295,12 @@ class MinePage extends Component {
         let m = parseInt(VIPTimestamp / 60);
         let s = VIPTimestamp - m * 60;
 
-        let type2Msg = h+'小时'+m+'分钟'+s+'秒';
-        console.log('剩余时间'+h+'小时'+m+'分钟'+s+'秒');
+        let type2Msg = h + '小时' + m + '分钟' + s + '秒';
+        console.log('剩余时间' + h + '小时' + m + '分钟' + s + '秒');
 
         this.setState({
-            VIPTimestamp:timestamp,
-            type2Msg:type2Msg
+            VIPTimestamp: timestamp,
+            type2Msg: type2Msg
         });
     }
 

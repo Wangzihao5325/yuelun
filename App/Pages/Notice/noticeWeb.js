@@ -36,7 +36,13 @@ class NoticeWeb extends Component {
     }
 
     sendUserInfoToWeb = () => {
-        let payloadStr = JSON.stringify({ userName: this.props.name, phone: this.props.mobile });
+        let payloadStr = JSON.stringify({
+            userName: this.props.name,
+            phone: this.props.mobile,
+            package_name: this.props.package_name,
+            package_type: this.props.package_type,
+            package_end_time: this.props.package_end_time,
+        });
         const successCallback = `window._unsafe_user_setState(${payloadStr})`;
         this.webView.injectJavaScript(successCallback);
     }
@@ -52,12 +58,8 @@ class NoticeWeb extends Component {
     }
 
     makeOrder = (selectData, payType) => {
-        console.log('---un order---');
-        console.log(selectData);
         Api.createOrder("1", selectData.package_id, selectData.id, selectData.price, selectData.price, payType)
             .then((res) => {
-                console.log('---pppp----');
-                console.log(res);
                 if (res.data) {
                     let payloadStr = JSON.stringify(res.data);
                     console.log('dddddd');
@@ -83,6 +85,9 @@ class NoticeWeb extends Component {
 const mapStateToProps = (state) => ({
     name: state.user.username,
     mobile: state.user.mobile,
+    package_name: state.user.package_name,
+    package_type: state.user.package_type,
+    package_end_time: state.user.package_end_time,
 })
 
 export default connect(mapStateToProps)(NoticeWeb);
