@@ -280,7 +280,7 @@ class MinePage extends Component {
                 navigator.jump(this, PageName.NORAML_LOGIN_PAGE);
             }
 
-        }else if (type == 4) {
+        } else if (type == 4) {
             if (this.props.loginStatus) {
                 this.checkTheSystemNeedToUpdate();
             } else {
@@ -333,11 +333,21 @@ class MinePage extends Component {
         this.requestTimer && clearInterval(this.requestTimer);
     }
 
-    checkTheSystemNeedToUpdate = () =>{
+    checkTheSystemNeedToUpdate = () => {
         ApiModule.getAppNewConfig().then(res => {
             let last_version = res?.data?.last_version ?? '';
             if (last_version === appVersion) {
-                Toast.show('当前已经是最新版本');
+                Alert.alert(
+                    "提示",
+                    "当前已经是最新版本",
+                    [
+                        {
+                            text: "确定", onPress: () => {
+
+                            }
+                        },
+                    ]
+                );
             } else {
                 let url = Platform.OS === 'ios' ? res.data.ios_download_url : res.data.android_download_url;
                 Alert.alert(
@@ -346,7 +356,7 @@ class MinePage extends Component {
                     [
                         {
                             text: "暂不", onPress: () => {
-                                
+
                             }
                         },
                         {
