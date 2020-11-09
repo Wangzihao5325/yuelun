@@ -54,10 +54,10 @@ export default class acceleratorPage extends Component {
 
     componentDidMount() {
         this._unsubscribe = this.props.navigation.addListener('focus', () => {
-            AsyncStorage.getItem('accelerateInfo').then(async(value) => {
+            AsyncStorage.getItem('accelerateInfo').then(async (value) => {
                 let accelerateInfo = JSON.parse(value || '{}');
-                accelerateInfo = await VpnStateUtil(accelerateInfo, '');
-                let data = _.values(accelerateInfo);
+                const { newLocalData } = await VpnStateUtil(accelerateInfo, '');
+                let data = _.values(newLocalData);
                 this.setState({
                     dataArray: data,
                     accelerateInfo: accelerateInfo
