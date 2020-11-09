@@ -30,7 +30,7 @@ class InfoBlock extends Component {
         return `${h}:${m}:${s}`
     }
 
-    _handleAppStateChange = () => {
+    _handleAppStateChange = (nextAppState) => {
         if (
             AppState.currentState.match(/inactive|background/) &&
             nextAppState === "active"

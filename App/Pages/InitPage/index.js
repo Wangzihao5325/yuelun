@@ -89,7 +89,7 @@ export default class InitPage extends Component {
                             _unsafe_setSession(sessionId);
                             //使用本地token来获取用户信息，以此验证token的有效性
                             getTheUserInforWithSessionID().then((res) => {
-                                if (res.status == 'ok') {
+                                if (res.status == 'ok' && res?.data?.type == 'normal') {
                                     store.dispatch(login_user_info_init({
                                         ...userData.data,
                                         mobile: res.data.tel,
