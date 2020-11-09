@@ -389,6 +389,7 @@ class acceleratorPage extends Component {
     }
 
     parseAllGameData = (allGameData) => {
+        console.log('网络请求的游戏数据',allGameData);
         //国服数据解析
         let all_game_collection = allGameData['data']['gameList'][1]['game_list']['精选'];
         let all_game_hot = allGameData['data']['gameList'][1]['game_list']['热门'];
@@ -436,9 +437,9 @@ class acceleratorPage extends Component {
         upcoming_games.push(...upcoming_game_new);
 
         let allGameList = [];
-        allGameList.push(...all_game_collection);
-        allGameList.push(...all_game_hot);
-        allGameList.push(...all_game_new);
+        // allGameList.push(...all_game_collection);
+        // allGameList.push(...all_game_hot);
+        // allGameList.push(...all_game_new);
         allGameList.push(...all_game_domestic);
         allGameList.push(...overseas_games);
 

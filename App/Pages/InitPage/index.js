@@ -155,7 +155,7 @@ export default class InitPage extends Component {
                 renderItem={({ item }) => <Item {...item} itemClick={this.goToLogin} />}
                 scrollEnabled={this.props.scrollEnabled}
             />
-        );
+        ); 
     }
 
     goToLogin = () => {
