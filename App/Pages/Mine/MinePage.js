@@ -60,7 +60,7 @@ class MinePage extends Component {
     dealTheVIPStatus = (VIPdata = '') => {
         console.log('userInfo===>', VIPdata);
         let VIPStatus = false;
-        if (VIPdata == '' || VIPdata.status == 'error') {
+        if (VIPdata == '' || VIPdata.status == 'error' || (VIPdata.status == 'ok' && VIPdata?.data?.type !== 'normal')) {
             this.setState({
                 VIPStatus: false
             });
