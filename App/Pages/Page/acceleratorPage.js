@@ -26,6 +26,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Api from '../../Functions/NativeBridge/ApiModule';
 import { _sessionId } from '../../Functions/NativeBridge/ApiModule';
 import * as vpnModule from '../../Functions/NativeBridge/YuelunVpn';
+import VpnStateUtil from '../../Functions/Util/vpnStateUtil';
 
 export default class acceleratorPage extends Component {
     static navigationOptions = {
@@ -53,8 +54,9 @@ export default class acceleratorPage extends Component {
 
     componentDidMount() {
         this._unsubscribe = this.props.navigation.addListener('focus', () => {
-            AsyncStorage.getItem('accelerateInfo').then(value => {
+            AsyncStorage.getItem('accelerateInfo').then(async(value) => {
                 let accelerateInfo = JSON.parse(value || '{}');
+                accelerateInfo = await VpnStateUtil(accelerateInfo, '');
                 let data = _.values(accelerateInfo);
                 this.setState({
                     dataArray: data,
@@ -226,33 +228,6 @@ export default class acceleratorPage extends Component {
                 <TouchableOpacity style={styles.buttonStyle} onPress={() => {
                     //不再开放快速创建vpn，所有加速过程都要在加速详情页完成
                     NavigationService.navigate(PageName.ACCELERATE_DETAILS_PAGE, { data: JSON.stringify(data) });
-                    /*
-                    console.log('item["speedup"]', data);
-                    if(data["speedup"] == '0'){
-                        let accelerateStatus = this.checkHasGameAcceleratedOrNot();
-                        if(accelerateStatus){
-                            NavigationService.alert({
-                                title: '提示',
-                                content: '当前有游戏正在加速中，不可同时开启',
-                                bottomObjs: [
-                                    {
-                                        key: 'cancel',
-                                        type: 'button',
-                                        title: '确定'
-                                    }
-                                ]
-                            });
-                            return;
-                        }
-                    }
-                    if (data["speedup"] == '1') {
-                        data["speedup"] = '0';
-                    } else {
-                        data["speedup"] = '1';
-                    }
-
-                    this.updateSpeedUpStatusToLocal(data["id"]);
-                    */
                 }}>
                     <Image
                         source={require('../../resource/Image/GameHomePage/lightning.png')}
@@ -276,15 +251,6 @@ export default class acceleratorPage extends Component {
         return (
             <TouchableOpacity onPress={() => {
                 NavigationService.navigate(PageName.ACCELERATE_DETAILS_PAGE, { data: JSON.stringify(data) });
-                /*
-                if (data["speedup"] == '1') {
-                    data["speedup"] = '0';
-                } else {
-                    data["speedup"] = '1';
-                }
-
-                this.updateSpeedUpStatusToLocal(data["id"]);
-                */
             }}>
                 <View
                     style={{ borderRadius: 20, height: 40, width: 90, backgroundColor: '#F5CC00', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>

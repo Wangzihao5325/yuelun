@@ -85,13 +85,63 @@ class AccelerateDetails extends Component {
                 }
             });
         } else {
-            console.log('接收到监听-----注册');
             this.dataToJSPresenter = new NativeEventEmitter(NativeModules.VPNStatusNotification);
             this.dataToJSPresenter.addListener('vpn_state', (e) => {
                 console.log('接收到监听-----', e);
-                this.setState({
-                    data: e.data
-                });
+                if (e === 'connecting') {
+                    this.setState({
+                        showModal: true,
+                        modelTitle: '正在加速'
+                    })
+                    //正在加速中
+                } else if (e === 'connected') {
+                    //加速完毕
+                    const { accelerateInfo, gameFullInfo, id } = this.state
+                    let _date = new Date();
+                    gameFullInfo._timeReg = _date;
+                    accelerateInfo[id] = gameFullInfo;
+                    accelerateInfo[id]["speedup"] = "1";
+                    console.log('JSON.stringify(accelerateInfo)', accelerateInfo);
+                    AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
+                        this.setState({
+                            isAccelerate: true,
+                            showModal: false
+                        });
+                    });
+                } else if (e === 'failed') {
+                    if (this.state.showModal) {
+                        this.setState({
+                            showModal: false
+                        }, () => {
+                            NavigationService.alert({
+                                title: '提示',
+                                content: '加速失败',
+                                bottomObjs: [
+                                    {
+                                        key: 'cancel',
+                                        type: 'button',
+                                        title: '确定'
+                                    }
+                                ]
+                            });
+                        })
+                    }
+                } else if (e === 'Disconnecting') {
+                    this.setState({
+                        showModal: true,
+                        modelTitle: '正在关闭'
+                    })
+                } else if (e === 'Disconnect') {
+                    //各种断线操作
+                    const { accelerateInfo, id } = this.state
+                    accelerateInfo[id]["speedup"] = "0";
+                    AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
+                        this.setState({
+                            showModal: false,
+                            isAccelerate: false
+                        });
+                    });
+                }
             });
         }
 
@@ -121,7 +171,9 @@ class AccelerateDetails extends Component {
 
                 AsyncStorage.getItem('accelerateInfo').then(async (value) => {
                     let accelerateInfo = JSON.parse(value || '{}');
-                    let onlineState = await VpnStateUtil(accelerateInfo, gameInfo.id)
+                    console.log('onlineState+++++',accelerateInfo,'onlineState------',gameInfo.id);
+                    let onlineState = await VpnStateUtil(accelerateInfo, gameInfo.id);
+                    console.log('onlineState',onlineState);
                     let isAccelerate = onlineState.isTheGameAccele//accelerateInfo[this.state.id]?.speedup === "1" ? true : false;
                     this.setState({
                         isAccelerate,

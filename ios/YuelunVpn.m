@@ -15,6 +15,7 @@
 
 @interface YuelunVpn()<XDXVPNManagerDelegate>
 @property (nonatomic, strong)           XDXVPNManager   *vpnManager;
+@property (nonatomic, strong) NSString * connectedStatus;
 @end
 
 @implementation YuelunVpn
@@ -40,6 +41,7 @@ RCT_REMAP_METHOD(prepare, vpnPrepareWithServerAddress:(NSString *)serverAddress 
 //                                     dns:dns];
 //
   
+  self.connectedStatus = @"";
    self.vpnManager = [[XDXVPNManager alloc] init];
    self.vpnManager.delegate = self;
   VPN_Manager * manager = [[VPN_Manager alloc] init];
@@ -71,36 +73,56 @@ RCT_REMAP_METHOD(stopVPN,stopVpnsuccess:(RCTPromiseResolveBlock)success failure:
     switch (status) {
         case NEVPNStatusConnecting:
         {
+          if(![self.connectedStatus isEqualToString:@"Connecting"]){
+            self.connectedStatus = @"Connecting";
+            [self postMsgToVPNFunction:@"connecting"];
             NSLog(@"Connecting...");
+          }
         }
             break;
         case NEVPNStatusConnected:
         {
-//          VPNStatusNotification * VPN = [VPNStatusNotification shareInstance];
-//          [VPN sendEventWithName:@"vpn_state" body:@"test"];
+          if(![self.connectedStatus isEqualToString:@"Connected"]){
+              self.connectedStatus = @"Connected";
+              [self postMsgToVPNFunction:@"connected"];
             NSLog(@"Connected...");
-            
+          }
         }
             break;
         case NEVPNStatusDisconnecting:
         {
-            NSLog(@"Disconnecting...");
-            
+            if(![self.connectedStatus isEqualToString:@"Disconnectin"]){
+                self.connectedStatus = @"Disconnectin";
+                [self postMsgToVPNFunction:@"Disconnecting"];
+              NSLog(@"Disconnecting...");
+            }
         }
             break;
         case NEVPNStatusDisconnected:
         {
+          if(![self.connectedStatus isEqualToString:@"Disconnected"]){
+              self.connectedStatus = @"Disconnected";
+              [self postMsgToVPNFunction:@"Disconnect"];
             NSLog(@"Disconnected...");
+          }
         }
             break;
         case NEVPNStatusInvalid:
-            
-            NSLog(@"Invliad");
+//            if(![self.connectedStatus isEqualToString:@"Invliad"]){
+//                self.connectedStatus = @"Invliad";
+//                [self postMsgToVPNFunction:@"failed"];
+//              NSLog(@"Invliad...");
+//            }
             break;
         case NEVPNStatusReasserting:
             NSLog(@"Reasserting...");
             break;
     }
+}
+
+-(void)postMsgToVPNFunction:(NSString *)status{
+  VPNStatusNotification * VPN = [VPNStatusNotification shareInstance];
+  [VPN sendEventWithName:@"vpn_state" body:status];
 }
 
 #pragma mark - Delegate

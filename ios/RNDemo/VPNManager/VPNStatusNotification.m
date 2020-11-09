@@ -26,4 +26,13 @@ static VPNStatusNotification *instance = nil;
   return instance;
 }
 
++(id)allocWithZone:(NSZone *)zone {
+  static RCTBridge *sharedInstance = nil;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    sharedInstance = [super allocWithZone:zone];
+  });
+  return sharedInstance;
+}
+
 @end
