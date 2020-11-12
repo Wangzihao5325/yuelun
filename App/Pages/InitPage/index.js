@@ -19,6 +19,7 @@ import { login_user_info_init } from '../../store/actions/userAction';
 import { init_can_scroll, app_login, app_start_app } from '../../store/actions/appAction';
 import { getTheUserInforWithSessionID, _unsafe_setSession, getAppNewConfig } from '../../Functions/NativeBridge/ApiModule';
 import { appVersion } from '../../Config/SystemConfig';
+import { HeartParams } from '../../store/actions/userAction'
 
 const SPLASH_DATA = [
     {
@@ -122,8 +123,11 @@ export default class InitPage extends Component {
             StatusBar.setBackgroundColor('#00132C');
         }
         getAppNewConfig().then(res => {
+            console.log('res===>', res)
             let last_version = res?.data?.last_version ?? '';
             if (last_version === appVersion) {
+                let interval = parseInt(res?.data?.interval ?? '300') * 1000;
+                HeartParams.stepReg = interval >= 10000 ? interval : 10000;
                 this._appInit()
             } else {
                 let url = Platform.OS === 'ios' ? res.data.ios_download_url : res.data.android_download_url;
@@ -155,7 +159,7 @@ export default class InitPage extends Component {
                 renderItem={({ item }) => <Item {...item} itemClick={this.goToLogin} />}
                 scrollEnabled={this.props.scrollEnabled}
             />
-        ); 
+        );
     }
 
     goToLogin = () => {

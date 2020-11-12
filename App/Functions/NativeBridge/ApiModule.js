@@ -6,11 +6,6 @@ const CApiClientManager = NativeModules.CApiClient;
 export let _sessionId = '';
 
 function _dealResult(strRequest) {
-    if (_sessionId !== '') {
-        checkHeart('', '').then((result) => {
-
-        });
-    }
     switch (strRequest) {
         case 'sign_error':
             return { status: 'error', msg: '签名错误' }
