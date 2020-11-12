@@ -27,29 +27,12 @@ RCT_EXPORT_MODULE(YuelunVpn);
 }
 
 RCT_REMAP_METHOD(prepare, vpnPrepareWithServerAddress:(NSString *)serverAddress serverPort:(NSString *)serverPort mtu:(NSString *)mtu ip:(NSString *)ip subnet:(NSString *)subnet dns:(NSString *)dns success:(RCTPromiseResolveBlock)success failure:(RCTResponseErrorBlock)failure){
-//    XDXVPNManagerModel *model = [[XDXVPNManagerModel alloc] init];
-
-//  /*  Note   - 在运行代码前必须按照博客所说配置好Target及开放权限，否则Demo无法正常运行
-//   *  @param TunnelBundleId : 必须填写你Extension Target的bundile ID,且必须合法，博客里有详细说明
-//   */
-//    [model configureInfoWithTunnelBundleId:@"com.yuelun.accvpn.yltunnel"
-//                           serverAddress:serverAddress
-//                              serverPort:serverPort
-//                                     mtu:mtu
-//                                      ip:ip// 119.3.83.78
-//                                  subnet:subnet
-//                                     dns:dns];
-//
-  
   self.connectedStatus = @"";
    self.vpnManager = [[XDXVPNManager alloc] init];
    self.vpnManager.delegate = self;
   VPN_Manager * manager = [[VPN_Manager alloc] init];
    [manager configTheVPNServer:self.vpnManager];
-//    [self.vpnManager configManagerWithModel:model];
-//    self.vpnManager.delegate = self;
-//
-  
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(vpnDidChange:) name:NEVPNStatusDidChangeNotification object:nil];
   
   success(@"success");

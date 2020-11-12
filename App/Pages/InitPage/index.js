@@ -94,7 +94,7 @@ export default class InitPage extends Component {
                                     store.dispatch(login_user_info_init({
                                         ...userData.data,
                                         mobile: res.data.tel,
-                                        username: res.data.username,
+                                        username: res.data.nickname,
                                         package_name: res.data.package_name,
                                         package_end_time: res.data.package_end_time
                                     }));
@@ -125,6 +125,7 @@ export default class InitPage extends Component {
         getAppNewConfig().then(res => {
             console.log('res===>', res)
             let last_version = res?.data?.last_version ?? '';
+            console.log('last_versionlast_version',last_version);
             if (last_version === appVersion) {
                 let interval = parseInt(res?.data?.interval ?? '300') * 1000;
                 HeartParams.stepReg = interval >= 10000 ? interval : 10000;
