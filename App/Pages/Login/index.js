@@ -223,6 +223,7 @@ export default class Login extends Component {
                 console.log('login---here', result);
                 Loading.hidden();
                 if (result['status'] == 'ok') {
+                    result.data.username = result.data.nickname;
                     this.saveTheUserInfo(result);
                     //session比较常用，所以在network里也存一份，方便使用
                     Network.session = result?.data?.session_id ?? '';
@@ -244,12 +245,20 @@ export default class Login extends Component {
     }
 
     needToBindAccountAndPWD = (bind = 0) =>{
+
+        let bindMsg;
+        if(this.state.loginType == '1'){
+            bindMsg = '是否绑定账号和密码?';
+        }else{
+            bindMsg = '是否绑定手机号码?';
+        }
+
         if(bind == 0){
             navigator.back(this);
         }else{
             navigator.alert({
                 title: '提示',
-                content: '是否绑定账号和密码?',
+                content: bindMsg,
                 bottomObjs: [
                     {
                         key: 'cancel',

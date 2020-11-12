@@ -425,7 +425,13 @@ class AccelerateDetails extends Component {
                             key: 'cancel',
                             type: 'button',
                             title: '允许',
-                            callback: () => this._next('want_add_setting')
+                            callback: () => {
+                                if (Platform.OS === 'android'){
+                                    this._next('vpn_tips');
+                                }else{
+                                    this._next('want_add_setting')
+                                }
+                            }
                         },
                         {
                             key: 'separator_1',
