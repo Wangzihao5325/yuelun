@@ -32,7 +32,7 @@ const SPLASH_DATA = [
         key: 'splash_1'
     },
     {
-        title: '同时加速',
+        title: '智能加速',
         source: require('../../resource/Image/Splash/splash_2.png'),
         index: 2,
         key: 'splash_2'
@@ -55,7 +55,7 @@ const Item = (props) => {
             <SafeAreaView style={styles.safe}>
                 <Text style={styles.title}>{`${props.title}`}</Text>
                 <View style={styles.bottomContainer}>
-                    <Text style={styles.sologan}>{'月轮手游加速器\n多个游戏同时加速'}</Text>
+                    <Text style={styles.sologan}>{'月轮手游加速器\n多款游戏尽情畅玩'}</Text>
                     {
                         props.index === 3 &&
                         <CustomButton
