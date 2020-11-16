@@ -22,7 +22,7 @@ export function login_user_info_init(payload) {
                     } else if (result.data.type === 'break') {
 
                     } else if (result.data.type === 'close') {
-                        let { isAppAccele } = await VpnStateUtil(accelerateInfo, gameInfo.id);
+                        let { isAppAccele } = await VpnStateUtil(null, -1);
                         if (isAppAccele) {
                             vpnModule.stopVPN();
                         }
