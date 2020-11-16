@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableHighlight, ImageBackground, Image, Text, Platform, StyleSheet, AsyncStorage} from 'react-native';
+import { View, TouchableHighlight, ImageBackground, Image, Text, Platform, StyleSheet, AsyncStorage } from 'react-native';
 import { themeColor, SCREEN_WIDTH } from '../../Config/UIConfig';
 import * as Api from '../../Functions/NativeBridge/ApiModule';
 import store from '../../store';
@@ -25,9 +25,9 @@ export default class Login extends Component {
         messageBtnTitle: '获取验证码',
         isMessageBtnCanPress: true,
         agreePolicy: true,
-        sessionID:'',
-        userID:'',
-        loginType:'1',
+        sessionID: '',
+        userID: '',
+        loginType: '1',
     };
 
     componentDidMount() {
@@ -62,23 +62,23 @@ export default class Login extends Component {
                         <CustomInput
                             iconComponent={
                                 this.state.loginType == '1'
-                                ?
-                                <View style={{ height: 30, flexDirection: 'row', alignItems: 'center' }}>
-                                    <View
-                                        style={{ height: 30, width: 30, justifyContent: 'center', alignItems: 'center' }}
-                                    >
-                                        <Image
-                                            style={{ height: 21, width: 16 }}
-                                            resizeMode='contain'
-                                            source={require('../../resource/Image/Normal/mobile.png')}
-                                        />
+                                    ?
+                                    <View style={{ height: 30, flexDirection: 'row', alignItems: 'center' }}>
+                                        <View
+                                            style={{ height: 30, width: 30, justifyContent: 'center', alignItems: 'center' }}
+                                        >
+                                            <Image
+                                                style={{ height: 21, width: 16 }}
+                                                resizeMode='contain'
+                                                source={require('../../resource/Image/Normal/mobile.png')}
+                                            />
+                                        </View>
+                                        <Text style={{ color: '#707070', fontSize: 19, marginRight: 20 }}>+86</Text>
                                     </View>
-                                    <Text style={{ color: '#707070', fontSize: 19, marginRight: 20 }}>+86</Text>
-                                </View>
-                                :
-                                <View style={{ height: 30, flexDirection: 'row', alignItems: 'center' }}>
-                                    <Text style={{ color: '#707070', fontSize: 19, marginRight: 20 }}>账号：</Text>
-                                </View>
+                                    :
+                                    <View style={{ height: 30, flexDirection: 'row', alignItems: 'center' }}>
+                                        <Text style={{ color: '#707070', fontSize: 19, marginRight: 20 }}>账号：</Text>
+                                    </View>
                             }
                             style={{ alignSelf: 'center', backgroundColor: 'transparent', paddingHorizontal: 0 }}
                             iconName='mobile-phone'
@@ -93,20 +93,20 @@ export default class Login extends Component {
                             <CustomInput
                                 iconComponent={
                                     this.state.loginType == '1'
-                                    ?
-                                    <View
-                                        style={{ height: 30, width: 30, justifyContent: 'center', alignItems: 'center' }}
-                                    >
-                                        <Image
-                                            style={{ height: 15, width: 17 }}
-                                            resizeMode='contain'
-                                            source={require('../../resource/Image/Normal/verificationCode.png')}
-                                        />
-                                    </View>
-                                    :
-                                   <View style={{ height: 30, flexDirection: 'row', alignItems: 'center' }}>
-                                        <Text style={{ color: '#707070', fontSize: 19, marginRight: 20 }}>密码：</Text>
-                                    </View>
+                                        ?
+                                        <View
+                                            style={{ height: 30, width: 30, justifyContent: 'center', alignItems: 'center' }}
+                                        >
+                                            <Image
+                                                style={{ height: 15, width: 17 }}
+                                                resizeMode='contain'
+                                                source={require('../../resource/Image/Normal/verificationCode.png')}
+                                            />
+                                        </View>
+                                        :
+                                        <View style={{ height: 30, flexDirection: 'row', alignItems: 'center' }}>
+                                            <Text style={{ color: '#707070', fontSize: 19, marginRight: 20 }}>密码：</Text>
+                                        </View>
                                 }
                                 style={{ width: 210, backgroundColor: 'transparent', paddingHorizontal: 0 }}
                                 iconName='mobile-phone'
@@ -115,41 +115,42 @@ export default class Login extends Component {
                                 value={verificationCode}
                                 onChangeText={this.verificationCodeChange}
                                 clearButtonMode='while-editing'
+                                secureTextEntry={true}
                             />
                             {
                                 this.state.loginType == '1'
-                                ?
-                                <CustomButton
-                                title={this.state.messageBtnTitle}
-                                buttonStyle={styles.verificationCodeBtn}
-                                titleStyle={{ color: '#f2cc2e', fontSize: 17 }}
-                                clickEvent={this.getVerificationCode}
-                               />
-                                :
-                                null
+                                    ?
+                                    <CustomButton
+                                        title={this.state.messageBtnTitle}
+                                        buttonStyle={styles.verificationCodeBtn}
+                                        titleStyle={{ color: '#f2cc2e', fontSize: 17 }}
+                                        clickEvent={this.getVerificationCode}
+                                    />
+                                    :
+                                    null
                             }
-                            
+
                         </View>
                         <View style={styles.separator} />
                     </ImageBackground>
                     <View style={styles.chooseLoginTypeRoot}>
                         <TouchableHighlight
-                        onPress={()=>{
-                                let {loginType} = this.state;
-                                if(loginType == '1'){
+                            onPress={() => {
+                                let { loginType } = this.state;
+                                if (loginType == '1') {
                                     loginType = '2';
-                                }else{
+                                } else {
                                     loginType = '1';
                                 }
 
                                 this.setState({
-                                    loginType:loginType,
-                                    phoneNum : '',
-                                    verificationCode:''
+                                    loginType: loginType,
+                                    phoneNum: '',
+                                    verificationCode: ''
                                 });
                             }}
-                            >
-                            {this.state.loginType == '1' ? <Text style={{color: '#f2cc2e'}}>账号登录</Text> : <Text style={{color: '#f2cc2e'}}>手机验证码登录</Text>}
+                        >
+                            {this.state.loginType == '1' ? <Text style={{ color: '#f2cc2e' }}>账号登录</Text> : <Text style={{ color: '#f2cc2e' }}>手机验证码登录</Text>}
                         </TouchableHighlight>
                     </View>
                     <CustomButton
@@ -218,7 +219,7 @@ export default class Login extends Component {
 
         Loading.show();
 
-        Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion,this.state.loginType)
+        Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion, this.state.loginType)
             .then((result) => {
                 console.log('login---here', result);
                 Loading.hidden();
@@ -230,8 +231,8 @@ export default class Login extends Component {
                     store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
                     this.needToBindAccountAndPWD(result.data.is_bind);
                     this.setState({
-                        sessionID:result.data.session_id,
-                        userID:result.data.user_id,
+                        sessionID: result.data.session_id,
+                        userID: result.data.user_id,
                     });
                 } else {
                     navigator.alert(this.alertPayload(result.msg));
@@ -239,23 +240,23 @@ export default class Login extends Component {
             })
             .catch((error) => {
                 Loading.hidden();
-                console.log('login--error',error);
+                console.log('login--error', error);
             });
 
     }
 
-    needToBindAccountAndPWD = (bind = 0) =>{
+    needToBindAccountAndPWD = (bind = 0) => {
 
         let bindMsg;
-        if(this.state.loginType == '1'){
+        if (this.state.loginType == '1') {
             bindMsg = '是否绑定账号和密码?';
-        }else{
+        } else {
             bindMsg = '是否绑定手机号码?';
         }
 
-        if(bind == 0){
+        if (bind == 0) {
             navigator.back(this);
-        }else{
+        } else {
             navigator.alert({
                 title: '提示',
                 content: bindMsg,
@@ -264,7 +265,7 @@ export default class Login extends Component {
                         key: 'cancel',
                         type: 'button',
                         title: '否',
-                        callback : ()=>{
+                        callback: () => {
                             navigator.back(this);
                         }
                     },
@@ -273,32 +274,32 @@ export default class Login extends Component {
                         type: 'button',
                         title: '确认',
                         callback: () => {
-                            if(this.state.loginType == '1'){
+                            if (this.state.loginType == '1') {
                                 this.pushToBindAccountPage();
-                            }else{
+                            } else {
                                 this.pushToBindPhonePage();
                             }
                         }
-                        
+
                     }
                 ]
             });
         }
     }
 
-    pushToBindAccountPage = () =>{
-        console.log('----------+++',this.state.sessionID,'---',this.state.userID);
-        let sessionAndUserID = {'sessionID':this.state.sessionID,'userID':this.state.userID};
-        setTimeout(()=>{
-            navigator.navigate(PageName.NORAML_BIND_ACCOUNT,{data:sessionAndUserID});
-        },100);
+    pushToBindAccountPage = () => {
+        console.log('----------+++', this.state.sessionID, '---', this.state.userID);
+        let sessionAndUserID = { 'sessionID': this.state.sessionID, 'userID': this.state.userID };
+        setTimeout(() => {
+            navigator.navigate(PageName.NORAML_BIND_ACCOUNT, { data: sessionAndUserID });
+        }, 100);
     }
 
-    pushToBindPhonePage = () =>{
-        let sessionAndUserID = {'sessionID':this.state.sessionID,'userID':this.state.userID};
-        setTimeout(()=>{
-            navigator.navigate(PageName.NORMAL_BIND_PHONE,{data:sessionAndUserID});
-        },100);
+    pushToBindPhonePage = () => {
+        let sessionAndUserID = { 'sessionID': this.state.sessionID, 'userID': this.state.userID };
+        setTimeout(() => {
+            navigator.navigate(PageName.NORMAL_BIND_PHONE, { data: sessionAndUserID });
+        }, 100);
     }
 
     getVerificationCode = () => {
@@ -400,12 +401,12 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginTop: 40
     },
-    chooseLoginTypeRoot:{
-        marginLeft:15,
-        marginTop:10,
-        marginRight:15,
-        height:30,
-        flexDirection:'row-reverse',
-        alignItems:'center',
+    chooseLoginTypeRoot: {
+        marginLeft: 15,
+        marginTop: 10,
+        marginRight: 15,
+        height: 30,
+        flexDirection: 'row-reverse',
+        alignItems: 'center',
     }
 });

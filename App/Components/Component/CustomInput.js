@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class CustomInput extends Component {
     render() {
-        const { value, onChangeText, iconName = '"mobile-phone"', iconComponent, placeholder, style, placeholderTextColor = '#818995' } = this.props;
+        const { secureTextEntry = false, value, onChangeText, iconName = '"mobile-phone"', iconComponent, placeholder, style, placeholderTextColor = '#818995' } = this.props;
         //待优化 assign会拷贝所有可枚举对象,不需要那么多
         let containerStyle = Object.assign({}, styles.defaultContainer, style);
 
@@ -27,6 +27,7 @@ export default class CustomInput extends Component {
                     placeholderTextColor={placeholderTextColor}
                     value={value}
                     onChangeText={onChangeText}
+                    secureTextEntry={secureTextEntry}
                 />
                 {isShowClearBtn &&
                     <TouchableOpacity onPress={this.clearValue}>
