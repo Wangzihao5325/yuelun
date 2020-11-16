@@ -175,9 +175,12 @@ public class ToyVpnConnection {
                 JSONObject tunnelItem = tunnel.getJSONObject(0);
                 JSONArray serveIdList = tunnelItem.optJSONArray("server_id_list");
                 if(serveIdList.length()>0){
-                    if(acctype.equals("1")){
+
+                }else {
+                    if(acctype.equals("2")){
+                        //不能用2的时候用1
                         //有tunnel使用type2
-                        acctype = "2";
+                        acctype = "1";
                         acchander.sendEmptyMessage(R.string.totwo);
                     }
                 }

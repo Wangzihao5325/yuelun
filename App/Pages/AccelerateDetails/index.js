@@ -85,7 +85,7 @@ class AccelerateDetails extends Component {
                     });
                 } else if (e[0] === 'transform to type 2') {
                     //切换加速模式
-                    store.dispatch(acc_type_change_unsafe('ai'))
+                    store.dispatch(acc_type_change_unsafe('auto'))
                 }
             });
         } else {
