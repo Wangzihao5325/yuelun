@@ -37,3 +37,8 @@ export function stopVPN() {
 export function yuelunGetNewConfig() {
     YuelunVpnModule.yuelunGetNewConfig('162.14.5.205', 32091);
 }
+
+export async function startApp(packageName) {
+    let state = await YuelunVpnModule.startGame(packageName);
+    return state
+}

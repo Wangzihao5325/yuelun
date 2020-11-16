@@ -42,7 +42,10 @@ import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.yuelun.ylsdk.CProxClient;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.yuelun.ylproxy.YuelunProxyJni;
 
 import java.io.File;
@@ -111,7 +114,7 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
             mHandler.sendEmptyMessage(R.string.disconnecting);
             try {
                 disconnect();
-            } catch (InterruptedException e) {
+            } catch (InterruptedException | JSONException e) {
                 e.printStackTrace();
             }
             return START_NOT_STICKY;
@@ -240,10 +243,15 @@ public class ToyVpnService extends VpnService implements Handler.Callback {
         }
     }
 
-    private void disconnect() throws InterruptedException {
-        com.yuelun.ylsdk.CProxClient.stoplocalproxy();
-        mVpnConnection.disconnectTunnel();
-        mVpnConnection.tearDownVpn();
+    private void disconnect() throws InterruptedException, JSONException {
+        String str = CProxClient.GetTunnelState();
+        JSONObject obj = new JSONObject(str);
+        boolean bacc = obj.optBoolean("bacc");
+        if(bacc == true){
+            com.yuelun.ylsdk.CProxClient.stoplocalproxy();
+            mVpnConnection.disconnectTunnel();
+            mVpnConnection.tearDownVpn();
+        }
         stopForeground(true);
         mHandler.sendEmptyMessage(R.string.disconnected);
         this.stopSelf();

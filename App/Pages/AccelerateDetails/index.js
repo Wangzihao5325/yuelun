@@ -13,6 +13,8 @@ import PageName from '../../Config/PageName';
 import { connect } from 'react-redux'
 import VpnStateUtil from '../../Functions/Util/vpnStateUtil'
 import store from '../../store';
+import { acc_type_change_unsafe } from '../../store/actions/accelerateAction'
+import * as navigator from '../../Router/NavigationService';
 
 class AccelerateDetails extends Component {
     state = {
@@ -82,6 +84,9 @@ class AccelerateDetails extends Component {
                             isAccelerate: false
                         });
                     });
+                } else if (e[0] === 'transform to type 2') {
+                    //切换加速模式
+                    store.dispatch(acc_type_change_unsafe('auto'))
                 }
             });
         } else {
@@ -171,9 +176,9 @@ class AccelerateDetails extends Component {
 
                 AsyncStorage.getItem('accelerateInfo').then(async (value) => {
                     let accelerateInfo = JSON.parse(value || '{}');
-                    console.log('onlineState+++++',accelerateInfo,'onlineState------',gameInfo.id);
+                    console.log('onlineState+++++', accelerateInfo, 'onlineState------', gameInfo.id);
                     let onlineState = await VpnStateUtil(accelerateInfo, gameInfo.id);
-                    console.log('onlineState',onlineState);
+                    console.log('onlineState', onlineState);
                     let isAccelerate = onlineState.isTheGameAccele//accelerateInfo[this.state.id]?.speedup === "1" ? true : false;
                     this.setState({
                         isAccelerate,
@@ -205,6 +210,24 @@ class AccelerateDetails extends Component {
         }
     }
 
+    runGame = async() => {
+        let packageName = this.state.process_list[0]
+        let res = await vpnModule.startApp(packageName)
+        if(res === 'failed'){
+            navigator.alert({
+                title: '提示',
+                content: '没有安装该游戏',
+                bottomObjs: [
+                    {
+                        key: 'confirm',
+                        type: 'button',
+                        title: '确认',
+                    }
+                ]
+            });
+        }
+    }
+
     render() {
         const { bgColor } = themeColor;
         return (
@@ -220,6 +243,7 @@ class AccelerateDetails extends Component {
                     speedUp={this.speedUp}
                     isAccelerate={this.state.isAccelerate}
                     navigation={this.props.navigation}
+                    runGame={this.runGame}
                 />
                 {/*this.state.pageType === 'stow' &&
                     <StowPage
@@ -426,9 +450,9 @@ class AccelerateDetails extends Component {
                             type: 'button',
                             title: '允许',
                             callback: () => {
-                                if (Platform.OS === 'android'){
+                                if (Platform.OS === 'android') {
                                     this._next('vpn_tips');
-                                }else{
+                                } else {
                                     this._next('want_add_setting')
                                 }
                             }

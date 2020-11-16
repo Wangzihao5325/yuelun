@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { HeartParams } from '../store/actions/userAction';
 import store from '../store/index';
 import * as ApiModule from '../Functions/NativeBridge/ApiModule';
+import * as vpnModule from '../Functions/NativeBridge/YuelunVpn';
+import VpnStateUtil from '../Functions/Util/vpnStateUtil'
 
 import InitPage from '../Pages/InitPage';
 import ModalStack from './ModalStack';
@@ -29,7 +31,7 @@ class Root extends Component {
             let isLogin = store.getState().user.isLogin
             if (isLogin && !heartBeatTimer && stepReg && typeof stepReg == 'number') {
                 heartBeatTimer = setInterval(() => {
-                    ApiModule.checkHeart('', '').then((result) => {
+                    ApiModule.checkHeart('', '').then(async (result) => {
                         if (result.status === 'ok') {
                             if (result.data.type === 'normal') {
 
@@ -38,7 +40,10 @@ class Root extends Component {
                             } else if (result.data.type === 'break') {
 
                             } else if (result.data.type === 'close') {
-
+                                let { isAppAccele } = await VpnStateUtil(null, -1);
+                                if (isAppAccele) {
+                                    vpnModule.stopVPN();
+                                }
                             }
                         }
                     });

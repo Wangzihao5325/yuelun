@@ -1,6 +1,8 @@
 import * as Types from '../actionTypes';
 import * as ApiModule from '../../Functions/NativeBridge/ApiModule';
+import * as vpnModule from '../../Functions/NativeBridge/YuelunVpn';
 import store from '../index';
+import VpnStateUtil from '../../Functions/Util/vpnStateUtil'
 
 export const HeartParams = {
     stepReg: 10000,
@@ -11,7 +13,7 @@ export function login_user_info_init(payload) {
     let { stepReg, heartBeatTimer } = HeartParams;
     if (!heartBeatTimer && stepReg && typeof stepReg == 'number') {
         heartBeatTimer = setInterval(() => {
-            ApiModule.checkHeart('', '').then((result) => {
+            ApiModule.checkHeart('', '').then(async (result) => {
                 if (result.status === 'ok') {
                     if (result.data.type === 'normal') {
 
@@ -20,7 +22,10 @@ export function login_user_info_init(payload) {
                     } else if (result.data.type === 'break') {
 
                     } else if (result.data.type === 'close') {
-
+                        let { isAppAccele } = await VpnStateUtil(null, -1);
+                        if (isAppAccele) {
+                            vpnModule.stopVPN();
+                        }
                     }
                 }
             });

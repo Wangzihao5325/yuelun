@@ -83,6 +83,7 @@ export default class BindAccountPage extends Component {
                                 value={verificationCode}
                                 onChangeText={this.verificationCodeChange}
                                 clearButtonMode='while-editing'
+                                secureTextEntry={true}
                             />
                         </View>
                         <View style={styles.separator} />

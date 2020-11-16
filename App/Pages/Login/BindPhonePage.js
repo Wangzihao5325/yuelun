@@ -99,6 +99,7 @@ export default class BindPhonePage extends Component {
                                 value={verificationCode}
                                 onChangeText={this.verificationCodeChange}
                                 clearButtonMode='while-editing'
+                                secureTextEntry={true}
                             />
                             <CustomButton
                                 title={this.state.messageBtnTitle}

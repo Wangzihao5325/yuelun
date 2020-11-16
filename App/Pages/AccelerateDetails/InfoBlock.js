@@ -119,6 +119,17 @@ class InfoBlock extends Component {
                 });
             } else {
                 store.dispatch(acc_type_change())
+                NavigationService.alert({
+                    title: '提示',
+                    content: '您已经切换加速模式',
+                    bottomObjs: [
+                        {
+                            key: 'cancel',
+                            type: 'button',
+                            title: '确定'
+                        }
+                    ]
+                });
             }
         })
     }

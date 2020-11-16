@@ -1,7 +1,7 @@
 import * as Types from '../actionTypes';
 
 const initialState = {
-    accelerateType: 'auto',
+    accelerateType: 'ai',
 }
 
 const reducer = (state = initialState, action) => {
@@ -11,6 +11,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 accelerateType: newType
+            };
+        case Types.ACCELERATE_TYPE_CHANGE_UNSAFE:
+            return {
+                ...state,
+                accelerateType: action.value
             };
         default: return state;
     }

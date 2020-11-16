@@ -22,12 +22,20 @@ const BottomPart = (props) => {
             {/* <CustomChart
                 isAccelerate={props.isAccelerate}
             /> */}
-            <CustomButton
-                title={props.isAccelerate ? '停止加速' : '立即加速'}
-                buttonStyle={styles.speedupButton}
-                titleStyle={{ color: '#000' }}
-                clickEvent={props.speedUpBtnPress}
-            />
+            <View style={{ display: 'flex', flexDirection: 'row', width: 320, alignSelf: 'center', justifyContent: 'space-around' }}>
+                <CustomButton
+                    title={props.isAccelerate ? '停止加速' : '立即加速'}
+                    buttonStyle={styles.speedupButton}
+                    titleStyle={{ color: '#000' }}
+                    clickEvent={props.speedUpBtnPress}
+                />
+                <CustomButton
+                    title={'启动游戏'}
+                    buttonStyle={styles.speedupButton}
+                    titleStyle={{ color: '#000' }}
+                    clickEvent={props.runGame}
+                />
+            </View>
         </View>
     )
 }
@@ -46,6 +54,7 @@ const StowPage = (props) => {
             <BottomPart
                 stowAndUnfoldBtnPress={props.pageTypeChange}
                 speedUpBtnPress={props.speedUp}
+                runGame={props.runGame}
                 isAccelerate={props.isAccelerate}
                 gameId={props.gameId}
                 accelerateInfo={props.accelerateInfo}
@@ -60,7 +69,7 @@ const styles = StyleSheet.create({
     speedupButton: {
         display: 'flex',
         height: 45,
-        width: 350,
+        width: 150,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#f2cc2e',

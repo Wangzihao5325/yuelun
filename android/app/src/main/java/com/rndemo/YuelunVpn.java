@@ -116,6 +116,18 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
         promise.resolve("success");
     }
 
+    @ReactMethod
+    public void startGame(String strprocessname,Promise promise) throws  IOException {
+        Intent settingIntent = this.getReactApplicationContext().getPackageManager().getLaunchIntentForPackage(strprocessname);
+        if (settingIntent != null)
+        {
+            this.getReactApplicationContext().startActivity(settingIntent);
+            promise.resolve("success");
+        }else {
+            promise.resolve("failed");
+        }
+    }
+
     private final String getTag() {
         return ToyVpnConnection.class.getSimpleName() + "[" + 1 + "]";
     }
