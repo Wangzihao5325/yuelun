@@ -6,13 +6,16 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.net.VpnService;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.SyncStateContract;
 import android.util.Log;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.facebook.react.bridge.Promise;
@@ -104,6 +107,26 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
         ContextCompat.startForegroundService(_reactContext, intent);
         promise.resolve("success");
     }
+
+    @ReactMethod
+    public void installApk(String path, Promise promise) throws  IOException {
+        File file = new File(path);
+        Intent install = new Intent(Intent.ACTION_VIEW);
+        install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            install.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Uri contentUri = FileProvider.getUriForFile(_reactContext, "com.rndemo.fileProvider", file);
+
+            install.setDataAndType(contentUri, "application/vnd.android.package-archive");
+        } else {
+            install.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        }
+        _reactContext.startActivity(install);
+        promise.resolve("success");
+
+    }
+
 
     @ReactMethod
     public void stopVPN(Promise promise) throws  IOException {

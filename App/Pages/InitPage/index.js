@@ -9,7 +9,9 @@ import {
     StyleSheet,
     AsyncStorage,
     Alert,
-    Linking
+    Modal,
+    Linking,
+    PermissionsAndroid
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../Config/UIConfig';
@@ -20,7 +22,8 @@ import { init_can_scroll, app_login, app_start_app } from '../../store/actions/a
 import { getTheUserInforWithSessionID, _unsafe_setSession, getAppNewConfig } from '../../Functions/NativeBridge/ApiModule';
 import { appVersion } from '../../Config/SystemConfig';
 import { HeartParams } from '../../store/actions/userAction'
-
+import Progress from '../../Components/Component/ProgressRate'
+import RNFetchBlob from 'rn-fetch-blob'
 const SPLASH_DATA = [
     {
         title: '精选游戏',
@@ -76,6 +79,9 @@ const Item = (props) => {
     );
 }
 export default class InitPage extends Component {
+    state = {
+        isShow: false
+    }
     _appInit = () => {
         AsyncStorage.getItem('isFirstUse').then(useValue => {
             if (!useValue) {
@@ -118,14 +124,13 @@ export default class InitPage extends Component {
     }
 
     componentDidMount() {
+
         StatusBar.setBarStyle('light-content');
         if (Platform.OS === 'android') {
             StatusBar.setBackgroundColor('#00132C');
         }
         getAppNewConfig().then(res => {
-            console.log('res===>', res)
             let last_version = res?.data?.last_version ?? '';
-            console.log('last_versionlast_version',last_version);
             if (last_version === appVersion) {
                 let interval = parseInt(res?.data?.interval ?? '300') * 1000;
                 HeartParams.stepReg = interval >= 10000 ? interval : 10000;
@@ -137,29 +142,87 @@ export default class InitPage extends Component {
                     "点击确认，下载最新版本",
                     [
                         {
-                            text: "OK", onPress: () => {
+                            text: "OK", onPress: async () => {
                                 if (url) {
-                                    Linking.canOpenURL(url).then(res => {
-                                        Linking.openURL(url)
-                                    })
+                                    const granted = await PermissionsAndroid.request(
+                                        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                                        {
+                                            title: "请求权限",
+                                            message: "系统需要权限来下载最新版本",
+                                            buttonNegative: "Cancel",
+                                            buttonPositive: "OK"
+                                        }
+                                    );
+                                    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                                        this.setState({
+                                            isShow: true,
+                                            progress: 0
+                                        })
+
+                                        const android = RNFetchBlob.android;
+                                        let dirs = RNFetchBlob.fs.dirs;
+                                        RNFetchBlob.config({
+                                            useDownloadManager: true,
+                                            title: "xxxxx.apk",
+                                            description: "An APK that will be installed",
+                                            mime: "application/vnd.android.package-archive",
+                                            path: `${dirs.DownloadDir}/yuelun.apk`,
+                                            mediaScannable: true,
+                                            notification: true
+                                        })
+                                            .fetch('GET', url)
+                                            .progress((received, total) => {
+                                                let progress = Math.floor((received / total) * 100);
+                                                this.setState({
+                                                    progress
+                                                })
+                                            })
+                                            .then((res) => {
+                                                android.actionViewIntent(
+                                                    res.path(),
+                                                    "application/vnd.android.package-archive"
+                                                );
+                                            })
+                                    } else {
+                                    }
                                 }
                             }
                         }
+
                     ]
                 );
             }
         })
+
+    }
+
+    hide = () => {
+        this.setState({
+            isShow: false
+        })
     }
     render() {
         return (
-            <FlatList
-                style={{ backgroundColor: '#00132C' }}
-                horizontal={true}
-                pagingEnabled={true}
-                data={SPLASH_DATA}
-                renderItem={({ item }) => <Item {...item} itemClick={this.goToLogin} />}
-                scrollEnabled={this.props.scrollEnabled}
-            />
+            <>
+                <Modal
+                    transparent={true}
+                    visible={this.state.isShow}
+                    onRequestClose={this.hide}>
+                    <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center' }}>
+                        <View style={{ alignSelf: 'center' }}>
+                            <Progress value={this.state.progress} />
+                        </View>
+                    </View>
+                </Modal>
+                <FlatList
+                    style={{ backgroundColor: '#00132C' }}
+                    horizontal={true}
+                    pagingEnabled={true}
+                    data={SPLASH_DATA}
+                    renderItem={({ item }) => <Item {...item} itemClick={this.goToLogin} />}
+                    scrollEnabled={this.props.scrollEnabled}
+                />
+            </>
         );
     }
 

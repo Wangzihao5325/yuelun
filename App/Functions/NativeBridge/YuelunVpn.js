@@ -42,3 +42,7 @@ export async function startApp(packageName) {
     let state = await YuelunVpnModule.startGame(packageName);
     return state
 }
+
+export async function installApk(path){
+    await YuelunVpnModule.installApk(path)
+}
