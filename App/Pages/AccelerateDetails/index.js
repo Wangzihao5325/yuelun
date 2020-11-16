@@ -14,6 +14,7 @@ import { connect } from 'react-redux'
 import VpnStateUtil from '../../Functions/Util/vpnStateUtil'
 import store from '../../store';
 import { acc_type_change_unsafe } from '../../store/actions/accelerateAction'
+import * as navigator from '../../Router/NavigationService';
 
 class AccelerateDetails extends Component {
     state = {
@@ -209,6 +210,24 @@ class AccelerateDetails extends Component {
         }
     }
 
+    runGame = async() => {
+        let packageName = this.state.process_list[0]
+        let res = await vpnModule.startApp(packageName)
+        if(res === 'failed'){
+            navigator.alert({
+                title: '提示',
+                content: '没有安装该游戏',
+                bottomObjs: [
+                    {
+                        key: 'confirm',
+                        type: 'button',
+                        title: '确认',
+                    }
+                ]
+            });
+        }
+    }
+
     render() {
         const { bgColor } = themeColor;
         return (
@@ -224,6 +243,7 @@ class AccelerateDetails extends Component {
                     speedUp={this.speedUp}
                     isAccelerate={this.state.isAccelerate}
                     navigation={this.props.navigation}
+                    runGame={this.runGame}
                 />
                 {/*this.state.pageType === 'stow' &&
                     <StowPage

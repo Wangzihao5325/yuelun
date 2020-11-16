@@ -284,8 +284,8 @@ export const getDelay = async () => {
  * 用户绑定
  * 
 */
-export const YuelunBindUsers = async (strsession_id,strtype,struser_id,strphone,strcode,straccout_name,straccout_password,strResponseData) =>{
-    let resultStr = await CApiClientManager.YuelunBindUsers(strsession_id,strtype,struser_id,strphone,strcode,straccout_name,straccout_password,strResponseData);
+export const YuelunBindUsers = async (strsession_id, strtype, struser_id, strphone, strcode, straccout_name, straccout_password, strResponseData) => {
+    let resultStr = await CApiClientManager.YuelunBindUsers(strsession_id, strtype, struser_id, strphone, strcode, straccout_name, straccout_password, strResponseData);
     return _dealResult(resultStr);
 }
 
@@ -293,7 +293,7 @@ export const YuelunBindUsers = async (strsession_id,strtype,struser_id,strphone,
  * 获取vpn状态
  */
 
- export const getTunnelState = async ()=>{
-     let resultStr = await CApiClientManager.getTunnelState();
-     return _dealResult(resultStr)
- }
+export const getTunnelState = async () => {
+    let resultStr = await CApiClientManager.getTunnelState();
+    return _dealResult(resultStr)
+}
