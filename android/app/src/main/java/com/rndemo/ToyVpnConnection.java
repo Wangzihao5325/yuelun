@@ -101,7 +101,7 @@ public class ToyVpnConnection {
     private final String mStrsessionid;
     private final String mStrgameid;
     private final byte[] mSharedSecret;
-    private final String acctype;
+    private String acctype;
     private final Handler acchander;
 
     private PendingIntent mConfigureIntent;
@@ -170,6 +170,18 @@ public class ToyVpnConnection {
 //            int id = jsonObject.getInt("id");
             JSONObject data = jsonObject.optJSONObject("data");
             JSONObject gameinfo = data.optJSONObject("game_info");
+            JSONArray tunnel = gameinfo.optJSONArray("tunnel");
+            if(tunnel.length()>0){
+                JSONObject tunnelItem = tunnel.getJSONObject(0);
+                JSONArray serveIdList = tunnelItem.optJSONArray("server_id_list");
+                if(serveIdList.length()>0){
+                    if(acctype.equals("1")){
+                        //有tunnel使用type2
+                        acctype = "2";
+                        acchander.sendEmptyMessage(R.string.totwo);
+                    }
+                }
+            }
             gameid = gameinfo.optString("id");
             process_list = gameinfo.optJSONArray("process_list");
             for (int i = 0; i < process_list.length(); i++) {
