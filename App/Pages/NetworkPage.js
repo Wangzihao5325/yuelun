@@ -77,7 +77,6 @@ export default class NetworkPage extends Component {
 
     _pending = async () => {
         let aaa = await demoApi.getTheDemoDataByAsync().catch((error) => {
-            console.log(error);
         });
         this.setState({
             requestType: 'GET',
@@ -87,29 +86,23 @@ export default class NetworkPage extends Component {
 
     getTestFunction = () => {
         demoApi.getTheDemoData().then(response => {
-            console.log('net request --->response', JSON.stringify(response));
             this.setState({
                 requestType: 'GET',
                 networkData: JSON.stringify(response)
             });
         }, (error) => {
-            console.log('net request --->error:', JSON.stringify(error));
         }).catch(e => {
-            console.log('net request --->e', JSON.stringify(e));
         });
     }
 
     getThePostTypeDemoFunction = () => {
         demoApi.postTheDemoData().then(response => {
-            console.log('net request --->response', JSON.stringify(response));
             this.setState({
                 requestType: 'POST',
                 networkData: JSON.stringify(response)
             });
         }, (error) => {
-            console.log('net request --->error:', JSON.stringify(error));
         }).catch(e => {
-            console.log('net request --->e', JSON.stringify(e));
         });
     }
 }

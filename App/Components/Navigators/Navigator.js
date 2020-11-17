@@ -49,6 +49,5 @@ export function back (component){
  * @param  type(jump、back)
 */
 RecordPagePathData = (rootPageName = '',targetPageName = '',type = 'jump') =>{
-    console.log('页面路径日志：从页面：',rootPageName,'跳转到页面：',targetPageName);
 }
 

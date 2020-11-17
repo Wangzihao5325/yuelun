@@ -49,7 +49,6 @@ class ChangeNickName extends Component {
 
     confirm = () => {
         APi.modifyUserInfo('', '', this.state.nickName, '').then((res) => {
-            console.log(res);
             if (res.status == 'ok') {
                 store.dispatch(unsafe_update({ username: this.state.nickName }))
                 NavigationService.back(this);

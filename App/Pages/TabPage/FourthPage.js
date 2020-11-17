@@ -28,17 +28,13 @@ export default class FourthPage extends Component {
             let res = await check(PERMISSIONS.ANDROID.CAMERA);
             switch (res) {
                 case RESULTS.UNAVAILABLE:
-                    console.log('UNAVAILABLE');
                     return;
                 case RESULTS.BLOCKED:
-                    console.log('BLOCKED');
                     return;
                 case RESULTS.DENIED:
-                    console.log('DENIED');
                     let requestRes = await request(PERMISSIONS.ANDROID.CAMERA);
                     break;
                 case RESULTS.GRANTED:
-                    console.log('GRANTED');
                     break;
             }
         }
@@ -47,7 +43,6 @@ export default class FourthPage extends Component {
             //maxFiles: 3,
             //includeBase64: true
         }).catch(e => {
-            console.log('图片解析失败');
         });
         let scanResult = await QRImageReader(image.path);
         this.onSuccess({ data: scanResult });

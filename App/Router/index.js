@@ -36,6 +36,10 @@ class Root extends Component {
                             if (result.data.type === 'normal') {
 
                             } else if (result.data.type === 'logout') {
+                                let { isAppAccele } = await VpnStateUtil(null, -1);
+                                if (isAppAccele) {
+                                    vpnModule.stopVPN();
+                                }
                                 store.dispatch(logout_user_info_clear());
                             } else if (result.data.type === 'break') {
 

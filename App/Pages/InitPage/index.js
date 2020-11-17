@@ -21,9 +21,9 @@ import { login_user_info_init } from '../../store/actions/userAction';
 import { init_can_scroll, app_login, app_start_app } from '../../store/actions/appAction';
 import { getTheUserInforWithSessionID, _unsafe_setSession, getAppNewConfig } from '../../Functions/NativeBridge/ApiModule';
 import { appVersion } from '../../Config/SystemConfig';
-import { HeartParams } from '../../store/actions/userAction'
-import Progress from '../../Components/Component/ProgressRate'
-import RNFetchBlob from 'rn-fetch-blob'
+import { HeartParams } from '../../store/actions/userAction';
+import Progress from '../../Components/Component/ProgressRate';
+import RNFetchBlob from 'rn-fetch-blob';
 const SPLASH_DATA = [
     {
         title: '精选游戏',
@@ -178,6 +178,9 @@ export default class InitPage extends Component {
                                                 })
                                             })
                                             .then((res) => {
+                                                this.setState({
+                                                    progress: 100
+                                                })
                                                 android.actionViewIntent(
                                                     res.path(),
                                                     "application/vnd.android.package-archive"
@@ -193,7 +196,6 @@ export default class InitPage extends Component {
                 );
             }
         })
-
     }
 
     hide = () => {

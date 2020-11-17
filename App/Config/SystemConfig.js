@@ -32,7 +32,6 @@ export function theDeviceIsFullScreenMobilePhone() {
 
     }
     if (fullScreenMobile) {
-        console.log('获取片面屏幕', UIConfig.SCREEN_WIDTH, UIConfig.SCREEN_HEIGHT);
     }
 
     return fullScreenMobile;

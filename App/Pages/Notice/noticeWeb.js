@@ -16,7 +16,6 @@ class NoticeWeb extends Component {
     }
 
     messageFromWeb = (event) => {
-        console.log('in message From Web');
         const { type } = this.state;
         if (type !== 'center') return;
         let data = JSON.parse(event.nativeEvent.data);
@@ -62,8 +61,6 @@ class NoticeWeb extends Component {
             .then((res) => {
                 if (res.data) {
                     let payloadStr = JSON.stringify(res.data);
-                    console.log('dddddd');
-                    console.log(res.data);
                     const successCallback = `window._unsafe_change_href(${payloadStr})`;
                     this.webView.injectJavaScript(successCallback);
                 }

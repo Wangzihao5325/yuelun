@@ -53,7 +53,6 @@ export default class BridgePage extends Component {
                     color='blue'
                     onPress={()=>{
                         BridgeDemo.runTheLocalFunctionDemo((data)=>{
-                            console.log('bridge------回调触发',data);
                             let strting = JSON.stringify(data);
                             this.setState({callBackData:strting});
                         });
@@ -64,7 +63,6 @@ export default class BridgePage extends Component {
                     color='blue'
                     onPress={()=>{
                         KeyChainModule.saveTheUserPasswordToKeyChain('11769','12345678',(data)=>{
-                            console.log('回掉存储成功状态',data);
                         });
                     }}
                 />
@@ -73,7 +71,6 @@ export default class BridgePage extends Component {
                     color='blue'
                     onPress={()=>{
                         KeyChainModule.updateTheUserPasswordToKeyChain('11769','111222333',(data)=>{
-                            console.log('回掉存储成功状态',data);
                         });
                     }}
                 />
@@ -83,9 +80,7 @@ export default class BridgePage extends Component {
                     onPress={()=>{
                         KeyChainModule.getThePasswodWithAccount('11769',(data)=>{
                             if(data.count == 0){
-                                console.log('获取pwd失败');
                             }else{
-                                console.log('获取pwd成功',data);
                                 let strting = JSON.stringify(data);
                                 this.setState({callBackData:strting});
                             }
@@ -99,7 +94,6 @@ export default class BridgePage extends Component {
                     onPress={()=>{
                         KeyChainModule.deleteTheDataWithAccount('11769',(data)=>{
                             let strting = JSON.stringify(data);
-                            console.log('删除keychain状态',data);
                             
                         });
                     }}

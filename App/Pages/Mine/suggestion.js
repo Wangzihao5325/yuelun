@@ -134,7 +134,6 @@ export default class suggestion extends Component {
             .then((result) => {
                 Loading.hidden();
                 let feedback = result;
-                console.log('feedbackfeedback', feedback);
                 if (result.status == 'ok') {
                     Toast.show('反馈成功');
                     setTimeout(()=>{NavigationService.back(this);},1500);

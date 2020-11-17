@@ -7,7 +7,9 @@ import {
     StyleSheet,
     ImageBackground,
     TouchableOpacity,
-    Linking
+    Linking,
+    Modal,
+    PermissionsAndroid
 } from 'react-native';
 
 import PageName from '../../Config/PageName';
@@ -20,6 +22,8 @@ import store from '../../store';
 import { unsafe_update } from '../../store/actions/userAction';
 import { Toast } from '../../Components/Toast/Toast';
 import { appVersion } from '../../Config/SystemConfig';
+import Progress from '../../Components/Component/ProgressRate';
+import RNFetchBlob from 'rn-fetch-blob';
 
 class MinePage extends Component {
     constructor(props) {
@@ -32,6 +36,8 @@ class MinePage extends Component {
             VIPType: 3,
             VIPTimestamp: 0,
             type2Msg: '',
+            isShow: false,
+            progress: 0
         }
     }
 
@@ -58,7 +64,6 @@ class MinePage extends Component {
     }
 
     dealTheVIPStatus = (VIPdata = '') => {
-        console.log('userInfo===>', VIPdata);
         let VIPStatus = false;
         if (VIPdata == '' || VIPdata.status == 'error' || (VIPdata.status == 'ok' && VIPdata?.data?.type !== 'normal')) {
             this.setState({
@@ -102,6 +107,16 @@ class MinePage extends Component {
         let fullDevice = SystemConfig.theDeviceIsFullScreenMobilePhone();
         return (
             <View style={styles.container}>
+                <Modal
+                    transparent={true}
+                    visible={this.state.isShow}
+                    onRequestClose={this.hide}>
+                    <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center' }}>
+                        <View style={{ alignSelf: 'center' }}>
+                            <Progress value={this.state.progress} />
+                        </View>
+                    </View>
+                </Modal>
                 <ImageBackground
                     resizeMode='stretch'
                     source={require('../../resource/Image/Mine/mineBack.png')}
@@ -308,7 +323,6 @@ class MinePage extends Component {
         let s = VIPTimestamp - m * 60;
 
         let type2Msg = h + '小时' + m + '分钟' + s + '秒';
-        console.log('剩余时间' + h + '小时' + m + '分钟' + s + '秒');
 
         this.setState({
             VIPTimestamp: timestamp,
@@ -360,11 +374,53 @@ class MinePage extends Component {
                             }
                         },
                         {
-                            text: "确认", onPress: () => {
+                            text: "确认", onPress: async () => {
                                 if (url) {
-                                    Linking.canOpenURL(url).then(res => {
-                                        Linking.openURL(url)
-                                    })
+                                    const granted = await PermissionsAndroid.request(
+                                        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                                        {
+                                            title: "请求权限",
+                                            message: "系统需要权限来下载最新版本",
+                                            buttonNegative: "Cancel",
+                                            buttonPositive: "OK"
+                                        }
+                                    );
+                                    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                                        this.setState({
+                                            isShow: true,
+                                            progress: 0
+                                        })
+
+                                        const android = RNFetchBlob.android;
+                                        let dirs = RNFetchBlob.fs.dirs;
+                                        RNFetchBlob.config({
+                                            useDownloadManager: true,
+                                            title: "xxxxx.apk",
+                                            description: "An APK that will be installed",
+                                            mime: "application/vnd.android.package-archive",
+                                            path: `${dirs.DownloadDir}/yuelun.apk`,
+                                            mediaScannable: true,
+                                            notification: true
+                                        })
+                                            .fetch('GET', url)
+                                            .progress((received, total) => {
+                                                let progress = Math.floor((received / total) * 100);
+                                                this.setState({
+                                                    progress
+                                                })
+                                            })
+                                            .then((res) => {
+                                                this.setState({
+                                                    progress: 100,
+                                                    isShow: false
+                                                })
+                                                android.actionViewIntent(
+                                                    res.path(),
+                                                    "application/vnd.android.package-archive"
+                                                );
+                                            })
+                                    } else {
+                                    }
                                 }
                             }
                         }

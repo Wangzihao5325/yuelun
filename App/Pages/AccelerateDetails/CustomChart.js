@@ -90,7 +90,6 @@ const CustomChart = (props) => {
         if (!timer.current) {
             timer.current = setInterval(() => {
                 Api.getDelay().then(res => {
-                    console.log('res==>', res)
                     setFlowData(`${res}ms`);
                     _flowDataTrans(res)
                 })
@@ -124,7 +123,6 @@ const CustomChart = (props) => {
 
         appState.current = nextAppState;
         setAppStateVisible(appState.current);
-        console.log("AppState", appState.current);
     };
 
     useEffect(() => {

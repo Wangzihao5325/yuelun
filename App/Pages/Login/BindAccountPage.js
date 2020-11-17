@@ -141,11 +141,9 @@ export default class BindAccountPage extends Component {
             }else{
                 navigator.alert(this.alertPayload(result.msg));
             }
-            console.log('sjsjsjs',result);
         })
         .catch((error) => {
             Loading.hidden();
-            console.log(error);
         });
     }
 

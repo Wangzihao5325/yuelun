@@ -25,6 +25,8 @@ import store from '../../store';
 import { logout_user_info_clear } from '../../store/actions/userAction';
 import { Loading } from '../../Components/Toast/Loading';
 import { Toast } from '../../Components/Toast/Toast';
+import VpnStateUtil from '../../Functions/Util/vpnStateUtil';
+import * as vpnModule from '../../Functions/NativeBridge/YuelunVpn';
 
 export default class setting extends Component {
     constructor(props) {
@@ -38,9 +40,8 @@ export default class setting extends Component {
     componentDidMount() {
         const { params } = this.props.route.params;
         AsyncStorage.getItem('autoStart').then(value => {
-            console.log('autoStartautoStart',value);
             this.setState({
-                switchValue:value === 'true' ? true : false
+                switchValue: value === 'true' ? true : false
             });
         });
     }
@@ -113,6 +114,11 @@ export default class setting extends Component {
         Loading.show();
         ApiModule.userLogoutWithSessionID()
             .then((result) => {
+                VpnStateUtil(null, -1).then(res => {
+                    if (res.isAppAccele) {
+                        vpnModule.stopVPN();
+                    }
+                })
                 Loading.hidden();
                 let feedback = result;
                 if (feedback['status'] == 'ok') {
@@ -127,7 +133,6 @@ export default class setting extends Component {
                 } else {
                     Toast.show('退出登录失败');
                 }
-                console.log('feedbackfeedback', feedback);
             });
     }
 }

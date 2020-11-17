@@ -28,7 +28,6 @@ const buttonWrapper = (WrappedComponent) => {
 
             this._clickTime = currentTime;
             if (differenceValue < interceptTime) {
-                console.log('重复点击拦截');
                 return;
             }
 

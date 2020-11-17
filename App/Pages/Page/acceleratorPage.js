@@ -297,7 +297,6 @@ export default class acceleratorPage extends Component {
 
     calculateTheAccelarateInfo = () => {
         this.setState({ freashData: true, accelerateStatus: true });
-        console.log('启动循环---计算中');
     }
 
     stopAllGames = () => {
@@ -357,7 +356,6 @@ export default class acceleratorPage extends Component {
     }
 
     startTheVPN = (id, accelerateInfo) => {
-        console.log('测试加速点击', accelerateInfo);
         var iplist = accelerateInfo["ip_list"];
         var iplistArray;
         if (iplist === '') {
@@ -381,7 +379,6 @@ export default class acceleratorPage extends Component {
         let use_server_id = accelerateInfo["use_server_id"];
         if (use_server_id.length > 0) {
             Api.connectServer(id, use_server_id[0]).then((res) => {
-                console.log('测试加速点击---res', res);
                 if (res.status === 'ok' && res.data.consult_ip) {
                     //各种连接操作
                     vpnModule.prepare()
@@ -392,7 +389,6 @@ export default class acceleratorPage extends Component {
                             accelerateInfo[this.state.id] = this.state.gameFullInfo;
                             accelerateInfo[this.state.id]["speedup"] = "1";
                             this.state.gameFullInfo
-                            console.log('JSON.stringify(accelerateInfo)', accelerateInfo);
                             AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
                                 this.setState({
                                     isAccelerate: true

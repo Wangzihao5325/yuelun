@@ -56,7 +56,6 @@ export default class GameMore extends Component {
             classification: classification ? classification : ''
         });
 
-        console.log('type_name', '', classification);
         this.getTheMoreGamesData(type_name, this.state.pageNo, classification);
     }
 
@@ -94,7 +93,6 @@ export default class GameMore extends Component {
             //   这个是没有数据了然后给了false得时候还在往上拉
         } else if (offsetY == 0) {
             //这个地方是下拉刷新，意思是到顶了还在指行，可以在这个地方进行处理需要刷新得数据
-            //  console.log('下啦');
         }
     }
 
@@ -144,7 +142,6 @@ export default class GameMore extends Component {
     }
 
     getTheMoreGamesData = (type_name, page, classification) => {
-        console.log('下啦', page);
         Loading.show();
         let pageNumber = page;
         pageNumber = pageNumber.toString();
@@ -152,7 +149,6 @@ export default class GameMore extends Component {
             .then((result) => {
                 Loading.hidden();
                 let allGameData = result;
-                console.log('hahahahhahahahah', allGameData);
                 if (allGameData['status'] == 'ok') {
                     let allData = this.state.more_games;
                     let dataList = allGameData['data']['list'];
@@ -170,7 +166,6 @@ export default class GameMore extends Component {
     }
 
     clickGameNormalItemBtn = (item) => {
-        console.log("测试单个点击", item);
         let payload = { data: JSON.stringify(item) }
         navigator.jump(this, PageName.ACCELERATE_DETAILS_PAGE, payload);
     }

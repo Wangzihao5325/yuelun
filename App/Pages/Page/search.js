@@ -251,7 +251,6 @@ export default class search extends Component {
      * 
     */
     clickTheHistoryTextAndSearch = (historyText = '') => {
-        console.log(historyText);
         if (historyText == '') {
             return;
         }
@@ -308,7 +307,6 @@ export default class search extends Component {
             .then((result) => {
                 Loading.hidden();
                 let allGameData = result;
-                console.log('searchsearch', allGameData);
                 if (allGameData['status'] == 'ok') {
                     let dataList = allGameData['data']['list'];
                     this.setState({
@@ -372,7 +370,6 @@ export default class search extends Component {
     }
 
     clickGameNormalItemBtn = (item) => {
-        console.log("测试单个点击",item);
         let payload = { data: JSON.stringify(item) }
         navigator.jump(this, PageName.ACCELERATE_DETAILS_PAGE, payload);
     }
@@ -385,7 +382,6 @@ export default class search extends Component {
         ApiModule.getTheHotGames()
             .then((result) => {
                 let hotGame = result;
-                console.log('获取热门游戏', hotGame);
                 if (hotGame['status'] === 'ok') {
                     let list = hotGame['data']['list'];
                     this.setState({ hotGames: list });

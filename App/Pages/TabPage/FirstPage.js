@@ -132,11 +132,9 @@ export default class FirstPage extends Component {
     }
 
     logState = () => {
-        console.log(this.state.test);
     }
 
     cancel = () => {
-        console.log('cancel')
     }
 
     alertBottomPayload = () => {

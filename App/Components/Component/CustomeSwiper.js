@@ -73,7 +73,6 @@ export default class CustomeSwiper extends Component {
     }
 
     bannerClickFunction = (unitData) => {
-        console.log('图片点击事件' + unitData.imageUrl);
 
     }
 }

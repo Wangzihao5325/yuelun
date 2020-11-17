@@ -49,13 +49,11 @@ export default class SecondPage extends Component {
         //     text: request
         // });
         Api.search('王者荣耀','','').then((res)=>{
-            console.log(res);
         });
     }
 
     login = async () => {
         let request = await Api.getAllGameConfig('77b727bf68656d1696e1710976bb40a6deb7fc23', '');
-        console.log(request);
     }
 }
 

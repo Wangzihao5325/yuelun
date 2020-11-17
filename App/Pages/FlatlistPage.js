@@ -75,11 +75,9 @@ export default class FlatlistPage extends Component{
             testData.push(until);
         }
 
-        console.log('触发下拉刷新-----请求第'+pageNum+'页数据++++++++++'+testData.length);
         Loading.show();
         this.timer = setTimeout(()=>{
             Loading.hidden();
-            console.log('触发下拉刷新-----成功'+pageNum);
             this.listView.asyncSuccess(testData,pageNum);
         },3000);
     }

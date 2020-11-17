@@ -70,7 +70,6 @@ class PersonalInfo extends Component {
                 Toast.show('头像已上传')
             })
         }).catch(error => {
-            console.log('cancel or');
         });
     }
 

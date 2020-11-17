@@ -221,7 +221,6 @@ export default class Login extends Component {
 
         Api.loginByPhoneNum(phoneNum, verificationCode, Platform.OS, appVersion, this.state.loginType)
             .then((result) => {
-                console.log('login---here', result);
                 Loading.hidden();
                 if (result['status'] == 'ok') {
                     result.data.username = result.data.nickname;
@@ -240,7 +239,6 @@ export default class Login extends Component {
             })
             .catch((error) => {
                 Loading.hidden();
-                console.log('login--error', error);
             });
 
     }
@@ -288,7 +286,6 @@ export default class Login extends Component {
     }
 
     pushToBindAccountPage = () => {
-        console.log('----------+++', this.state.sessionID, '---', this.state.userID);
         let sessionAndUserID = { 'sessionID': this.state.sessionID, 'userID': this.state.userID };
         setTimeout(() => {
             navigator.navigate(PageName.NORAML_BIND_ACCOUNT, { data: sessionAndUserID });

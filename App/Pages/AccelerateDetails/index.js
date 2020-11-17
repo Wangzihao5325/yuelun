@@ -30,7 +30,6 @@ class AccelerateDetails extends Component {
         if (Platform.OS === 'android') {
             this.emitterListener = DeviceEventEmitter.addListener('vpn_state', (e) => {
                 //e是原生传过来的参数
-                console.log('here is state from native', e)
                 if (e[0] === 'ToyVPN is connecting...') {
                     this.setState({
                         showModal: true,
@@ -44,7 +43,6 @@ class AccelerateDetails extends Component {
                     gameFullInfo._timeReg = _date;
                     accelerateInfo[id] = gameFullInfo;
                     accelerateInfo[id]["speedup"] = "1";
-                    console.log('JSON.stringify(accelerateInfo)', accelerateInfo);
                     AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
                         this.setState({
                             isAccelerate: true,
@@ -92,7 +90,6 @@ class AccelerateDetails extends Component {
         } else {
             this.dataToJSPresenter = new NativeEventEmitter(NativeModules.VPNStatusNotification);
             this.dataToJSPresenter.addListener('vpn_state', (e) => {
-                console.log('接收到监听-----', e);
                 if (e === 'connecting') {
                     this.setState({
                         showModal: true,
@@ -106,7 +103,6 @@ class AccelerateDetails extends Component {
                     gameFullInfo._timeReg = _date;
                     accelerateInfo[id] = gameFullInfo;
                     accelerateInfo[id]["speedup"] = "1";
-                    console.log('JSON.stringify(accelerateInfo)', accelerateInfo);
                     AsyncStorage.setItem('accelerateInfo', JSON.stringify(accelerateInfo)).then(value => {
                         this.setState({
                             isAccelerate: true,
@@ -165,7 +161,6 @@ class AccelerateDetails extends Component {
         Loading.show();
         Api.getGameInfoById(gameInfo.id, '').then((request) => {
             Loading.hidden();
-            console.log("getGameInfoByIdgetGameInfoById", request);
             if (request.status === 'error') {
                 NavigationService.alert(this.alertPayload('数据解析失败'));
             } else {
@@ -176,9 +171,7 @@ class AccelerateDetails extends Component {
 
                 AsyncStorage.getItem('accelerateInfo').then(async (value) => {
                     let accelerateInfo = JSON.parse(value || '{}');
-                    console.log('onlineState+++++', accelerateInfo, 'onlineState------', gameInfo.id);
                     let onlineState = await VpnStateUtil(accelerateInfo, gameInfo.id);
-                    console.log('onlineState', onlineState);
                     let isAccelerate = onlineState.isTheGameAccele//accelerateInfo[this.state.id]?.speedup === "1" ? true : false;
                     this.setState({
                         isAccelerate,
@@ -378,7 +371,6 @@ class AccelerateDetails extends Component {
         const { use_server_id, id, gameFullInfo } = this.state;
         var iplist = gameFullInfo["ip_list"];
         var iplistArray = iplist;
-        console.log('gameFullInfogameFullInfo', gameFullInfo);
 
         let IPArray = [];
         for (let i = 0; i < iplistArray.length; i++) {

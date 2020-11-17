@@ -111,10 +111,8 @@ export default class CustomeListView extends Component {
         }
 
         if (this.freashStatus) {
-            console.log('触发下拉刷新---过滤');
             return;
         };
-        console.log("触发下拉刷新---顶部刷新");
         this.pageNum = 1;
         this.freashStatus = true;
         this.setState({ isRefreshing: true });
@@ -130,10 +128,8 @@ export default class CustomeListView extends Component {
         }
 
         if (this.freashStatus) {
-            console.log('触发下拉刷新---过滤');
             return;
         };
-        console.log('触发下拉刷新');
         this.pageNum++;
         this.freashStatus = true;
         if (this.props.asyncFunc) {
@@ -143,7 +139,6 @@ export default class CustomeListView extends Component {
 
     /** 成功获取数据，刷新列表 */
     asyncSuccess = (data, index = 1) => {
-        console.log('触发下拉刷新-----请求第---组件接收的数据长度' + data.length + '第' + index + '页');
         this.freashStatus = false;
         if (index == 1) {
             this.setState({

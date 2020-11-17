@@ -170,7 +170,6 @@ class acceleratorPage extends Component {
                     iconSource={iconSource}
                     title={title}
                     clickFunction={() => {
-                        console.log('查看', title, '的更多');
                         let type_name = '';
                         let classification = '';
                         if (type == 1) {
@@ -210,7 +209,6 @@ class acceleratorPage extends Component {
                     iconSource={iconSource}
                     title={title}
                     clickFunction={() => {
-                        console.log('查看', title, '的更多');
                         let type_name = '';
                         let classification = '';
                         if (type == 1) {
@@ -336,7 +334,6 @@ class acceleratorPage extends Component {
 
     clickGameNormalItemBtn = (item) => {
         let payload = { data: JSON.stringify(item) }
-        console.log("测试单个点击", payload);
         // navigator.jump(this, PageName.ACCELERATE_DETAILS_PAGE, payload);
         navigator.navigate(PageName.ACCELERATE_DETAILS_PAGE, { data: JSON.stringify(item) });
     }
@@ -362,7 +359,6 @@ class acceleratorPage extends Component {
             .then((result) => {
                 let bannerData = result;
                 let ad_list = bannerData.data.ad_list;
-                console.log('return data', ad_list);
                 let bannerList = [];
                 for (let i = 0; i < ad_list.length; i++) {
                     let unitItem = ad_list[i];
@@ -382,14 +378,12 @@ class acceleratorPage extends Component {
         ApiModule.getAllGameConfig('')
             .then((result) => {
                 Loading.hidden();
-                console.log('allGameDataallGameData', result);
                 this.parseAllGameData(result);
                 this.saveTheHomePageDataToLocal(result);
             })
     }
 
     parseAllGameData = (allGameData) => {
-        console.log('网络请求的游戏数据',allGameData);
         //国服数据解析
         let all_game_collection = allGameData['data']['gameList'][1]['game_list']['精选'];
         let all_game_hot = allGameData['data']['gameList'][1]['game_list']['热门'];
@@ -496,7 +490,6 @@ class acceleratorPage extends Component {
         });
 
         if (res) {
-            console.log("删除第" + deleteIndex + "  ID为" + gameID);
             collectionItem.splice(deleteIndex, 1);
         } else {
             this.showTheCollectAlert();
@@ -558,7 +551,6 @@ class acceleratorPage extends Component {
         ApiModule.YuelunSverCollection(collectionItems)
             .then((result) => {
                 let collections = result;
-                console.log('save collect data', collections);
             });
     }
 
@@ -584,7 +576,6 @@ class acceleratorPage extends Component {
                 let homePageData = JSON.parse(value);
                 self.parseAllGameData(homePageData);
             }
-            console.log('autoStartautoStartautoStartautoStart',value);
         });
     }
 }
