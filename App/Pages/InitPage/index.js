@@ -80,7 +80,8 @@ const Item = (props) => {
 }
 export default class InitPage extends Component {
     state = {
-        isShow: false
+        isShow: false,
+        testDirs: ''
     }
     _appInit = () => {
         AsyncStorage.getItem('isFirstUse').then(useValue => {
@@ -161,6 +162,9 @@ export default class InitPage extends Component {
 
                                         const android = RNFetchBlob.android;
                                         let dirs = RNFetchBlob.fs.dirs;
+                                        this.setState({
+                                            testDirs: dirs.DownloadDir
+                                        })
                                         RNFetchBlob.config({
                                             useDownloadManager: true,
                                             title: "xxxxx.apk",
@@ -212,6 +216,7 @@ export default class InitPage extends Component {
                     onRequestClose={this.hide}>
                     <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center' }}>
                         <View style={{ alignSelf: 'center' }}>
+                            <Text style={{ color: 'red' }}>{`${this.state.testDirs}`}</Text>
                             <Progress value={this.state.progress} />
                         </View>
                     </View>
