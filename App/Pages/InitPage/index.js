@@ -81,7 +81,7 @@ const Item = (props) => {
 export default class InitPage extends Component {
     state = {
         isShow: false,
-        testDirs: ''
+        debugTest: ''
     }
     _appInit = () => {
         AsyncStorage.getItem('isFirstUse').then(useValue => {
@@ -162,33 +162,44 @@ export default class InitPage extends Component {
 
                                         const android = RNFetchBlob.android;
                                         let dirs = RNFetchBlob.fs.dirs;
-                                        this.setState({
-                                            testDirs: dirs.DownloadDir
-                                        })
-                                        RNFetchBlob.config({
-                                            useDownloadManager: true,
-                                            title: "xxxxx.apk",
-                                            description: "An APK that will be installed",
-                                            mime: "application/vnd.android.package-archive",
-                                            path: `${dirs.DownloadDir}/yuelun.apk`,
-                                            mediaScannable: true,
-                                            notification: true
-                                        })
-                                            .fetch('GET', url)
-                                            .progress((received, total) => {
-                                                let progress = Math.floor((received / total) * 100);
-                                                this.setState({
-                                                    progress
-                                                })
-                                            })
-                                            .then((res) => {
-                                                this.setState({
-                                                    progress: 100
-                                                })
-                                                android.actionViewIntent(
-                                                    res.path(),
-                                                    "application/vnd.android.package-archive"
-                                                );
+                                        RNFetchBlob.fs.exists(dirs.DownloadDir)
+                                            .then(exist => {
+                                                if (exist) {
+                                                    let apkName = url.split('/').pop()
+                                                    RNFetchBlob.config({
+                                                        fileCache: true,
+                                                        addAndroidDownloads: {
+                                                            useDownloadManager: true,
+                                                            title: `${apkName}`,
+                                                            //title: `yuelun-v9.0.1.12.apk`,
+                                                            description: "安装月轮apk",
+                                                            mime: "application/vnd.android.package-archive",
+                                                            path: `${dirs.DownloadDir}/${apkName}`,
+                                                            //path: `${dirs.DownloadDir}/yuelun-v9.0.1.12.apk`,
+                                                            mediaScannable: true,
+                                                            notification: true
+                                                        }
+                                                    })
+                                                        .fetch('GET', url, { 'Cache-Control': 'no-store' })
+                                                        .progress((received, total) => {
+                                                            let progress = Math.floor((received / total) * 100);
+                                                            this.setState({
+                                                                progress
+                                                            })
+                                                        })
+                                                        .then((res) => {
+                                                            this.setState({
+                                                                progress: 100
+                                                            })
+                                                            android.actionViewIntent(
+                                                                res.path(),
+                                                                "application/vnd.android.package-archive"
+                                                            );
+                                                        })
+                                                        .catch(res => {
+                                                        })
+                                                } else {
+                                                }
                                             })
                                     } else {
                                     }
@@ -216,7 +227,6 @@ export default class InitPage extends Component {
                     onRequestClose={this.hide}>
                     <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center' }}>
                         <View style={{ alignSelf: 'center' }}>
-                            <Text style={{ color: 'red' }}>{`${this.state.testDirs}`}</Text>
                             <Progress value={this.state.progress} />
                         </View>
                     </View>
