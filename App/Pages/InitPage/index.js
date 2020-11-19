@@ -24,6 +24,7 @@ import { appVersion } from '../../Config/SystemConfig';
 import { HeartParams } from '../../store/actions/userAction';
 import Progress from '../../Components/Component/ProgressRate';
 import RNFetchBlob from 'rn-fetch-blob';
+
 const SPLASH_DATA = [
     {
         title: '精选游戏',
@@ -103,7 +104,8 @@ export default class InitPage extends Component {
                                         mobile: res.data.tel,
                                         username: res.data.nickname,
                                         package_name: res.data.package_name,
-                                        package_end_time: res.data.package_end_time
+                                        package_end_time: res.data.package_end_time,
+                                        sessionId
                                     }));
                                     store.dispatch(app_start_app());
                                 } else {
@@ -125,7 +127,6 @@ export default class InitPage extends Component {
     }
 
     componentDidMount() {
-        console.log('sssssss')
         StatusBar.setBarStyle('light-content');
         if (Platform.OS === 'android') {
             StatusBar.setBackgroundColor('#00132C');

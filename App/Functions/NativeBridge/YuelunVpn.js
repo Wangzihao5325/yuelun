@@ -43,6 +43,14 @@ export async function startApp(packageName) {
     return state
 }
 
-export async function installApk(path){
+export async function installApk(path) {
     await YuelunVpnModule.installApk(path)
+}
+
+export function startHeart(session, timeReg) {
+    YuelunVpnModule.startNativeHeartThread(session, timeReg)
+}
+
+export function endHeart() {
+    YuelunVpnModule.stopNativeHeartThread()
 }

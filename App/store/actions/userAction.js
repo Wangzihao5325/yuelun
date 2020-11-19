@@ -12,39 +12,14 @@ export const HeartParams = {
 
 export function login_user_info_init(payload) {
     let { stepReg, heartBeatTimer } = HeartParams;
-    if (!heartBeatTimer && stepReg && typeof stepReg == 'number') {
-        heartBeatTimer = setInterval(() => {
-            ApiModule.checkHeart('', '').then(async (result) => {
-                if (result.status === 'ok') {
-                    if (result.data.type === 'normal') {
-
-                    } else if (result.data.type === 'logout') {
-                        let { isAppAccele } = await VpnStateUtil(null, -1);
-                        if (isAppAccele) {
-                            vpnModule.stopVPN();
-                        }
-                        store.dispatch(logout_user_info_clear());
-                    } else if (result.data.type === 'break') {
-
-                    } else if (result.data.type === 'close') {
-                        let { isAppAccele } = await VpnStateUtil(null, -1);
-                        if (isAppAccele) {
-                            vpnModule.stopVPN();
-                        }
-                    }
-                }
-            });
-        }, stepReg)
-    }
+    //vpnModule.startHeart(ApiModule._sessionId, HeartParams.stepReg)
+    vpnModule.startHeart(payload.sessionId, stepReg)
     return { type: Types.LOGIN_USER_INFO_INIT, payload };
 }
 
 export function logout_user_info_clear() {
     let { heartBeatTimer } = HeartParams;
-    if (heartBeatTimer) {
-        clearInterval(heartBeatTimer)
-        heartBeatTimer = null
-    }
+    vpnModule.endHeart();
     _unsafe_setSession('')
     return { type: Types.LOGOUT_USER_INFO_CLEAR };
 }

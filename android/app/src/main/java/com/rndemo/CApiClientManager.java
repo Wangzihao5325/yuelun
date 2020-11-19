@@ -6,6 +6,9 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.yuelun.ylsdk.CProxClient;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class CApiClientManager extends ReactContextBaseJavaModule {
     public CApiClientManager(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -166,4 +169,5 @@ public class CApiClientManager extends ReactContextBaseJavaModule {
         String receiveStr = CProxClient.YuelunBindUser(strsession_id,strtype,struser_id,strphone,strcode,straccountname,straccountpassword);
         promise.resolve(receiveStr);
     }
+
 }

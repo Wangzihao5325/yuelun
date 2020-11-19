@@ -24,6 +24,9 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 
 import com.yuelun.ylsdk.CProxClient;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.yuelun.ylproxy.YuelunProxyJni;
 
 import java.io.File;
@@ -49,6 +52,8 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
     }
 
     private static ReactApplicationContext _reactContext;
+    private Thread GetFlowThread = null;
+    public boolean m_wokring = true;
     private int _proxyPort;
     private Intent intent;
     private VpnService _myService;
@@ -149,6 +154,65 @@ public class YuelunVpn extends ReactContextBaseJavaModule {
         }else {
             promise.resolve("failed");
         }
+    }
+
+    @ReactMethod
+    public void startNativeHeartThread(String strsession_id,int time, Promise promise){
+        m_wokring = true;
+        if(GetFlowThread == null) {
+            GetFlowThread = new Thread() {
+                public void run() {
+                    while (m_wokring) {
+                        try {
+                            promise.resolve("success");
+                            sleep(time);
+                            String receiveStr = CProxClient.YuelunCheckHear(strsession_id,"","");
+                            JSONObject jsonObject = new JSONObject(receiveStr);
+                            String status = jsonObject.optString("status");
+                            if(status.equals("ok")){
+                                JSONObject data = jsonObject.optJSONObject("data");
+                                String type = data.optString("type");
+                                if(type.equals("normal")){
+
+                                }
+                                if(type.equals("logout")){
+                                    String str = CProxClient.GetTunnelState();
+                                    JSONObject obj = new JSONObject(str);
+                                    boolean bacc = obj.optBoolean("bacc");
+                                    if(bacc == true){
+                                        Intent stopIntent = new Intent(_reactContext, ToyVpnService.class);
+                                        stopIntent.setAction("com.example.android.toyvpn.STOP");
+                                        ContextCompat.startForegroundService(_reactContext,stopIntent);
+                                    }
+                                }
+                                if(type.equals("close")){
+                                    String str = CProxClient.GetTunnelState();
+                                    JSONObject obj = new JSONObject(str);
+                                    boolean bacc = obj.optBoolean("bacc");
+                                    if(bacc == true){
+                                        Intent stopIntent = new Intent(_reactContext, ToyVpnService.class);
+                                        stopIntent.setAction("com.example.android.toyvpn.STOP");
+                                        ContextCompat.startForegroundService(_reactContext,stopIntent);
+                                    }
+                                }
+                            }
+                        } catch (InterruptedException | JSONException e) {
+                            e.printStackTrace();
+                            break;
+                        }
+                    }
+                }
+            };
+            GetFlowThread.start();
+        }
+        promise.resolve("success");
+    }
+
+    @ReactMethod
+    public void stopNativeHeartThread(Promise promise){
+        m_wokring = false;
+        GetFlowThread = null;
+        promise.resolve("success");
     }
 
     private final String getTag() {

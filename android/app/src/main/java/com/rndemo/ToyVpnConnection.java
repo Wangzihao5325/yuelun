@@ -114,11 +114,8 @@ public class ToyVpnConnection {
     // Allowed/Disallowed packages for VPN usage
     private final boolean mAllow;
     private final Set<String> mPackages;
-    public boolean m_wokring = true;
     private ParcelFileDescriptor tunfd;
     private Thread proxycllientThread = null;
-    private Thread checkThread = null;
-    private Thread GetFlowThread = null;
     private Vector vecprocesslsit = new Vector();
     public ToyVpnConnection(final VpnService service, final int connectionId,
                             final String strsessonid, final String strgameid, final byte[] sharedSecret,
@@ -219,7 +216,6 @@ public class ToyVpnConnection {
                         }
                     };
             proxycllientThread.start();
-            m_wokring = true;
 //            GetFlowThread =
 //                    new Thread() {
 //                        public void run() {

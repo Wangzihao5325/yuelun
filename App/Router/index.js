@@ -28,35 +28,30 @@ class Root extends Component {
             nextAppState === "active"
         ) {
             let isLogin = store.getState().user.isLogin
-            if (isLogin && !heartBeatTimer && stepReg && typeof stepReg == 'number') {
-                heartBeatTimer = setInterval(() => {
-                    ApiModule.checkHeart('', '').then(async (result) => {
-                        if (result.status === 'ok') {
-                            if (result.data.type === 'normal') {
+            if (isLogin) {
+                ApiModule.checkHeart('', '').then(async (result) => {
+                    if (result.status === 'ok') {
+                        if (result.data.type === 'normal') {
 
-                            } else if (result.data.type === 'logout') {
-                                let { isAppAccele } = await VpnStateUtil(null, -1);
-                                if (isAppAccele) {
-                                    vpnModule.stopVPN();
-                                }
-                                store.dispatch(logout_user_info_clear());
-                            } else if (result.data.type === 'break') {
+                        } else if (result.data.type === 'logout') {
+                            //let { isAppAccele } = await VpnStateUtil(null, -1);
+                            // if (isAppAccele) {
+                            //     vpnModule.stopVPN();
+                            // }
+                            store.dispatch(logout_user_info_clear());
+                        } else if (result.data.type === 'break') {
 
-                            } else if (result.data.type === 'close') {
-                                let { isAppAccele } = await VpnStateUtil(null, -1);
-                                if (isAppAccele) {
-                                    vpnModule.stopVPN();
-                                }
-                            }
+                        } else if (result.data.type === 'close') {
+                            // let { isAppAccele } = await VpnStateUtil(null, -1);
+                            // if (isAppAccele) {
+                            //     vpnModule.stopVPN();
+                            // }
                         }
-                    });
-                }, stepReg)
+                    }
+                });
             }
         } else if (nextAppState.match(/inactive|background/)) {
-            if (heartBeatTimer) {
-                clearInterval(heartBeatTimer)
-                heartBeatTimer = null
-            }
+
         }
     };
 

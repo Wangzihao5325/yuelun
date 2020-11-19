@@ -227,7 +227,7 @@ export default class Login extends Component {
                     this.saveTheUserInfo(result);
                     //session比较常用，所以在network里也存一份，方便使用
                     Network.session = result?.data?.session_id ?? '';
-                    store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum }));
+                    store.dispatch(login_user_info_init({ ...result.data, mobile: phoneNum, sessionId: Network.session }));
                     this.needToBindAccountAndPWD(result.data.is_bind);
                     this.setState({
                         sessionID: result.data.session_id,
