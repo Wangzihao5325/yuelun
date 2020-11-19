@@ -133,7 +133,7 @@ class MinePage extends Component {
                 {this.renderTheSettingsItem(require('../../resource/Image/Mine/remind.png'), '公告消息', 1)}
                 {this.renderTheSettingsItem(require('../../resource/Image/Mine/aboutUs.png'), '关于我们', 2)}
                 {this.renderTheSettingsItem(require('../../resource/Image/Mine/setting.png'), '设置', 3)}
-                {this.renderTheSettingsItem(require('../../resource/Image/Normal/mobile.png'), '检查在线更新', 4)}
+                {this.renderTheSettingsItem(require('../../resource/Image/Mine/checkUpdate.png'), '检查在线更新', 4)}
             </View>
         );
     }
