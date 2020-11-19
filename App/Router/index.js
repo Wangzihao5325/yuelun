@@ -25,7 +25,6 @@ class Root extends Component {
     _handleAppStateChange = (nextAppState) => {
         let { stepReg, heartBeatTimer } = HeartParams;
         if (
-            AppState.currentState.match(/inactive|background/) &&
             nextAppState === "active"
         ) {
             let isLogin = store.getState().user.isLogin
@@ -53,7 +52,7 @@ class Root extends Component {
                     });
                 }, stepReg)
             }
-        } else if (AppState.currentState === 'active' && nextAppState.match(/inactive|background/)) {
+        } else if (nextAppState.match(/inactive|background/)) {
             if (heartBeatTimer) {
                 clearInterval(heartBeatTimer)
                 heartBeatTimer = null

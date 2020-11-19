@@ -32,7 +32,6 @@ class InfoBlock extends Component {
 
     _handleAppStateChange = (nextAppState) => {
         if (
-            AppState.currentState.match(/inactive|background/) &&
             nextAppState === "active"
         ) {
             if (this.props.isAccelerate) {
@@ -48,7 +47,7 @@ class InfoBlock extends Component {
                     }, 1000)
                 }
             }
-        } else if (AppState.currentState === 'active' && nextAppState.match(/inactive|background/)) {
+        } else if (nextAppState.match(/inactive|background/)) {
             if (this.timer) {
                 clearInterval(this.timer)
                 this.timer = null

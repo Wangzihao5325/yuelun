@@ -78,13 +78,12 @@ export default class HcdWaveView extends Component {
 
     _handleAppStateChange = (nextAppState) => {
         if (
-            AppState.currentState.match(/inactive|background/) &&
             nextAppState === "active"
         ) {
             this._timer()
             //App has come to the foreground
             //console.log("App has come to the foreground!");
-        } else if (AppState.currentState === 'active' && nextAppState.match(/inactive|background/)) {
+        } else if (nextAppState.match(/inactive|background/)) {
             this.intervalTimer && clearInterval(this.intervalTimer)
             this.intervalTimer = null
         }
